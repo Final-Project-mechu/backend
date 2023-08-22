@@ -14,7 +14,7 @@ import {
 import { User } from './user.entity';
 import { Food } from './food.entity';
 
-@Entity({ schema: 'finalpj', name: 'foodLike' })
+@Entity({ schema: 'finalpj', name: 'foodlike' })
 export class FoodLike {
   //user 테이블에서 참조
   @PrimaryColumn()

@@ -16,27 +16,30 @@ export class Favorate {
   @PrimaryGeneratedColumn()
   favorate_id: number;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  user_id: number;
+  // @ManyToOne(() => User)
+  // @JoinColumn({ name: 'user_id' })
+  // user_id: number;
 
   @Column('varchar', { length: 30 })
-  store_name: string;
+  address_name: string;
 
   @Column('varchar', { length: 300 })
-  store_address: string;
+  road_address_name: string;
 
   @Column('varchar', { length: 20 })
-  store_business_hours: string;
+  kakao_id: number;
 
   @Column('int')
-  store_contact: number;
+  category_name: string;
 
   @Column('varchar', { length: 20 })
-  store_keyword: string;
+  phone: string;
 
   @Column('varchar', { length: 300 })
-  store_img: string;
+  place_name: string;
+
+  @Column('varchar', { length: 300 })
+  place_url: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

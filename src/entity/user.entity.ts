@@ -22,8 +22,8 @@ export class User {
   feed: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
-  @OneToMany(() => Favorate, favorate => favorate.user_id)
-  favorate: Favorate[];
+  // @OneToMany(() => Favorate, favorate => favorate.user_id)
+  // favorate: Favorate[];
   @OneToMany(() => FoodLike, foodLike => foodLike.user_id)
   foodLike: FoodLike[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)

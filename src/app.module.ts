@@ -22,9 +22,15 @@ import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtConfigService } from './config/jwt.config.service';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { FavoritesModule } from './favorites/favorites.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -46,6 +52,7 @@ import { AuthMiddleware } from './auth/auth.middleware';
     CommentsModule,
     AdvertisementsModule,
     JwtModule,
+    FavoritesModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthMiddleware],

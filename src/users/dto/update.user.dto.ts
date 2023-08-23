@@ -1,6 +1,7 @@
 import { PickType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create.user.dto';
 import { IsString, MinLength, MaxLength, Matches } from 'class-validator';
+import { Column } from 'typeorm';
 
 export class UpdateUserDto extends PickType(CreateUserDto, [
   'password',

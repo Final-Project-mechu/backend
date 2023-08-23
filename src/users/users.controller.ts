@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   HttpStatus,
+  Param,
   Patch,
   Post,
   Put,
@@ -54,13 +55,27 @@ export class UsersController {
     );
     response.cookie('Authentication', 'Bearer ' + authentication);
   }
+
   @Patch('/update')
-  updateUser(@Body() data: UpdateUserDto, @Req() request: RequestWithLocals) {
+  async updateUser(
+    @Body() data: UpdateUserDto,
+    @Req() request: RequestWithLocals,
+  ) {
     const auth = request.locals.user;
     return this.userService.updateUser(
       auth.id,
       data.password,
       data.newPassword,
+    );
+  }
+
+  @Delete('/quit')
+  DeleteUser(@Body() data: DeleteUserDto, @Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    return this.userService.deleteUser(
+      auth.id,
+      data.password,
+      data.passwordConfirm,
     );
   }
 }

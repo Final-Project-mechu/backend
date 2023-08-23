@@ -82,15 +82,24 @@ export class UsersService {
       throw error;
     }
   }
-
   async updateUser(user_id: number, password: string, newPassword: string) {
     const confirmUserPass = await this.userRepository.findOne({
       where: { user_id },
       select: ['password'],
     });
     if (!confirmUserPass && password !== confirmUserPass.password) {
-      throw new UnauthorizedException('User password is not corresponded');
+      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
     return this.userRepository.update(user_id, { password: newPassword });
+  }
+
+  async deleteUser(user_id: number, password: string, passwordConfirm: string) {
+    const confirmUserPass = await this.userRepository.findOne({
+      where: { user_id },
+    });
+    if (!confirmUserPass && password !== confirmUserPass.password) {
+      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
+    }
+    return this.userRepository.softDelete(user_id);
   }
 }

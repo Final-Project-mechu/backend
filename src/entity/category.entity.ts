@@ -10,7 +10,7 @@ import {
 @Entity({ schema: 'finalpj', name: 'category' })
 export class Category {
   @PrimaryGeneratedColumn()
-  category_id: number;
+  id: number;
 
   @Column('varchar')
   name_top: string;

@@ -11,10 +11,10 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 
-@Entity({ schema: 'finalpj', name: 'favorate' })
-export class Favorate {
+@Entity({ schema: 'finalpj', name: 'favorite' })
+export class Favorite {
   @PrimaryGeneratedColumn()
-  favorate_id: number;
+  id: number;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

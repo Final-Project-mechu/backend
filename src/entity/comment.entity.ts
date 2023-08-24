@@ -15,7 +15,7 @@ import { Feed } from './feed.entity';
 @Entity({ schema: 'finalpj', name: 'comment' })
 export class Comment {
   @PrimaryGeneratedColumn()
-  comment_Id: number;
+  id: number;
 
   @Column()
   comment: string;

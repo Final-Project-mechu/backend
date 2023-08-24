@@ -14,7 +14,7 @@ import { User } from './user.entity';
 @Entity({ schema: 'finalpj', name: 'favorite' })
 export class Favorite {
   @PrimaryGeneratedColumn()
-  favorite_id: number;
+  id: number;
 
   // @ManyToOne(() => User)
   // @JoinColumn({ name: 'user_id' })

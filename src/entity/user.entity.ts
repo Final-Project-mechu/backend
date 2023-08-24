@@ -17,13 +17,13 @@ import { FeedLike } from './feed.like.entity';
 @Entity({ schema: 'finalpj', name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()
-  user_id: number;
+  id: number;
   @OneToMany(() => Feed, feed => feed.user_id)
   feed: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
-  // @OneToMany(() => Favorite, favorite => favorite.user_id)
-  // favorite: Favorite[];
+  @OneToMany(() => Favorate, favorate => favorate.user_id)
+  favorate: Favorate[];
   @OneToMany(() => FoodLike, foodLike => foodLike.user_id)
   foodLike: FoodLike[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)

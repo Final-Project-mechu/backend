@@ -22,9 +22,6 @@ import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtConfigService } from './config/jwt.config.service';
 import { AuthMiddleware } from './auth/auth.middleware';
-import { FavoritesModule } from './favorites/favorites.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 
 @Module({
   imports: [
@@ -42,6 +39,19 @@ import { join } from 'path';
       useClass: JwtConfigService,
       inject: [ConfigService],
     }),
+    MailerModule.forRoot({
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      defaults: {
+        from: '"nest-modules" <modules@nestjs.com>',
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new PugAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
     UsersModule,
     FoodModule,
     CategoryModule,
@@ -52,7 +62,6 @@ import { join } from 'path';
     CommentsModule,
     AdvertisementsModule,
     JwtModule,
-    FavoritesModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthMiddleware],
@@ -63,8 +72,8 @@ export class AppModule implements NestModule {
     consumer
       .apply(AuthMiddleware)
       .forRoutes(
-        { path: 'users/update', method: RequestMethod.PUT },
         { path: 'users/update', method: RequestMethod.PATCH },
+        { path: 'users/quit', method: RequestMethod.DELETE },
       );
   }
 }

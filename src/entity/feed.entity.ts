@@ -15,7 +15,7 @@ import { Favorite } from './favorite.entity';
 @Entity({ schema: 'finalpj', name: 'feed' })
 export class Feed {
   @PrimaryGeneratedColumn()
-  feed_id: number;
+  id: number;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

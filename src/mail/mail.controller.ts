@@ -1,13 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Body, Query } from '@nestjs/common';
+import { MailService } from './mail.service';
 
 @Controller('mail')
 export class MailController {
-  @Get('/signin')
-  async signin() {
-    return 'signin';
-  }
-  @Get('/signup')
-  async signup() {
-    return 'signup';
+  constructor(private readonly mailService: MailService) {}
+
+  @Post('send')
+  async sendMail(
+    @Body('to') to: string,
+    @Body('subject') subject: string,
+    @Body('content') content: string,
+    @Query('provider') provider: 'gmail' | 'naver',
+  ) {
+    await this.mailService.sendVerificationCode(to, subject);
   }
 }

@@ -11,12 +11,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import _ from 'lodash';
 import { Repository } from 'typeorm';
 import { User } from 'src/entity/user.entity';
+import { MailService } from 'src/mail/mail.service';
+import { VerificationCodeInfo } from 'src/mail/mail.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private jwtService: JwtService,
+    private mailservice: MailService,
   ) {}
 
   async getUserInfo(email: string) {
@@ -38,6 +41,12 @@ export class UsersService {
         `e메일이 이미 사용 중입니다. email: ${email}`,
       );
     }
+
+    const verificationCode = this.generateVerificationCode(); // 4자리 인증번호 생성
+    await this.mailservice.sendVerificationCode(
+      email,
+      verificationCode.toString(),
+    ); // 인증번호 이메일 전송
 
     const insertResult = await this.userRepository.insert({
       is_admin,
@@ -101,5 +110,9 @@ export class UsersService {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
     return this.userRepository.softDelete(user_id);
+  }
+  private generateVerificationCode(): number {
+    // 4자리 인증번호 생성 로직
+    return Math.floor(1000 + Math.random() * 9000);
   }
 }

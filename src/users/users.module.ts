@@ -7,17 +7,19 @@ import { User } from 'src/entity/user.entity';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { MailModule } from 'src/mail/mail.module';
+import { MailService } from 'src/mail/mail.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
+    MailModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useClass: JwtConfigService,
       inject: [ConfigService],
     }),
   ],
-  providers: [UsersService, MailModule],
+  providers: [UsersService],
   exports: [UsersService],
   controllers: [UsersController],
 })

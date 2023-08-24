@@ -20,14 +20,16 @@ export class FeedsService {
     return this.feedRepository.insert({ title, description });
   }
   async getFeeds() {
-    // 최신순, 좋아요순 생각해야됨
+    // 최신순, 좋아요순 생각해야됨(디폴트는 좋아요순)
+    // 쿼리문으로 생각해보기 (order by, group by)
     await this.feedRepository.find({
+      where: {deletedAt: null},
       select: { title: true },
     });
   }
   async getFeed(id: number) {
     await this.feedRepository.findOne({
-      where: { deletedAt: null, id },
+      where: { deletedAt: null, id }, // 삭제되지 않은 것
       select: ['title', 'description', 'createdAt', 'updatedAt'],
     });
   }

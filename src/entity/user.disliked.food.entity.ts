@@ -14,7 +14,7 @@ export class UserDislikedFood {
   @JoinColumn({ name: 'user_id' })
   user_id: User;
 
-  //@PrimaryColumn()
+  @PrimaryColumn()
   @ManyToOne(() => Food, food => food.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'food_id' })
   food_id: Food;

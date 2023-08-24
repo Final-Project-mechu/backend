@@ -6,7 +6,7 @@ import {
 } from 'typeorm';
 import { Food } from './food.entity';
 
-@Entity({ schema: 'finalpj', name: 'foodimg' })
+@Entity({ schema: 'finalpj', name: 'food_img' })
 export class FoodImg {
   @PrimaryGeneratedColumn()
   id: number;

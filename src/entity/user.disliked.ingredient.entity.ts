@@ -14,7 +14,7 @@
     @JoinColumn({ name: 'user_id' })
     user_id: User;
   
-    //@PrimaryColumn()
+    @PrimaryColumn()
     @ManyToOne(() => Ingredient, ingredient => ingredient.id, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'ingredient_id' })
     ingredient_id: Ingredient;

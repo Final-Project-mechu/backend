@@ -10,7 +10,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { CategoryModule } from './category/category.module';
-import { FeedModule } from './feed/feed.module';
 import { LikesFoodsModule } from './likes.foods/likes.foods.module';
 import { DislikesFoodsModule } from './dislikes.foods/dislikes.foods.module';
 import { DislikesIngredientsModule } from './dislikes.ingredients/dislikes.ingredients.module';
@@ -22,6 +21,7 @@ import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtConfigService } from './config/jwt.config.service';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { FeedsModule } from './feeds/feeds.module';
 
 @Module({
   imports: [
@@ -39,13 +39,13 @@ import { AuthMiddleware } from './auth/auth.middleware';
     UsersModule,
     FoodModule,
     CategoryModule,
-    FeedModule,
     LikesFoodsModule,
     DislikesFoodsModule,
     DislikesIngredientsModule,
     CommentsModule,
     AdvertisementsModule,
     JwtModule,
+    FeedsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthMiddleware],

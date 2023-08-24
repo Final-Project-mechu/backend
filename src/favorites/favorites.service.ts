@@ -1,18 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import _ from 'lodash';
 import { Repository } from 'typeorm';
-import { Favorate } from 'src/entity/favorate.entity';
+import { Favorite } from 'src/entity/favorite.entity';
 
 @Injectable()
 export class FavoritesService {
   constructor(
-    @InjectRepository(Favorate)
-    private favoriteRepository: Repository<Favorate>,
+    @InjectRepository(Favorite)
+    private favoriteRepository: Repository<Favorite>,
   ) {}
-  //   async findUniqueId(kakao_id) {
-  //     return await this.favoriteRepository.findOne({});
-  //   }
   createFavorite(
     address_name: string,
     road_address_name: string,
@@ -22,16 +19,30 @@ export class FavoritesService {
     place_name: string,
     place_url: string,
   ) {
-    const createSuccess = this.favoriteRepository.create({
-      address_name,
-      road_address_name,
-      kakao_id,
-      category_name,
-      phone,
-      place_name,
-      place_url,
-    });
-    console.log('서비스확인', createSuccess);
+    this.favoriteRepository.query(
+      `INSERT INTO favorite (address_name, road_address_name, kakao_id, category_name, phone, place_name, place_url)
+       VALUES('${address_name}', '${road_address_name}', ${kakao_id}, '${category_name}', '${phone}', '${place_name}', '${place_url}') `,
+    );
     return { message: 'create success' };
+  }
+  async getFavorites() {
+    // 찜한 목록 전체 보기
+    return this.favoriteRepository.find();
+  }
+
+  async getFavorite(favorite_id: number) {
+    // 찜한 것 아이디로 찾기
+    return await this.favoriteRepository.findOne({
+      where: { deletedAt: null, favorite_id },
+      select: ['favorite_id', 'createdAt'],
+    });
+  }
+
+  async deleteFavorite(favorite_id: number): Promise<void> {
+    const findFavorite = await this.getFavorite(favorite_id);
+    if (!findFavorite) {
+      throw new NotFoundException(`Not found favorite id: ${favorite_id}`);
+    }
+    await this.favoriteRepository.remove(findFavorite);
   }
 }

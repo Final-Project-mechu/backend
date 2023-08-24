@@ -10,7 +10,7 @@ import {
   Entity,
 } from 'typeorm';
 import { User } from './user.entity';
-import { Favorate } from './favorate.entity';
+import { Favorite } from './favorite.entity';
 
 @Entity({ schema: 'finalpj', name: 'feed' })
 export class Feed {
@@ -21,9 +21,9 @@ export class Feed {
   @JoinColumn({ name: 'user_id' })
   user_id: number;
 
-  @ManyToOne(() => Favorate)
-  @JoinColumn({ name: 'favorate_id' })
-  favorate_id: number;
+  @ManyToOne(() => Favorite)
+  @JoinColumn({ name: 'favorite_id' })
+  favorite_id: number;
 
   @Column('varchar', { length: 30 })
   title: string;

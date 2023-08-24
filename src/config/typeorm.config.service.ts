@@ -5,7 +5,7 @@ import { User } from '../entity/user.entity';
 import { Feed } from 'src/entity/feed.entity';
 import { FeedLike } from 'src/entity/feed.like.entity';
 import { Comment } from 'src/entity/comment.entity';
-import { Favorate } from 'src/entity/favorate.entity';
+import { Favorite } from 'src/entity/favorite.entity';
 import { Category } from 'src/entity/category.entity';
 import { Food } from 'src/entity/food.entity';
 import { FoodLike } from 'src/entity/food.like.entity';
@@ -30,7 +30,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         Feed,
         Note,
         Category,
-        Favorate,
+        Favorite,
         Foodimg,
         FeedLike,
         Comment,

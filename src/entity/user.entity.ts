@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
-import { Favorate } from './favorate.entity';
+import { Favorite } from './favorite.entity';
 import { FoodLike } from './food.like.entity';
 import { FeedLike } from './feed.like.entity';
 
@@ -22,8 +22,8 @@ export class User {
   feed: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
-  // @OneToMany(() => Favorate, favorate => favorate.user_id)
-  // favorate: Favorate[];
+  // @OneToMany(() => Favorite, favorite => favorite.user_id)
+  // favorite: Favorite[];
   @OneToMany(() => FoodLike, foodLike => foodLike.user_id)
   foodLike: FoodLike[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)

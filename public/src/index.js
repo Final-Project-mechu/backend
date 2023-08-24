@@ -230,7 +230,8 @@ function removeAllChildNods(el) {
 // 찜하기 누르면 데이터를 보내는 함수
 document.getElementById('favoriteButton').onclick = function () {
   if (('찜하기', randomDataExtract)) {
-    console.log(randomDataExtract);
+    console.log('axios', randomDataExtract);
+    console.log('카카오id 확인하기', randomDataExtract.id);
     // 여기서부터 axios함수와 서버 데이터를 합치면 된다.
     axios({
       url: 'http://localhost:3000/favorites',
@@ -238,7 +239,7 @@ document.getElementById('favoriteButton').onclick = function () {
       data: {
         address_name: randomDataExtract.address_name,
         road_address_name: randomDataExtract.road_address_name,
-        kakao_id: randomDataExtract.kakao_id,
+        id: randomDataExtract.id,
         category_name: randomDataExtract.category_name,
         phone: randomDataExtract.phone,
         place_name: randomDataExtract.place_name,

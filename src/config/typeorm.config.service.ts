@@ -5,12 +5,17 @@ import { User } from '../entity/user.entity';
 import { Feed } from 'src/entity/feed.entity';
 import { FeedLike } from 'src/entity/feed.like.entity';
 import { Comment } from 'src/entity/comment.entity';
-import { Favorate } from 'src/entity/favorite.entity';
+import { Favorite } from 'src/entity/favorite.entity';
 import { Category } from 'src/entity/category.entity';
 import { Food } from 'src/entity/food.entity';
-import { FoodLike } from 'src/entity/food.like.entity';
-import { Foodimg } from 'src/entity/food.img.entity';
+import { FoodSurvey } from 'src/entity/food.survey.entity';
+import { FoodImg } from 'src/entity/food.img.entity';
+import { FoodIngredient } from 'src/entity/food.ingredient.entity';
+import { Ingredient } from 'src/entity/ingredient.entity';
+import { UserDislikedFood } from 'src/entity/user.disliked.food.entity';
+import { UserDislikedIngredient } from 'src/entity/user.disliked.ingredient.entity';
 import { Note } from 'src/entity/note.entity';
+
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -30,11 +35,15 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         Feed,
         Note,
         Category,
-        Favorate,
-        Foodimg,
+        Favorite,
+        FoodImg,
         FeedLike,
         Comment,
-        FoodLike,
+        FoodSurvey,
+        FoodIngredient,
+        Ingredient,
+        UserDislikedFood,
+        UserDislikedIngredient,
       ],
       synchronize: this.configService.get<boolean>('DATABASE_SYNCHRONIZE'),
     };

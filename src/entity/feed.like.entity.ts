@@ -2,7 +2,7 @@ import { ManyToOne, JoinColumn, Entity, PrimaryColumn } from 'typeorm';
 import { User } from './user.entity';
 import { Feed } from './feed.entity';
 
-@Entity({ schema: 'finalpj', name: 'feedlike' })
+@Entity({ schema: 'finalpj', name: 'feed_like' })
 export class FeedLike {
   @PrimaryColumn()
   @ManyToOne(() => User)

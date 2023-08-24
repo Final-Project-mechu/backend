@@ -11,18 +11,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import _ from 'lodash';
 import { Repository } from 'typeorm';
 import { User } from 'src/entity/user.entity';
+import { MailService } from 'src/mail/mail.service';
+import { VerificationCodeInfo } from 'src/mail/mail.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private jwtService: JwtService,
+    private mailservice: MailService,
   ) {}
 
   async getUserInfo(email: string) {
     return await this.userRepository.findOne({
       where: { email },
-      select: ['user_id', 'email', 'password'],
+      select: ['id', 'email', 'password'],
     });
   }
 
@@ -38,6 +41,12 @@ export class UsersService {
         `e메일이 이미 사용 중입니다. email: ${email}`,
       );
     }
+
+    const verificationCode = this.generateVerificationCode();
+    await this.mailservice.sendVerificationCode(
+      email,
+      verificationCode.toString(),
+    );
 
     const insertResult = await this.userRepository.insert({
       is_admin,
@@ -73,7 +82,7 @@ export class UsersService {
         throw new UnauthorizedException('비밀번호가 올바르지 않습니다.');
       }
       const payload = {
-        id: userConfirm.user_id,
+        id: userConfirm.id,
         nick_name: userConfirm.nick_name,
       };
       const accessToken = await this.jwtService.signAsync(payload);
@@ -82,15 +91,28 @@ export class UsersService {
       throw error;
     }
   }
-
-  async updateUser(user_id: number, password: string, newPassword: string) {
+  async updateUser(id: number, password: string, newPassword: string) {
     const confirmUserPass = await this.userRepository.findOne({
-      where: { user_id },
+      where: { id },
       select: ['password'],
     });
     if (!confirmUserPass && password !== confirmUserPass.password) {
-      throw new UnauthorizedException('User password is not corresponded');
+      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
-    return this.userRepository.update(user_id, { password: newPassword });
+    return this.userRepository.update(id, { password: newPassword });
+  }
+
+  async deleteUser(id: number, password: string, passwordConfirm: string) {
+    const confirmUserPass = await this.userRepository.findOne({
+      where: { id },
+    });
+    if (!confirmUserPass && password !== confirmUserPass.password) {
+      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
+    }
+    return this.userRepository.softDelete(id);
+  }
+  private generateVerificationCode(): number {
+    // 4자리 인증번호 생성 로직
+    return Math.floor(1000 + Math.random() * 9000);
   }
 }

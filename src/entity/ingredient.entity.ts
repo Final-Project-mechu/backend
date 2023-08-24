@@ -1,9 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  Unique,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity({ schema: 'finalpj', name: 'ingredient' })
 export class Ingredient {
@@ -11,5 +6,5 @@ export class Ingredient {
   id: number;
 
   @Column({ type: 'varchar', length: 255, unique: true })
-  name: string;  
+  name: string;
 }

@@ -42,11 +42,11 @@ export class UsersService {
       );
     }
 
-    const verificationCode = this.generateVerificationCode(); // 4자리 인증번호 생성
+    const verificationCode = this.generateVerificationCode();
     await this.mailservice.sendVerificationCode(
       email,
       verificationCode.toString(),
-    ); // 인증번호 이메일 전송
+    );
 
     const insertResult = await this.userRepository.insert({
       is_admin,

@@ -14,13 +14,15 @@ import { Feed } from './feed.entity';
 
 @Entity({ schema: 'finalpj', name: 'comment' })
 export class Comment {
-  @PrimaryGeneratedColumn()
-  comment_Id: number;
+  @PrimaryColumn()
+  id: number;
 
   @Column()
   comment: string;
+
   @CreateDateColumn()
   createdAt: Date;
+  
   @UpdateDateColumn()
   updatedAt: Date;
 

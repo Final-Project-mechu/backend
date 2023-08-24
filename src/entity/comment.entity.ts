@@ -15,22 +15,16 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ schema: 'finalpj', name: 'comment' })
 export class Comment {
-  @PrimaryGeneratedColumn({ name: 'id'})
+  @PrimaryColumn()
   id: number;
-
-  @ApiProperty({ description: 'user_id'})
-  @Column()
-  user_id: number
 
   @ApiProperty({ description: '내용'})
   @Column()
-  contents: string;
-
- @ApiProperty({ description: ''})
-
+  comment: string;
 
   @CreateDateColumn()
   createdAt: Date;
+  
   @UpdateDateColumn()
   updatedAt: Date;
 

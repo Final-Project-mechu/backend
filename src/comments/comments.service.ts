@@ -9,10 +9,10 @@ import { Comment } from 'src/entity/comment.entity';
 @Injectable()
 export class CommentsService {
     constructor(
-         @InjectRepository(User)
-         private userRepository: Repository<User>,
-         @InjectRepository(Feed)
-         private feedRepository: Repository<Feed>,
+        //  @InjectRepository(User)
+        //  private userRepository: Repository<User>,
+        //  @InjectRepository(Feed)
+        //  private feedRepository: Repository<Feed>,
          @InjectRepository(Comment)
          private commentRepository: Repository<Comment>,
             ) {}

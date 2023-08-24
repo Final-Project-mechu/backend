@@ -2,17 +2,14 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  DeleteDateColumn,
 } from 'typeorm';
 
 @Entity({ schema: 'finalpj', name: 'category' })
 export class Category {
   @PrimaryGeneratedColumn()
-  category_id: number;
+  id: number;
 
-  @Column('varchar')
+  @Column('varchar', { length: 10 } )
   name_top: string;
 
   @Column('int')
@@ -21,12 +18,4 @@ export class Category {
   @Column('varchar', { length: 10 })
   down_category_name: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date | null;
 }

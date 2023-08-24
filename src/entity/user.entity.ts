@@ -37,7 +37,10 @@ export class User {
   nick_name: string;
   @Column('varchar', { select: false })
   password: string;
-  @Column('varchar', { select: false })
+  @Column('varchar', {
+    select: false,
+    default: 'your_default_refresh_token_value',
+  })
   refresh_token: string;
   @CreateDateColumn()
   createdAt: Date;

@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { AppController } from './app.controller';
@@ -16,6 +21,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtConfigService } from './config/jwt.config.service';
+import { AuthMiddleware } from './auth/auth.middleware';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -30,6 +39,19 @@ import { JwtConfigService } from './config/jwt.config.service';
       useClass: JwtConfigService,
       inject: [ConfigService],
     }),
+    MailerModule.forRoot({
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      defaults: {
+        from: '"nest-modules" <modules@nestjs.com>',
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new PugAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
     UsersModule,
     FoodModule,
     CategoryModule,
@@ -39,13 +61,19 @@ import { JwtConfigService } from './config/jwt.config.service';
     DislikesIngredientsModule,
     CommentsModule,
     AdvertisementsModule,
-    JwtModule,
+    MailModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthMiddleware],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes(
+        { path: 'users/update', method: RequestMethod.PATCH },
+        { path: 'users/quit', method: RequestMethod.DELETE },
+      );
   }
 }

@@ -17,7 +17,7 @@ import { FeedLike } from './feed.like.entity';
 @Entity({ schema: 'finalpj', name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()
-  user_id: number;
+  id: number;
   @OneToMany(() => Feed, feed => feed.user_id)
   feed: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)

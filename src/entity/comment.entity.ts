@@ -11,16 +11,17 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Feed } from './feed.entity';
-import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ schema: 'finalpj', name: 'comment' })
 export class Comment {
   @PrimaryColumn()
   id: number;
 
-  @ApiProperty({ description: '내용'})
   @Column()
-  comment: string;
+  userId: string;
+
+  @Column()
+  contents: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -31,5 +32,11 @@ export class Comment {
   @DeleteDateColumn({ type: 'timestamp' })
   deletedAt: Date | null;
 
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user_id: number;
 
+  @ManyToOne(() => Feed)
+  @JoinColumn({ name: 'feed_id' })
+  feed_id: number;
 }

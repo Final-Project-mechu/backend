@@ -20,6 +20,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Request, Response, response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
+import email from 'src/config/email';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -33,6 +34,12 @@ interface RequestWithLocals extends Request {
 export class UsersController {
   jwtService: any;
   constructor(private readonly userService: UsersService) {}
+
+  @Post('/verify-code')
+  async verifymailsend(@Body('email') email: string) {
+    await this.userService.verifymailsend(email);
+    return { message: '인증번호가 전송되었습니다.' };
+  }
 
   @Post('/sign')
   async createUser(@Body() data: CreateUserDto) {

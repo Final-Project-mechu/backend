@@ -19,7 +19,7 @@ import { MailService } from 'src/mail/mail.service';
       inject: [ConfigService],
     }),
   ],
-  providers: [UsersService],
+  providers: [UsersService, MailService],
   exports: [UsersService],
   controllers: [UsersController],
 })

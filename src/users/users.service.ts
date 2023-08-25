@@ -29,6 +29,14 @@ export class UsersService {
     });
   }
 
+  async verifymailsend(email: string) {
+    const verificationCode = this.generateVerificationCode();
+    await this.mailservice.sendVerificationCode(
+      email,
+      verificationCode.toString(),
+    );
+  }
+
   async createUser(
     is_admin: boolean,
     email: string,
@@ -41,12 +49,6 @@ export class UsersService {
         `e메일이 이미 사용 중입니다. email: ${email}`,
       );
     }
-
-    const verificationCode = this.generateVerificationCode();
-    await this.mailservice.sendVerificationCode(
-      email,
-      verificationCode.toString(),
-    );
 
     const insertResult = await this.userRepository.insert({
       is_admin,

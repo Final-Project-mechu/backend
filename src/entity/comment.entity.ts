@@ -18,7 +18,7 @@ export class Comment {
   id: number;
 
   @Column()
-  userId: string;
+  userId: number;
 
   @Column()
   contents: string;

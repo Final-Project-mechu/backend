@@ -8,3 +8,5 @@ export class Ingredient {
   @Column({ type: 'varchar', length: 255, unique: true })
   name: string;
 }
+
+//

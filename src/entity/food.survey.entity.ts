@@ -8,17 +8,16 @@ import {
 import { Food } from './food.entity';
 import { User } from './user.entity';
 
-@Entity({ schema: 'finalpj', name: 'foodsurvey' })
+@Entity({ schema: 'finalpj', name: 'food_survey' })
 export class FoodSurvey {
   @PrimaryColumn()         
   @ManyToOne(() => User, user => user.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user_id: number;
   
-  //@PrimaryColumn()
+  @PrimaryColumn()
   @ManyToOne(() => Food, food => food.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'food_id' })
-  food: number;
 
   @Column({ type: 'int' })
   food_like: number;

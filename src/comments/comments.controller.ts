@@ -63,44 +63,10 @@ export class CommentsController {
   }
 
   
-  // @Put(':commentId')
-  // async updateComment(
-  //   @Param('commentId', ValidationPipe) commentId: number,
-  //   @Body() updateCommentDto: UpdateCommentDto,
-  // )  {
-  //   const update = await this.commentsService.updateComment(commentId, updateCommentDto)
-  // }if (update) {
-  //   return { message: "댓글이 성공적으로 수정되었습니다.", comment: {update}}
-  // }
-  // async updateComment(
-  //   @Param(':commentId') commentId: number,
-  //   @Body() body: UpdateCommentDto,
-  //   @Req() req: any,
-  // ) {
-  //   return await this.commentsService.updateComment(
-  //     commentId,
-  //     body,
-  //     req.locals.user.id,
-  //   );
-  // }
 
-  // 댓글 삭제 http://localhost:3000/comments/:commentId
-//   @Delete(':commentId')
-//   async deleteComment(@Param(':commentId') commentId: number, @Req() req: any) {
-//     return await this.commentsService.deleteComment(
-//       commentId,
-//       req.locals.user.id,
-//     );
-//   }
-// }
 
-// @Delete('/:boardId/comments/:commentId')
-// remove(
-//   @CurrentUser() user: User,
-//   @Param('boardId') boardId: number,
-//   @Param('commentId') commentId: number,
-// ) {
-//   return this.commentsService.remove(user, boardId, commentId);
-// }
-// 
+  @Delete(':id')
+  remove(@CurrentUser() userInfo, @Param('id', ParseIntPipe) id: number) {
+    return this.commentsService.delete(userInfo.id, id);
+  }
 }

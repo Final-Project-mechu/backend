@@ -18,10 +18,11 @@ export class FoodSurvey {
   @PrimaryColumn()
   @ManyToOne(() => Food, food => food.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'food_id' })
+  food_id: number;
 
-  @Column({ type: 'int' })
-  food_like: number;
+  @Column('int', {nullable: true})
+  food_like: number | null;
 
-  @Column({ type: 'boolean' })
-  food_preferred: boolean;
+  @Column('boolean', { nullable: true})
+  food_preferred: boolean | null;
 }

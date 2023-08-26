@@ -13,7 +13,7 @@ export class Food {
   id: number;
 
   @Column({ type: 'varchar', length: 255, unique: true })
-  name: string;
+  food_name: string;
 
   @ManyToOne(() => Category, category => category.id)
   @JoinColumn({ name: 'category_id' }) 

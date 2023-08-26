@@ -21,9 +21,9 @@ export class FavoritesController {
     // 유저 아이디 들어가야 함
     return this.favoritesService.getFavorites();
   }
-  @Delete('/:favorite_id')
-  deleteFavorite(@Param() favorite_id: number): Promise<void> {
+  @Delete('/:id')
+  deleteFavorite(@Param() id: number): Promise<void> {
     // 유저 아이디 들어가야 함
-    return this.favoritesService.deleteFavorite(favorite_id);
+    return this.favoritesService.deleteFavorite(id);
   }
 }

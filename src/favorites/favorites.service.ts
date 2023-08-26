@@ -30,11 +30,11 @@ export class FavoritesService {
     return this.favoriteRepository.find();
   }
 
-  async getFavorite(favorite_id: number) {
+  async getFavorite(id: number) {
     // 찜한 것 아이디로 찾기
     return await this.favoriteRepository.findOne({
-      where: { deletedAt: null, favorite_id },
-      select: ['favorite_id', 'createdAt'],
+      where: { deletedAt: null, id },
+      select: ['id', 'createdAt'],
     });
   }
 

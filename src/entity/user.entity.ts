@@ -11,7 +11,6 @@ import {
 import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
 import { Favorite } from './favorite.entity';
-import { FoodLike } from './food.like.entity';
 import { FeedLike } from './feed.like.entity';
 
 @Entity({ schema: 'finalpj', name: 'user' })
@@ -22,10 +21,8 @@ export class User {
   feed: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
-  @OneToMany(() => Favorate, favorate => favorate.user_id)
-  favorate: Favorate[];
-  @OneToMany(() => FoodLike, foodLike => foodLike.user_id)
-  foodLike: FoodLike[];
+  // @OneToMany(() => Favorite, favorite => favorite.user_id)
+  // favorate: Favorite[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)
   feedLike: FeedLike[];
   @Index({ unique: true })

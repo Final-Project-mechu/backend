@@ -41,7 +41,7 @@ export class UsersService {
     }
 
     // 이메일 인증 상태 객체 초기화
-    isEmailVerified[email] = false; // 해당 이메일의 인증 상태를 false로 설정
+    isEmailVerified['email'] = false; // 해당 이메일의 인증 상태를 false로 설정
 
     // 메일 전송 및 랜덤 코드 생성 및 저장
     const verificationCode = this.generateVerificationCode();
@@ -51,22 +51,22 @@ export class UsersService {
     );
 
     // 랜덤 코드를 객체에 저장
-    codeObject[code] = verificationCode.toString();
-    console.log(codeObject[code]);
+    codeObject['code'] = verificationCode.toString();
+    codeObject['email'] = email;
     // 일정 시간 후에 랜덤 코드를 삭제하도록 설정
     setTimeout(() => {
-      delete codeObject[code];
+      delete codeObject['code'];
     }, 300000); // 5분 유지
   }
 
   // 메일 인증 확인하는 코드 로직이 필요
   async verifyCode(email: string, code: string) {
-    const savedCode = code;
-    if (savedCode !== code) {
-      console.log('인증3', savedCode, '인증4', code);
-      throw new ConflictException('인증 코드가 유효하지 않습니다.');
+    if (codeObject['code'] !== code || codeObject['email'] !== email) {
+      throw new ConflictException(
+        '인증 코드 및 인증 이메일이 유효하지 않습니다.',
+      );
     } else {
-      isEmailVerified[email] = true;
+      isEmailVerified['email'] = true;
     }
   }
 
@@ -152,6 +152,7 @@ export class UsersService {
       throw error;
     }
   }
+
   async updateUser(id: number, password: string, newPassword: string) {
     const confirmUserPass = await this.userRepository.findOne({
       where: { id },

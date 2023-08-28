@@ -1,72 +1,71 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
-  ParseIntPipe,
-  Post,
-  Put,
-  ValidationPipe,
-  UseFilters,
-  HttpException,
-  Delete,
-  Req,
   Patch,
-  BadRequestException,
+  Post,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { CurrentUser } from 'common/user.decorator';
-import { User } from 'src/entity/user.entity';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create.comments.dto';
 import { UpdateCommentDto } from './dto/update.comments.dto';
-import { Comment } from 'src/entity/comment.entity';
 
 @Controller('comments')
 export class CommentsController {
-  constructor(private readonly commentsService: CommentsService) {}
+  constructor(private readonly commentService: CommentsService) {}
 
-  // 댓글 조회 http://localhost:3000/comments/:feedId
-  @Get(':feedId')
-  async getAllComments(@Param('feedId') feedId: number) {
-    return await this.commentsService.getAllComments(feedId);
+  //댓글 조회
+  @Get('/:feedId')
+  async getCommentsByFeedId(@Param('feedId') feedId: number) {
+    return await this.commentService.getCommentsByFeedId(feedId);
   }
 
-  // 댓글 생성 http://localhost:3000/comments/:feedId
-
-  @Post(':feedId')
-  async createComment(
+  //댓글 쓰기
+  @Post('/:feedId')
+  @UsePipes(ValidationPipe)
+  CreateComment(
+    // @Req() req:any,
     @Param('feedId') feedId: number,
-    @Body() body: CreateCommentDto,
+    @Body() createCommentDto: CreateCommentDto,
   ) {
-    return await this.commentsService.createComment(feedId, body);
-  }
-
-  // 댓글 수정 http://localhost:3000 /comments/:commentId
-
-  @Patch()
-  update(
-    @CurrentUser() user: User,
-    @Param('feedId') feedId: number,
-    @Param('commentId') commentId: number,
-    @Body(ValidationPipe) updateCommentDto: UpdateCommentDto,
-  ) {
-    if (!updateCommentDto.contents) {
-      throw new BadRequestException();
-    }
-  
-    return this.commentsService.update(
-      user, // 변수를 전달해야 합니다.
+    return this.commentService.createComment(
+      // req.user_id,
       feedId,
-      commentId,
-      updateCommentDto, // 변수를 전달해야 합니다.
+      createCommentDto,
     );
   }
 
-  
+  // 댓글 수정
+  @Patch('/:feedId/:commentId')
+  updateComment(
+    // @Req() req,
+    @Param('feedId') feedId: number,
+    @Param('commentId') feed_comment_id: number,
+    @Body() updateCommentDto: UpdateCommentDto,
+  ) {
+    return this.commentService.updateComment(
+      //   req.userId,
+      feed_comment_id,
+      feedId,
+      updateCommentDto,
+    );
+  }
 
+  // 댓글 삭제
+  @Delete(':feedId/:commentId')
+  deleteComment(
+    // @Req() req,
+    @Param('feedId') feedId: number,
+    @Param('commentId') feed_comment_id: number,
+  ) {
+    return this.commentService.deleteComment(
+      //   req.userId,
+      feed_comment_id,
+      feedId
 
-  @Delete(':id')
-  remove(@CurrentUser() userInfo, @Param('id', ParseIntPipe) id: number) {
-    return this.commentsService.delete(userInfo.id, id);
+    );
   }
 }

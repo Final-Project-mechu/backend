@@ -14,11 +14,11 @@ import { Feed } from './feed.entity';
 
 @Entity({ schema: 'finalpj', name: 'comment' })
 export class Comment {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  userId: number;
+  nick_name: string;
 
   @Column()
   contents: string;
@@ -38,5 +38,5 @@ export class Comment {
 
   @ManyToOne(() => Feed)
   @JoinColumn({ name: 'feed_id' })
-  feed_id: number;
+  feedId: number;
 }

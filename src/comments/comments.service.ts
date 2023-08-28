@@ -1,104 +1,104 @@
 import {
   BadRequestException,
-  Body,
-  Get,
-  HttpException,
-  HttpStatus,
   Injectable,
   NotFoundException,
-  Param,
-  Post,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateCommentDto } from './dto/create.comments.dto';
-import { User } from 'src/entity/user.entity';
-import { Feed } from 'src/entity/feed.entity';
 import { Comment } from 'src/entity/comment.entity';
+import { CreateCommentDto } from './dto/create.comments.dto';
 import { UpdateCommentDto } from './dto/update.comments.dto';
+// import {  Feed } from '../'
 
 @Injectable()
 export class CommentsService {
   constructor(
     @InjectRepository(Comment)
-    private commentRepository: Repository<Comment>,
+    private readonly commentRepository: Repository<Comment>,
+    // private readonly feedRepository: Repository<Feed>,
   ) {}
 
-  // 댓글 조회
-  async getAllComments(feedId: number): Promise<Comment[]> {
-    //feedService 에서 feedId있는지 조회해서 존재하는지 확인하는 로직 필요.
-    const comments = await this.commentRepository.find({
-      where: { id: feedId },
+  // 게시글 ID로 댓글 전체 조회
+  async getCommentsByFeedId(feedId: number) {
+    // const feedId = await this.feedRepository.findOne
+    if (!feedId) {
+      throw new NotFoundException(`게시글이 조회되지 않습니다.`);
+    }
+    const comment = await this.commentRepository.find({
+      where: [{ deletedAt: null }, { id: feedId }],
+      select: ['contents', 'nick_name', 'createdAt', 'updatedAt'],
     });
-    return comments;
+    if (!comment) {
+      throw new NotFoundException(`댓글이 존재하지 않습니다.`);
+    }
+    return comment;
   }
 
   // 댓글 생성
-  async createComment(
+  async createComment(feedId: number, createCommentDto: CreateCommentDto) {
+    if (!feedId) {
+      throw new NotFoundException(`게시글이 조회되지 않습니다.`);
+    }
+    const { contents } = createCommentDto;
+    if (!contents) {
+      throw new BadRequestException(`댓글을 작성해주세요.`);
+    }
+    const feedComment = this.commentRepository.create({
+      // user_id,
+      feedId,
+      contents,
+    });
+    return await this.commentRepository.save(feedComment);
+  }
+
+  //댓글 수정
+  async updateComment(
+    // userId: number,
     feedId: number,
-    body: CreateCommentDto,
-  ): Promise<Comment> {
-    const { comment } = body;
-    //feedService 에서 feedId있는지 조회해서 존재하는지 확인하는 로직 필요.
-    if (comment) {
-      throw new BadRequestException('댓글을 작성해주세요.');
+    feed_comment_id: number,
+    updateCommentDto: UpdateCommentDto,
+  ) {
+    if (!feedId) {
+      throw new NotFoundException(
+        `게시글이 조회되지 않습니다.`,
+      );
     }
-    // const content = await this.commentRepository.create({id: feedId, comment: body.comment });
-    return await this.commentRepository.save({
-      id: feedId,
-      comment: body.comment,
+    if (!feed_comment_id) {
+      throw new NotFoundException(
+        `댓글이 조회되지 않습니다.}`,
+      );
+    }
+    const { contents } = updateCommentDto;
+    if (!updateCommentDto.contents) {
+      throw new BadRequestException(`댓글을 입력해주세요`);
+    }
+    await this.commentRepository.update({ id: feed_comment_id }, { contents });
+    return await this.commentRepository.findOne({
+      where: { id: feed_comment_id },
     });
   }
 
-  // 댓글 수정
-async update(
-  user: User,
-  feedId: number,
-  commentId: number,
-  updateCommentDto: UpdateCommentDto,
-  ): Promise<void> {
-    const comment = await this.commentRepository.findOne({
-  })
-  if (!comment) {
-    throw new NotFoundException('코맨트를 찾을 수 없습니다.')
-  }
-
-  await this.commentRepository
-    .createQueryBuilder()
-    .update(Comment)
-    .set({
-      contents: updateCommentDto.contents,
-    })
-    .where('id: commentId')
-    .execute
-  }
-
-  //댓글 삭제
-
-  async delete(userId: number, id: number) {
-    const comment = await this.getCommentById(id);
-
-    if (!comment) throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND);
-
-    if (userId !== comment.userId) {
-      throw new UnauthorizedException();
+  // // 댓글 삭제
+  async deleteComment(
+    // userId: number,
+    feedId: number,
+    feed_comment_id: number,
+  ): Promise<any> {
+    if (!feedId) {
+      throw new NotFoundException(
+        `게시글이 조회되지 않습니다.`,
+      );
     }
-
-    return this.commentRepository.remove(comment);
-  }
-
-  async getCommentById(id: number) {
-    return this.commentRepository.findOneBy({
-      id,
-    });
+    if (!feed_comment_id) {
+      throw new NotFoundException(
+        `댓글이 조회되지 않습니다.: ${feed_comment_id}`,
+      );
+    }
+    const remove = await this.commentRepository.delete({ id: feed_comment_id });
+    if (remove.affected === 0) {
+      throw new NotFoundException(
+        `해당 댓글이 조회되지 않습니다. comentId: ${feed_comment_id}`,
+      );
+    }
   }
 }
-
-
-
-
-
-  
-
-

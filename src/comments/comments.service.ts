@@ -27,18 +27,23 @@ export class CommentsService {
 
   // 게시글 ID로 댓글 전체 조회
   async getCommentsByFeedId(feed_id: number) {
-    const feedId = await this.feedRepository.findOne({feedId})
+    // const feedId = await this.feedRepository.findOne({})
     // if (!feedId) {
     //   throw new NotFoundException(`게시글이 조회되지 않습니다.`);
     // }
-    const comment = await this.commentRepository.find({
-      where: [{ deletedAt: null }, { id: feedId }],
-      select: ['contents', 'nick_name', 'createdAt', 'updatedAt'],
-    });
-    if (!comment) {
-      throw new NotFoundException(`댓글이 존재하지 않습니다.`);
-    }
-    return comment;
+  console.log('Service',feed_id);
+const result = await this.commentRepository.query(`select * from comment where feed_id=${feed_id} and deletedAt is null`)
+    // const result = await this.commentRepository.find({
+    //   where: [{ deletedAt: null }, { id: feed_id}],
+    //   select: ['contents', 'nick_name', 'createdAt', 'updatedAt'],
+    // });
+    // console.log(result);
+    
+    return result
+    // if (!comment) {
+    //   throw new NotFoundException(`댓글이 존재하지 않습니다.`);
+    // }
+    // return comment;
   }
 
   // 댓글 생성
@@ -116,7 +121,7 @@ export class CommentsService {
   // // 댓글 삭제
   async deleteComment(
     user_id: number,
-    commentId: number,
+    id: number,
   ): Promise<any> {
     const user = await this.userRepository.findOne({
       where: { id: user_id },
@@ -128,14 +133,14 @@ export class CommentsService {
 
 
     const myComment = await this.commentRepository.findOne({
-      where: {id: commentId}
+      where: {id}
     })
     if (!myComment) {
       throw new NotFoundException(
         `댓글이 조회되지 않습니다.`,
       );
     }
-    const remove = await this.commentRepository.delete({ id: commentId});
+    const remove = await this.commentRepository.softDelete(id);
     if (remove.affected === 0) {
       throw new NotFoundException(
         `해당 댓글이 조회되지 않습니다.`,

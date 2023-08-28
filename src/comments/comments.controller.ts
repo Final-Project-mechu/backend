@@ -13,34 +13,46 @@ import {
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create.comments.dto';
 import { UpdateCommentDto } from './dto/update.comments.dto';
+import { request, Request } from 'express';
+interface RequestWithLocals extends Request {
+  locals: {
+    user: {
+      id: number;
+      nick_name: string;
+    };
+  };
+}
 
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentService: CommentsService) {}
 
 //댓글 조회
-@Get('/:feedId')
-async getCommentsByFeedId(@Param('feedId') feedId: number) {
-  return await this.commentService.getCommentsByFeedId(feedId);
+@Get('/:feed_id')
+async getCommentsByFeedId(@Param('feed_id') feed_id: number) {
+  console.log('Controller',feed_id);
+  
+  return await this.commentService.getCommentsByFeedId(feed_id);
 }
 
   //댓글 쓰기
   @Post('/:feedId')
   @UsePipes(ValidationPipe)
   CreateComment(
-    @Req() req:any,
+    @Req() request: RequestWithLocals,
     @Param('feedId') feedId: number,
     @Body() createCommentDto: CreateCommentDto,
   ) {
+    const auth = request.locals.user;
     return this.commentService.createComment(
-      req.user_id,
+      auth.id,
       feedId,
       createCommentDto,
     );
   }
 
   // 댓글 수정
-  @Patch('/:feedId/:commentId')
+  @Patch('/:commentId')
   updateComment(
     @Req() req:any,
     @Param('commentId') commentId: number,
@@ -54,7 +66,7 @@ async getCommentsByFeedId(@Param('feedId') feedId: number) {
   }
 
   // 댓글 삭제
-  @Delete('/:feedId/:commentId')
+  @Delete('/:commentId')
   deleteComment(
     @Req() req:any,
     @Param('commentId') commentId: number,

@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -27,12 +28,12 @@ export class CommentsController {
   @Post('/:feedId')
   @UsePipes(ValidationPipe)
   CreateComment(
-    // @Req() req:any,
+    @Req() req:any,
     @Param('feedId') feedId: number,
     @Body() createCommentDto: CreateCommentDto,
   ) {
     return this.commentService.createComment(
-      // req.user_id,
+      req.user_id,
       feedId,
       createCommentDto,
     );
@@ -41,31 +42,30 @@ export class CommentsController {
   // 댓글 수정
   @Patch('/:feedId/:commentId')
   updateComment(
-    // @Req() req,
+    @Req() req:any,
     @Param('feedId') feedId: number,
-    @Param('commentId') feed_comment_id: number,
+    @Param('commentId') commentId: number,
     @Body() updateCommentDto: UpdateCommentDto,
   ) {
     return this.commentService.updateComment(
-      //   req.userId,
-      feed_comment_id,
+      req.user_id,
       feedId,
+      commentId,
       updateCommentDto,
     );
   }
 
   // 댓글 삭제
-  @Delete(':feedId/:commentId')
+  @Delete('/:feedId/:commentId')
   deleteComment(
-    // @Req() req,
+    @Req() req:any,
     @Param('feedId') feedId: number,
-    @Param('commentId') feed_comment_id: number,
+    @Param('commentId') commentId: number,
   ) {
     return this.commentService.deleteComment(
-      //   req.userId,
-      feed_comment_id,
+      req.user_id,
+      commentId,
       feedId
-
     );
   }
 }

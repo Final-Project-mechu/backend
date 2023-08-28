@@ -74,6 +74,8 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'users/update', method: RequestMethod.PATCH },
         { path: 'users/quit', method: RequestMethod.DELETE },
-      );
+        { path: 'comments/:commentId', method: RequestMethod.PATCH },
+        { path: 'comments/:commentId', method: RequestMethod.DELETE }
+        );
   }
 }

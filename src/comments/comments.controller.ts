@@ -18,11 +18,11 @@ import { UpdateCommentDto } from './dto/update.comments.dto';
 export class CommentsController {
   constructor(private readonly commentService: CommentsService) {}
 
-  //댓글 조회
-  @Get('/:feedId')
-  async getCommentsByFeedId(@Param('feedId') feedId: number) {
-    return await this.commentService.getCommentsByFeedId(feedId);
-  }
+//댓글 조회
+@Get('/:feedId')
+async getCommentsByFeedId(@Param('feedId') feedId: number) {
+  return await this.commentService.getCommentsByFeedId(feedId);
+}
 
   //댓글 쓰기
   @Post('/:feedId')
@@ -43,13 +43,11 @@ export class CommentsController {
   @Patch('/:feedId/:commentId')
   updateComment(
     @Req() req:any,
-    @Param('feedId') feedId: number,
     @Param('commentId') commentId: number,
     @Body() updateCommentDto: UpdateCommentDto,
   ) {
     return this.commentService.updateComment(
       req.user_id,
-      feedId,
       commentId,
       updateCommentDto,
     );
@@ -59,13 +57,11 @@ export class CommentsController {
   @Delete('/:feedId/:commentId')
   deleteComment(
     @Req() req:any,
-    @Param('feedId') feedId: number,
     @Param('commentId') commentId: number,
   ) {
     return this.commentService.deleteComment(
       req.user_id,
       commentId,
-      feedId
     );
   }
 }

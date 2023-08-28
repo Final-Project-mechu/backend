@@ -26,22 +26,15 @@ export class CommentsService {
   ) {}
 
   // 게시글 ID로 댓글 전체 조회
-  async getCommentsByFeedId(feedId: number) {
-    const feed = await this.feedRepository.findOne({
-      where: { id: feedId },
-    });
-    console.log('feed', feed);
-    
-
-    if (!feed) {
-      throw new NotFoundException(`게시글이 조회되지 않습니다.`);
-    }
+  async getCommentsByFeedId(feed_id: number) {
+    const feedId = await this.feedRepository.findOne({feedId})
+    // if (!feedId) {
+    //   throw new NotFoundException(`게시글이 조회되지 않습니다.`);
+    // }
     const comment = await this.commentRepository.find({
       where: [{ deletedAt: null }, { id: feedId }],
       select: ['contents', 'nick_name', 'createdAt', 'updatedAt'],
     });
-    console.log('comment', comment);
-    
     if (!comment) {
       throw new NotFoundException(`댓글이 존재하지 않습니다.`);
     }
@@ -84,7 +77,6 @@ export class CommentsService {
   //댓글 수정
   async updateComment(
     user_id: number,
-    feedId: number,
     commentId: number,
     updateCommentDto: UpdateCommentDto,
   ) {
@@ -104,12 +96,12 @@ export class CommentsService {
       throw new UnauthorizedException(`본인이 작성한 댓글만 수정가능합니다.`);
     }
 
-    const feed = await this.feedRepository.findOne({
-      where: { id: feedId },
-    });
-    if (!feed) {
-      throw new NotFoundException(`게시글이 조회되지 않습니다.`);
-    }
+    // const feed = await this.feedRepository.findOne({
+    //   where: { id: feedId },
+    // });
+    // if (!feed) {
+    //   throw new NotFoundException(`게시글이 조회되지 않습니다.`);
+    // }
  
     const { contents } = updateCommentDto;
     if (!updateCommentDto.contents) {
@@ -125,7 +117,6 @@ export class CommentsService {
   async deleteComment(
     user_id: number,
     commentId: number,
-    feedId: number,
   ): Promise<any> {
     const user = await this.userRepository.findOne({
       where: { id: user_id },
@@ -134,12 +125,7 @@ export class CommentsService {
       throw new UnauthorizedException(`본인이 작성한 댓글만 삭제가 가능합니다.`);
     }
 
-    const feed = await this.feedRepository.findOne({
-      where: { id: feedId },
-    });
-    if (!feed) {
-      throw new NotFoundException(`게시글이 조회되지 않습니다.`);
-    }
+
 
     const myComment = await this.commentRepository.findOne({
       where: {id: commentId}

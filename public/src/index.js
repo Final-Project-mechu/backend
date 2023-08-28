@@ -1,60 +1,69 @@
-let randomDataExtract;
-// 마커를 담을 배열입니다
-let markers = [];
-let latitude;
-let longitude;
-let places;
+let randomData;
 
-// geolocation은 비동기 함수다...
-navigator.geolocation.getCurrentPosition(function (pos) {
-  latitude = pos.coords.latitude;
-  longitude = pos.coords.longitude;
-  // 지도 생성 및 검색 수행
-  console.log('GPS 실행');
-  // createMap();
-  createMap2();
-});
+/**
+ * 사용자의 GPS 정보를 불러오는 함수
+ */
+navigator.geolocation.getCurrentPosition(
+  function (pos) {
+    const latitude = pos.coords.latitude;
+    const longitude = pos.coords.longitude;
+    createMap(latitude, longitude);
+  },
+  () => {
+    console.log('위치 허용 해라');
+  },
+);
 
-// async function createMap() {
-//   let mapContainer = document.getElementById('map'), // 지도를 표시할 div
-//     mapOption = {
-//       center: new kakao.maps.LatLng(latitude, longitude),
-//       level: 3, // 지도의 확대 레벨
-//       radius: 5000,
-//       draggable: true,
-//       sort: kakao.maps.services.SortBy.DISTANCE,
-//     };
+/**
+ * 지도를 만드는 함수
+ * @param {*} latitude
+ * @param {*} longitude
+ */
+function createMap(latitude, longitude) {
+  searchPlaces(latitude, longitude, (data, status) => {
+    if (status === kakao.maps.services.Status.ZERO_RESULT) {
+      new Error('검색 결과가 존재하지 않습니다.');
+    } else if (status === kakao.maps.services.Status.ERROR) {
+      new Error('검색 결과 중 오류가 발생했습니다.');
+    }
+    successOnGetPlace(data, latitude, longitude);
+  });
+}
 
-//   // 지도를 생성합니다
-//   map = new kakao.maps.Map(mapContainer, mapOption);
-//   const zoomControl = new kakao.maps.ZoomControl();
-//   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+/**
+ * 데이터 불러오는 것 성공 시 가져오는 함수
+ * @param {*} data : 성공 시 가져오는 데이터(15개정도 됨)
+ * @param {*} latitude : 사용자의 GPS정보
+ * @param {*} longitude : 사용자의 GPS정보
+ */
+function successOnGetPlace(data, latitude, longitude) {
+  const randomIndex = Math.floor(Math.random() * data.length);
+  randomData = data[randomIndex];
+  console.log('====', randomData);
+  const placeX = randomData.x;
+  const placeY = randomData.y;
+  const map = getMap(placeY, placeX);
+  const markerPosition = new kakao.maps.LatLng(placeY, placeX);
+  const marker = new kakao.maps.Marker({
+    position: markerPosition,
+  });
+  const infoContent = `<div style="padding:5px; text-align: center;">${randomData.place_name}<br><a href="${randomData.place_url}" style="color:blue" target="_blank">큰지도보기</a></div>`;
+  const infoWindow = new kakao.maps.InfoWindow({
+    position: markerPosition,
+    content: infoContent,
+  });
+  marker.setMap(map);
+  infoWindow.open(map, marker);
+}
 
-//   // 1) 키워드로 검색한 장소 결과 데이터
-//   const searchResult = await searchPlaces();
-//   console.log('서치플레이스 함수 실행 후 맵 함수', searchResult);
-//   // 2) 1)을 토대로 마커 생성
-//   const placeX = searchResult[0].x;
-//   const placeY = searchResult[0].y;
-//   console.log('결과값', placeX);
-//   const markerPosition = new kakao.maps.LatLng(placeX, placeY);
-//   let marker = new kakao.maps.Marker({
-//     position: markerPosition,
-//   });
-//   console.log('맵', map);
-//   console.log('마커', marker);
-//   marker.setMap(map);
-// }
-
-async function createMap2() {
-  // 1) 키워드로 검색한 장소 결과 데이터
-
-  //   console.log('서치플레이스 함수 실행 후 맵 함수', searchResult);
-  //   // 2) 1)을 토대로 마커 생성
-  const searchResult = await searchPlaces();
-  const placeX = searchResult[0].x;
-  const placeY = searchResult[0].y;
-  let mapContainer = document.getElementById('map'), // 지도를 표시할 div
+/**
+ * 주어진 위도,경도를 중심으로 지도를 얻어오는 함수
+ * @param {*} latitude
+ * @param {*} longitude
+ * @returns
+ */
+function getMap(latitude, longitude) {
+  const mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
       center: new kakao.maps.LatLng(latitude, longitude),
       level: 5, // 지도의 확대 레벨
@@ -63,23 +72,16 @@ async function createMap2() {
       // sort: kakao.maps.services.SortBy.DISTANCE,
     };
 
-  let map = new kakao.maps.Map(mapContainer, mapOption);
-  console.log('맵확인', map);
-
-  console.log('=======x좌표', placeX);
-  console.log('=======y좌표', placeY);
-  let markerPosition = new kakao.maps.LatLng(latitude, longitude);
-  let marker = new kakao.maps.Marker({
-    position: markerPosition,
-  });
-  marker.setMap(map);
-  console.log('======마커달린 맵', map);
-  console.log('======', markerPosition);
-  console.log('======마커', marker);
+  return new kakao.maps.Map(mapContainer, mapOption);
 }
 
-// 키워드 검색을 요청하는 함수입니다
-async function searchPlaces() {
+/**
+ * 위도, 경도를 받아 키워드로 검색한 후 받은 데이터를 콜백하는 함수
+ * @param {*} latitude 위도
+ * @param {*} longitude 경도
+ * @param {*} callback 키워드와 위치를 받아 검색 한 후 결과
+ */
+function searchPlaces(latitude, longitude, callback) {
   let keyword = '치킨';
   let searchOptions = {
     x: longitude,
@@ -87,88 +89,26 @@ async function searchPlaces() {
     radius: 5000, // 검색 반경
   };
   // 장소 검색 객체를 생성합니다
-  places = new kakao.maps.services.Places();
-  return new Promise((resolve, reject) => {
-    places.keywordSearch(keyword, (data, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        if (data.length > 0) {
-          const randomIndex = Math.floor(Math.random() * data.length);
-          const randomData = [data[randomIndex]];
-          randomDataExtract = data[randomIndex];
-          console.log('콜백함수 placesSearchCB', randomData);
-          resolve(randomData);
-        } else {
-          reject(new Error('검색 결과가 존재하지 않습니다.'));
-        }
-      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        reject(new Error('검색 결과가 존재하지 않습니다.'));
-      } else if (status === kakao.maps.services.Status.ERROR) {
-        reject(new Error('검색 결과 중 오류가 발생했습니다.'));
-      }
-    });
-  });
-
-  // const result = await places.keywordSearch(
-  //   keyword,
-  //   placesSearchCB,
-  //   searchOptions,
-  // );
-  // console.log('키워드 요청 함수', result);
-  // return result;
+  const places = new kakao.maps.services.Places();
+  places.keywordSearch(keyword, callback, searchOptions);
 }
-// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-// async function placesSearchCB(data, status) {
-//   if (status === kakao.maps.services.Status.OK) {
-//     if (data.length > 0) {
-//       // 정상적으로 검색이 완료됐으면
-//       // 검색 목록과 마커를 표출합니다
-//       const randomIndex = Math.floor(Math.random() * data.length);
-//       const randomData = [data[randomIndex]];
-//       randomDataExtract = data[randomIndex];
-//       console.log('콜백함수 placesSearchCB', randomData);
-//       return randomData;
-//     }
-//   } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-//     alert('검색 결과가 존재하지 않습니다.');
-//     return;
-//   } else if (status === kakao.maps.services.Status.ERROR) {
-//     alert('검색 결과 중 오류가 발생했습니다.');
-//     return;
-//   }
-// }
 
-// 검색 결과를 마커로 표출하는 함수
-// async function displayPlaces() {
-//   // console.log('마커표출함수', result);
-//   // const place_x = result[0].x;
-//   // const place_y = result[0].y;
-//   const place_x = 126.863298876003;
-//   const place_y = 37.2951825704786;
-//   let markerPosition = new kakao.maps.LatLng(place_x, place_y);
-//   let marker = new kakao.maps.Marker({
-//     position: markerPosition,
-//   });
-//   marker.setMap(map);
-//   console.log('마커표출함수', map);
-// }
-
-// 찜하기 누르면 데이터를 보내는 함수
-document.getElementById('favoriteButton').onclick = function () {
-  if (('찜하기', randomDataExtract)) {
-    console.log('axios', randomDataExtract);
-    console.log('카카오id 확인하기', randomDataExtract.id);
-    // 여기서부터 axios함수와 서버 데이터를 합치면 된다.
+/**
+ * 찜하기 눌렀을 때 사용자의 찜하기 목록생성 함수
+ */
+function addToFavorite() {
+  if (randomData) {
     axios({
       url: 'http://localhost:3000/favorites',
       method: 'post',
       data: {
-        address_name: randomDataExtract.address_name,
-        road_address_name: randomDataExtract.road_address_name,
-        id: randomDataExtract.id,
-        category_name: randomDataExtract.category_name,
-        phone: randomDataExtract.phone,
-        place_name: randomDataExtract.place_name,
-        place_url: randomDataExtract.place_url,
+        address_name: randomData.address_name,
+        road_address_name: randomData.road_address_name,
+        id: randomData.id,
+        category_name: randomData.category_name,
+        phone: randomData.phone,
+        place_name: randomData.place_name,
+        place_url: randomData.place_url,
       },
     })
       .then(function (res) {
@@ -185,4 +125,4 @@ document.getElementById('favoriteButton').onclick = function () {
   } else {
     console.log('데이터 없음');
   }
-};
+}

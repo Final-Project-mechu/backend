@@ -14,7 +14,7 @@
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
-    <div id="menu_wrap" class="bg_white">
+    <!-- <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
@@ -26,10 +26,10 @@
         <hr>
         <ul id="placesList"></ul>
         <div id="pagination"></div>
-    </div>
+    </div> -->
 </div>
 <div>
-    <button class="favoriteButton" id="favoriteButton">찜하기</button>
+    <button class="favoriteButton" id="favoriteButton" onclick="addToFavorite()">찜하기</button>
 </div>
 <script src="./src/index.js" defer></script>
 </body>

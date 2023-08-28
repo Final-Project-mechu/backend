@@ -17,5 +17,5 @@ export class Food {
 
   @ManyToOne(() => Category, category => category.id)
   @JoinColumn({ name: 'category_id' }) 
-  category: Category;
+  category_id: Category;
 }

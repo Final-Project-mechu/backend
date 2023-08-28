@@ -13,13 +13,11 @@ import { Food } from './food.entity';
 export class FoodUserWeight {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @PrimaryColumn()         
+      
   @ManyToOne(() => User, user => user.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user_id: number;
 
-  @PrimaryColumn()         
   @ManyToOne(() => Food, food => food.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'food_id' })
   food_id: number;

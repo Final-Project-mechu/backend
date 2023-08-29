@@ -34,8 +34,8 @@ export class User {
   @Index({ unique: true })
   @Column('varchar')
   email: string;
-  @Column('bool')
-  is_admin: boolean;
+  @Column('int')
+  is_admin: number;
   @Column('varchar', { length: 10 })
   nick_name: string;
   @Column('varchar', { select: false })

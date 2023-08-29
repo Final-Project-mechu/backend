@@ -14,4 +14,5 @@ export class Category {
 
   @Column('int', { nullable: true })
   top_category_id: number | null;
+
 }

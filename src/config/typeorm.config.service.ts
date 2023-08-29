@@ -9,12 +9,13 @@ import { Favorite } from 'src/entity/favorite.entity';
 import { Category } from 'src/entity/category.entity';
 import { Food } from 'src/entity/food.entity';
 import { FoodImg } from 'src/entity/food.img.entity';
+import { Note } from 'src/entity/note.entity';
 import { FoodIngredient } from 'src/entity/food.ingredient.entity';
 import { Ingredient } from 'src/entity/ingredient.entity';
 import { FoodUserWeight } from 'src/entity/food.user.weight.entity';
 import { UserAction } from 'src/entity/user.action';
-import { Note } from 'src/entity/note.entity';
-
+//import { Auth } from 'src/entity/auth.entity';
+//import { Friends } from 'src/entity/friend.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -38,10 +39,12 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         FoodImg,
         FeedLike,
         Comment,
-        FoodIngredient,
-        Ingredient,
         FoodUserWeight,
         UserAction,
+        FoodIngredient,
+        Ingredient,
+        // Auth,
+        //Friends,
       ],
       synchronize: this.configService.get<boolean>('DATABASE_SYNCHRONIZE'),
     };

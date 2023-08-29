@@ -11,20 +11,25 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { CategoryModule } from './category/category.module';
 import { FeedModule } from './feed/feed.module';
-import { LikesFoodsModule } from './likes.foods/likes.foods.module';
-import { DislikesFoodsModule } from './dislikes.foods/dislikes.foods.module';
-import { DislikesIngredientsModule } from './dislikes.ingredients/dislikes.ingredients.module';
 import { CommentsModule } from './comments/comments.module';
 import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { FoodModule } from './food/food.module';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Favorite } from './entity/favorite.entity';
 import { JwtConfigService } from './config/jwt.config.service';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailModule } from './mail/mail.module';
+import { FoodUserWeight } from './entity/food.user.weight.entity';
+import { UserAction } from './entity/user.action';
+import { FoodIngredient } from './entity/food.ingredient.entity';
+import { Ingredient } from './entity/ingredient.entity';
+//import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
+//import { FriendModule } from './friend/friend.module';
 
 @Module({
   imports: [
@@ -52,16 +57,21 @@ import { MailModule } from './mail/mail.module';
         },
       },
     }),
+    PassportModule.register({ session: false }),
     UsersModule,
     FoodModule,
     CategoryModule,
+    FoodUserWeight,
+    UserAction,
+    FoodIngredient,
+    Ingredient,
     FeedModule,
-    LikesFoodsModule,
-    DislikesFoodsModule,
-    DislikesIngredientsModule,
+    Favorite,
     CommentsModule,
     AdvertisementsModule,
     MailModule,
+    // FriendModule,
+    // AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthMiddleware],
@@ -74,6 +84,10 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'users/update', method: RequestMethod.PATCH },
         { path: 'users/quit', method: RequestMethod.DELETE },
+        { path: 'friends/send-request', method: RequestMethod.POST },
+        { path: 'friends/accept-friend', method: RequestMethod.POST },
+        { path: 'category', method: RequestMethod.POST },
+        { path: 'category/:category_id', method: RequestMethod.PATCH },
       );
   }
 }

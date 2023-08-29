@@ -45,6 +45,16 @@ export class User {
     default: 'your_default_refresh_token_value',
   })
   refresh_token: string;
+
+  // @Column('varchar')
+  // provider: string;
+
+  // @Column('varchar')
+  // providerId: string;
+
+  // @Column('varchar')
+  // name: string;
+
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()

@@ -13,6 +13,14 @@ import { Repository } from 'typeorm';
 import { User } from 'src/entity/user.entity';
 import { MailService } from 'src/mail/mail.service';
 
+// GoogleUser type
+interface GoogleUser {
+  provider: string;
+  providerId: string;
+  email: string;
+  name: string;
+}
+
 let isEmailVerified: Record<string, boolean> = {};
 let codeObject: Record<string, string> = {};
 
@@ -114,11 +122,11 @@ export class UsersService {
       password,
     });
 
-    const payload = {
-      id: insertResult.identifiers[0].id,
-      nick_name: insertResult.identifiers[0].nick_name,
-    };
-    const accessToken = await this.jwtService.signAsync(payload);
+    // const payload = {
+    //   id: insertResult.identifiers[0].id,
+    //   nick_name: insertResult.identifiers[0].nick_name,
+    // };
+    // const accessToken = await this.jwtService.signAsync(payload);
 
     const refresh_token_payload = {};
     const refresh_token = await this.jwtService.signAsync(
@@ -128,7 +136,7 @@ export class UsersService {
 
     delete isEmailVerified[email];
 
-    return { accessToken, refresh_token };
+    return { refresh_token };
   }
 
   async login(email: string, password: string) {

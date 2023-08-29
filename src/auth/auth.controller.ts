@@ -14,6 +14,12 @@ import {
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 
+// type JwtPayload
+interface JwtPayload {
+  sub: string;
+  email: string;
+}
+
 @Controller('auth')
 export class AuthController {
   getHello(): any {

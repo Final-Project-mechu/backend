@@ -69,13 +69,13 @@ export class UsersController {
 
   @Post('/sign')
   async createUser(@Body() data: CreateUserDto) {
-    const { accessToken, refresh_token } = await this.userService.createUser(
+    const { refresh_token } = await this.userService.createUser(
       data.is_admin,
       data.email,
       data.nick_name,
       data.password,
     );
-    return { accessToken, refresh_token };
+    return { refresh_token };
   }
 
   @Post('/login')

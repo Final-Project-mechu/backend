@@ -41,6 +41,13 @@ export class CommentsService {
     const user = await this.userRepository.findOne({
       where: { id: user_id },
     });
+
+    const { contents } = createCommentDto
+
+    if (!contents) {
+      throw new BadRequestException('댓글을 입력해주세요.');
+    }
+
     if (!user) {
       throw new UnauthorizedException(`로그인 후 댓글 작성이 가능합니다.`);
     }
@@ -51,7 +58,7 @@ export class CommentsService {
     if (!feed) {
       throw new NotFoundException(`게시글이 조회되지 않습니다.`);
     }
-    const { contents } = createCommentDto;
+  
     if (!contents) {
       throw new BadRequestException(`댓글을 작성해주세요.`);
     }
@@ -69,21 +76,16 @@ export class CommentsService {
     commentId: number,
     updateCommentDto: UpdateCommentDto,
   ) {
-    const myComment = await this.commentRepository.findOne({
-      where: { id: commentId },
-    });
+    const myComment = await this.commentRepository.query(`select * from comment where id = ${commentId}`)
 
     if (!myComment) {
       throw new NotFoundException(`댓글이 조회되지 않습니다.}`);
     }
+    console.log(user_id, myComment[0].user_id);
 
-    const user = await this.userRepository.findOne({
-      where: { id: user_id },
-    });
-    if (!user) {
+    if (myComment[0].user_id !== user_id) {
       throw new UnauthorizedException(`본인이 작성한 댓글만 수정가능합니다.`);
     }
-
 
     const { contents } = updateCommentDto;
     if (!updateCommentDto.contents) {
@@ -97,10 +99,17 @@ export class CommentsService {
 
   // // 댓글 삭제
   async deleteComment(user_id: number, id: number): Promise<any> {
+    
+
     const user = await this.userRepository.findOne({
       where: { id: user_id },
     });
-    if (!user) {
+    const myCommentDelete = await this.commentRepository.query(`select * from comment where id = ${id}`)
+    
+
+    console.log(user, myCommentDelete);
+    
+    if (myCommentDelete[0].user_id !== user_id) {
       throw new UnauthorizedException(
         `본인이 작성한 댓글만 삭제가 가능합니다.`,
       );

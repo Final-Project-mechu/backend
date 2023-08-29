@@ -54,12 +54,15 @@ async getCommentsByFeedId(@Param('feed_id') feed_id: number) {
   // 댓글 수정
   @Patch('/:commentId')
   updateComment(
-    @Req() req:any,
+    @Req() request: RequestWithLocals,
     @Param('commentId') commentId: number,
     @Body() updateCommentDto: UpdateCommentDto,
-  ) {
+  ) 
+  
+  {
+    const auth = request.locals.user;
     return this.commentService.updateComment(
-      req.user_id,
+      auth.id,
       commentId,
       updateCommentDto,
     );
@@ -68,12 +71,13 @@ async getCommentsByFeedId(@Param('feed_id') feed_id: number) {
   // 댓글 삭제
   @Delete('/:commentId')
   deleteComment(
-    @Req() req:any,
+    @Req() request: RequestWithLocals,
     @Param('commentId') commentId: number,
   ) {
+    const auth = request.locals.user;
     return this.commentService.deleteComment(
-      req.user_id,
-      commentId,
+      auth.id,
+      commentId
     );
   }
 }

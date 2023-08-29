@@ -34,7 +34,7 @@ export class User {
   @Index({ unique: true })
   @Column('varchar')
   email: string;
-  @Column('int')
+  @Column('int', { default: 0 })
   is_admin: number;
   @Column('varchar', { length: 10 })
   nick_name: string;
@@ -45,16 +45,6 @@ export class User {
     default: 'your_default_refresh_token_value',
   })
   refresh_token: string;
-
-  // @Column('varchar')
-  // provider: string;
-
-  // @Column('varchar')
-  // providerId: string;
-
-  // @Column('varchar')
-  // name: string;
-
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()

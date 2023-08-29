@@ -1,15 +1,11 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity({ schema: 'finalpj', name: 'category' })
 export class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar', { length: 10 } )
+  @Column('varchar', { length: 10 })
   name_top: string;
 
   @Column('int')
@@ -17,5 +13,4 @@ export class Category {
 
   @Column('varchar', { length: 10 })
   down_category_name: string;
-
 }

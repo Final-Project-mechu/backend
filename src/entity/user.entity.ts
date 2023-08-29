@@ -11,10 +11,11 @@ import {
 import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
 import { Favorite } from './favorite.entity';
-import { FoodSurvey } from './food.survey.entity'; 
+import { FoodSurvey } from './food.survey.entity';
 import { FeedLike } from './feed.like.entity';
 import { Friends } from './friend.entity';
 
+//
 @Entity({ schema: 'finalpj', name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()

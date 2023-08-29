@@ -126,10 +126,8 @@ export class UsersService {
       refresh_token_payload,
       { expiresIn: '1d' },
     );
-
-    delete isEmailVerified[email];
-
     return { refresh_token };
+    delete isEmailVerified[email];
   }
 
   async login(email: string, password: string) {

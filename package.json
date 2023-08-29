@@ -31,14 +31,12 @@
     "@nestjs/mapped-types": "^2.0.2",
     "@nestjs/passport": "^10.0.1",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/serve-static": "^4.0.0",
     "@nestjs/platform-socket.io": "^10.2.0",
     "@nestjs/swagger": "^7.1.8",
     "@nestjs/typeorm": "^10.0.0",
-<<<<<<< HEAD
     "@nestjs/websockets": "^10.2.0",
-=======
     "axios": "^1.5.0",
->>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
     "babel": "^6.23.0",
     "bcrypt": "^5.1.1",
     "cache-manager": "^5.2.3",
@@ -68,11 +66,8 @@
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
-<<<<<<< HEAD
     "@types/babel__core": "^7.20.1",
-=======
     "@types/bcrypt": "^5.0.0",
->>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
     "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.17",
     "@types/express-session": "^1.17.7",

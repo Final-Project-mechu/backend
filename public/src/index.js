@@ -39,7 +39,6 @@ function createMap(latitude, longitude) {
 function successOnGetPlace(data, latitude, longitude) {
   const randomIndex = Math.floor(Math.random() * data.length);
   randomData = data[randomIndex];
-  console.log('====', randomData);
   const placeX = randomData.x;
   const placeY = randomData.y;
   const map = getMap(placeY, placeX);
@@ -97,6 +96,16 @@ function searchPlaces(latitude, longitude, callback) {
  * 찜하기 눌렀을 때 사용자의 찜하기 목록생성 함수
  */
 function addToFavorite() {
+  console.log(randomData);
+  // JWT 토큰 가져오기
+  const cookies = document.cookie.split(';');
+  let jwtToken = null;
+  cookies.forEach(cookie => {
+    const [key, value] = cookie.split('=');
+    if (key.trim() === 'Authentication') {
+      jwtToken = value;
+    }
+  });
   if (randomData) {
     axios({
       url: 'http://localhost:3000/favorites',
@@ -104,11 +113,14 @@ function addToFavorite() {
       data: {
         address_name: randomData.address_name,
         road_address_name: randomData.road_address_name,
-        id: randomData.id,
+        kakao_id: randomData.id,
         category_name: randomData.category_name,
         phone: randomData.phone,
         place_name: randomData.place_name,
         place_url: randomData.place_url,
+      },
+      headers: {
+        Authentication: `${jwtToken}`,
       },
     })
       .then(function (res) {

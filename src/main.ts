@@ -17,8 +17,7 @@ async function bootstrap() {
   await app.listen(3000);
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.use(cookieParser());
-  app.enableCors();
-  app.useStaticAssets('public', { extensions: ['index.html'] });
+  app.useStaticAssets('public');
   const config = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')

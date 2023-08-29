@@ -17,6 +17,7 @@ import { DislikesIngredientsModule } from './dislikes.ingredients/dislikes.ingre
 import { CommentsModule } from './comments/comments.module';
 import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { FoodModule } from './food/food.module';
+import { FavoritesModule } from './favorites/favorites.module';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -65,6 +66,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
     DislikesIngredientsModule,
     CommentsModule,
     AdvertisementsModule,
+    FavoritesModule,
     JwtModule,
   ],
   controllers: [AppController],
@@ -78,6 +80,9 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'users/update', method: RequestMethod.PATCH },
         { path: 'users/quit', method: RequestMethod.DELETE },
+        { path: 'favorites', method: RequestMethod.POST },
+        { path: 'favorites', method: RequestMethod.GET },
+        { path: 'favorites/:id', method: RequestMethod.DELETE },
       );
   }
 }

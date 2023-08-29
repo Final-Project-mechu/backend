@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   JoinColumn,
   Entity,
+  PrimaryColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 
@@ -16,9 +17,9 @@ export class Favorite {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @ManyToOne(() => User)
-  // @JoinColumn({ name: 'user_id' })
-  // user_id: number;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user_id: number;
 
   @Column('varchar', { length: 30 })
   address_name: string;

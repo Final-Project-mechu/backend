@@ -55,11 +55,11 @@ export class UsersService {
       password,
     });
 
-    const payload = {
-      id: insertResult.identifiers[0].id,
-      nick_name: insertResult.identifiers[0].nick_name,
-    };
-    const accessToken = await this.jwtService.signAsync(payload);
+    // const payload = {
+    //   id: insertResult.identifiers[0].id,
+    //   nick_name: insertResult.identifiers[0].nick_name,
+    // };
+    // const accessToken = await this.jwtService.signAsync(payload);
 
     const refresh_token_payload = {};
     const refresh_token = await this.jwtService.signAsync(
@@ -67,7 +67,7 @@ export class UsersService {
       { expiresIn: '1d' },
     );
 
-    return { accessToken, refresh_token };
+    return { refresh_token };
   }
 
   async login(email: string, password: string) {

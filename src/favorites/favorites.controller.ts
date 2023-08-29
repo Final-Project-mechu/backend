@@ -1,15 +1,37 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
+import { Request } from 'express';
+interface RequestWithLocals extends Request {
+  locals: {
+    user: {
+      id: number;
+      nick_name: string;
+    };
+  };
+}
 
 @Controller('favorites')
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
   @Post('/')
-  createFavorite(@Body() data): { message: string } {
+  createFavorite(
+    @Body() data,
+    @Req() request: RequestWithLocals,
+  ): { message: string } {
+    const auth = request.locals.user;
     return this.favoritesService.createFavorite(
+      auth.id,
       data.address_name,
       data.road_address_name,
-      data.id,
+      data.kakao_id,
       data.category_name,
       data.phone,
       data.place_name,
@@ -17,13 +39,13 @@ export class FavoritesController {
     );
   }
   @Get('/') // 찜한 목록 전체 보기
-  getFavorites() {
-    // 유저 아이디 들어가야 함
-    return this.favoritesService.getFavorites();
+  getFavorites(@Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    return this.favoritesService.getFavorites(auth.id);
   }
   @Delete('/:id')
-  deleteFavorite(@Param() id: number): Promise<void> {
-    // 유저 아이디 들어가야 함
-    return this.favoritesService.deleteFavorite(id);
+  deleteFavorite(@Param() id: number, @Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    return this.favoritesService.deleteFavorite(auth.id, id);
   }
 }

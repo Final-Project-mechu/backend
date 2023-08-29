@@ -41,9 +41,14 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       throw new ConflictException(`이미 회원 가입된 유저입니다.`);
     }
 
-    // 지금은 걍 아이디 클릭하는순간 데이터베이스에 넣어줌
-    // 그리고 중복회원가입 방지로직 필요
     // 나중에 프론트랑 연결할 때 가입된 유저는 프론트 페이지로 넘겨주기
+
+    // 2. 해당 유저가 로그인을 할 때 DB에 있으면 홈페이지로 보낸다.
+    // 로그인 처리를 해서 홈페이지로 보내야함
+    // 로그인 처리에서 JWT를 발급해서 보내줌
+    // 발급한 JWT로직을 통과했을 경우 홈페이지로 리다이렉트
+    // 서버로 받아서 저장하고
+    // JWT토큰 발급해서 클라 전달해서 토큰으로 통신
 
     const createdUser = await this.userService.createGoogleUser(user);
 

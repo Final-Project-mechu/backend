@@ -12,10 +12,6 @@ import _ from 'lodash';
 import { Repository } from 'typeorm';
 import { User } from 'src/entity/user.entity';
 import { MailService } from 'src/mail/mail.service';
-<<<<<<< HEAD
-
-=======
->>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
 let isEmailVerified: Record<string, boolean> = {};
 let codeObject: Record<string, string> = {};
 
@@ -104,10 +100,7 @@ export class UsersService {
       );
     }
 
-<<<<<<< HEAD
-=======
     // 지금 테스트때문에 막아놨음
->>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
     // // 이메일이 인증된 이메일인지 확인한다.
     // if (!isEmailVerified[email] === true) {
     //   console.log('이메일확인용 콘솔', isEmailVerified);
@@ -136,11 +129,7 @@ export class UsersService {
 
     delete isEmailVerified[email];
 
-<<<<<<< HEAD
-    return { accessToken, refresh_token };
-=======
     return { refresh_token };
->>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
   }
 
   async login(email: string, password: string) {
@@ -165,9 +154,6 @@ export class UsersService {
     }
   }
 
-<<<<<<< HEAD
-  async updateUser(id: number, password: string, newPassword: string) {
-=======
   async updateUser(
     id: number,
     nick_name: string,
@@ -175,7 +161,6 @@ export class UsersService {
     password: string,
     newPassword: string,
   ) {
->>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
     const confirmUserPass = await this.userRepository.findOne({
       where: { id },
       select: ['nick_name', 'password'],
@@ -189,10 +174,7 @@ export class UsersService {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
     return this.userRepository.update(id, {
-<<<<<<< HEAD
-=======
       nick_name: newNick_name,
->>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
       password: newPassword,
     });
   }
@@ -210,9 +192,6 @@ export class UsersService {
     // 4자리 인증번호 생성 로직
     return Math.floor(1000 + Math.random() * 9000);
   }
-<<<<<<< HEAD
-}
-=======
 
   async createGoogleUser(data: any) {
     const existUser = await this.userRepository.findOne({
@@ -226,4 +205,3 @@ export class UsersService {
     return await this.userRepository.save(user);
   }
 }
->>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f

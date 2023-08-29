@@ -13,6 +13,7 @@ import { Comment } from './comment.entity';
 import { Favorate } from './favorate.entity';
 import { FoodLike } from './food.like.entity';
 import { FeedLike } from './feed.like.entity';
+import { Friends } from './friend.entity';
 
 @Entity({ schema: 'finalpj', name: 'user' })
 export class User {
@@ -28,11 +29,13 @@ export class User {
   foodLike: FoodLike[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)
   feedLike: FeedLike[];
+  @OneToMany(() => Friends, friends => friends.user_id)
+  friend: Friends[];
   @Index({ unique: true })
   @Column('varchar')
   email: string;
-  @Column('bool')
-  is_admin: boolean;
+  @Column('int')
+  is_admin: number;
   @Column('varchar', { length: 10 })
   nick_name: string;
   @Column('varchar', { select: false })

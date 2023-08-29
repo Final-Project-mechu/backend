@@ -11,6 +11,9 @@ import { Food } from 'src/entity/food.entity';
 import { FoodLike } from 'src/entity/food.like.entity';
 import { Foodimg } from 'src/entity/food.img.entity';
 import { Note } from 'src/entity/note.entity';
+// import { Auth } from 'src/entity/auth.entity';
+import { Friends } from 'src/entity/friend.entity';
+import { Friendlist } from 'src/entity/friendlist.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -35,6 +38,9 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         FeedLike,
         Comment,
         FoodLike,
+        // Auth,
+        Friends,
+        Friendlist,
       ],
       synchronize: this.configService.get<boolean>('DATABASE_SYNCHRONIZE'),
     };

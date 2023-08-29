@@ -20,8 +20,6 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Request, Response, response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
-import { request } from 'http';
-import { Code } from 'typeorm';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -90,6 +88,7 @@ export class UsersController {
       data.password,
     );
     response.cookie('Authentication', 'Bearer ' + authentication);
+    return { message: '로그인 성공' };
   }
 
   @Patch('/update')
@@ -98,11 +97,16 @@ export class UsersController {
     @Req() request: RequestWithLocals,
   ) {
     const auth = request.locals.user;
-    return this.userService.updateUser(
-      auth.id,
-      data.password,
-      data.newPassword,
-    );
+    try {
+      await this.userService.updateUser(
+        auth.id,
+        data.password,
+        data.newPassword,
+      );
+      return { message: '비밀번호가 정상적으로 수정되었습니다.' };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   @Delete('/quit')

@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Favorate } from './favorate.entity';
+import { Comment } from './comment.entity';
 
 @Entity({ schema: 'finalpj', name: 'feed' })
 export class Feed {

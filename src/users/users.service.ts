@@ -88,7 +88,7 @@ export class UsersService {
   // }
 
   async createUser(
-    is_admin: boolean,
+    is_admin: number,
     email: string,
     nick_name: string,
     password: string,
@@ -101,11 +101,11 @@ export class UsersService {
       );
     }
 
-    // 이메일이 인증된 이메일인지 확인한다.
-    if (!isEmailVerified[email] === true) {
-      console.log('이메일확인용 콘솔', isEmailVerified);
-      throw new ConflictException(`인증된 이메일이 아닙니다.`);
-    }
+    // // 이메일이 인증된 이메일인지 확인한다.
+    // if (!isEmailVerified[email] === true) {
+    //   console.log('이메일확인용 콘솔', isEmailVerified);
+    //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
+    // }
 
     const insertResult = await this.userRepository.insert({
       is_admin,
@@ -158,10 +158,17 @@ export class UsersService {
       where: { id },
       select: ['password'],
     });
-    if (!confirmUserPass && password !== confirmUserPass.password) {
+
+    if (!confirmUserPass) {
+      throw new NotFoundException('유저를 찾을 수 없습니다.');
+    }
+
+    if (password !== confirmUserPass.password) {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
-    return this.userRepository.update(id, { password: newPassword });
+    return this.userRepository.update(id, {
+      password: newPassword,
+    });
   }
 
   async deleteUser(id: number, password: string, passwordConfirm: string) {

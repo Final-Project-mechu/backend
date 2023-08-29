@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { SentMessageInfo } from 'nodemailer/lib/smtp-transport';
-import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/users.service';
-import { MailerService } from '@nestjs-modules/mailer';
 export interface VerificationCodeInfo {
   email: string;
   verificationCode: string;
 }
-let codeobject = [];
+const codeObject = {};
+const isEmailVerified = {};
 @Injectable()
 export class MailService {
   private gmailTransporter: nodemailer.Transporter<SentMessageInfo>;
@@ -27,7 +25,7 @@ export class MailService {
 
   async sendVerificationCode(email: string, verificationCode: string) {
     const subject = '회원가입 인증번호';
-    const content = `<p>인증번호는 <strong>${verificationCode}</strong> 입니다.</p>`;
+    const content = `<p>인증번호는 <strong>${verificationCode}</strong> 입니다.</p> <br> 인증번호는 5분 후 만료됩니다.`;
 
     try {
       await this.gmailTransporter.sendMail({

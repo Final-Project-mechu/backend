@@ -27,6 +27,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { MailModule } from './mail/mail.module';
+import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
+import { FriendModule } from './friend/friend.module';
+import { FriendlistModule } from './friendlist/friendlist.module';
 
 @Module({
   imports: [
@@ -57,6 +62,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
         },
       },
     }),
+    PassportModule.register({ session: false }),
     UsersModule,
     FoodModule,
     CategoryModule,
@@ -68,6 +74,10 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
     AdvertisementsModule,
     FavoritesModule,
     JwtModule,
+    MailModule,
+    FriendModule,
+    AuthModule,
+    FriendlistModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthMiddleware],
@@ -83,6 +93,16 @@ export class AppModule implements NestModule {
         { path: 'favorites', method: RequestMethod.POST },
         { path: 'favorites', method: RequestMethod.GET },
         { path: 'favorites/:id', method: RequestMethod.DELETE },
-      );
+        { path: 'comments/:feedId', method: RequestMethod.POST },
+        { path: 'comments/:commentId', method: RequestMethod.PATCH },
+        { path: 'comments/:commentId', method: RequestMethod.DELETE }
+        );
+    consumer.apply(AuthMiddleware).forRoutes(
+      { path: 'users/update', method: RequestMethod.PATCH },
+      { path: 'users/quit', method: RequestMethod.DELETE },
+      { path: 'friends/send-request', method: RequestMethod.POST },
+      // { path: 'categoty', method: RequestMethod.POST },
+      { path: 'friends/accept-friend', method: RequestMethod.POST },
+    );
   }
 }

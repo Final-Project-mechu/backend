@@ -25,6 +25,10 @@ import { AuthMiddleware } from './auth/auth.middleware';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailModule } from './mail/mail.module';
+import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
+import { FriendModule } from './friend/friend.module';
+import { FriendlistModule } from './friendlist/friendlist.module';
 
 @Module({
   imports: [
@@ -52,6 +56,7 @@ import { MailModule } from './mail/mail.module';
         },
       },
     }),
+    PassportModule.register({ session: false }),
     UsersModule,
     FoodModule,
     CategoryModule,
@@ -62,6 +67,9 @@ import { MailModule } from './mail/mail.module';
     CommentsModule,
     AdvertisementsModule,
     MailModule,
+    FriendModule,
+    AuthModule,
+    FriendlistModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthMiddleware],
@@ -69,6 +77,7 @@ import { MailModule } from './mail/mail.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
+<<<<<<< HEAD
     consumer
       .apply(AuthMiddleware)
       .forRoutes(
@@ -78,5 +87,14 @@ export class AppModule implements NestModule {
         { path: 'comments/:commentId', method: RequestMethod.PATCH },
         { path: 'comments/:commentId', method: RequestMethod.DELETE }
         );
+=======
+    consumer.apply(AuthMiddleware).forRoutes(
+      { path: 'users/update', method: RequestMethod.PATCH },
+      { path: 'users/quit', method: RequestMethod.DELETE },
+      { path: 'friends/send-request', method: RequestMethod.POST },
+      // { path: 'categoty', method: RequestMethod.POST },
+      { path: 'friends/accept-friend', method: RequestMethod.POST },
+    );
+>>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
   }
 }

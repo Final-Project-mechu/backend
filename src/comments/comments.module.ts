@@ -13,7 +13,17 @@ import { CommentsService } from './comments.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Comment, User, Feed])],
   controllers: [CommentsController],
+<<<<<<< HEAD
   providers: [CommentsService,FeedService,UsersService,JwtService,MailService]
   
+=======
+  providers: [
+    CommentsService,
+    FeedService,
+    UsersService,
+    JwtService,
+    MailService,
+  ],
+>>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
 })
 export class CommentsModule {}

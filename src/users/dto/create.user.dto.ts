@@ -29,8 +29,12 @@ export class CreateUserDto {
   readonly refresh_token: string;
 
   @IsString()
+<<<<<<< HEAD
   readonly is_admin: boolean;
 
   @IsString()
   readonly verificationCode: string;
+=======
+  readonly is_admin: number;
+>>>>>>> 4f63e9656fbd0269f1d24c4b36211bdacc127b8f
 }

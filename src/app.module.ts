@@ -30,6 +30,7 @@ import { Ingredient } from './entity/ingredient.entity';
 //import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 //import { FriendModule } from './friend/friend.module';
+import { IngredientModule } from './ingredient/ingredient.module';
 
 @Module({
   imports: [
@@ -70,6 +71,7 @@ import { PassportModule } from '@nestjs/passport';
     CommentsModule,
     AdvertisementsModule,
     MailModule,
+    IngredientModule,
     // FriendModule,
     // AuthModule,
   ],
@@ -88,6 +90,8 @@ export class AppModule implements NestModule {
         { path: 'friends/accept-friend', method: RequestMethod.POST },
         { path: 'category', method: RequestMethod.POST },
         { path: 'category/:category_id', method: RequestMethod.PATCH },
+        { path: 'ingredient', method: RequestMethod.POST },
+        { path: 'ingredient/:ingredient_id', method: RequestMethod.PATCH },
       );
   }
 }

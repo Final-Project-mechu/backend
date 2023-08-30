@@ -156,7 +156,6 @@ export class UsersService {
 
   async updateUser(
     id: number,
-    nick_name: string,
     newNick_name: string,
     password: string,
     newPassword: string,
@@ -198,7 +197,7 @@ export class UsersService {
       where: { email: data.email },
     });
     if (existUser) {
-      throw new ConflictException(`이미 회원 가입된 유저입니다.`);
+      throw new ConflictException(`이미 가입된 회원입니다.`);
     }
 
     const user = this.userRepository.create(data);

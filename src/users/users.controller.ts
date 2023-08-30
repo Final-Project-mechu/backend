@@ -34,7 +34,7 @@ interface RequestWithLocals extends Request {
     };
   };
 }
-@ApiTags('users')
+// @ApiTags('users')
 @Controller('users')
 export class UsersController {
   jwtService: any;
@@ -136,7 +136,6 @@ export class UsersController {
     try {
       await this.userService.updateUser(
         auth.id,
-        data.nick_name,
         data.newNick_name,
         data.password,
         data.newPassword,

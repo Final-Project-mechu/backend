@@ -12,7 +12,6 @@ import _ from 'lodash';
 import { Repository } from 'typeorm';
 import { User } from 'src/entity/user.entity';
 import { MailService } from 'src/mail/mail.service';
-
 let isEmailVerified: Record<string, boolean> = {};
 let codeObject: Record<string, string> = {};
 
@@ -101,6 +100,7 @@ export class UsersService {
       );
     }
 
+    // 지금 테스트때문에 막아놨음
     // // 이메일이 인증된 이메일인지 확인한다.
     // if (!isEmailVerified[email] === true) {
     //   console.log('이메일확인용 콘솔', isEmailVerified);
@@ -114,21 +114,20 @@ export class UsersService {
       password,
     });
 
-    const payload = {
-      id: insertResult.identifiers[0].id,
-      nick_name: insertResult.identifiers[0].nick_name,
-    };
-    const accessToken = await this.jwtService.signAsync(payload);
+    // 로그인할때 액세스토큰을 발급하기 때문에, 회원가입할때는 액세스토큰을 발급하지 않는다.
+    // const payload = {
+    //   id: insertResult.identifiers[0].id,
+    //   nick_name: insertResult.identifiers[0].nick_name,
+    // };
+    // const accessToken = await this.jwtService.signAsync(payload);
 
     const refresh_token_payload = {};
     const refresh_token = await this.jwtService.signAsync(
       refresh_token_payload,
       { expiresIn: '1d' },
     );
-
+    return { refresh_token };
     delete isEmailVerified[email];
-
-    return { accessToken, refresh_token };
   }
 
   async login(email: string, password: string) {
@@ -153,10 +152,15 @@ export class UsersService {
     }
   }
 
-  async updateUser(id: number, password: string, newPassword: string) {
+  async updateUser(
+    id: number,
+    newNick_name: string,
+    password: string,
+    newPassword: string,
+  ) {
     const confirmUserPass = await this.userRepository.findOne({
       where: { id },
-      select: ['password'],
+      select: ['nick_name', 'password'],
     });
 
     if (!confirmUserPass) {
@@ -167,6 +171,7 @@ export class UsersService {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
     return this.userRepository.update(id, {
+      nick_name: newNick_name,
       password: newPassword,
     });
   }
@@ -183,5 +188,17 @@ export class UsersService {
   private generateVerificationCode(): number {
     // 4자리 인증번호 생성 로직
     return Math.floor(1000 + Math.random() * 9000);
+  }
+
+  async createGoogleUser(data: any) {
+    const existUser = await this.userRepository.findOne({
+      where: { email: data.email },
+    });
+    if (existUser) {
+      throw new ConflictException(`이미 가입된 회원입니다.`);
+    }
+
+    const user = this.userRepository.create(data);
+    return await this.userRepository.save(user);
   }
 }

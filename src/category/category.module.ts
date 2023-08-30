@@ -7,6 +7,7 @@ import { Category } from 'src/entity/category.entity';
 import { JwtConfigService } from 'src/config/jwt.config.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Category]),

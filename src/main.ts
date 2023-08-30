@@ -8,8 +8,6 @@ import { ValidationPipe } from '@nestjs/common';
 
 dotenv.config();
 
-declare const module: any;
-
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,

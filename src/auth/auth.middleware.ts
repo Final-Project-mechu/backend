@@ -4,10 +4,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private configService: ConfigService,
+  ) {}
 
   async use(req: any, res: any, next: Function) {
     try {
@@ -24,7 +28,9 @@ export class AuthMiddleware implements NestMiddleware {
           'It is not Bearer type of token or abnormal token',
         );
       }
-      const payload = await this.jwtService.verify(token);
+      const payload = await this.jwtService.verify(token, {
+        secret: this.configService.get('JWT_SECRET_KEY'),
+      });
       req.locals.user = payload;
       next();
     } catch (err) {

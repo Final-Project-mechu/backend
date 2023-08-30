@@ -14,7 +14,8 @@ import { Ingredient } from 'src/entity/ingredient.entity';
 import { FoodUserWeight } from 'src/entity/food.user.weight.entity';
 import { UserAction } from 'src/entity/user.action';
 import { Note } from 'src/entity/note.entity';
-
+import { Friends } from 'src/entity/friend.entity';
+import { Friendlist } from 'src/entity/friendlist.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -42,6 +43,8 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         Ingredient,
         FoodUserWeight,
         UserAction,
+        Friends,
+        Friendlist,
       ],
       synchronize: this.configService.get<string>('DATABASE_SYNCHRONIZE') === 'true',
     };

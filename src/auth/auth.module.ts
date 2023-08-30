@@ -5,11 +5,20 @@ import { GoogleStrategy } from '../auth/utils/GoogleStrategy';
 import { UsersService } from 'src/users/users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entity/user.entity';
-import { JwtService } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { MailService } from 'src/mail/mail.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtConfigService } from 'src/config/jwt.config.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useClass: JwtConfigService,
+      inject: [ConfigService],
+    }),
+  ],
   controllers: [AuthController],
   providers: [
     AuthService,
@@ -18,6 +27,6 @@ import { MailService } from 'src/mail/mail.service';
     JwtService,
     MailService,
   ],
-  exports: [AuthModule],
+  exports: [AuthService],
 })
 export class AuthModule {}

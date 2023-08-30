@@ -25,15 +25,12 @@ import { join } from 'path';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailModule } from './mail/mail.module';
-<<<<<<< HEAD
 import { UsersActionsModule } from './users.actions/users.actions.module';
 import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
-=======
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { FriendModule } from './friend/friend.module';
 import { FriendlistModule } from './friendlist/friendlist.module';
->>>>>>> af7063dd0398e34ee95d4051967b3e39839eebff
 
 @Module({
   imports: [
@@ -74,14 +71,11 @@ import { FriendlistModule } from './friendlist/friendlist.module';
     FavoritesModule,
     JwtModule,
     MailModule,
-<<<<<<< HEAD
     UsersActionsModule,
     FoodsUsersWeightsModule,
-=======
     FriendModule,
     AuthModule,
     FriendlistModule,
->>>>>>> af7063dd0398e34ee95d4051967b3e39839eebff
   ],
   controllers: [AppController],
   providers: [AppService, AuthMiddleware],

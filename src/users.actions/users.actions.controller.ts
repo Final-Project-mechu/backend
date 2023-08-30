@@ -31,7 +31,7 @@ export class UsersActionsController {
   async getExcludedFoodsIngredients() {
     return this.usersActionsService.getExcludedFoodsIngredientsForUser();
   }
-
+  // 체크 on 
   @Post('favorite')
   async addFavoriteFood(
     @Body() createFavoriteDto: CreateFavoriteDto,
@@ -54,4 +54,22 @@ export class UsersActionsController {
       excludeIngredientDto.ingredientName,
     );
   }
+  // 체크 off 
+  @Post('favorite-cancle')
+  async addFavoriteCancleFood(
+    @Body() createFavoriteDto: CreateFavoriteDto,
+  ): Promise<any> {
+    return await this.usersActionsService.cancelFavoriteFood(createFavoriteDto);
+  }
+  @Post('exclude-foods-cancel')
+  async cancelExclusionOfFood(@Body() createFavoriteDto: CreateFavoriteDto,
+  ): Promise<any> {
+      return await this.usersActionsService.cancelExclusionOfFood(createFavoriteDto);
+  }
+  @Post('exclude-ingredients-cancel')
+  async cancelExclusionIngredient(@Body() excludeIngredientDto: ExcludeIngredientDto,
+  ): Promise<any> {
+    return await this.usersActionsService.cancelExclusionIngredient(excludeIngredientDto.ingredientName);
+}
+  
 }

@@ -27,7 +27,7 @@ export class UsersActionsService {
       .leftJoin('user_action', 'ua', 'ua.food_id = f.id')
       .where('ua.user_id = :userId', { userId })
       .andWhere('ua.action IN (:...actions)', {
-        actions: ['favorite', 'favorite_cancle'],
+        actions: ['favorite', 'favorite_cancel'],
       })
       .groupBy('ua.food_id, f.food_name')
       .having('SUM(ua.weight) <> 0')
@@ -123,9 +123,7 @@ export class UsersActionsService {
       `;
 
       const result = await this.userActionRepo.query(getTotalWeightQuery);
-      // console.log('여기이이이이이22222 :', result);
       const totalWeight = result[0].totalWeight;
-      // console.log('여기이이이이이22222 :', totalWeight);
       if (totalWeight > 9) {
         throw new Error('이미 해당 음식이 선호 음식에 추가되어 있습니다.');
       }
@@ -219,64 +217,207 @@ export class UsersActionsService {
   // 제외 재료
   async excludeIngredient(ingredientName: string): Promise<any> {
     try {
-      // 1. Check if the ingredient exists
-      const ingredientResult = await this.ingredientRepo.findOne({
-        where: { ingredient_name: ingredientName },
+        // 1. Check if the ingredient exists
+        const ingredientResult = await this.ingredientRepo.findOne({
+            where: { ingredient_name: ingredientName },
+        });
+
+        if (!ingredientResult) {
+            throw new Error('The ingredient does not exist.');
+        }
+
+        const ingredientId = ingredientResult.id;
+        const userId = 1;
+
+        // Check total weight for this ingredient
+        const getTotalWeightQuery = `
+            SELECT SUM(weight) as totalWeight 
+            FROM user_action 
+            WHERE user_id = ? 
+            AND ingredient_id = ? 
+            AND action IN ('exclude_i', 'exclude_i_cancel');
+        `;
+
+        const result = await this.userActionRepo.query(getTotalWeightQuery, [userId, ingredientId]);
+        const totalWeight = result[0].totalWeight;
+
+        if (totalWeight < -999) {
+            throw new Error('제외 재료가 이미 추가가 되어 있어요.');
+        }
+
+        const getFoodIdQuery = `
+            SELECT food_id 
+            FROM food_ingredient 
+            WHERE ingredient_id = ?
+        `;
+
+        const foodIdResult = await this.foodingredientRepo.query(getFoodIdQuery, [ingredientId]);
+        const foodIds = foodIdResult.map(item => item.food_id);
+
+        if (!foodIds.length) {
+            throw new Error('제외 재료에 따른 음식이 없어요.');
+        }
+
+        const actions = Array(foodIds.length).fill('exclude_i');
+        const weights = Array(foodIds.length).fill(-1000);
+        const ingredientIds = Array(foodIds.length).fill(ingredientId);
+
+        // Create an array of value strings
+        const values = foodIds.map((foodId, index) => 
+            `(${userId}, ${foodId}, ${ingredientIds[index]}, "${actions[index]}", ${weights[index]})`
+        );
+
+        const query = `
+            INSERT INTO user_action(user_id, food_id, ingredient_id, action, weight) 
+            VALUES ${values.join(',')}
+        `;
+
+        return await this.userActionRepo.query(query);
+    } catch (error) {
+        throw error;
+    }
+}
+
+  // 체크 해제 POST
+  async cancelFavoriteFood(createFavoriteDto: CreateFavoriteDto): Promise<any> {
+    const { foodName } = createFavoriteDto;
+
+    try {
+      const foodIdResult = await this.foodRepo.findOne({
+        where: { food_name: foodName },
+      });
+      if (!foodIdResult) {
+        throw new Error('해당 음식은 없습니다.');
+      }
+
+      const foodId = foodIdResult.id;
+      const totalWeight = await this.userActionRepo
+          .createQueryBuilder('user_action')
+          .select('SUM(user_action.weight)', 'totalWeight')
+          .where('user_id = :userId', { userId: 1 })
+          .andWhere('food_id = :foodId', { foodId: foodId })
+          .andWhere('action IN (:...actions)', { actions: ['favorite', 'favorite_cancel'] })
+          .getRawOne();
+
+      if (totalWeight.totalWeight < 9) {
+        throw new Error('해당 음식은 선호도 제거가 되어 있습니다.');
+      }
+
+      return this.userActionRepo
+        .createQueryBuilder()
+        .insert()
+        .into('user_action')
+        .values({
+          user_id: 1, 
+          food_id: foodId,
+          action: 'favorite_cancel',
+          weight: -10
+        })
+        .execute();
+    } catch (error) {
+      throw new Error('Failed to cancel favorite food: ' + error.message);
+    }
+}
+  // 제외 음식 체크 해제 
+  async cancelExclusionOfFood(createFavoriteDto: CreateFavoriteDto): Promise<any> {
+  const { foodName } = createFavoriteDto;
+  try {
+      const foodIdResult = await this.foodRepo.findOne({
+          where: { food_name: foodName },
       });
 
-      if (!ingredientResult) {
-        throw new Error('The ingredient does not exist.');
+      if (!foodIdResult) {
+          throw new Error('해당 음식 없어요');
       }
 
-      const ingredientId = ingredientResult.id;
+      const foodId = foodIdResult.id;
+      const totalWeight = await this.userActionRepo
+          .createQueryBuilder('user_action')
+          .select('SUM(user_action.weight)', 'totalWeight')
+          .where('user_id = :userId', { userId: 1 })
+          .andWhere('food_id = :foodId', { foodId: foodId })
+          .andWhere('action IN (:...actions)', { actions: ['exclude', 'exclude_cancel'] })
+          .getRawOne();
 
-      // Check total weight for this ingredient
-      const getTotalWeightQuery = `
-          SELECT SUM(weight) as totalWeight FROM user_action
-          WHERE user_id = 1
-          AND ingredient_id = ${ingredientId}
-          AND action IN ('exclude_i', 'exclude_i_cancel')
-      `;
-
-      const result = await this.userActionRepo.query(getTotalWeightQuery);
-      const totalWeight = result[0].totalWeight;
-
-      if (totalWeight < -999) {
-        throw new Error('해당 재료가 이미 추가 되어 있어요');
+      if (totalWeight.totalWeight > -999) {
+          throw new Error('제외 음식이 이미 제거가 되어 있어요.');
       }
 
-      const getFoodIdQuery = `
-          SELECT food_id FROM food_ingredient
-          WHERE ingredient_id = ${ingredientId}
-      `;
-
-      const foodIdResult = await this.foodingredientRepo.query(getFoodIdQuery);
-      const foodIds = foodIdResult.map(item => item.food_id);
-
-      if (!foodIds.length) {
-        throw new Error('이 재료와 관련된 음식은 존재하지 않습니다.');
-      }
-
-      const userId = 1;
-      const actions = Array(foodIds.length).fill('exclude_i');
-      const weights = Array(foodIds.length).fill(-1000);
-      const ingredientIds = Array(foodIds.length).fill(ingredientId);
-
-      // Create an array of value strings
-      const values = foodIds.map(
-        (foodId, index) =>
-          `(${userId}, ${foodId}, ${ingredientIds[index]}, "${actions[index]}", ${weights[index]})`,
-      );
-
-      const query = `
-          INSERT INTO user_action (user_id, food_id, ingredient_id, action, weight)
-          VALUES ${values.join(', ')}
-      `;
-
-      return await this.userActionRepo.query(query);
-    } catch (error) {
-      // Handle error here (maybe log it or throw it to be caught higher up)
-      throw error;
-    }
+      return this.userActionRepo
+          .createQueryBuilder()
+          .insert()
+          .into('user_action')
+          .values({
+              user_id: 1,
+              food_id: foodId,
+              action: 'exclude_cancel',
+              weight: 1000
+          })
+          .execute();
+  } catch (error) {
+      throw new Error('Failed to cancel the exclusion of food: ' + error.message);
   }
+} 
+  // 제외 재료 체크 해제
+  async cancelExclusionIngredient(ingredientName: string): Promise<any> {
+    try {
+        const ingredientResult = await this.ingredientRepo.findOne({
+            where: { ingredient_name: ingredientName },
+        });
+
+        if (!ingredientResult) {
+            throw new Error('The ingredient does not exist.');
+        }
+
+        const ingredientId = ingredientResult.id;
+        const userId = 1;  // TODO: Fetch this dynamically
+
+        // Check total weight for this ingredient
+        const getTotalWeightQuery = `
+            SELECT SUM(weight) as totalWeight 
+            FROM user_action 
+            WHERE user_id = ? 
+            AND ingredient_id = ? 
+            AND action IN ('exclude_i', 'exclude_i_cancel');
+        `;
+
+        const result = await this.userActionRepo.query(getTotalWeightQuery, [userId, ingredientId]);
+        const totalWeight = result[0].totalWeight;
+
+        if (totalWeight > -999) {
+            throw new Error('제외 재료가 이미 제거가 되어 있어요.');
+        }
+
+        const getFoodIdQuery = `
+            SELECT food_id 
+            FROM food_ingredient 
+            WHERE ingredient_id = ?
+        `;
+
+        const foodIdResult = await this.foodingredientRepo.query(getFoodIdQuery, [ingredientId]);
+        const foodIds = foodIdResult.map(item => item.food_id);
+
+        if (!foodIds.length) {
+            throw new Error('제외 재료에 따른 음식이 없어요.');
+        }
+
+        const actions = Array(foodIds.length).fill('exclude_i_cancel');
+        const weights = Array(foodIds.length).fill(1000);
+        const ingredientIds = Array(foodIds.length).fill(ingredientId);
+
+
+        const values = foodIds.map((foodId, index) => 
+            `(${userId}, ${foodId}, ${ingredientIds[index]}, "${actions[index]}", ${weights[index]})`
+        );
+
+        const query = `
+            INSERT INTO user_action(user_id, food_id, ingredient_id, action, weight) 
+            VALUES ${values.join(',')}
+        `;
+
+        return await this.userActionRepo.query(query);
+    } catch (error) {
+        throw error;
+    }
+}
 }

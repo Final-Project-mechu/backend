@@ -6,5 +6,5 @@ export class Ingredient {
   id: number;
 
   @Column({ type: 'varchar', length: 255, unique: true })
-  ingredient_name: string;
+  name: string;
 }

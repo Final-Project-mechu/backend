@@ -8,35 +8,39 @@ import {
   UpdateDateColumn,
   JoinColumn,
   Entity,
+  PrimaryColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 
-@Entity({ schema: 'finalpj', name: 'favorate' })
-export class Favorate {
+@Entity({ schema: 'finalpj', name: 'favorite' })
+export class Favorite {
   @PrimaryGeneratedColumn()
-  favorate_id: number;
+  id: number;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user_id: number;
 
   @Column('varchar', { length: 30 })
-  store_name: string;
+  address_name: string;
 
   @Column('varchar', { length: 300 })
-  store_address: string;
+  road_address_name: string;
 
   @Column('varchar', { length: 20 })
-  store_business_hours: string;
-
-  @Column('int')
-  store_contact: number;
-
-  @Column('varchar', { length: 20 })
-  store_keyword: string;
+  kakao_id: number;
 
   @Column('varchar', { length: 300 })
-  store_img: string;
+  category_name: string;
+
+  @Column('varchar', { length: 20 })
+  phone: string;
+
+  @Column('varchar', { length: 300 })
+  place_name: string;
+
+  @Column('varchar', { length: 300 })
+  place_url: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

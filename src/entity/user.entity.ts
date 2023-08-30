@@ -10,11 +10,12 @@ import {
 } from 'typeorm';
 import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
-import { Favorate } from './favorate.entity';
-import { FoodLike } from './food.like.entity';
+import { Favorite } from './favorite.entity';
+import { FoodSurvey } from './food.survey.entity';
 import { FeedLike } from './feed.like.entity';
 import { Friends } from './friend.entity';
 
+//
 @Entity({ schema: 'finalpj', name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()
@@ -23,10 +24,8 @@ export class User {
   feed: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
-  @OneToMany(() => Favorate, favorate => favorate.user_id)
-  favorate: Favorate[];
-  @OneToMany(() => FoodLike, foodLike => foodLike.user_id)
-  foodLike: FoodLike[];
+  @OneToMany(() => Favorite, favorite => favorite.user_id)
+  favorate: Favorite[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)
   feedLike: FeedLike[];
   @OneToMany(() => Friends, friends => friends.user_id)

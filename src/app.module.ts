@@ -17,11 +17,14 @@ import { DislikesIngredientsModule } from './dislikes.ingredients/dislikes.ingre
 import { CommentsModule } from './comments/comments.module';
 import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { FoodModule } from './food/food.module';
+import { FavoritesModule } from './favorites/favorites.module';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtConfigService } from './config/jwt.config.service';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailModule } from './mail/mail.module';
@@ -32,6 +35,9 @@ import { FriendlistModule } from './friendlist/friendlist.module';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -66,6 +72,8 @@ import { FriendlistModule } from './friendlist/friendlist.module';
     DislikesIngredientsModule,
     CommentsModule,
     AdvertisementsModule,
+    FavoritesModule,
+    JwtModule,
     MailModule,
     FriendModule,
     AuthModule,
@@ -77,6 +85,18 @@ import { FriendlistModule } from './friendlist/friendlist.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes(
+        { path: 'users/update', method: RequestMethod.PATCH },
+        { path: 'users/quit', method: RequestMethod.DELETE },
+        { path: 'favorites', method: RequestMethod.POST },
+        { path: 'favorites', method: RequestMethod.GET },
+        { path: 'favorites/:id', method: RequestMethod.DELETE },
+        { path: 'comments/:feedId', method: RequestMethod.POST },
+        { path: 'comments/:commentId', method: RequestMethod.PATCH },
+        { path: 'comments/:commentId', method: RequestMethod.DELETE }
+        );
     consumer.apply(AuthMiddleware).forRoutes(
       { path: 'users/update', method: RequestMethod.PATCH },
       { path: 'users/quit', method: RequestMethod.DELETE },

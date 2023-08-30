@@ -23,8 +23,13 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Request, Response, response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
+
+import { request } from 'http';
+import { Code } from 'typeorm';
+
 // import { NaverAuthGuard } from 'src/auth/utils/naver.auth-guard';
 // import { AuthService } from 'src/auth/auth.service';
+
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -42,31 +47,7 @@ export class UsersController {
     private readonly userService: UsersService, // private readonly authservice: AuthService,
   ) {}
 
-  // @ApiOperation({
-  //   summary: '네이버 로그인',
-  //   description: '네이버 로그인 APi',
-  // })
-  // @UseGuards(NaverAuthGuard)
-  // @Get('/naver')
-  // async naverlogin() {
-  //   return;
-  // }
 
-  // @ApiOperation({
-  //   summary: '네이버 로그인 콜백',
-  //   description: '네이버 로그인 콜백 라우터',
-  // })
-  // @UseGuards(NaverAuthGuard)
-  // @Get('naver/callback')
-  // async callback(@Req() req, @Res() res: Response): Promise<any> {
-  //   if (req.user.type === 'login') {
-  //     console.log('여긴 몇번째로 찍히나? 여긴 1번');
-  //   } else {
-  //   }
-  //   console.log('여긴 몇번째로 찍히나? 여긴 2번');
-  //   res.redirect('http://localhost:3000/users/naver/callback');
-  //   res.end;
-  // }
 
   // 인증번호 전송 엔드포인트
   @Post('/send-code')
@@ -99,6 +80,7 @@ export class UsersController {
   //     return { message: '인증 코드가 유효하지 않습니다.' };
   //   }
   // }
+
 
   // 회원가입
   @Post('/sign')

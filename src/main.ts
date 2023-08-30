@@ -3,8 +3,6 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import dotenv = require('dotenv');
-import session from 'express-session';
-import passport from 'passport';
 import cookieParser = require('cookie-parser');
 import { ValidationPipe } from '@nestjs/common';
 
@@ -16,20 +14,8 @@ async function bootstrap() {
   });
   await app.listen(3000);
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  app.use(
-    session({
-      secret: 'asiodasjoddjdoasddasoidjasiodasdjaiodd',
-      saveUninitialized: false,
-      resave: false,
-      cookie: {
-        maxAge: 60000,
-      },
-    }),
-  );
   app.use(cookieParser());
   app.enableCors();
-  app.use(passport.initialize());
-  app.use(passport.session());
   app.useStaticAssets('public');
   const config = new DocumentBuilder()
     .setTitle('Cats example')

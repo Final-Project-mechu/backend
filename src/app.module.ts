@@ -11,9 +11,6 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { CategoryModule } from './category/category.module';
 import { FeedModule } from './feed/feed.module';
-import { LikesFoodsModule } from './likes.foods/likes.foods.module';
-import { DislikesFoodsModule } from './dislikes.foods/dislikes.foods.module';
-import { DislikesIngredientsModule } from './dislikes.ingredients/dislikes.ingredients.module';
 import { CommentsModule } from './comments/comments.module';
 import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { FoodModule } from './food/food.module';
@@ -25,6 +22,8 @@ import { AuthMiddleware } from './auth/auth.middleware';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailModule } from './mail/mail.module';
+import { UsersActionsModule } from './users.actions/users.actions.module';
+import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
 
 @Module({
   imports: [
@@ -56,12 +55,11 @@ import { MailModule } from './mail/mail.module';
     FoodModule,
     CategoryModule,
     FeedModule,
-    LikesFoodsModule,
-    DislikesFoodsModule,
-    DislikesIngredientsModule,
     CommentsModule,
     AdvertisementsModule,
     MailModule,
+    UsersActionsModule,
+    FoodsUsersWeightsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthMiddleware],

@@ -1,10 +1,9 @@
-import { IsString } from 'class-validator';
-import { Column } from 'typeorm';
+import { IsString, IsNumber } from 'class-validator';
 
 export class CreateFavoriteDto {
   @IsString()
   foodName: string;
-  @Column()
+  @IsNumber()
   userId: number;
 }
 

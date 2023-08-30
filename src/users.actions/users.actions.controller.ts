@@ -10,7 +10,8 @@ import {
 export class UsersActionsController {
   constructor(private readonly usersActionsService: UsersActionsService) {}
 
-  @Get('favorite') // contain 으로 변경 고려
+  // GET 엔드 포인트
+  @Get('favorite')
   async getFavoriteFoods() {
     return this.usersActionsService.getFavoriteFoodsForUser();
   }
@@ -19,57 +20,54 @@ export class UsersActionsController {
   async getLikedFoods() {
     return this.usersActionsService.getLikedFoodsForUser();
   }
+
   @Get('exclude-foods')
   async getExcludedFoods() {
     return this.usersActionsService.getExcludedFoodsForUser();
   }
+
   @Get('exclude-ingredients')
   async getExcludedIngredients() {
     return this.usersActionsService.getExcludedIngredientsForUser();
   }
+
   @Get('exclude-foods-ingredients')
   async getExcludedFoodsIngredients() {
     return this.usersActionsService.getExcludedFoodsIngredientsForUser();
   }
-  // 체크 on 
+
+  // POST 엔드 포인트 추가 생성 
   @Post('favorite')
-  async addFavoriteFood(
-    @Body() createFavoriteDto: CreateFavoriteDto,
-  ): Promise<any> {
-    return this.usersActionsService.addFavoriteFood(createFavoriteDto);
+  async addFavoriteFood(@Body() dto: CreateFavoriteDto) {
+    return this.usersActionsService.addFavoriteFood(dto);
   }
+
   @Post('like')
-  addLikeForFood(@Body('foodName') foodName: string) {
-    return this.usersActionsService.addLikeForFood(foodName);
+  async addLikeForFood(@Body() dto: CreateFavoriteDto) {
+    return this.usersActionsService.addLikeForFood(dto.foodName);
   }
   @Post('exclude-foods')
-  async excludeFood(@Body() excludeFoodDto: ExcludeFoodDto): Promise<any> {
-    return this.usersActionsService.excludeFood(excludeFoodDto.foodName);
+  async excludeFood(@Body() dto: ExcludeFoodDto) {
+    return this.usersActionsService.excludeFood(dto.foodName);
   }
+
   @Post('exclude-ingredients')
-  async excludeIngredient(
-    @Body() excludeIngredientDto: ExcludeIngredientDto,
-  ): Promise<any> {
-    return this.usersActionsService.excludeIngredient(
-      excludeIngredientDto.ingredientName,
-    );
+  async excludeIngredient(@Body() dto: ExcludeIngredientDto) {
+    return this.usersActionsService.excludeIngredient(dto.ingredientName);
   }
-  // 체크 off 
-  @Post('favorite-cancle')
-  async addFavoriteCancleFood(
-    @Body() createFavoriteDto: CreateFavoriteDto,
-  ): Promise<any> {
-    return await this.usersActionsService.cancelFavoriteFood(createFavoriteDto);
+  // POST 엔드 포인트 cancel 생성 
+  @Post('favorite-cancel')
+  async cancelFavoriteFood(@Body() dto: CreateFavoriteDto) {
+    return this.usersActionsService.cancelFavoriteFood(dto);
   }
+
   @Post('exclude-foods-cancel')
-  async cancelExclusionOfFood(@Body() createFavoriteDto: CreateFavoriteDto,
-  ): Promise<any> {
-      return await this.usersActionsService.cancelExclusionOfFood(createFavoriteDto);
+  async cancelExclusionOfFood(@Body() dto: CreateFavoriteDto) {
+    return this.usersActionsService.cancelExclusionOfFood(dto);
   }
+
   @Post('exclude-ingredients-cancel')
-  async cancelExclusionIngredient(@Body() excludeIngredientDto: ExcludeIngredientDto,
-  ): Promise<any> {
-    return await this.usersActionsService.cancelExclusionIngredient(excludeIngredientDto.ingredientName);
-}
-  
+  async cancelExclusionIngredient(@Body() dto: ExcludeIngredientDto) {
+    return this.usersActionsService.cancelExclusionIngredient(dto.ingredientName);
+  }
 }

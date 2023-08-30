@@ -36,11 +36,11 @@ export class CategoryService {
     //   throw new ConflictException(`관리자 기능입니다.`);
     // }
     console.log('요청확인4');
-    await this.categoryReository.insert({
-      id,
-      category_name,
-      top_category_id,
-    });
+    // await this.categoryReository.insert({
+    //   id,
+    //   category_name,
+    //   top_category_id,
+    // });
 
     // query(
     //   `insert into category (category_name , top_category_id)

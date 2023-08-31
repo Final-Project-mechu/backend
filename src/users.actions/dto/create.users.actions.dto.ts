@@ -1,10 +1,8 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreateFavoriteDto {
   @IsString()
   foodName: string;
-  @IsNumber()
-  userId: number;
 }
 
 export class ExcludeFoodDto {

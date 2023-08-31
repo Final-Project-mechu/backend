@@ -64,8 +64,9 @@ export class FeedsController {
   }
 
   @Delete('/:id')
-  deleteFeed(@Param('id') id: number) {
-    return this.feedsService.deleteFeed(id);
+  deleteFeed(@Param('id') id: number, @Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    return this.feedsService.deleteFeed(id, auth.id);
   }
 
   @Get('/:id/like')
@@ -74,12 +75,14 @@ export class FeedsController {
   }
 
   @Post('/:id/like')
-  feedLike(@Param('id') id: number) {
-    return this.feedsService.feedLike(id);
+  feedLike(@Param('id') id: number, @Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    return this.feedsService.feedLike(id, auth.id);
   }
 
   @Delete('/:id/like')
-  feedLikeCancel(@Param('id') id: number) {
-    return this.feedsService.feedLikeCancel(id);
+  feedLikeCancel(@Param('id') id: number, @Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    return this.feedsService.feedLikeCancel(id, auth.id);
   }
 }

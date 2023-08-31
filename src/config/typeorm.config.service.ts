@@ -45,12 +45,12 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         UserAction,
         FoodIngredient,
         Ingredient,
-        // Auth,
-        //Friends,
+        FoodUserWeight,
+        UserAction,
         Friends,
         Friendlist,
       ],
-      synchronize: this.configService.get<boolean>('DATABASE_SYNCHRONIZE'),
+      synchronize: this.configService.get<string>('DATABASE_SYNCHRONIZE') === 'true',
     };
   }
 }

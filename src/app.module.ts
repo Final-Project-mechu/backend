@@ -33,6 +33,8 @@ import { Ingredient } from './entity/ingredient.entity';
 //import { AuthModule } from './auth/auth.module';
 //import { FriendModule } from './friend/friend.module';
 import { IngredientModule } from './ingredient/ingredient.module';
+import { UsersActionsModule } from './users.actions/users.actions.module';
+import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { FriendModule } from './friend/friend.module';
@@ -88,6 +90,8 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
     IngredientModule,
     // FriendModule,
     // AuthModule,
+    UsersActionsModule,
+    FoodsUsersWeightsModule,
     FriendModule,
     AuthModule,
     FriendlistModule,

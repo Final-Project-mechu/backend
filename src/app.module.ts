@@ -122,6 +122,7 @@ export class AppModule implements NestModule {
         { path: 'comments/:commentId', method: RequestMethod.DELETE },
         { path: 'food', method: RequestMethod.POST },
         { path: 'food/:food_id', method: RequestMethod.PATCH },
+        { path: 'foods-ingredients', method: RequestMethod.POST },
         );
     consumer.apply(AuthMiddleware).forRoutes(
       { path: 'users/update', method: RequestMethod.PATCH },

@@ -20,7 +20,7 @@ export class Favorite {
 
   @ManyToOne(() => User, user => user.favorites)
   @JoinColumn({ name: 'user_id' })
-  user_id: number;
+  users: number;
 
   @ManyToOne(() => Feed, feed => feed.favorites)
   @JoinColumn({ name: 'feed_id' })

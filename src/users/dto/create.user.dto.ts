@@ -30,4 +30,7 @@ export class CreateUserDto {
 
   @IsString()
   readonly is_admin: number;
+
+  @IsString()
+  readonly verificationCode: string;
 }

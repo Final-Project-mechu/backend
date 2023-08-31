@@ -90,19 +90,13 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'users/update', method: RequestMethod.PATCH },
         { path: 'users/quit', method: RequestMethod.DELETE },
+        { path: 'users/logout', method: RequestMethod.POST },
         { path: 'favorites', method: RequestMethod.POST },
         { path: 'favorites', method: RequestMethod.GET },
         { path: 'favorites/:id', method: RequestMethod.DELETE },
         { path: 'comments/:feedId', method: RequestMethod.POST },
         { path: 'comments/:commentId', method: RequestMethod.PATCH },
-        { path: 'comments/:commentId', method: RequestMethod.DELETE }
-        );
-    consumer.apply(AuthMiddleware).forRoutes(
-      { path: 'users/update', method: RequestMethod.PATCH },
-      { path: 'users/quit', method: RequestMethod.DELETE },
-      { path: 'friends/send-request', method: RequestMethod.POST },
-      // { path: 'categoty', method: RequestMethod.POST },
-      { path: 'friends/accept-friend', method: RequestMethod.POST },
-    );
+        { path: 'comments/:commentId', method: RequestMethod.DELETE },
+      );
   }
 }

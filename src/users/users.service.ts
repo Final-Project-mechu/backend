@@ -8,7 +8,7 @@ import {
 
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import _ from 'lodash';
+import _, { remove } from 'lodash';
 import { Repository } from 'typeorm';
 import { User } from 'src/entity/user.entity';
 import { MailService } from 'src/mail/mail.service';
@@ -87,7 +87,7 @@ export class UsersService {
   // }
 
   async createUser(
-    is_admin: number,
+    is_admin: string,
     email: string,
     nick_name: string,
     password: string,
@@ -115,11 +115,11 @@ export class UsersService {
     });
 
     // 로그인할때 액세스토큰을 발급하기 때문에, 회원가입할때는 액세스토큰을 발급하지 않는다.
-    // const payload = {
-    //   id: insertResult.identifiers[0].id,
-    //   nick_name: insertResult.identifiers[0].nick_name,
-    // };
-    // const accessToken = await this.jwtService.signAsync(payload);
+    const payload = {
+      id: insertResult.identifiers[0].id,
+      nick_name: insertResult.identifiers[0].nick_name,
+    };
+    const accessToken = await this.jwtService.signAsync(payload);
 
     const refresh_token_payload = {};
     const refresh_token = await this.jwtService.signAsync(
@@ -146,6 +146,7 @@ export class UsersService {
         nick_name: userConfirm.nick_name,
       };
       const accessToken = await this.jwtService.signAsync(payload);
+
       return accessToken;
     } catch (error) {
       throw error;
@@ -176,15 +177,23 @@ export class UsersService {
     });
   }
 
+  // 비밀번호 일치로직 안돌아서 이부분 해결해야함
   async deleteUser(id: number, password: string, passwordConfirm: string) {
-    const confirmUserPass = await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { id },
+      select: ['password'],
     });
-    if (!confirmUserPass && password !== confirmUserPass.password) {
+    if (!user) {
+      throw new UnauthorizedException('사용자를 찾을 수없습니다.');
+    }
+
+    if (password !== user.password) {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
+
     return this.userRepository.softDelete(id);
   }
+
   private generateVerificationCode(): number {
     // 4자리 인증번호 생성 로직
     return Math.floor(1000 + Math.random() * 9000);

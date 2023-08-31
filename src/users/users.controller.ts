@@ -30,7 +30,6 @@ import { Code } from 'typeorm';
 // import { NaverAuthGuard } from 'src/auth/utils/naver.auth-guard';
 // import { AuthService } from 'src/auth/auth.service';
 
-
 interface RequestWithLocals extends Request {
   locals: {
     user: {
@@ -46,8 +45,6 @@ export class UsersController {
   constructor(
     private readonly userService: UsersService, // private readonly authservice: AuthService,
   ) {}
-
-
 
   // 인증번호 전송 엔드포인트
   @Post('/send-code')
@@ -81,7 +78,6 @@ export class UsersController {
   //   }
   // }
 
-
   // 회원가입
   @Post('/sign')
   async createUser(@Body() data: CreateUserDto) {
@@ -104,8 +100,21 @@ export class UsersController {
       data.email,
       data.password,
     );
+    // response.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    // response.header('Access-Control-Allow-Credentials', 'true');
+    // response.header('Access-Control-Allow-Methods', 'POST'); // 이 부분 추가
+    // response.header('Access-Control-Allow-Headers', 'Content-Type'); // 이 부분 추가
     response.cookie('Authentication', 'Bearer ' + authentication);
     return { message: '로그인 성공' };
+  }
+
+  @Post('/logout')
+  async logout(@Res() response: Response, @Req() request: RequestWithLocals) {
+    // const auth = request.locals.user;
+    const pastDate = new Date(0);
+    const logout = response.cookie('Authentication', '', { expires: pastDate });
+
+    return { logout, message: '에러있으면 뱉어라' };
   }
 
   //유저 정보 수정(닉네임, 패스워드)

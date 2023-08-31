@@ -5,18 +5,20 @@ import { AppModule } from './app.module';
 import dotenv = require('dotenv');
 import cookieParser = require('cookie-parser');
 import { ValidationPipe } from '@nestjs/common';
+import { join } from 'path';
 
 dotenv.config();
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    cors: true,
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.enableCors({
+    origin: ['http://127.0.0.1:5500'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
   });
-  await app.listen(3000);
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.use(cookieParser());
-  app.enableCors();
-  app.useStaticAssets('public');
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useStaticAssets(join(__dirname, '../', 'public'));
   const config = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')
@@ -25,5 +27,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  await app.listen(3000);
 }
 bootstrap();

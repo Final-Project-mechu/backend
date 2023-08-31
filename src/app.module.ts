@@ -124,6 +124,7 @@ export class AppModule implements NestModule {
         { path: 'friends/accept-friend', method: RequestMethod.POST },
         { path: 'food', method: RequestMethod.POST },
         { path: 'food/:food_id', method: RequestMethod.PATCH },
-        );
+        { path: 'feeds', method: RequestMethod.POST },
+      );
   }
 }

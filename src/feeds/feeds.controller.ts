@@ -11,7 +11,7 @@ import {
 import { FeedsService } from './feeds.service';
 import { CreateFeedDto } from './dto/create.feeds.dto';
 import { UpdateFeedDto } from './dto/update.feeds.dto';
-import { request } from 'express';
+import { Request } from 'express';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -27,7 +27,7 @@ export class FeedsController {
   constructor(private readonly feedsService: FeedsService) {}
 
   @Post('/')
-  createFeed(@Body() data, @Req() request: RequestWithLocals) {
+  createFeed(@Body() data: any, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
     return this.feedsService.createFeed(
       auth.id,
@@ -43,10 +43,10 @@ export class FeedsController {
     return this.feedsService.getFeeds();
   }
 
-  @Get('/:feed_id')
-  getFeed(@Param() feed_id: number) {
+  @Get('/:feedId')
+  getFeed(@Param() feedId: number) {
     // 피드 상세 보기
-    return this.feedsService.getFeed(feed_id);
+    return this.feedsService.getFeed(feedId);
   }
 
   @Patch('/:id')

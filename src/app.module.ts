@@ -18,6 +18,7 @@ import { FavoritesModule } from './favorites/favorites.module';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Favorite } from './entity/favorite.entity';
 import { JwtConfigService } from './config/jwt.config.service';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -25,12 +26,22 @@ import { join } from 'path';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailModule } from './mail/mail.module';
+import { FoodUserWeight } from './entity/food.user.weight.entity';
+import { UserAction } from './entity/user.action';
+import { FoodIngredient } from './entity/food.ingredient.entity';
+import { Ingredient } from './entity/ingredient.entity';
+//import { AuthModule } from './auth/auth.module';
+//import { FriendModule } from './friend/friend.module';
+import { IngredientModule } from './ingredient/ingredient.module';
 import { UsersActionsModule } from './users.actions/users.actions.module';
 import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { FriendModule } from './friend/friend.module';
 import { FriendlistModule } from './friendlist/friendlist.module';
+import { FoodsIngredientsController } from './foods.ingredients/foods.ingredients.controller';
+import { FoodsIngredientsService } from './foods.ingredients/foods.ingredients.service';
+import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.module';
 
 @Module({
   imports: [
@@ -65,20 +76,29 @@ import { FriendlistModule } from './friendlist/friendlist.module';
     UsersModule,
     FoodModule,
     CategoryModule,
+    FoodUserWeight,
+    UserAction,
+    FoodIngredient,
+    Ingredient,
     FeedModule,
+    Favorite,
     CommentsModule,
     AdvertisementsModule,
     FavoritesModule,
     JwtModule,
     MailModule,
+    IngredientModule,
+    // FriendModule,
+    // AuthModule,
     UsersActionsModule,
     FoodsUsersWeightsModule,
     FriendModule,
     AuthModule,
     FriendlistModule,
+    FoodsIngredientModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, AuthMiddleware],
+  controllers: [AppController, FoodsIngredientsController],
+  providers: [AppService, AuthMiddleware, FoodsIngredientsService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
@@ -88,12 +108,20 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'users/update', method: RequestMethod.PATCH },
         { path: 'users/quit', method: RequestMethod.DELETE },
+        { path: 'friends/send-request', method: RequestMethod.POST },
+        { path: 'friends/accept-friend', method: RequestMethod.POST },
+        { path: 'category', method: RequestMethod.POST },
+        { path: 'category/:category_id', method: RequestMethod.PATCH },
+        { path: 'ingredient', method: RequestMethod.POST },
+        { path: 'ingredient/:ingredient_id', method: RequestMethod.PATCH },
         { path: 'favorites', method: RequestMethod.POST },
         { path: 'favorites', method: RequestMethod.GET },
         { path: 'favorites/:id', method: RequestMethod.DELETE },
         { path: 'comments/:feedId', method: RequestMethod.POST },
         { path: 'comments/:commentId', method: RequestMethod.PATCH },
-        { path: 'comments/:commentId', method: RequestMethod.DELETE }
+        { path: 'comments/:commentId', method: RequestMethod.DELETE },
+        { path: 'food', method: RequestMethod.POST },
+        { path: 'food/:food_id', method: RequestMethod.PATCH },
         );
     consumer.apply(AuthMiddleware).forRoutes(
       { path: 'users/update', method: RequestMethod.PATCH },

@@ -6,20 +6,35 @@ import {
   Param,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { FeedsService } from './feeds.service';
 import { CreateFeedDto } from './dto/create.feeds.dto';
 import { UpdateFeedDto } from './dto/update.feeds.dto';
+import { request } from 'express';
+
+interface RequestWithLocals extends Request {
+  locals: {
+    user: {
+      id: number;
+      nick_name: string;
+    };
+  };
+}
 
 @Controller('feeds')
 export class FeedsController {
   constructor(private readonly feedsService: FeedsService) {}
 
   @Post('/')
-  createFeed(@Body() data: CreateFeedDto) {
-    // favorite_id 가져와야함
-    // const user = request.locals.user
-    return this.feedsService.createFeed(data.title, data.description);
+  createFeed(@Body() data, @Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    return this.feedsService.createFeed(
+      auth.id,
+      data.favorite_id,
+      data.title,
+      data.description,
+    );
   }
 
   @Get('/')

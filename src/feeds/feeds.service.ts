@@ -16,14 +16,24 @@ export class FeedsService {
     @InjectRepository(FeedLike)
     private readonly feedLikeRepository: Repository<FeedLike>,
   ) {}
-  createFeed(title: string, description: string) {
-    return this.feedRepository.insert({ title, description });
+  createFeed(
+    user_id: number,
+    favorite_id: number,
+    title: string,
+    description: string,
+  ) {
+    return this.feedRepository.insert({
+      user_id,
+      favorite_id,
+      title,
+      description,
+    });
   }
   async getFeeds() {
     // 최신순, 좋아요순 생각해야됨(디폴트는 좋아요순)
     // 쿼리문으로 생각해보기 (order by, group by)
     await this.feedRepository.find({
-      where: {deletedAt: null},
+      where: { deletedAt: null },
       select: { title: true },
     });
   }

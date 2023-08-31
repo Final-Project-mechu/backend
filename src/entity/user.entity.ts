@@ -20,12 +20,12 @@ import { Friends } from './friend.entity';
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  // @OneToMany(() => Feed, feed => feed.user_id)
-  // feed: Feed[];
+  @OneToMany(() => Feed, feed => feed.user)
+  feeds: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
   @OneToMany(() => Favorite, favorite => favorite.user_id)
-  favorate: Favorite[];
+  favorites: Favorite[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)
   feedLike: FeedLike[];
   @OneToMany(() => Friends, friends => friends.user_id)

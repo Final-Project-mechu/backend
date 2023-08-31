@@ -47,8 +47,6 @@ export class UsersController {
     private readonly userService: UsersService, // private readonly authservice: AuthService,
   ) {}
 
-
-
   // 인증번호 전송 엔드포인트
   @Post('/send-code')
   async mailSend(@Body('email') email: string, code: string) {
@@ -81,16 +79,17 @@ export class UsersController {
   //   }
   // }
 
-
   // 회원가입
   @Post('/sign')
-  async createUser(@Body() data: CreateUserDto) {
+  async createUser(@Body() data) {
+    console.log(data);
     const { refresh_token } = await this.userService.createUser(
       data.is_admin,
       data.email,
       data.nick_name,
       data.password,
     );
+    console.log(refresh_token);
     return { refresh_token };
   }
 

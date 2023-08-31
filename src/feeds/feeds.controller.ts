@@ -37,40 +37,49 @@ export class FeedsController {
     );
   }
 
-  @Get('/')
+  @Get()
   getFeeds() {
     // 전체 피드 보기
     return this.feedsService.getFeeds();
   }
 
-  @Get('/:feedId')
-  getFeed(@Param() feedId: number) {
-    // 피드 상세 보기
-    return this.feedsService.getFeed(feedId);
+  @Get('/:id')
+  getFeed(@Param('id') id: number) {
+    return this.feedsService.getFeed(id);
   }
 
   @Patch('/:id')
-  updateFeed(@Param() id: number, @Body() data: UpdateFeedDto) {
-    return this.feedsService.updateFeed(id, data.title, data.description);
+  updateFeed(
+    @Param('id') id: number,
+    @Body() data: UpdateFeedDto,
+    @Req() request: RequestWithLocals,
+  ) {
+    const auth = request.locals.user;
+    return this.feedsService.updateFeed(
+      id,
+      auth.id,
+      data.title,
+      data.description,
+    );
   }
 
   @Delete('/:id')
-  deleteFeed(@Param() id: number) {
+  deleteFeed(@Param('id') id: number) {
     return this.feedsService.deleteFeed(id);
   }
 
   @Get('/:id/like')
-  getFeedLikes(@Param() id: number) {
+  getFeedLikes(@Param('id') id: number) {
     return this.feedsService.getFeedLikes(id);
   }
 
   @Post('/:id/like')
-  feedLike(@Param() id: number) {
+  feedLike(@Param('id') id: number) {
     return this.feedsService.feedLike(id);
   }
 
   @Delete('/:id/like')
-  feedLikeCancel(@Param() id: number) {
+  feedLikeCancel(@Param('id') id: number) {
     return this.feedsService.feedLikeCancel(id);
   }
 }

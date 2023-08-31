@@ -39,7 +39,13 @@ export class FeedsService {
       description,
     });
     const createdFeedId = createdFeed.identifiers[0].id;
-    await this.favoriteRepository
+    const favoriteConfirm = await this.favoriteRepository.findOne({
+      where: {id: favorite_id, deletedAt:null}
+    })
+    if(!favoriteConfirm) {
+      return {errorMessage: '이미 삭제된 favorite_id입니다.'}
+    }
+    const deleteFavoriteCart = await this.favoriteRepository
       .createQueryBuilder()
       .update(Favorite)
       .set({
@@ -48,6 +54,7 @@ export class FeedsService {
       })
       .where('id = :id', { id: favorite_id })
       .execute();
+    return deleteFavoriteCart;
   }
 
   async getFeeds() {
@@ -60,13 +67,13 @@ export class FeedsService {
     return allFeeds;
   }
 
-  async getFeed(feedId: number) {
-    // 근본적으로 문제가 있음.
-    console.log('서비스에 id가 들어오는지 확인', feedId);
+  async getFeed(id: number) {
     const findFeed = await this.feedRepository.findOne({
-      where: { id: feedId },
+      where: { id },
     });
-    console.log('잘 찾아오는지 확인', findFeed);
+    if (!findFeed) {
+      return { errorMessage: '잘못된 id입니다.' };
+    }
     return findFeed;
   }
 

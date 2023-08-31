@@ -28,7 +28,7 @@ interface RequestWithLocals extends Request {
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  //카테고리 생성
+  //카테고리 생성  -> 로그인된유저가 admin! 어차피 로그인 했냐안했
   @Post('/')
   async createCategory(
     @Body() data: createCategoryDto,
@@ -52,7 +52,7 @@ export class CategoryController {
   @Patch('/:category_id')
   async updateCategory(
     @Body() data: updateCategoryDto,
-    @Req() request: RequestWithLocals, //여기서 값이 안받아와 진다!?
+    @Req() request: RequestWithLocals,
     @Param('category_id') category_id: number,
   ) {
     console.log('con', category_id, data.category_name, data.top_category_id);

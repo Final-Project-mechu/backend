@@ -5,12 +5,9 @@ export class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar', { length: 10 })
-  name_top: string;
+  @Column('varchar', { length: 255 })
+  category_name: string;
 
-  @Column('int')
-  down_category_id: number;
-
-  @Column('varchar', { length: 10 })
-  down_category_name: string;
+  @Column('int', { nullable: true })
+  top_category_id: number | null;
 }

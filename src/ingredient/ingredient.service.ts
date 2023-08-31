@@ -61,7 +61,7 @@ export class IngredientService {
   //카테고리 전체 조회
   async getIngredientAll() {
     return await this.ingredientReository.query(
-      `select ingredient_name from ingredient;`,
+      `select * from ingredient;`,
     );
   }
 

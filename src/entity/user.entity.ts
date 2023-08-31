@@ -11,7 +11,8 @@ import {
 import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
 import { Favorite } from './favorite.entity';
-import { FoodSurvey } from './food.survey.entity';
+import { FoodUserWeight } from './food.user.weight.entity'; 
+import { UserAction } from './user.action';
 import { FeedLike } from './feed.like.entity';
 import { Friends } from './friend.entity';
 
@@ -24,8 +25,12 @@ export class User {
   feed: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
-  @OneToMany(() => Favorite, favorite => favorite.user_id)
-  favorate: Favorite[];
+  @OneToMany(() => Favorite, favorate => favorate.user_id)
+  favorite: Favorite[];
+  @OneToMany(() => FoodUserWeight, foodUserWeight => foodUserWeight.user_id)
+  foodUserWeight: FoodUserWeight[];
+  @OneToMany(() => UserAction, userAction => userAction.user_id)
+  userAction: UserAction[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)
   feedLike: FeedLike[];
   @OneToMany(() => Friends, friends => friends.user_id)

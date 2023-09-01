@@ -80,7 +80,7 @@ export class UsersActionsService {
       })
       .execute();
   }
-
+  // 선호 음식 체크 조회 
   async getFavoriteFoodsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -99,7 +99,7 @@ export class UsersActionsService {
 
     return results.map(result => result.foodName);
   }
-
+  // 좋아요한 음식 조회
   async getLikedFoodsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -113,7 +113,7 @@ export class UsersActionsService {
 
     return results.map(result => result.foodName);
   }
-
+  // 제외한 음식 조회
   async getExcludedFoodsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -131,7 +131,7 @@ export class UsersActionsService {
       .getRawMany();
     return results.map(result => result.foodName);
   }
-
+  // 제외한 재료 조회 
   async getExcludedIngredientsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -150,7 +150,7 @@ export class UsersActionsService {
 
     return results.map(result => result.ingredientName);
   }
-
+  // 제외한 재료에 따른 음식 조회
   async getExcludedFoodsIngredientsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -168,7 +168,7 @@ export class UsersActionsService {
       .getRawMany();
     return results.map(result => result.foodName);
   }
-
+  // 선호 음식 추가
   async addFavoriteFood(createFavoriteDto: CreateFavoriteDto): Promise<any> {
     const { foodName } = createFavoriteDto;
     const foodId = await this.getEntityIdByName(
@@ -197,7 +197,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 좋아한 음식 추가 (좋아요)
   async addLikeForFood(foodName: string): Promise<any> {
     const foodId = await this.getEntityIdByName(
       this.foodRepo,
@@ -212,7 +212,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 제외 음식 추가
   async excludeFood(foodName: string): Promise<any> {
     const foodId = await this.getEntityIdByName(
       this.foodRepo,
@@ -240,7 +240,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 제외 재료 추가
   async excludeIngredient(ingredientName: string): Promise<any> {
     const ingredientId = await this.getEntityIdByName(
       this.ingredientRepo,
@@ -286,7 +286,7 @@ export class UsersActionsService {
 
     return await this.userActionRepo.query(query);
   }
-
+  // 선호한 음식 체크 해제
   async cancelFavoriteFood(createFavoriteDto: CreateFavoriteDto): Promise<any> {
     const { foodName } = createFavoriteDto;
     const foodId = await this.getEntityIdByName(
@@ -313,7 +313,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 제외한 음식 체크 해제
   async cancelExclusionOfFood(
     createFavoriteDto: CreateFavoriteDto,
   ): Promise<any> {
@@ -342,7 +342,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 제외한 재료 체크 해제
   async cancelExclusionIngredient(ingredientName: string): Promise<any> {
     const ingredientId = await this.getEntityIdByName(
       this.ingredientRepo,

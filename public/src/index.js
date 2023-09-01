@@ -31,25 +31,30 @@ window.addEventListener('click', event => {
 });
 
 // 회원가입 백엔드 연결
+function openModal() {
+  var modal = document.getElementById('signupModal');
+  modal.style.display = 'block';
+}
 
-// 모달 닫는 함수
+// 모달을 닫는 함수
 function closeModal() {
-  const signupModal = document.getElementById('signupModal');
-  signupModal.style.display = 'none';
+  var modal = document.getElementById('signupModal');
+  modal.style.display = 'none';
 }
 
 function verifyEmail() {
-  const email = $('#email').val();
-  console.log(email);
+  const data = {
+    email: $('#email').val(),
+  };
   if (!email) {
     alert('이메일을 입력해주세요');
     return;
   }
   axios
-    .post('http://localhost:3000/users/send-code')
+    .post('http://localhost:3000/users/send-code', data)
     .then(response => {
       console.log(data);
-      closeModal();
+      console.log('이메일정보확인2', email);
       alert('메일을 전송했습니다.');
     })
     .catch(error => {
@@ -77,43 +82,21 @@ function verifyEmail() {
 function verifyCode() {
   const data = {
     email: $('#email').val(),
-    code: $('#code').val(),
+    code: $('#Code').val(), // 여기에서 'Code' 대신 'verifyCode'로 수정
   };
-  axios.post(
-    'http://localhost:3000/users/verify-code',
-    data
-      .then(response => {
-        console.log(data);
-        alert('인증 확인');
-        closeModal();
-        event.preventDefault();
-      })
-      .catch(error => {
-        // 에러 처리
-        alert('인증 실패');
-        event.preventDefault();
-        console.error(error);
-      }),
-  );
-}
 
-// function sendCode() {
-//   const email = document.getElementById('signupEmail').value;
-//   const data = { email, code };
-//   axios
-//     .post('http://localhost:3000/users/send-code', data)
-//     .then(response => {
-//       if (response.status === 200) {
-//         alert('인증번호가 전송되었습니다.');
-//       } else {
-//         alert('인증번호 전송에 실패했습니다.');
-//       }
-//     })
-//     .catch(error => {
-//       alert('인증번호 전송에 실패했습니다.');
-//       console.error(error);
-//     });
-// }
+  axios
+    .post('http://localhost:3000/users/verify-code', data)
+    .then(response => {
+      console.log(data);
+      alert('인증 확인');
+    })
+    .catch(error => {
+      // 에러 처리
+      alert('인증 실패');
+      console.error(error);
+    });
+}
 
 function sign(event) {
   const data = {

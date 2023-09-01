@@ -53,6 +53,7 @@ export class UsersController {
   @Post('/verify-code')
   async verifyCode(@Body('email') email: string, @Body('code') code: string) {
     await this.userService.verifyCode(email, code);
+    console.log('컨트롤러이메일', email, '코드', code);
     return { message: '이메일이 인증되었습니다.' };
   }
 

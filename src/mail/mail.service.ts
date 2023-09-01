@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { privateDecrypt } from 'crypto';
+import e from 'express';
 import * as nodemailer from 'nodemailer';
 import { SentMessageInfo } from 'nodemailer/lib/smtp-transport';
+import { use } from 'passport';
+import { User } from 'src/entity/user.entity';
+import { Repository } from 'typeorm';
 export interface VerificationCodeInfo {
   email: string;
   verificationCode: string;
@@ -10,7 +16,6 @@ const isEmailVerified = {};
 @Injectable()
 export class MailService {
   private gmailTransporter: nodemailer.Transporter<SentMessageInfo>;
-
   constructor() {
     this.gmailTransporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -36,7 +41,7 @@ export class MailService {
       });
       console.log('메일이 전송되었습니다');
     } catch (error) {
-      console.error('메일 전송 중 오류가 발생했습니다:', error);
+      console.log(verificationCode);
     }
   }
 }

@@ -62,6 +62,7 @@ export class UsersService {
   // 메일 인증 확인하는 코드 로직이 필요
   async verifyCode(email: string, code: string) {
     if (codeObject['code'] !== code || codeObject['email'] !== email) {
+      console.log('서비스이메일', email);
       throw new ConflictException(
         '인증 코드 및 인증 이메일이 유효하지 않습니다.',
       );

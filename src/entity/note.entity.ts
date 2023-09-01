@@ -8,10 +8,10 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
-} from 'typeorm';
-
-@Entity({ schema: 'finalpj', name: 'note' })
-export class Note {
+  } from 'typeorm';
+  
+  @Entity({ schema: 'finalpj', name: 'note' })
+  export class Note {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
   @Column('text', { name: 'content' })
@@ -20,4 +20,4 @@ export class Note {
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
-}
+  }

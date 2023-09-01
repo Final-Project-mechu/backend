@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>키워드로 장소검색하고 목록으로 표출하기</title>
+    <link rel="stylesheet" href="./style/index.css" />
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca07a2cd35a8566747953c5991111a1a&libraries=services"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script type="module" src="./src/favorite.js"></script> -->
+    <!-- Axios 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <button
+        class="btn btn-light login-button"
+        data-bs-toggle="modal"
+        data-bs-target="#loginModal"
+      >
+        로그인
+      </button>
+      <div
+        class="modal fade"
+        id="loginModal"
+        tabindex="-1"
+        aria-labelledby="loginModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">로그인</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="email-login" class="form-label">이메일</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email-login"
+                    placeholder="이메일 입력하세요"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="password-login" class="form-label"
+                    >비밀번호</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password-login"
+                    placeholder="비밀번호를 입력하세요"
+                  />
+                </div>
+                <div
+                  class="alert alert-danger"
+                  id="loginError"
+                  style="display: none"
+                ></div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="login">
+                로그인
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="map_wrap">
+      <div
+        id="map"
+        style="width: 100%; height: 100%; position: relative; overflow: hidden"
+      ></div>
+    </div>
+    <div>
+      <button
+        class="favoriteButton"
+        id="favoriteButton"
+        onclick="addToFavorite()"
+      >
+        찜하기
+      </button>
+    </div>
+    <script src="./src/index.js" defer></script>
+    <script src="./src/sign.js" defer></script>
+  </body>
+</html>

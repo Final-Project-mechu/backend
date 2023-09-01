@@ -15,25 +15,28 @@ import { Feed } from './feed.entity';
 @Entity({ schema: 'finalpj', name: 'comment' })
 export class Comment {
   @PrimaryGeneratedColumn()
-  comment_Id: number;
+  id: number;
 
   @Column()
-  comment: string;
+  nick_name: string;
+
+  @Column()
+  contents: string;
+
   @CreateDateColumn()
   createdAt: Date;
+
   @UpdateDateColumn()
   updatedAt: Date;
 
   @DeleteDateColumn({ type: 'timestamp' })
   deletedAt: Date | null;
 
-  @PrimaryColumn()
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user_id: number;
 
-  @PrimaryColumn()
   @ManyToOne(() => Feed)
   @JoinColumn({ name: 'feed_id' })
-  feed_id: number;
+  feedId: number;
 }

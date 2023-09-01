@@ -8,22 +8,27 @@ import {
   UpdateDateColumn,
   JoinColumn,
   Entity,
+  OneToMany,
 } from 'typeorm';
 import { User } from './user.entity';
-import { Favorate } from './favorate.entity';
+import { Favorite } from './favorite.entity';
+import { FeedLike } from './feed.like.entity';
 
 @Entity({ schema: 'finalpj', name: 'feed' })
 export class Feed {
   @PrimaryGeneratedColumn()
-  feed_id: number;
+  id: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, user => user.feeds)
   @JoinColumn({ name: 'user_id' })
+  users: User;
+  @Column({ type: 'int', nullable: false })
   user_id: number;
 
-  @ManyToOne(() => Favorate)
-  @JoinColumn({ name: 'favorate_id' })
-  favorate_id: number;
+  @OneToMany(() => Favorite, favorite => favorite.feeds)
+  favorites: Favorite[];
+  @OneToMany(() => FeedLike, feedLike => feedLike.feed_id)
+  feedLike: FeedLike[];
 
   @Column('varchar', { length: 30 })
   title: string;

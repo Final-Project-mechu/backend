@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
@@ -236,19 +236,142 @@
 
     <!-- Product Section Begin -->
 
-    <form action="#" style="text-align: center; margin-top: 1%">
-      <input type="text" placeholder="입력칸1" />
-      <button type="submit">
-        <span class="icon_search"></span>
-      </button>
-    </form>
+    <div class="col-lg-12">
 
-    <section class="product spad">
-      <div>
-        <form action="#" style="text-align: center">
-          <input type="text" placeholder="입력칸2" />
-          <button type="submit" class="site-btn">검색</button>
-        </form>
+      <div class="featured__controls">
+        <ul>
+          <li class="active" data-filter="*">All</li>
+          <li data-filter=".oranges">선호 음식</li>
+          <li data-filter=".fresh-meat">비선호 음식</li>
+          <li data-filter=".vegetables">비선호 재료</li>
+          <li data-filter=".vegetables">제외 포함된 음식</li>
+          <br>
+
+        </ul>
+      </div>
+
+      <div class="product__details__tab">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              data-toggle="tab"
+              href="#tabs-1"
+              role="tab"
+              aria-selected="true"
+              >Description</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-toggle="tab"
+              href="#tabs-2"
+              role="tab"
+              aria-selected="false"
+              >Information</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-toggle="tab"
+              href="#tabs-3"
+              role="tab"
+              aria-selected="false"
+              >Reviews <span>(1)</span></a
+            >
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tabs-1" role="tabpanel">
+            <div class="product__details__tab__desc">
+              <h6>Products Infomation</h6>
+              <p>
+                Vestibulum ac diam sit amet quam vehicula elementum sed
+                sit amet dui. Pellentesque in ipsum id orci porta dapibus.
+                Proin eget tortor risus. Vivamus suscipit tortor eget
+                felis porttitor volutpat. Vestibulum ac diam sit amet quam
+                vehicula elementum sed sit amet dui. Donec rutrum congue
+                leo eget malesuada. Vivamus suscipit tortor eget felis
+                porttitor volutpat. Curabitur arcu erat, accumsan id
+                imperdiet et, porttitor at sem. Praesent sapien massa,
+                convallis a pellentesque nec, egestas non nisi. Vestibulum
+                ac diam sit amet quam vehicula elementum sed sit amet dui.
+                Vestibulum ante ipsum primis in faucibus orci luctus et
+                ultrices posuere cubilia Curae; Donec velit neque, auctor
+                sit amet aliquam vel, ullamcorper sit amet ligula. Proin
+                eget tortor risus.
+              </p>
+              <p>
+                Praesent sapien massa, convallis a pellentesque nec,
+                egestas non nisi. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Mauris blandit aliquet elit, eget
+                tincidunt nibh pulvinar a. Cras ultricies ligula sed magna
+                dictum porta. Cras ultricies ligula sed magna dictum
+                porta. Sed porttitor lectus nibh. Mauris blandit aliquet
+                elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam
+                sit amet quam vehicula elementum sed sit amet dui. Sed
+                porttitor lectus nibh. Vestibulum ac diam sit amet quam
+                vehicula elementum sed sit amet dui. Proin eget tortor
+                risus.
+              </p>
+            </div>
+          </div>
+          <div class="tab-pane" id="tabs-2" role="tabpanel">
+            <div class="product__details__tab__desc">
+              <h6>Products Infomation</h6>
+              <p>
+                Vestibulum ac diam sit amet quam vehicula elementum sed
+                sit amet dui. Pellentesque in ipsum id orci porta dapibus.
+                Proin eget tortor risus. Vivamus suscipit tortor eget
+                felis porttitor volutpat. Vestibulum ac diam sit amet quam
+                vehicula elementum sed sit amet dui. Donec rutrum congue
+                leo eget malesuada. Vivamus suscipit tortor eget felis
+                porttitor volutpat. Curabitur arcu erat, accumsan id
+                imperdiet et, porttitor at sem. Praesent sapien massa,
+                convallis a pellentesque nec, egestas non nisi. Vestibulum
+                ac diam sit amet quam vehicula elementum sed sit amet dui.
+                Vestibulum ante ipsum primis in faucibus orci luctus et
+                ultrices posuere cubilia Curae; Donec velit neque, auctor
+                sit amet aliquam vel, ullamcorper sit amet ligula. Proin
+                eget tortor risus.
+              </p>
+              <p>
+                Praesent sapien massa, convallis a pellentesque nec,
+                egestas non nisi. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Mauris blandit aliquet elit, eget
+                tincidunt nibh pulvinar a. Cras ultricies ligula sed magna
+                dictum porta. Cras ultricies ligula sed magna dictum
+                porta. Sed porttitor lectus nibh. Mauris blandit aliquet
+                elit, eget tincidunt nibh pulvinar a.
+              </p>
+            </div>
+          </div>
+          <div class="tab-pane" id="tabs-3" role="tabpanel">
+            <div class="product__details__tab__desc">
+              <h6>Products Infomation</h6>
+              <p>
+                Vestibulum ac diam sit amet quam vehicula elementum sed
+                sit amet dui. Pellentesque in ipsum id orci porta dapibus.
+                Proin eget tortor risus. Vivamus suscipit tortor eget
+                felis porttitor volutpat. Vestibulum ac diam sit amet quam
+                vehicula elementum sed sit amet dui. Donec rutrum congue
+                leo eget malesuada. Vivamus suscipit tortor eget felis
+                porttitor volutpat. Curabitur arcu erat, accumsan id
+                imperdiet et, porttitor at sem. Praesent sapien massa,
+                convallis a pellentesque nec, egestas non nisi. Vestibulum
+                ac diam sit amet quam vehicula elementum sed sit amet dui.
+                Vestibulum ante ipsum primis in faucibus orci luctus et
+                ultrices posuere cubilia Curae; Donec velit neque, auctor
+                sit amet aliquam vel, ullamcorper sit amet ligula. Proin
+                eget tortor risus.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
         <!-- <div class="container">
         <div class="row">

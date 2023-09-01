@@ -6,6 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import _, { remove } from 'lodash';
@@ -93,6 +94,9 @@ export class UsersService {
     password: string,
     // 회원가입 로직에서 중복이메일을 한번 더 체크
   ) {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const existUser = await this.getUserInfo(email);
     if (!_.isNil(existUser)) {
       throw new ConflictException(
@@ -101,8 +105,8 @@ export class UsersService {
     }
 
     // 지금 테스트때문에 막아놨음
-    // // 이메일이 인증된 이메일인지 확인한다.
-    // if (!isEmailVerified[email] === true) {
+    // 이메일이 인증된 이메일인지 확인한다.
+    // if (!isEmailVerified['email'] === true) {
     //   console.log('이메일확인용 콘솔', isEmailVerified);
     //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
     // }
@@ -115,11 +119,11 @@ export class UsersService {
     });
 
     // 로그인할때 액세스토큰을 발급하기 때문에, 회원가입할때는 액세스토큰을 발급하지 않는다.
-    const payload = {
-      id: insertResult.identifiers[0].id,
-      nick_name: insertResult.identifiers[0].nick_name,
-    };
-    const accessToken = await this.jwtService.signAsync(payload);
+    // const payload = {
+    //   id: insertResult.identifiers[0].id,
+    //   nick_name: insertResult.identifiers[0].nick_name,
+    // };
+    // const accessToken = await this.jwtService.signAsync(payload);
 
     const refresh_token_payload = {};
     const refresh_token = await this.jwtService.signAsync(

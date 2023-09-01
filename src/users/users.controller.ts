@@ -24,9 +24,6 @@ import { Request, Response, response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
 
-import { request } from 'http';
-import { Code } from 'typeorm';
-
 // import { NaverAuthGuard } from 'src/auth/utils/naver.auth-guard';
 // import { AuthService } from 'src/auth/auth.service';
 
@@ -100,11 +97,10 @@ export class UsersController {
       data.email,
       data.password,
     );
-    // response.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-    // response.header('Access-Control-Allow-Credentials', 'true');
-    // response.header('Access-Control-Allow-Methods', 'POST'); // 이 부분 추가
-    // response.header('Access-Control-Allow-Headers', 'Content-Type'); // 이 부분 추가
-    response.cookie('Authentication', 'Bearer ' + authentication);
+    response.cookie('Authentication', 'Bearer ' + authentication),
+      {
+        httpOnly: true,
+      };
     return { message: '로그인 성공' };
   }
 

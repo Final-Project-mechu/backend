@@ -6,9 +6,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import _ from 'lodash';
+import _, { remove } from 'lodash';
 import { Repository } from 'typeorm';
 import { User } from 'src/entity/user.entity';
 import { MailService } from 'src/mail/mail.service';
@@ -87,12 +88,15 @@ export class UsersService {
   // }
 
   async createUser(
-    is_admin: number,
+    is_admin: string,
     email: string,
     nick_name: string,
     password: string,
     // 회원가입 로직에서 중복이메일을 한번 더 체크
   ) {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const existUser = await this.getUserInfo(email);
     if (!_.isNil(existUser)) {
       throw new ConflictException(
@@ -101,8 +105,8 @@ export class UsersService {
     }
 
     // 지금 테스트때문에 막아놨음
-    // // 이메일이 인증된 이메일인지 확인한다.
-    // if (!isEmailVerified[email] === true) {
+    // 이메일이 인증된 이메일인지 확인한다.
+    // if (!isEmailVerified['email'] === true) {
     //   console.log('이메일확인용 콘솔', isEmailVerified);
     //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
     // }
@@ -146,6 +150,7 @@ export class UsersService {
         nick_name: userConfirm.nick_name,
       };
       const accessToken = await this.jwtService.signAsync(payload);
+
       return accessToken;
     } catch (error) {
       throw error;
@@ -176,15 +181,23 @@ export class UsersService {
     });
   }
 
+  // 비밀번호 일치로직 안돌아서 이부분 해결해야함
   async deleteUser(id: number, password: string, passwordConfirm: string) {
-    const confirmUserPass = await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { id },
+      select: ['password'],
     });
-    if (!confirmUserPass && password !== confirmUserPass.password) {
+    if (!user) {
+      throw new UnauthorizedException('사용자를 찾을 수없습니다.');
+    }
+
+    if (password !== user.password) {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
+
     return this.userRepository.softDelete(id);
   }
+
   private generateVerificationCode(): number {
     // 4자리 인증번호 생성 로직
     return Math.floor(1000 + Math.random() * 9000);

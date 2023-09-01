@@ -3,8 +3,10 @@ import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import { config } from 'dotenv';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 import { ConflictException, Injectable } from '@nestjs/common';
+import { object } from '@hapi/joi';
 
 config();
 
@@ -13,6 +15,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
     private readonly userService: UsersService,
     private readonly jwtservice: JwtService,
+    private readonly configserviece: ConfigService,
   ) {
     super({
       clientID:
@@ -38,9 +41,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     if (existingUser) {
       const jwtPayload = { email: emails[0].value };
       console.log('페이로드', jwtPayload);
-      const token = this.jwtservice.signAsync(jwtPayload);
-      console.log('토큰', token);
-      return done(null, { user: existingUser, token });
+      const token = await this.jwtservice.signAsync(jwtPayload, {
+        secret: this.configserviece.get('JWT_SECRET_KEY'),
+      });
+      return {
+        accessToken: 'Bearer ' + token,
+      };
     }
 
     const user = {

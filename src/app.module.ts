@@ -108,6 +108,7 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'users/update', method: RequestMethod.PATCH },
         { path: 'users/quit', method: RequestMethod.DELETE },
+        { path: 'users/logout', method: RequestMethod.POST },
         { path: 'friends/send-request', method: RequestMethod.POST },
         { path: 'friends/accept-friend', method: RequestMethod.POST },
         { path: 'category', method: RequestMethod.POST },
@@ -123,12 +124,5 @@ export class AppModule implements NestModule {
         { path: 'food', method: RequestMethod.POST },
         { path: 'food/:food_id', method: RequestMethod.PATCH },
         );
-    consumer.apply(AuthMiddleware).forRoutes(
-      { path: 'users/update', method: RequestMethod.PATCH },
-      { path: 'users/quit', method: RequestMethod.DELETE },
-      { path: 'friends/send-request', method: RequestMethod.POST },
-      // { path: 'categoty', method: RequestMethod.POST },
-      { path: 'friends/accept-friend', method: RequestMethod.POST },
-    );
   }
 }

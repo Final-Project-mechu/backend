@@ -4,6 +4,7 @@ import {
   IsEmail,
   MinLength,
   MaxLength,
+  IsNumber,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -26,11 +27,5 @@ export class CreateUserDto {
   readonly nick_name: string;
 
   @IsString()
-  readonly refresh_token: string;
-
-  @IsString()
-  readonly is_admin: number;
-
-  @IsString()
-  readonly verificationCode: string;
+  readonly is_admin: string;
 }

@@ -4,6 +4,7 @@ import {
   CreateFavoriteDto,
   ExcludeFoodDto,
   ExcludeIngredientDto,
+  RandomFoodDto,
 } from './dto/create.users.actions.dto';
 
 @Controller('user-action')
@@ -70,4 +71,9 @@ export class UsersActionsController {
   async cancelExclusionIngredient(@Body() dto: ExcludeIngredientDto) {
     return this.usersActionsService.cancelExclusionIngredient(dto.ingredientName);
   }
+
+  @Post('random-weighted-foods')
+async getRandomWeightedFood(@Body() dto: RandomFoodDto) {
+    return this.usersActionsService.getRandomWeightedFood(dto.category_id);
+}
 }

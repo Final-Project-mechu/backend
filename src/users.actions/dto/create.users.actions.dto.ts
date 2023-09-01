@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateFavoriteDto {
   @IsString()
@@ -12,4 +12,9 @@ export class ExcludeFoodDto {
 
 export class ExcludeIngredientDto {
   readonly ingredientName: string;
+}
+
+export class RandomFoodDto {
+  @IsNumber()
+  category_id: number;
 }

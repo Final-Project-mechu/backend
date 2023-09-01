@@ -6,11 +6,19 @@ import { Food } from 'src/entity/food.entity';
 import { Ingredient } from 'src/entity/ingredient.entity';
 import { CreateFavoriteDto } from './dto/create.users.actions.dto';
 import { FoodIngredient } from 'src/entity/food.ingredient.entity';
+import { Category } from 'src/entity/category.entity';
 
 const DEFAULT_USER_ID = 1;
 const FAVORITE_WEIGHT = 10;
 const LIKE_WEIGHT = 1;
 const EXCLUDE_WEIGHT = -1000;
+interface FoodWeight {
+  foodId: number;
+  categoryId: number;
+  weight: number;
+  probability?: number;
+  cumulativeProbability?: number;
+}
 
 @Injectable()
 export class UsersActionsService {
@@ -379,5 +387,87 @@ export class UsersActionsService {
     `;
 
     return await this.userActionRepo.query(query);
+  }
+
+  // 음식 추천 룰렛
+  async getRandomWeightedFood(
+    categoryId: number,
+    userId: number = DEFAULT_USER_ID,
+  ): Promise<string> {
+    // Step 1: Fetch all foods and initialize their weights to 10
+    const foods = await this.foodRepo.find();
+    const foodsWeights: FoodWeight[] = foods.map(food => ({
+      foodId: food.id,
+      categoryId: food.category_id,
+      weight: 10, // Basic weight
+    }));
+    // console.log("확인용1 : ",foods)
+    // console.log("확인용2 : ",foodsWeights)
+
+    // Step 2: Filter foods based on the provided category_id
+    const filteredFoods = foodsWeights.filter(
+      food => food.categoryId === categoryId,
+    );
+    console.log('확인용3 : ', filteredFoods);
+
+    // Step 3: Adjust the weights based on user actions
+    for (const foodWeight of filteredFoods) {
+      const userActionWeight = await this.userActionRepo
+        .createQueryBuilder('ua')
+        .select('SUM(ua.weight)', 'totalWeight')
+        .where('ua.user_id = :userId', { userId })
+        .andWhere('ua.food_id = :foodId', { foodId: foodWeight.foodId })
+        .getRawOne();
+
+      // Update the weight based on user actions
+      const additionalWeight =
+        userActionWeight && userActionWeight.totalWeight
+          ? parseInt(userActionWeight.totalWeight)
+          : 0;
+      foodWeight.weight += additionalWeight;
+    }
+    console.log('확인용5 : ', filteredFoods);
+
+    // Step 4: Exclude foods with weights less than -500
+    const validFoods = filteredFoods.filter(
+      foodWeight => foodWeight.weight > -500,
+    );
+
+    // Step 5: Calculate the probability for each valid food
+    const totalWeight = validFoods.reduce((acc, food) => acc + food.weight, 0);
+    validFoods.forEach(food => {
+      food.probability = food.weight / totalWeight;
+    });
+    // console.log("확인용a : ",totalWeight)
+    // Step 6: Calculate cumulative probability for random selection
+    let cumulativeProbability = 0;
+    validFoods.forEach(food => {
+      food.cumulativeProbability = cumulativeProbability + food.probability;
+      cumulativeProbability = food.cumulativeProbability;
+    });
+
+    // Step 7: Perform random weighted selection
+    const randomValue = Math.random();
+    // console.log("확인용x : ",randomValue)
+    const selectedFood = validFoods.find((food, index) => {
+      if (index === 0) {
+        return randomValue < food.cumulativeProbability;
+      }
+      return (
+        randomValue >= validFoods[index - 1].cumulativeProbability &&
+        randomValue < food.cumulativeProbability
+      );
+    });
+    // console.log("확인용xxx : ",selectedFood)
+    // Step 8: Return the selected food's name or throw an error if no food was selected
+    if (!selectedFood) {
+      throw new BadRequestException(
+        'Failed to select a food based on the given weights.',
+      );
+    }
+    const food = await this.foodRepo.findOne({
+      where: { id: selectedFood.foodId },
+    });
+    return food?.food_name || 'No food found';
   }
 }

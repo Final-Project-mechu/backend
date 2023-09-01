@@ -39,7 +39,6 @@ export class FeedsController {
 
   @Get()
   getFeeds() {
-    // 전체 피드 보기
     return this.feedsService.getFeeds();
   }
 

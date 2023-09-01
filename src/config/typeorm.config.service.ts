@@ -8,13 +8,14 @@ import { Comment } from 'src/entity/comment.entity';
 import { Favorite } from 'src/entity/favorite.entity';
 import { Category } from 'src/entity/category.entity';
 import { Food } from 'src/entity/food.entity';
-import { FoodSurvey } from 'src/entity/food.survey.entity';
 import { FoodImg } from 'src/entity/food.img.entity';
+import { Note } from 'src/entity/note.entity';
 import { FoodIngredient } from 'src/entity/food.ingredient.entity';
 import { Ingredient } from 'src/entity/ingredient.entity';
-import { UserDislikedFood } from 'src/entity/user.disliked.food.entity';
-import { UserDislikedIngredient } from 'src/entity/user.disliked.ingredient.entity';
-import { Note } from 'src/entity/note.entity';
+import { FoodUserWeight } from 'src/entity/food.user.weight.entity';
+import { UserAction } from 'src/entity/user.action';
+//import { Auth } from 'src/entity/auth.entity';
+//import { Friends } from 'src/entity/friend.entity';
 import { Friends } from 'src/entity/friend.entity';
 import { Friendlist } from 'src/entity/friendlist.entity';
 
@@ -40,15 +41,16 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         FoodImg,
         FeedLike,
         Comment,
-        FoodSurvey,
+        FoodUserWeight,
+        UserAction,
         FoodIngredient,
         Ingredient,
-        UserDislikedFood,
-        UserDislikedIngredient,
+        FoodUserWeight,
+        UserAction,
         Friends,
         Friendlist,
       ],
-      synchronize: this.configService.get<boolean>('DATABASE_SYNCHRONIZE'),
+      synchronize: this.configService.get<string>('DATABASE_SYNCHRONIZE') === 'true',
     };
   }
 }

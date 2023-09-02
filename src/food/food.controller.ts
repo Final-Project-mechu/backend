@@ -41,7 +41,7 @@ export class FoodController {
         data.food_name,
         data.category_id,
       );
-      return { message: '카테고리 생성 완료' };
+      return { message: '음식 생성 완료' };
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -61,6 +61,7 @@ export class FoodController {
       data.food_name,
       data.category_id,
     );
+    return { message: '음식 변경 완료' };
   }
 
   //음식 전체조회
@@ -84,7 +85,7 @@ export class FoodController {
     @Param('id') id: number,
   ) {
     await this.foodService.deleteFood(id);
-    return { message: '카테고리 삭제 완료.' };
+    return { message: '음식 삭제 완료.' };
   }
 
 

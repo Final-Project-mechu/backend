@@ -39,8 +39,6 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { FriendModule } from './friend/friend.module';
 import { FriendlistModule } from './friendlist/friendlist.module';
-import { FoodsIngredientsController } from './foods.ingredients/foods.ingredients.controller';
-import { FoodsIngredientsService } from './foods.ingredients/foods.ingredients.service';
 import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.module';
 
 @Module({
@@ -97,8 +95,8 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
     FriendlistModule,
     FoodsIngredientModule,
   ],
-  controllers: [AppController, FoodsIngredientsController],
-  providers: [AppService, AuthMiddleware, FoodsIngredientsService],
+  controllers: [AppController, ],
+  providers: [AppService, AuthMiddleware,],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

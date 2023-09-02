@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
+import { UsersService } from 'src/users/users.service';
 
 // type JwtPayload
 interface JwtPayload {
@@ -25,7 +26,10 @@ export class AuthController {
   getHello(): any {
     throw new Error('Method not implemented.');
   }
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UsersService,
+  ) {}
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
@@ -37,10 +41,10 @@ export class AuthController {
     return this.authService.googleLogin(req);
   }
 
-  @Get('logout')
-  logout(@Req() req, @Res() res) {
-    req.logout(); // Passport logout
-    req.session.destroy(); // Destroy session
-    res.redirect('/'); // Redirect to homepage or login page
-  }
+  // @Get('logout')
+  // logout(@Req() req, @Res() res) {
+  //   req.logout(); // Passport logout
+  //   req.session.destroy(); // Destroy session
+  //   res.redirect('/'); // Redirect to homepage or login page
+  // }
 }

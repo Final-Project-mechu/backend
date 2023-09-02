@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
 import { Favorite } from './favorite.entity';
@@ -21,12 +22,12 @@ import { Friends } from './friend.entity';
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @OneToMany(() => Feed, feed => feed.user_id)
-  feed: Feed[];
+  @OneToMany(() => Feed, feed => feed.users)
+  feeds: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
-  @OneToMany(() => Favorite, favorate => favorate.user_id)
-  favorite: Favorite[];
+  @OneToMany(() => Favorite, favorate => favorate.users)
+  favorites: Favorite[];
   @OneToMany(() => FoodUserWeight, foodUserWeight => foodUserWeight.user_id)
   foodUserWeight: FoodUserWeight[];
   @OneToMany(() => UserAction, userAction => userAction.user_id)
@@ -38,15 +39,15 @@ export class User {
   @Index({ unique: true })
   @Column('varchar')
   email: string;
-  @Column('int', { default: 0 })
-  is_admin: number;
+  @Column('varchar')
+  is_admin: string;
   @Column('varchar', { length: 10 })
   nick_name: string;
   @Column('varchar', { select: false })
   password: string;
   @Column('varchar', {
     select: false,
-    default: 'your_default_refresh_token_value',
+    default: uuidv4(),
   })
   refresh_token: string;
   @CreateDateColumn()

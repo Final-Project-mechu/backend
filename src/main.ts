@@ -6,9 +6,7 @@ import dotenv = require('dotenv');
 import cookieParser = require('cookie-parser');
 import { ValidationPipe } from '@nestjs/common';
 import { join } from 'path';
-
 dotenv.config();
-
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config = new DocumentBuilder()

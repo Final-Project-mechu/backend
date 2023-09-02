@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
@@ -65,7 +65,7 @@
       <nav class="humberger__menu__nav mobile-menu">
         <ul>
           <li class="active"><a href="./index.html">Home</a></li>
-          <li><a href="./menu-subscribe.html">Shop</a></li>
+          <li><a href="./shop-grid.html">Shop</a></li>
           <li>
             <a href="#">Pages</a>
             <ul class="header__menu__dropdown">
@@ -95,17 +95,21 @@
     </div>
     <!-- Humberger End -->
 
+    <!--여기부터-->
+    <!--주석 처리한 부분은 필요 없다고 생각될 경우 제거 예정입니다.-->
     <!-- Header Section Begin -->
     <header class="header">
       <div class="header__top">
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
-              <div class="header__top__left"></div>
+              <div class="header__top__left">
+                <ul></ul>
+              </div>
             </div>
             <div class="col-lg-6">
               <div class="header__top__right">
-                <div class="header__top__right__auth">
+                <div class="header__top__right__social">
                   <a href="#"><i class="fa fa-github"></i></a>
                 </div>
               </div>
@@ -113,8 +117,6 @@
           </div>
         </div>
       </div>
-      <!--여기div라인부터 div가 끝나는 라인까지 모든 html에 복붙-->
-      <!--다른 html에서는 div class container의 div부터 해당 div가 끝나는 라인까지 복붙하면 됩니다. -->
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
@@ -129,114 +131,159 @@
                 <li><a href="./index.html">홈</a></li>
                 <li><a href="./preference.html">선호도</a></li>
                 <li><a href="./foodlist.html">메뉴판</a></li>
-                <li class="active">
-                  <a href="./menu-subscribe.html">메뉴 추천</a>
-                </li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
                 <li><a href="./feed.html">피드</a></li>
               </ul>
             </nav>
           </div>
-          <div class="col-lg-3"></div>
+          <!--모든 페이지에 적용하려면 컨테이너 col-lg-6의 </div> 라인 밑에 242번라인~247번라인을 복붙하면 됩니다.-->
+          <div class="col-lg-3">
+            <div class="header__cart">
+              <div class="header__cart__price"></div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
+    <!-- Header Section End -->
 
-    <div class="meal-all">
-      <h2>메뉴 추천받기</h2>
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+      <div class="container">
+        <!-- <div class="row">
+          <div class="col-lg-3">
+            <div class="hero__categories">
+              <div class="hero__categories__all">
+                <i class="fa fa-bars"></i>
+                <span>All departments</span>
+              </div>
+              <ul>
+                <li><a href="#">Fresh Meat</a></li>
+                <li><a href="#">Vegetables</a></li>
+                <li><a href="#">Fruit & Nut Gifts</a></li>
+                <li><a href="#">Fresh Berries</a></li>
+                <li><a href="#">Ocean Foods</a></li>
+                <li><a href="#">Butter & Eggs</a></li>
+                <li><a href="#">Fastfood</a></li>
+                <li><a href="#">Fresh Onion</a></li>
+                <li><a href="#">Papayaya & Crisps</a></li>
+                <li><a href="#">Oatmeal</a></li>
+                <li><a href="#">Fresh Bananas</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-9">
+            <div class="hero__search">
+              <div class="hero__search__form">
+                <form action="#">
+                  <div class="hero__search__categories">
+                    All Categories
+                    <span class="arrow_carrot-down"></span>
+                  </div>
+                  <input type="text" placeholder="What do yo u need?" />
+                  <button type="submit" class="site-btn">SEARCH</button>
+                </form>
+              </div>
+              <div class="hero__search__phone">
+                <div class="hero__search__phone__icon">
+                  <i class="fa fa-phone"></i>
+                </div>
+                <div class="hero__search__phone__text">
+                  <h5>+65 11.188.888</h5>
+                  <span>support 24/7 time</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </section>
+    <!-- Hero Section End -->
+    <!-- Contact Section Begin -->
+    <section class="contact spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+            <!-- <div class="contact__widget">
+              <span class="icon_phone"></span>
+              <h4>Phone</h4>
+              <p>+01-3-8888-6868</p>
+            </div> -->
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+            <!-- <div class="contact__widget">
+              <span class="icon_pin_alt"></span>
+              <h4>Address</h4>
+              <p>60-49 Road 11378 New York</p>
+            </div> -->
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+            <!-- <div class="contact__widget">
+              <span class="icon_clock_alt"></span>
+              <h4>Open time</h4>
+              <p>10:00 am to 23:00 pm</p>
+            </div> -->
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+            <!-- <div class="contact__widget">
+              <span class="icon_mail_alt"></span>
+              <h4>Email</h4>
+              <p>hello@colorlib.com</p>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Section End -->
 
-      <div class="image-container">
-        <img src="/img/simsimi.png" alt="" class="center-image" />
+    <!-- Map Begin -->
+    <!-- <div class="map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49116.39176087041!2d-86.41867791216099!3d39.69977417971648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886ca48c841038a1%3A0x70cfba96bf847f0!2sPlainfield%2C%20IN%2C%20USA!5e0!3m2!1sen!2sbd!4v1586106673811!5m2!1sen!2sbd"
+        height="500"
+        style="border: 0"
+        allowfullscreen=""
+        aria-hidden="false"
+        tabindex="0"
+      ></iframe>
+      <div class="map-inside">
+        <i class="icon_pin"></i>
+        <div class="inside-widget">
+          <h4>New York</h4>
+          <ul>
+            <li>Phone: +12-345-6789</li>
+            <li>Add: 16 Creek Ave. Farmingdale, NY</li>
+          </ul>
+        </div>
       </div>
+    </div> -->
+    <!-- Map End -->
 
-      <div class="filter-buttons">
-        <button id="top_category_01" class="filter-button" category="meal">
-          식사
-        </button>
-        <button id="top_category_02" class="filter-button" category="dessert">
-          디저트
-        </button>
+    <!-- Contact Form Begin -->
+    <div class="contact-form spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="contact__form__title">
+              <h2>이용 약관</h2>
+            </div>
+          </div>
+        </div>
+        <form action="#">
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <p>1. 약관 1~~~</p>
+              <br />
+              <p>2. 약관 2~~~</p>
+              <br />
+              <p>3. 약관 3~~~</p>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="sub-filter-buttons">
-        <button
-          id="top_category_03"
-          class="sub-filter-button"
-          category="korean"
-        >
-          한식
-        </button>
-        <button
-          id="top_category_04"
-          class="sub-filter-button"
-          category="chinese"
-        >
-          중식
-        </button>
-        <button
-          id="top_category_05"
-          class="sub-filter-button"
-          category="japanese"
-        >
-          일식
-        </button>
-        <button
-          id="top_category_06"
-          class="sub-filter-button"
-          category="western"
-        >
-          양식
-        </button>
-        <button
-          id="top_category_07"
-          class="sub-filter-button"
-          category="indian"
-        >
-          인도식
-        </button>
-      </div>
-      <div class="sub-filter-buttons">
-        <button
-          id="top_category_08"
-          class="sub-filter-button"
-          category="coffee"
-        >
-          커피
-        </button>
-        <button id="top_category_09" class="sub-filter-button" category="cake">
-          케이크
-        </button>
-        <button id="top_category_10" class="sub-filter-button" category="bread">
-          빵
-        </button>
-        <button
-          id="top_category_11"
-          class="sub-filter-button"
-          category="tanghulu"
-        >
-          탕후루
-        </button>
-      </div>
-      <main>
-        <div class="food-item meal">식사가 선택되었습니다.</div>
-        <div class="food-item korean">한식이 선택되었습니다.</div>
-        <div class="food-item chinese">중식이 선택되었습니다.</div>
-        <div class="food-item japanese">일식이 선택되었습니다.</div>
-        <div class="food-item western">양식이 선택되었습니다.</div>
-        <div class="food-item indian">인도 음식이 선택되었습니다.</div>
-        <div class="food-item dessert">디저트가 선택되었습니다.</div>
-        <div class="food-item coffee">커피가 선택되었습니다.</div>
-        <div class="food-item cake">케잌이 선택되었습니다.</div>
-        <div class="food-item bread">빵이 선택되었습니다.</div>
-        <div class="food-item tanghulu">탕후루가 선택되었습니다.</div>
-      </main>
     </div>
+    <!-- Contact Form End -->
 
-    <div class="button-container2">
-      <button class="button">메뉴 추천받기!</button>
-    </div>
-
-    <div class="button-container3">
-      <button class="button">맛집 추천받기!</button>
-    </div>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
       <div class="container">
@@ -268,20 +315,46 @@
             <div class="footer__widget">
               <h6>팀 점메추저메추 깃허브</h6>
               <p></p>
-
+              <!-- <form action="#">
+              <input type="text" placeholder="Enter your mail" />
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form> -->
               <div class="footer__widget__social">
                 <a href="https://github.com/Final-Project-mechu"
                   ><i class="fa fa-github"></i
                 ></a>
+                <!-- <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a> -->
               </div>
             </div>
           </div>
         </div>
-        <div class="row"></div>
+        <div class="row">
+          <!-- <div class="col-lg-12">
+          <div class="footer__copyright">
+            <div class="footer__copyright__text">
+              <p>
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                All rights reserved | This template is made with
+                <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="https://colorlib.com" target="_blank">Colorlib</a>
+
+              </p>
+            </div>
+            <div class="footer__copyright__payment">
+              <img src="img/payment-item.png" alt="" />
+            </div>
+          </div>
+        </div> -->
+        </div>
       </div>
     </footer>
     <!-- Footer Section End -->
-    <script src="./src/mechu.js" defer></script>
+
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

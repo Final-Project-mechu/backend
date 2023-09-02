@@ -115,6 +115,8 @@
           </div>
         </div>
       </div>
+      <!--216라인부터 245라인까지 모든 html에 복붙-->
+      <!--다른 html에서는 div class container의 div부터 해당 div가 끝나는 라인까지 복붙하면 됩니다. -->
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
@@ -122,44 +124,22 @@
               <a href="./index.html"><img src="img/logo.png" alt="" /></a>
             </div>
           </div>
+          <nav class="humberger__menu__nav mobile-menu"></nav>
           <div class="col-lg-6">
             <nav class="header__menu">
               <ul>
                 <li><a href="./index.html">홈</a></li>
-                <li class="active">
-                  <a href="./menu-subscribe.html">메뉴 추천</a>
-                </li>
-                <li>
-                  <a href="#">추가 페이지</a>
-                  <ul class="header__menu__dropdown">
-                    <li><a href="./contact.html">이용 약관</a></li>
-                  </ul>
-                </li>
+                <li><a href="./preference.html">선호도</a></li>
+                <li><a href="./foodlist.html">메뉴판</a></li>
+                <li class="active"><a href="./menu-subscribe.html">메뉴 추천</a></li>
                 <li><a href="./feed.html">피드</a></li>
-                <li><a href="./shoping-cart.html">메뉴판</a></li>
               </ul>
             </nav>
           </div>
           <div class="col-lg-3">
-            <!-- <div class="header__cart">
-              <ul>
-                <li>
-                  <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
-                </li>
-                <li>
-                  <a href="#"
-                    ><i class="fa fa-shopping-bag"></i> <span>3</span></a
-                  >
-                </li>
-              </ul>
-              <div class="header__cart__price">item: <span>$150.00</span></div>
-            </div> -->
+            </div>
           </div>
         </div>
-        <div class="humberger__open">
-          <i class="fa fa-bars"></i>
-        </div>
-      </div>
     </header>
     <!-- Header Section End -->
 
@@ -216,41 +196,61 @@
     </section>
     <!-- Hero Section End -->
 
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="breadcrumb__text">
-              <h2>점메추저메추</h2>
-              <div class="breadcrumb__option">
-                <a href="./index.html">홈으로</a>
-                <span>메뉴 추천 페이지</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Breadcrumb Section End -->
 
     <!-- Product Section Begin -->
 
-    <div class="col-lg-12">
+    <div class="meal-all">
+      <h2>메뉴 추천받기</h2>
 
-      <div class="featured__controls">
-        <ul>
-          <li class="active" data-filter="*">All</li>
-          <li data-filter=".oranges">선호 음식</li>
-          <li data-filter=".fresh-meat">비선호 음식</li>
-          <li data-filter=".vegetables">비선호 재료</li>
-          <li data-filter=".vegetables">제외 포함된 음식</li>
-          <br>
+            <div class="image-container" >
+              <img src="/img/simsimi.png" alt="" class="center-image" >
+           </div>
 
-        </ul>
+      <div class="filter-buttons">
+          <button class="filter-button" data-category="meal">식사</button>
+          <button class="filter-button" data-category="dessert">디저트</button>
       </div>
+      <div class="sub-filter-buttons">
+          <button class="sub-filter-button" data-category="all-meal">전체</button>
+          <button class="sub-filter-button" data-category="korean">한식</button>
+          <button class="sub-filter-button" data-category="chinese">중식</button>
+          <button class="sub-filter-button" data-category="japanese">일식</button>
+          <button class="sub-filter-button" data-category="western">양식</button>
+          <button class="sub-filter-button" data-category="indian">인도식</button>
+      </div>
+      <div class="sub-filter-buttons">
+          <button class="sub-filter-button" data-category="all">전체</button>
+          <button class="sub-filter-button" data-category="coffee">커피</button>
+          <button class="sub-filter-button" data-category="cake">케이크</button>
+          <button class="sub-filter-button" data-category="bread">빵</button>
+          <button class="sub-filter-button" data-category="tanghulu">탕후루</button>
+          <button class="sub-filter-button" data-category="icecream">아이스크림</button>
+      </div>
+     <main>
+      <div class="food-item meal korean">한식 1</div>
+      <div class="food-item meal chinese">중식 1</div>
+      <div class="food-item meal japanese">일식 1</div>
+      <div class="food-item meal western">양식 1</div>
+      <div class="food-item meal indian">인도식 1</div>
+      <div class="food-item dessert coffee">커피 1</div>
+      <div class="food-item dessert cake">케이크 1</div>
+      <div class="food-item dessert bread">빵 1</div>
+      <div class="food-item dessert tanghulu">탕후루 1</div>
+      <div class="food-item dessert icecream">아이스크림 1</div>
+      </main>
+</div>
 
-      <div class="product__details__tab">
+<div class="button-container2">
+  <button class="button">메뉴 추천받기!</button>
+</div>
+
+<div class="button-container3">
+  <button class="button">맛집 추천받기!</button>
+</div>
+
+
+
+      <!-- <div class="product__details__tab">
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
             <a
@@ -371,7 +371,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
         <!-- <div class="container">
         <div class="row">
@@ -1080,12 +1080,7 @@
             <div class="footer__widget">
               <h6>Useful Links</h6>
               <ul>
-                <li><a href="#">이용 약관</a></li>
-                <!-- <li><a href="#">About Our Shop</a></li>
-              <li><a href="#">Secure Shopping</a></li>
-              <li><a href="#">Delivery infomation</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Our Sitemap</a></li> -->
+                <li><a href="./terms.html">이용 약관</a></li>
               </ul>
             </div>
           </div>
@@ -1132,7 +1127,7 @@
       </div>
     </footer>
     <!-- Footer Section End -->
-
+    <script src="./src/mechu.js" defer></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

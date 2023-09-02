@@ -30,18 +30,21 @@ window.addEventListener('click', event => {
   }
 });
 
-// 회원가입 백엔드 연결
-function openModal() {
-  var modal = document.getElementById('signupModal');
-  modal.style.display = 'block';
-}
-
 // 모달을 닫는 함수
 function closeModal() {
   var modal = document.getElementById('signupModal');
   modal.style.display = 'none';
 }
 
+// 모달 여는 함수
+function openModal() {
+  var modal = document.getElementById('signupModal');
+  modal.style.display = 'block';
+}
+
+// 회원가입, 로그인 백엔드 연결
+
+// 이메일 전송
 function verifyEmail() {
   const data = {
     email: $('#email').val(),
@@ -79,10 +82,11 @@ function verifyEmail() {
     });
 }
 
+// 이메일 인증
 function verifyCode() {
   const data = {
     email: $('#email').val(),
-    code: $('#Code').val(), // 여기에서 'Code' 대신 'verifyCode'로 수정
+    code: $('#Code').val(),
   };
 
   axios
@@ -98,11 +102,11 @@ function verifyCode() {
     });
 }
 
+//회원가입
 function sign(event) {
   const data = {
     is_admin: $('#admin').val(),
     email: $('#email').val(),
-    // code: $('#verifyCode'),
     nick_name: $('#signupNickname').val(),
     password: $('#signupPassword').val(),
     passwordConfirm: $('#signupPasswordConfirm').val(),
@@ -113,16 +117,15 @@ function sign(event) {
       console.log(data);
       alert('회원가입 완료');
       closeModal();
-      event.preventDefault();
     })
     .catch(error => {
       // 에러 처리
       alert('회원가입 실패');
-      event.preventDefault();
       console.error(error);
     });
 }
 
+//로그인
 function login() {
   const data = {
     email: $('#Email').val(),
@@ -132,76 +135,13 @@ function login() {
     .post('http://localhost:3000/users/login', data)
     .then(response => {
       console.log(data);
-      closeModal();
       alert('로그인 완료');
+      document.getElementById('loginLink').textContent = '로그아웃';
+      localStorage.setItem('isLoggedIn', 'true');
     })
     .catch(error => {
-      if (error.response) {
-        // 서버 응답이 있는 경우 (HTTP 에러 상태 코드)
-        console.log('응답 데이터:', error.response.data);
-        console.log('상태 코드:', error.response.status);
-      } else if (error.request) {
-        // 요청이 전송되었으나 응답을 받지 못한 경우
-        console.log('요청:', error.request);
-      } else {
-        // 에러를 발생시킨 요청을 만들기 전에 발생한 경우
-        console.log('에러 메시지:', error.message);
-      }
+      // 에러 처리
       alert('로그인 실패');
-      console.log(data);
+      console.error(error);
     });
-  console.log(data);
 }
-
-// document.addEventListener('DOMContentLoaded', function () {
-//   const loginButton = document.querySelector('.login-button');
-//   const logoutButton = document.querySelector('.logout-button');
-
-//   //로그인
-//   const modalLoginButton = document.querySelector(
-//     '#loginModal button.btn-primary',
-//   );
-
-//   modalLoginButton.addEventListener('click', function () {
-//     const email = document.querySelector('#email-login').value;
-//     const password = document.querySelector('#password-login').value;
-//     const loginError = document.querySelector('#loginError');
-//     const loginModal = new bootstrap.Modal(
-//       document.getElementById('loginModal'),
-//     );
-
-//     // 데이터 객체 생성
-//     const userData = {
-//       email: email,
-//       password: password,
-//     };
-
-//     // Axios를 사용하여 POST 요청 보내기
-//     axios
-//       .post('http://localhost:3000/users/login', userData) // 실제 백엔드 URL로 수정해야 합니다
-//       .then(response => {
-//         // 성공 메시지 표시
-//         const successMessage = document.createElement('div');
-//         successMessage.classList.add('alert', 'alert-success', 'mt-3');
-//         successMessage.textContent = '로그인이 성공적으로 완료되었습니다.';
-
-//         const modalBody = document.querySelector('#loginModal .modal-body');
-//         modalBody.appendChild(successMessage);
-
-//         location.reload();
-//       })
-//       .catch(error => {
-//         console.log(error);
-
-//         if (error.response && error.response.data) {
-//           // 에러 메시지를 모달에 추가
-//           loginError.textContent =
-//             '로그인에 실패했습니다. ' + error.response.data.message;
-//           loginError.style.display = 'block'; // 에러 메시지 표시
-
-//           // 모달 표시
-//           loginModal.show();
-//         }
-//       });
-//   });
-// });

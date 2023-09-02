@@ -56,13 +56,12 @@ export class UsersService {
     // 일정 시간 후에 랜덤 코드를 삭제하도록 설정
     setTimeout(() => {
       delete codeObject['code'];
-    }, 300000); // 5분 유지
+    }, 300000);
   }
 
   // 메일 인증 확인하는 코드 로직이 필요
   async verifyCode(email: string, code: string) {
     if (codeObject['code'] !== code || codeObject['email'] !== email) {
-      console.log('서비스이메일', email);
       throw new ConflictException(
         '인증 코드 및 인증 이메일이 유효하지 않습니다.',
       );
@@ -70,23 +69,6 @@ export class UsersService {
       isEmailVerified['email'] = true;
     }
   }
-
-  // jwt로 해보려다가 포기한 로직
-  // async verifyCode(token: string, code: string) {
-  //   try {
-  //     const decodedToken = this.jwtService.verify(token);
-  //     console.log('디코드토큰', decodedToken);
-  //     if (decodedToken.verificationCode === code) {
-  //       console.log('서비스코드', code);
-  //       // 인증 코드가 일치하면 인증 성공
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // }
 
   async createUser(
     is_admin: string,
@@ -107,10 +89,10 @@ export class UsersService {
 
     // 지금 테스트때문에 막아놨음
     // 이메일이 인증된 이메일인지 확인한다.
-    // if (!isEmailVerified['email'] === true) {
-    //   console.log('이메일확인용 콘솔', isEmailVerified);
-    //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
-    // }
+    if (!isEmailVerified['email'] === true) {
+      console.log('이메일확인용 콘솔', isEmailVerified);
+      throw new ConflictException(`인증된 이메일이 아닙니다.`);
+    }
 
     const insertResult = await this.userRepository.insert({
       is_admin,
@@ -118,13 +100,6 @@ export class UsersService {
       nick_name,
       password,
     });
-
-    // 로그인할때 액세스토큰을 발급하기 때문에, 회원가입할때는 액세스토큰을 발급하지 않는다.
-    // const payload = {
-    //   id: insertResult.identifiers[0].id,
-    //   nick_name: insertResult.identifiers[0].nick_name,
-    // };
-    // const accessToken = await this.jwtService.signAsync(payload);
 
     const refresh_token_payload = {};
     const refresh_token = await this.jwtService.signAsync(

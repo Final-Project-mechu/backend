@@ -31,6 +31,8 @@ export class UsersActionsService {
     private ingredientRepo: Repository<Ingredient>,
     @InjectRepository(FoodIngredient)
     private foodingredientRepo: Repository<FoodIngredient>,
+    @InjectRepository(Category) 
+    private categoryRepo: Repository<Category>,
   ) {}
 
   private async getEntityIdByName(
@@ -80,7 +82,7 @@ export class UsersActionsService {
       })
       .execute();
   }
-  // 선호 음식 체크 조회 
+  // 선호 음식 체크 조회
   async getFavoriteFoodsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -131,7 +133,7 @@ export class UsersActionsService {
       .getRawMany();
     return results.map(result => result.foodName);
   }
-  // 제외한 재료 조회 
+  // 제외한 재료 조회
   async getExcludedIngredientsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -390,27 +392,76 @@ export class UsersActionsService {
   }
 
   // 음식 추천 룰렛
+  // 해당 카테고리와 관련된 모든 하위 카테고리 ID를 가져오는 함수
+  async getSubCategories(categoryId: number): Promise<number[]> {
+    const subCategories = await this.categoryRepo.find({
+      where: { top_category_id: categoryId },
+    });
+    console.log("카테고리 A :",subCategories)
+    return subCategories.map(category => category.id);
+  }
+
+  // 하위 카테고리 ID를 가져오는 함수. catecory 테이블의 top_category_id가 null인 경우
+  async isTopLevelCategory(categoryId: number): Promise<boolean> {
+    const category = await this.categoryRepo.findOne({
+      where: { id: categoryId },
+    }); 
+    console.log("카테고리 B :",category)
+    return category?.top_category_id === null;
+  }
+
   async getRandomWeightedFood(
     categoryId: number,
     userId: number = DEFAULT_USER_ID,
   ): Promise<string> {
-    // Step 1: Fetch all foods and initialize their weights to 10
-    const foods = await this.foodRepo.find();
-    const foodsWeights: FoodWeight[] = foods.map(food => ({
+    let relatedCategoryIds = [categoryId];
+    if (await this.isTopLevelCategory(categoryId)) {
+      relatedCategoryIds = relatedCategoryIds.concat(
+        await this.getSubCategories(categoryId),
+      );
+    }
+  
+    const foods = await this.getFoodsByCategoryIds(relatedCategoryIds);
+    const foodsWeights = this.calculateBasicWeights(foods);
+    const filteredFoods = this.filterFoodsByCategory(foodsWeights, relatedCategoryIds);
+    await this.adjustWeightsByUserActions(filteredFoods, userId);
+    const validFoods = this.getValidFoods(filteredFoods);
+    this.calculateProbabilities(validFoods);
+    const selectedFood = this.performRandomWeightedSelection(validFoods);
+  
+    if (!selectedFood) {
+      throw new BadRequestException(
+        '음식을 선택할 수 없습니다.',
+      );
+    }
+    const food = await this.foodRepo.findOne({
+      where: { id: selectedFood.foodId },
+    });
+    return food?.food_name || '해당 음식을 찾을 수 없습니다.';
+  }
+  
+  async getFoodsByCategoryIds(relatedCategoryIds: number[]): Promise<Food[]> {
+    return await this.foodRepo
+      .createQueryBuilder('food')
+      .where('food.category_id IN (:...relatedCategoryIds)', {
+        relatedCategoryIds,
+      })
+      .getMany();
+  }
+  
+  calculateBasicWeights(foods: Food[]): FoodWeight[] {
+    return foods.map(food => ({
       foodId: food.id,
       categoryId: food.category_id,
-      weight: 10, // Basic weight
+      weight: 10,
     }));
-    // console.log("확인용1 : ",foods)
-    // console.log("확인용2 : ",foodsWeights)
-
-    // Step 2: Filter foods based on the provided category_id
-    const filteredFoods = foodsWeights.filter(
-      food => food.categoryId === categoryId,
-    );
-    console.log('확인용3 : ', filteredFoods);
-
-    // Step 3: Adjust the weights based on user actions
+  }
+  
+  filterFoodsByCategory(foodsWeights: FoodWeight[], targetCategoryIds: number[]): FoodWeight[] {
+    return foodsWeights.filter(food => targetCategoryIds.includes(food.categoryId));
+  }
+  
+  async adjustWeightsByUserActions(filteredFoods: FoodWeight[], userId: number): Promise<void> {
     for (const foodWeight of filteredFoods) {
       const userActionWeight = await this.userActionRepo
         .createQueryBuilder('ua')
@@ -418,38 +469,35 @@ export class UsersActionsService {
         .where('ua.user_id = :userId', { userId })
         .andWhere('ua.food_id = :foodId', { foodId: foodWeight.foodId })
         .getRawOne();
-
-      // Update the weight based on user actions
+  
       const additionalWeight =
         userActionWeight && userActionWeight.totalWeight
           ? parseInt(userActionWeight.totalWeight)
           : 0;
       foodWeight.weight += additionalWeight;
     }
-    console.log('확인용5 : ', filteredFoods);
-
-    // Step 4: Exclude foods with weights less than -500
-    const validFoods = filteredFoods.filter(
-      foodWeight => foodWeight.weight > -500,
-    );
-
-    // Step 5: Calculate the probability for each valid food
+  }
+  
+  getValidFoods(filteredFoods: FoodWeight[]): FoodWeight[] {
+    return filteredFoods.filter(foodWeight => foodWeight.weight > -500);
+  }
+  
+  calculateProbabilities(validFoods: FoodWeight[]): void {
     const totalWeight = validFoods.reduce((acc, food) => acc + food.weight, 0);
     validFoods.forEach(food => {
       food.probability = food.weight / totalWeight;
     });
-    // console.log("확인용a : ",totalWeight)
-    // Step 6: Calculate cumulative probability for random selection
+  
     let cumulativeProbability = 0;
     validFoods.forEach(food => {
       food.cumulativeProbability = cumulativeProbability + food.probability;
       cumulativeProbability = food.cumulativeProbability;
     });
-
-    // Step 7: Perform random weighted selection
+  }
+  
+  performRandomWeightedSelection(validFoods: FoodWeight[]): FoodWeight | undefined {
     const randomValue = Math.random();
-    // console.log("확인용x : ",randomValue)
-    const selectedFood = validFoods.find((food, index) => {
+    return validFoods.find((food, index) => {
       if (index === 0) {
         return randomValue < food.cumulativeProbability;
       }
@@ -458,16 +506,6 @@ export class UsersActionsService {
         randomValue < food.cumulativeProbability
       );
     });
-    // console.log("확인용xxx : ",selectedFood)
-    // Step 8: Return the selected food's name or throw an error if no food was selected
-    if (!selectedFood) {
-      throw new BadRequestException(
-        'Failed to select a food based on the given weights.',
-      );
-    }
-    const food = await this.foodRepo.findOne({
-      where: { id: selectedFood.foodId },
-    });
-    return food?.food_name || 'No food found';
   }
+  
 }

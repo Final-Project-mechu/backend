@@ -54,13 +54,15 @@ export class UsersController {
 
   // 회원가입
   @Post('/sign')
-  async createUser(@Body() data: CreateUserDto) {
+  async createUser(@Body() data) {
+    console.log(data);
     const { refresh_token } = await this.userService.createUser(
       data.is_admin,
       data.email,
       data.nick_name,
       data.password,
     );
+    console.log(refresh_token);
     return { refresh_token };
   }
 

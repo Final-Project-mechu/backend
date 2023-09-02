@@ -11,15 +11,20 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { Feed } from './feed.entity';
 
 @Entity({ schema: 'finalpj', name: 'favorite' })
 export class Favorite {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, user => user.favorites)
   @JoinColumn({ name: 'user_id' })
-  user_id: number;
+  users: number;
+
+  @ManyToOne(() => Feed, feed => feed.favorites)
+  @JoinColumn({ name: 'feed_id' })
+  feeds: Feed[] | null;
 
   @Column('varchar', { length: 30 })
   address_name: string;

@@ -7,18 +7,18 @@ import {
   RandomFoodDto,
 } from './dto/create.users.actions.dto';
 
-@Controller('user-action')
+@Controller('user-actions')
 export class UsersActionsController {
   constructor(private readonly usersActionsService: UsersActionsService) {}
 
   // GET 엔드 포인트
   // 선호 음식 체크 조회 
-  @Get('favorite')
+  @Get('favorites')
   async getFavoriteFoods() {
     return this.usersActionsService.getFavoriteFoodsForUser();
   }
   // 좋아요한 음식 조회
-  @Get('like')
+  @Get('likes')
   async getLikedFoods() {
     return this.usersActionsService.getLikedFoodsForUser();
   }
@@ -40,12 +40,12 @@ export class UsersActionsController {
 
   // POST 엔드 포인트 추가 생성 
   // 선호 음식 추가
-  @Post('favorite')
+  @Post('favorites')
   async addFavoriteFood(@Body() dto: CreateFavoriteDto) {
     return this.usersActionsService.addFavoriteFood(dto);
   }
   // 좋아한 음식 추가 (좋아요)
-  @Post('like')
+  @Post('likes')
   async addLikeForFood(@Body() dto: CreateFavoriteDto) {
     return this.usersActionsService.addLikeForFood(dto.foodName);
   }
@@ -61,7 +61,7 @@ export class UsersActionsController {
   }
   // POST 엔드 포인트 cancel 생성 
   // 선호한 음식 체크 해제
-  @Post('favorite-cancel')
+  @Post('favorites-cancel')
   async cancelFavoriteFood(@Body() dto: CreateFavoriteDto) {
     return this.usersActionsService.cancelFavoriteFood(dto);
   }

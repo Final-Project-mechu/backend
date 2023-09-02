@@ -17,6 +17,7 @@ export class AuthMiddleware implements NestMiddleware {
     try {
       req.locals = {};
       const authHeader = req.headers.cookie;
+      console.log(authHeader);
       if (!authHeader) {
         throw new UnauthorizedException('JWT not found');
       }

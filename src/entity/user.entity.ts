@@ -22,12 +22,12 @@ import { Friends } from './friend.entity';
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @OneToMany(() => Feed, feed => feed.user_id)
-  feed: Feed[];
+  @OneToMany(() => Feed, feed => feed.users)
+  feeds: Feed[];
   @OneToMany(() => Comment, comment => comment.user_id)
   comment: Comment[];
-  @OneToMany(() => Favorite, favorate => favorate.user_id)
-  favorite: Favorite[];
+  @OneToMany(() => Favorite, favorate => favorate.users)
+  favorites: Favorite[];
   @OneToMany(() => FoodUserWeight, foodUserWeight => foodUserWeight.user_id)
   foodUserWeight: FoodUserWeight[];
   @OneToMany(() => UserAction, userAction => userAction.user_id)

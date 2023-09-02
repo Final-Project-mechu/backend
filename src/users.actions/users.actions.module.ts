@@ -6,10 +6,11 @@ import { UserAction } from 'src/entity/user.action';
 import { Food } from 'src/entity/food.entity';
 import { Ingredient } from 'src/entity/ingredient.entity';
 import { FoodIngredient } from 'src/entity/food.ingredient.entity';
+import { Category } from 'src/entity/category.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserAction, Food, Ingredient, FoodIngredient]),
+    TypeOrmModule.forFeature([UserAction, Food, Ingredient, FoodIngredient, Category]),
   ],
   providers: [UsersActionsService],
   controllers: [UsersActionsController],

@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
 import { Favorite } from './favorite.entity';
-import { FoodUserWeight } from './food.user.weight.entity'; 
+import { FoodUserWeight } from './food.user.weight.entity';
 import { UserAction } from './user.action';
 import { FeedLike } from './feed.like.entity';
 import { Friends } from './friend.entity';
@@ -39,8 +39,8 @@ export class User {
   @Index({ unique: true })
   @Column('varchar')
   email: string;
-  @Column('varchar')
-  is_admin: string;
+  @Column('int')
+  is_admin: number;
   @Column('varchar', { length: 10 })
   nick_name: string;
   @Column('varchar', { select: false })

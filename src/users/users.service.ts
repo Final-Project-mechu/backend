@@ -71,7 +71,7 @@ export class UsersService {
   }
 
   async createUser(
-    is_admin: string,
+    is_admin: number,
     email: string,
     nick_name: string,
     password: string,

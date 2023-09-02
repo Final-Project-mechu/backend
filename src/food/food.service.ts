@@ -28,10 +28,10 @@ export class FoodService {
   //음식 생성
   async createFood(id: number, food_name: string, category_id: number) {
     const checkAdmin = await this.confirmAdmin(id);
-    if (checkAdmin.is_admin !== 1) {
-      console.log('관리자가 아닙니다.');
-      throw new UnauthorizedException('관리자가 아닙니다.');
-    }
+    // if (checkAdmin.is_admin !== 1) {
+    //   console.log('관리자가 아닙니다.');
+    //   throw new UnauthorizedException('관리자가 아닙니다.');
+    // }
     return this.foodReository.insert({
       food_name,
       category_id,
@@ -46,10 +46,10 @@ export class FoodService {
     category_id: number,
   ) {
     const checkAdmin = await this.confirmAdmin(id);
-    if (checkAdmin.is_admin !== 1) {
-      console.log('관리자가 아닙니다.');
-      throw new UnauthorizedException('관리자가 아닙니다.');
-    }
+    // if (checkAdmin.is_admin !== 1) {
+    //   console.log('관리자가 아닙니다.');
+    //   throw new UnauthorizedException('관리자가 아닙니다.');
+    // }
     return this.foodReository.update(food_id, {
       food_name,
       category_id,

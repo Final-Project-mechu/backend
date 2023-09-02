@@ -42,6 +42,7 @@ export class UsersActionsController {
   // 선호 음식 추가
   @Post('favorites')
   async addFavoriteFood(@Body() dto: CreateFavoriteDto) {
+    console.log(dto);
     return this.usersActionsService.addFavoriteFood(dto);
   }
   // 좋아한 음식 추가 (좋아요)

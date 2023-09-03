@@ -114,8 +114,6 @@
           </div>
         </div>
       </div>
-      <!--여기div라인부터 div가 끝나는 라인까지 모든 html에 복붙-->
-      <!--다른 html에서는 div class container의 div부터 해당 div가 끝나는 라인까지 복붙하면 됩니다. -->
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
@@ -150,9 +148,6 @@
       </div>
 
       <div id="result3"></div>
-
-      <!-- 여기에 button-container 요소를 추가합니다.
-      <div id="button-container"></div> -->
 
       <div class="filter-buttons">
         <button
@@ -203,7 +198,7 @@
           data-category-id="6"
           category="western"
         >
-          양식
+          분식
         </button>
         <button
           id="top_category_07"
@@ -211,7 +206,7 @@
           data-category-id="7"
           category="indian"
         >
-          인도식
+          기타
         </button>
       </div>
 
@@ -219,51 +214,53 @@
         <button
           id="top_category_08"
           class="sub-filter-button"
+          data-category-id="8"
           category="coffee"
         >
           커피
-          <!-- "category_id":8 -->
         </button>
-        <button id="top_category_09" class="sub-filter-button" category="cake">
-          케이크
-          <!-- "category_id":9 -->
+        <button
+          id="top_category_09"
+          class="sub-filter-button"
+          data-category-id="9"
+          category="cake"
+        >
+          스무디
         </button>
-        <button id="top_category_10" class="sub-filter-button" category="bread">
-          빵
-          <!-- "category_id":10 -->
+        <button
+          id="top_category_10"
+          class="sub-filter-button"
+          data-category-id="10"
+          category="bread"
+        >
+          간식
         </button>
         <button
           id="top_category_11"
           class="sub-filter-button"
+          data-category-id="11"
           category="tanghulu"
         >
-          탕후루
-          <!-- "category_id":11 -->
+          기타
         </button>
-        <!-- 여기에 추가 버튼 생성-->
-        <!-- <button id="top_category_11" class="sub-filter-button" category="test">
-          테스트
-          "category_id":12
-        </button> -->
       </div>
       <main style="text-align: center">
         <div class="food-item meal">식사가 선택되었습니다.</div>
         <div class="food-item korean">한식이 선택되었습니다.</div>
         <div class="food-item chinese">중식이 선택되었습니다.</div>
         <div class="food-item japanese">일식이 선택되었습니다.</div>
-        <div class="food-item western">양식이 선택되었습니다.</div>
-        <div class="food-item indian">인도 음식이 선택되었습니다.</div>
+        <div class="food-item western">분식이 선택되었습니다.</div>
+        <div class="food-item indian">기타 카테고리가 선택되었습니다.</div>
         <div class="food-item dessert">디저트가 선택되었습니다.</div>
         <div class="food-item coffee">커피가 선택되었습니다.</div>
-        <div class="food-item cake">케잌이 선택되었습니다.</div>
-        <div class="food-item bread">빵이 선택되었습니다.</div>
-        <div class="food-item tanghulu">탕후루가 선택되었습니다.</div>
+        <div class="food-item cake">스무디가 선택되었습니다.</div>
+        <div class="food-item bread">간식이선택되었습니다.</div>
+        <div class="food-item tanghulu">기타 카테고리가 선택되었습니다.</div>
       </main>
     </div>
 
     <div class="button-container2">
       <button type="submit" class="button">메뉴 추천받기!</button>
-      <!-- 버튼 클릭 시 send로 요청-->
     </div>
 
     <div class="button-container3">

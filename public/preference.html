@@ -120,84 +120,15 @@
           <div class="col-lg-12">
             <div class="featured__controls">
               <ul>
-                <li data-filter=".likes">선호 음식</li>
-                <li data-filter=".excluded-foods">제외 음식</li>
-                <li data-filter=".excluede-ingredient">제외 재료</li>
-                <li data-filter=".excluded-ing-foods">제외 재료 포함 음식</li>
+                <li data-filter=".likes" id="likeBtn">선호 음식</li>
+                <li data-filter=".excluded-foods" id="excludeFoodBtn">제외 음식</li>
+                <li data-filter=".excluede-ingredient" id="excludeIngredientBtn">제외 재료</li>
+                <li data-filter=".excluded-ing-foods" id="excludeInFoodBtn">제외 재료 포함 음식</li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="row featured__filter">
-          <!-- <div class="col-lg-3 col-md-4 col-sm-6 mix likes">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <label for="acc">
-                  체크(옆에 반응 필요)
-                  <input type="checkbox" id="acc" />
-                  <span class="checkmark"></span>
-                </label>
-                <h6>김치찌개</a></h6>
-              </div>
-            </div>
-          </div> -->
-          <div class="col-lg-3 col-md-4 col-sm-6 mix excluede-ingredient">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <h6>제외재료 샘플</a></h6>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix excluded-foods">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <h6>제외 음식1</a></h6>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood likes">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <h6 id="favorite-food">좋아하는 음식샘플1</a></h6>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix excluded-foods">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <h6>제외하는 음식샘플2</a></h6>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix likes fastfood">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <h6>좋아하는 음식샘플</a></h6>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix excluded-foods">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <h6>제외하는 음식샘플3</a></h6>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix excluede-ingredient">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <h6>제외하는 재료 샘플2</a></h6>
-                <h5></h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix excluded-ing-foods">
-            <div class="featured__item">
-              <div class="featured__item__text">
-                <h6>제외 재료 포함음식 1</a></h6>
-              </div>
-            </div>
-          </div>
+        <div class="row featured__filter" id="favoriteList">
         </div>
       </div>
     </section>

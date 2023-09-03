@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const filterButtons = document.querySelectorAll('.filter-button');
   const subFilterButtons = document.querySelectorAll('.sub-filter-button');
+  const subFilterButtons2 = document.querySelectorAll('.sub-filter-button2');
   const foodItems = document.querySelectorAll('.food-item');
   const mainContent = document.querySelector('main');
 
@@ -78,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
             subCategory === 'cake' ||
             subCategory === 'bread' ||
             subCategory === 'tanghulu'
+            // subCategory === 'test' <여기에 디저트의 서브카테고리를 생성>
           ) {
             subButton.style.display = 'block';
           } else {
@@ -116,14 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-
-const buttonInfoList = [
-  { id: 'top_category_01', category: 'meal', label: '식사' },
-  { id: 'top_category_02', category: 'dessert', label: '디저트' },
-  { id: 'top_category_02', category: 'korean', label: '한식' },
-
-  // 추가 버튼 정보를 여기에 추가
-];
 
 // 버튼을 동적으로 생성하고 이벤트 핸들러를 연결합니다.
 const buttonContainer = document.getElementById('button-container');

@@ -140,7 +140,7 @@ buttonInfoList.forEach(buttonInfo => {
     handleButtonClick(buttonInfo.category);
   });
 
-  buttonContainer.appendChild(button);
+  buttonContainer.appendChild(button); // 여기가 문제라는데 파악이 안 된다..
 });
 
 // 클릭 이벤트를 처리하는 함수

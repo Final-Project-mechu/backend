@@ -157,3 +157,4 @@ function handleButtonClick(category) {
       console.error(error);
     });
 }
+

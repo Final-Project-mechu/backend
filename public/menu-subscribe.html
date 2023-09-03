@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <title>점메추저메추</title>
+    <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
     <link
@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- script import -->
+    <script src="./src/mechu.js" defer></script>
+    <script src="./src/menu-subscribe.js" defer></script>
+  
   </head>
 
   <body>
@@ -264,7 +268,7 @@
     </div>
 
     <div class="button-container3">
-      <button class="button">맛집 추천받기!</button>
+      <button class="button" id="storeBtn" onclick="">맛집 추천받기!</button>
     </div>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -316,7 +320,6 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <!-- Footer Section End -->
-    <script src="./src/mechu.js" defer></script>
-    <script src="./src/menu-subscribe.js" defer></script>
+
   </body>
 </html>

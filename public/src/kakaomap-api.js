@@ -10,7 +10,7 @@ navigator.geolocation.getCurrentPosition(
     createMap(latitude, longitude);
   },
   () => {
-    console.log('위치 허용 해라');
+    console.log('위치 허용을 설정해야 사용할 수 있는 기능입니다.');
   },
 );
 
@@ -81,8 +81,9 @@ function getMap(latitude, longitude) {
  * @param {*} callback 키워드와 위치를 받아 검색 한 후 결과
  */
 function searchPlaces(latitude, longitude, callback) {
-  let keyword = '감자전';
-  let searchOptions = {
+  // const keyword = sendKeyword();
+  const keyword = '치킨';
+  const searchOptions = {
     x: longitude,
     y: latitude, // 검색 중심 좌표를 기존 지도의 중심 좌표로 설정
     radius: 5000, // 검색 반경
@@ -91,6 +92,10 @@ function searchPlaces(latitude, longitude, callback) {
   const places = new kakao.maps.services.Places();
   places.keywordSearch(keyword, callback, searchOptions);
 }
+
+// export function sendKeyword(keyword) {
+//   return keyword;
+// }
 
 /**
  * 찜하기 눌렀을 때 사용자의 찜하기 목록생성 함수

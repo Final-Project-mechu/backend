@@ -1,3 +1,21 @@
+// import { sendKeyword } from './kakaomap-api';
+document.addEventListener('DOMContentLoaded', () => {
+  buttons(); // 페이지 로드 시 버튼 상태 확인
+});
+
+/**
+ * 버튼 상태 변경 함수
+ */
+function buttons() {
+  const storeBtn = document.getElementById('storeBtn');
+  storeBtn.style.display = 'none';
+}
+// 버튼 클릭 시 새페이지로 창 띄움
+function openKakaopage() {
+  const kakaoUrl = 'http://localhost:3000/kakaomap-api.html';
+  window.open(kakaoUrl, '_blank');
+}
+
 // Function to send a POST request
 function sendRequest(categoryId) {
   axios
@@ -13,6 +31,9 @@ function sendRequest(categoryId) {
 
       const resultDiv = document.getElementById('result3');
       resultDiv.innerHTML = `<h2>${response.data}</h2>`;
+      storeBtn.style.display = 'block';
+      storeBtn.addEventListener('click', openKakaopage);
+      // sendKeyword(response.data.message);
     })
     .catch(error => {
       console.error('Error:', error);

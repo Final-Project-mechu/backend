@@ -81,7 +81,7 @@ function getMap(latitude, longitude) {
  * @param {*} callback 키워드와 위치를 받아 검색 한 후 결과
  */
 function searchPlaces(latitude, longitude, callback) {
-  let keyword = '치킨';
+  let keyword = '감자전';
   let searchOptions = {
     x: longitude,
     y: latitude, // 검색 중심 좌표를 기존 지도의 중심 좌표로 설정

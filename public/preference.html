@@ -25,6 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
     <!-- CSS Styles END -->
+    <script async src="./src/preference.js" defer></script>
   <body>
     <!-- Page Preloder -->
     <div id="preloder">
@@ -93,7 +94,6 @@
                 <option value="선호 메뉴">선호 메뉴</option>
                 <option value="제외 메뉴">제외 메뉴</option>
                 <option value="제외 재료">제외 재료</option>
-                <option value="제외 재료 포함 음식">제외 재료<br> 포함 음식</option>
               </select>
             </div>
           </div>
@@ -102,11 +102,11 @@
               <div class="hero__search__form">
                 <form action="#" id="search-form">
                   <input id="survey-search-input" type="text" placeholder="검색해보세요" />
-                  <button type="submit" class="site-btn">SEARCH</button>
+                  <button type="submit" class="site-btn">추가하기</button>
                 </form>
               </div>
               <div class="hero__search__phone">
-                <a href="#" class="site-btn">추가하기</a>
+                <a href="#" class="site-btn">메뉴판 보기</a>
               </div>
             </div>
           </div>
@@ -129,7 +129,7 @@
           </div>
         </div>
         <div class="row featured__filter">
-          <div class="col-lg-3 col-md-4 col-sm-6 mix likes">
+          <!-- <div class="col-lg-3 col-md-4 col-sm-6 mix likes">
             <div class="featured__item">
               <div class="featured__item__text">
                 <label for="acc">
@@ -140,7 +140,7 @@
                 <h6>김치찌개</a></h6>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="col-lg-3 col-md-4 col-sm-6 mix excluede-ingredient">
             <div class="featured__item">
               <div class="featured__item__text">
@@ -158,7 +158,7 @@
           <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood likes">
             <div class="featured__item">
               <div class="featured__item__text">
-                <h6>좋아하는 음식샘플1</a></h6>
+                <h6 id="favorite-food">좋아하는 음식샘플1</a></h6>
               </div>
             </div>
           </div>
@@ -249,6 +249,6 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="./src/preference.js" defer></script>
+    
   </body>
 </html>

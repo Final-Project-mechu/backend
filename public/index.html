@@ -128,7 +128,7 @@
                           <input type="text" id="admin" name="admin" /><br />
 
                           <label for="signupEmail">이메일:</label>
-                          <button type="submit">인증번호 전송</button>
+                          <button type="button" onclick="verifyEmail()">인증번호 전송</button>
                           <input
                             type="email"
                             id="email"
@@ -137,11 +137,11 @@
                           /><br />
 
                           <label for="verifyCode">인증번호 확인:</label>
-                          <button type="submit">인증번호 확인</button>
+                          <button type="button" onclick="verifyCode()">인증번호 확인</button>
                           <input
                             type="text"
-                            id="verifyCode"
-                            name="verifyCode"
+                            id="Code"
+                            name="Code"
                             autocomplete="additional-name"
                           /><br />
 

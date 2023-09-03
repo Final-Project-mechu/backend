@@ -32,14 +32,14 @@ window.addEventListener("click", (event) => {
 
 // 모달을 닫는 함수
 function closeModal() {
-  var modal = document.getElementById("signupModal");
-  modal.style.display = "none";
+  var modal = document.getElementById('signupModal');
+  modal.style.display = 'none';
 }
 
 // 모달 여는 함수
 function openModal() {
-  var modal = document.getElementById("signupModal");
-  modal.style.display = "block";
+  var modal = document.getElementById('signupModal');
+  modal.style.display = 'block';
 }
 
 // 회원가입, 로그인 백엔드 연결
@@ -47,18 +47,18 @@ function openModal() {
 // 이메일 전송
 function verifyEmail() {
   const data = {
-    email: $("#email").val(),
+    email: $('#email').val(),
   };
   if (!email) {
     alert("이메일을 입력해주세요");
     return;
   }
   axios
-    .post("http://localhost:3000/users/send-code", data)
-    .then((response) => {
+    .post('http://localhost:3000/users/send-code', data)
+    .then(response => {
       console.log(data);
-      console.log("이메일정보확인2", email);
-      alert("메일을 전송했습니다.");
+      console.log('이메일정보확인2', email);
+      alert('메일을 전송했습니다.');
     })
     .catch((error) => {
       if (error.response) {
@@ -85,25 +85,48 @@ function verifyEmail() {
 // 이메일 인증
 function verifyCode() {
   const data = {
-    email: $("#email").val(),
-    code: $("#Code").val(), // 여기에서 'Code' 대신 'verifyCode'로 수정
+    email: $('#email').val(),
+    code: $('#Code').val(),
   };
 
   axios
-    .post("http://localhost:3000/users/verify-code", data)
-    .then((response) => {
+    .post('http://localhost:3000/users/verify-code', data)
+    .then(response => {
       console.log(data);
-      alert("인증 확인");
+      alert('인증 확인');
     })
-    .catch((error) => {
+    .catch(error => {
       // 에러 처리
-      alert("인증 실패");
+      alert('인증 실패');
       console.error(error);
     });
 }
 
 //회원가입
 function sign(event) {
+  const data = {
+    is_admin: $('#admin').val(),
+    email: $('#email').val(),
+    nick_name: $('#signupNickname').val(),
+    password: $('#signupPassword').val(),
+    passwordConfirm: $('#signupPasswordConfirm').val(),
+  };
+  axios
+    .post("http://localhost:3000/users/verify-code", data)
+    .then((response) => {
+      console.log(data);
+      alert('회원가입 완료');
+      closeModal();
+    })
+    .catch((error) => {
+      // 에러 처리
+      alert('회원가입 실패');
+      console.error(error);
+    });
+}
+
+//로그인
+function login() {
   const data = {
     is_admin: $("#admin").val(),
     email: $("#email").val(),
@@ -115,33 +138,13 @@ function sign(event) {
     .post("http://localhost:3000/users/sign", data)
     .then((response) => {
       console.log(data);
-      alert("회원가입 완료");
-      closeModal();
+      alert('로그인 완료');
+      document.getElementById('loginLink').textContent = '로그아웃';
+      localStorage.setItem('isLoggedIn', 'true');
     })
-    .catch((error) => {
+    .catch(error => {
       // 에러 처리
-      alert("회원가입 실패");
-      console.error(error);
-    });
-}
-
-//로그인
-function login() {
-  const data = {
-    email: $("#Email").val(),
-    password: $("#Password").val(),
-  };
-  axios
-    .post("http://localhost:3000/users/login", data)
-    .then((response) => {
-      console.log(data);
-      alert("로그인 완료");
-      document.getElementById("loginLink").textContent = "로그아웃";
-      localStorage.setItem("isLoggedIn", "true");
-    })
-    .catch((error) => {
-      // 에러 처리
-      alert("로그인 실패");
+      alert('로그인 실패');
       console.error(error);
     });
 }

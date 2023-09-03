@@ -33,7 +33,7 @@
 html,
 body {
   height: 100%;
-  font-family: "Cairo", sans-serif;
+  font-family: 'Cairo', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
 }
@@ -47,7 +47,7 @@ h6 {
   margin: 0;
   color: #111111;
   font-weight: 400;
-  font-family: "Cairo", sans-serif;
+  font-family: 'Cairo', sans-serif;
 }
 
 h1 {
@@ -76,7 +76,7 @@ h6 {
 
 p {
   font-size: 16px;
-  font-family: "Cairo", sans-serif;
+  font-family: 'Cairo', sans-serif;
   color: #6f6f6f;
   font-weight: 400;
   line-height: 26px;
@@ -130,7 +130,7 @@ ol {
   height: 4px;
   width: 80px;
   background: #7fad39;
-  content: "";
+  content: '';
   margin: 0 auto;
 }
 
@@ -182,12 +182,12 @@ ol {
 }
 
 .site-btn {
-  font-size: 18px;
+  font-size: 14px;
   color: #ffffff;
   font-weight: 800;
   text-transform: uppercase;
   display: inline-block;
-  padding: 13px 20px 12px;
+  padding: 13px 30px 12px;
   background: #7fad39;
   border: none;
 }
@@ -284,7 +284,7 @@ ol {
   width: 1px;
   background: #000000;
   opacity: 0.1;
-  content: "";
+  content: '';
 }
 
 .header__top__left ul li:last-child {
@@ -319,7 +319,7 @@ ol {
   width: 1px;
   background: #000000;
   opacity: 0.1;
-  content: "";
+  content: '';
 }
 
 .header__top__right__social a {
@@ -354,7 +354,7 @@ ol {
   width: 1px;
   background: #000000;
   opacity: 0.1;
-  content: "";
+  content: '';
 }
 
 .header__top__right__language img {
@@ -488,7 +488,7 @@ ol {
 }
 
 .header__menu ul li a {
-  font-size: 20px;
+  font-size: 14px;
   color: #252525;
   text-transform: uppercase;
   font-weight: 700;
@@ -619,8 +619,8 @@ ol {
   position: absolute;
   right: 18px;
   top: 9px;
-  content: "3";
-  font-family: "ElegantIcons";
+  content: '3';
+  font-family: 'ElegantIcons';
   font-size: 18px;
   color: #ffffff;
 }
@@ -675,7 +675,7 @@ ol {
   width: 1px;
   background: #000000;
   opacity: 0.1;
-  content: "";
+  content: '';
 }
 
 .hero__search__form form .hero__search__categories span {
@@ -854,7 +854,7 @@ ol {
   width: 100%;
   height: 2px;
   background: #7fad39;
-  content: "";
+  content: '';
   opacity: 0;
 }
 
@@ -1079,7 +1079,7 @@ ol {
   height: 1px;
   width: 10px;
   background: #ffffff;
-  content: "";
+  content: '';
 }
 
 .breadcrumb__option span {
@@ -1144,7 +1144,7 @@ ol {
   height: 1px;
   width: 5px;
   background: #dd2222;
-  content: "";
+  content: '';
 }
 
 .price-range-wrap .range-slider .price-input input {
@@ -1239,7 +1239,7 @@ ol {
   height: 14px;
   width: 14px;
   background: #222;
-  content: "";
+  content: '';
   border-radius: 50%;
 }
 
@@ -1832,7 +1832,7 @@ ol {
   height: 1px;
   width: 370px;
   background: #ebebeb;
-  content: "";
+  content: '';
 }
 
 .product__details__tab .nav-tabs:after {
@@ -1842,7 +1842,7 @@ ol {
   height: 1px;
   width: 370px;
   background: #ebebeb;
-  content: "";
+  content: '';
 }
 
 .product__details__tab .nav-tabs li {
@@ -2199,7 +2199,7 @@ ol {
   height: 16px;
   width: 14px;
   border: 1px solid #a6a6a6;
-  content: "";
+  content: '';
   border-radius: 4px;
 }
 
@@ -2214,7 +2214,7 @@ ol {
   -webkit-transform: rotate(127deg);
   -ms-transform: rotate(127deg);
   transform: rotate(127deg);
-  content: "";
+  content: '';
   opacity: 0;
 }
 
@@ -2375,7 +2375,7 @@ ol {
   width: 100%;
   background: #000000;
   opacity: 0.1;
-  content: "";
+  content: '';
 }
 
 /*---------------------
@@ -2416,7 +2416,7 @@ ol {
 }
 
 .blog__sidebar__search {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .blog__sidebar__search form {
@@ -2437,22 +2437,7 @@ ol {
   color: #6f6f6f;
 }
 
-.search-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dropdown {
-  order: 1; /* select 요소를 가장 왼쪽에 배치 */
-  font-size: 16px;
-  position: absolute;
-  right: 0;
-  margin: auto;
-}
-
 .blog__sidebar__search form button {
-  order: 2;
   font-size: 16px;
   color: #6f6f6f;
   background: transparent;
@@ -2462,10 +2447,6 @@ ol {
   top: 0;
   height: 100%;
   padding: 0px 18px;
-}
-
-.food-submit {
-  order: 3;
 }
 
 .blog__sidebar__recent .blog__sidebar__recent__item {
@@ -2547,7 +2528,7 @@ ol {
   position: absolute;
   right: -26px;
   top: 0;
-  content: "|";
+  content: '|';
 }
 
 .blog__details__hero__text ul li:last-child {
@@ -2663,7 +2644,9 @@ ol {
 -----------------------*/
 
 .footer {
-  background: #eaebedf5;
+  background: #f3f6fa;
+  padding-top: 70px;
+  padding-bottom: 0;
 }
 
 .footer__about {
@@ -2873,7 +2856,7 @@ ol {
   transform: translateX(-6px);
   border: 12px solid transparent;
   border-top: 30px solid #ffffff;
-  content: "";
+  content: '';
   z-index: -1;
 }
 
@@ -3180,7 +3163,7 @@ ol {
     height: 100%;
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
-    content: "";
+    content: '';
     z-index: 98;
     visibility: hidden;
     -webkit-transition: all, 0.6s;
@@ -3438,7 +3421,7 @@ ol {
     height: 100%;
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
-    content: "";
+    content: '';
     z-index: 98;
     visibility: hidden;
     -webkit-transition: all, 0.6s;
@@ -3598,4 +3581,16 @@ ol {
   flex-direction: column;
   margin-top: 20px; /* 버튼 간격 조정 */
   margin-bottom: 30px;
+}
+
+#wrapper {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#wrapper button {
+  width: 70px;
+  height: 30px;
+  background-color: skyblue;
 }

@@ -28,6 +28,14 @@ interface RequestWithLocals extends Request {
 export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
+  //@Req() request: RequestWithLocals 받는 메소드
+  async reqId (
+    @Req() request: RequestWithLocals,
+  ){
+    const userId = request.locals.user;
+    return userId.id;
+  }
+
   //음식 생성
   @Post('/')
   async createFood(

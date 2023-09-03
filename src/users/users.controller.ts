@@ -103,6 +103,7 @@ export class UsersController {
     try {
       await this.userService.updateUser(
         auth.id,
+        data.nick_name,
         data.newNick_name,
         data.password,
         data.newPassword,

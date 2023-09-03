@@ -135,6 +135,7 @@ export class UsersService {
 
   async updateUser(
     id: number,
+    nick_name: string,
     newNick_name: string,
     password: string,
     newPassword: string,
@@ -149,6 +150,12 @@ export class UsersService {
     }
 
     if (password !== confirmUserPass.password) {
+      console.log(
+        '비밀번호',
+        password,
+        '확인비밀번호',
+        confirmUserPass.password,
+      );
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
     return this.userRepository.update(id, {

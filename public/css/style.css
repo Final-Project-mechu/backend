@@ -3594,3 +3594,32 @@ ol {
   height: 30px;
   background-color: skyblue;
 }
+
+/* 식사, 디저트 버튼 css */
+.filter-button {
+  margin: auto;
+  align-items: center;
+  margin-left: 10px;
+  background-color: skyblue;
+}
+
+/* 하위 카테고리 버튼 css */
+.sub-filter-button {
+  margin: auto;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: goldenrod;
+}
+
+.filter-buttons {
+  margin: auto;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.sub-filter-buttons {
+  margin: auto;
+  align-items: center;
+}

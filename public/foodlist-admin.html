@@ -23,9 +23,61 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
-  </head>
+    <!-- 부트스트랩 CSS 파일 추가 -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- 부트스트랩 JavaScript 파일 추가 (jQuery와 Popper.js를 포함) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
 
   <body>
+
+
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- 모달 헤더 -->
+              <div class="modal-header">
+                  <h4 class="modal-title">카테고리 및 메뉴 추가/수정</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- 모달 본문 -->
+              <div class="modal-body">
+                  <!-- 입력 폼 -->
+                  <form>
+                      <div class="form-group">
+                          <label for="category">카테고리:</label>
+                          <input type="text" class="form-control" id="category">
+                      </div>
+                      <div class="form-group">
+                          <label for="menuName">메뉴 이름:</label>
+                          <input type="text" class="form-control" id="menuName">
+                      </div>
+                      <div class="form-group">
+                          <label for="menuImage">이미지 추가:</label>
+                          <input type="file" class="form-control" id="menuImage">
+                      </div>
+                  </form>
+              </div>
+
+              <!-- 모달 푸터 -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-dismiss="modal">저장</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+  
+
+
     <!-- Page Preloder -->
     <div id="preloder">
       <div class="loader"></div>
@@ -35,7 +87,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
       <div class="humberger__menu__logo">
-        <a href="#"><img src="img/logo.png" alt="" /></a>
+        <a href="#"><img src="img/로고 122.PNG" alt="" /></a>
       </div>
       <div class="humberger__menu__cart">
         <ul>
@@ -109,7 +161,7 @@
             </div>
             <div class="col-lg-6">
               <div class="header__top__right">
-                <div class="header__top__right__social">
+                <div class="header__top__right__auth">
                   <a href="#"><i class="fa fa-github"></i></a>
                 </div>
                 <div class="header__top__right__auth"></div>
@@ -129,17 +181,10 @@
             <nav class="header__menu">
               <ul>
                 <li><a href="./index.html">홈</a></li>
-                <li>
-                  <a href="./menu-subscribe.html">메뉴 추천</a>
-                </li>
-                <li>
-                  <a href="#">추가 페이지</a>
-                  <ul class="header__menu__dropdown">
-                    <li><a href="./contact.html">이용 약관</a></li>
-                  </ul>
-                </li>
+                <li><a href="./preference.html">선호도</a></li>
+                <li class="active"><a href="./foodlist.html">메뉴판</a></li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
                 <li><a href="./feed.html">피드</a></li>
-                <li class="active"><a href="./shoping-cart.html">선호도</a></li>
               </ul>
             </nav>
           </div>
@@ -162,168 +207,179 @@
     </section>
     <!-- Hero Section End -->
 
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="breadcrumb__text">
-              <h2>점메추저메추</h2>
-              <div class="breadcrumb__option">
-                <a href="./index.html">홈으로</a>
-                <span>선호도 페이지</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Breadcrumb Section End -->
 
 
   
       <section class="product spad">
-        <div>
-          <form action="#" style="text-align: center">
-            <input type="text" placeholder="입력칸2" />
-            <button type="submit" class="site-btn">검색</button>
-          </form>
         
+        <div>
+          <div class="dropdown">
+            <select>
+              <option value="식사">식사</option>
+              <option value="디저트">디저트</option>
+            </select>
+          </div>
+          <form action="#" style="text-align: center">
+            
+            <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+            <button onclick="search()">검색</button>
+          </form>
+          <button id="addMenuButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">메뉴 추가하기</button>
+          <button id="editMenuButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">메뉴 수정하기</button>
+     
+          
+      
+
+      
+
           <section class="featured spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="section-title">
-                            <h2>음식</h2>
-                        </div>
+                      <div class="filter-buttons">
+                        <form action="#" style="text-align: center">                       
+
+                    </div>
                         <div class="featured__controls">
-                            <ul>
-                                <li class="active" data-filter="*">All</li>
-                                <li data-filter=".korea">한식</li>
-                                <li data-filter=".chinese">중식</li>
-                                <li data-filter=".Western">양식</li>
-                                <li data-filter=".fastfood">인도식</li>
-                            </ul>
+                          <ul>
+                            <li class="active" data-filter="*">All</li>
+                            <li data-filter=".meal">식사</li>
+                            <li data-filter=".dessert">디저트</li>
+                        </ul>
+                        <ul>
+                          <li data-filter=".meal">식사</li>
+                          <li data-filter=".korea">한식</li>
+                          <li data-filter=".chinese">중식</li>
+                          <li data-filter=".Western">양식</li>
+                          <li data-filter=".Indian">인도식</li>
+                      </ul>
                         </div>
                     </div>
                 </div>
                 <div class="row featured__filter">
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix chinese">
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix chinese meal">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MThfMTMx%2FMDAxNjg5Njc0NTg2MDEw.WPcAkQjFFaUZBvq49aVwv8FgDKOurIRkqv52hVmH-HMg.ekmPPlVUAA9_JGjpY-F1jlvtR3Mfg2V1hP_V_RNZEcUg.JPEG.techmass3%2F20230718_120811.jpg&type=a340">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">샘플1</a></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix korea">
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix korea meal">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA0MDVfMTU3%2FMDAxNjgwNjIxNjU0NDMz.JvMF6qvzOvrflCv0sjZCsG01OgZDP4RqwwBW1BXLXuMg.l1ygJPN0u7yVq7WlnTkjYfgY3grcouohZkWxA9hm25gg.JPEG.congsarang1%2FIMG_0853.JPG&type=a340">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
+                               
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">샘플2</a></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix Western">
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix Western meal">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fshop1.phinf.naver.net%2F20221214_171%2F16709924755527L2Yi_JPEG%2F72128318180512400_2043325730.jpg&type=sc960_832">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
+                               
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">샘플3</a></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjFfMTgg%2FMDAxNjg3MzU1ODgzNTg2.6Yeun19uKu9C-jAjCIn-tZMxg41gn2idTDEeSvxG7ZAg.JFm8SVYZ787lqv0Q8Z2hnBeOmwDABB0lpOvQzVcbbJUg.JPEG.prspring%2FIMG_3329.JPG&type=sc960_832">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
+                               
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">샘플4</a></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix chinese">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
+                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MzBfMTY0%2FMDAxNjg4MTMzNzQzMDAy.YxVza0lZ_-yrWXduko0eYZU0fVElnUn-csFOt6L0dJsg.RBqHdjrrDQB6eqZnms0218Eq6Kuov-i2_I7c5mqO8kQg.JPEG.baeh76%2F20230609_163858.jpg&type=a340">
+                               
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">샘플5</a></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix Western">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
+                               
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">샘플6</a></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
+                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MTNfMTIz%2FMDAxNjgzOTU1Mzk0OTcz.H0I2MCyt-3a5EHZn_vHnf4aDopkKCTtMm75kBvt4gIEg.rDENWW0SGYyheqMNnM-CVuDCRqoRErS4fIlYi6cQpAgg.JPEG.holyfsss%2FKakaoTalk_20230504_114130310_20.jpg&type=sc960_832">
+                               
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">샘플7</a></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플8</a></h6>
-                            </div>
+                    
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix korea">
+                      <div class="featured__item">
+                          <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjhfMzUg%2FMDAxNjY5NjM0ODA0MzIx.mzdKbwqEPejUtpfc7zjhRmRgkG5IYmg69-QvjIAXtL8g.BlGx7Ex-70rGxm0ohU5pGyiRHTe1nBV_axtFvIMGEdIg.JPEG.ajung8904%2FP20221118_133812697_E8C719C0-7426-4F76-A26D-7A55CCD817F7.jpg&type=sc960_832">
+                          </div>
+                          <div class="featured__item__text">
+                              <h6><a href="#">샘플8</a></h6>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix japan">
+                      <div class="featured__item">
+                          <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MjFfMTY5%2FMDAxNjg5OTQ2MDAyODI0.74N5ezr9LiakaV7gPqwGaz6_v4s0DmF1R0QmULIrGesg.ipkpOp_YvBI5kqZDBu9lIGjdV4FVcpalGqmynDNSHKUg.JPEG.tmfrl4918%2FIMG_9143.jpg&type=a340">
+                          </div>
+                          <div class="featured__item__text">
+                              <h6><a href="#">샘플1</a></h6>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 mix japan">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzA3MDVfMzYg%2FMDAxNDk5MjIyNjE2NTA5.0TxN7PLZquGhjYIQj9NiU4xLEnwy6kcm1JyYYCMTE6Qg.dfpdTXzirq7gCAK5g7OObMdgSF66Pk4KmivyuK0nB4gg.JPEG.dongyumokj%2F%25C4%25AB%25C3%25F7%25B5%25BF.jpg&type=sc960_832">
                         </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">샘플1</a></h6>
+                        </div>
+                    </div>
+                </div><div class="col-lg-3 col-md-6 col-sm-6 mix dessert">
+                  <div class="featured__item">
+                      <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAyMjdfMTg4%2FMDAxNjQ1OTY2MTg1NjA5.JPBxkFiCNG3bqRA1nVEFF2Q0vnFZGiKuw3x0LKD4NOYg.z0eY0mVYVsmNqkIzglnTgIBpAhi8x3xpYE89ORLc3zIg.JPEG.sip707%2Foutput_734202219.jpg&type=a340">
+                      </div>
+                      <div class="featured__item__text">
+                          <h6><a href="#">샘플1</a></h6>
+                      </div>
+                  </div>
+              </div><div class="col-lg-3 col-md-6 col-sm-6 mix dessert">
+                <div class="featured__item">
+                    <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjZfMjQy%2FMDAxNjg3NzQ2ODc3OTUw.brwrbq_3Z2RAdgz9_Zuo9qwtITyax_J-4t02fOxWz2sg.GmUxfnlfjWNmlUSUzR2yU_xNUvWwSNJzDCBWrot3pGYg.JPEG.s_oogle%2FIMG_0972.jpg&type=a340">
+                    </div>
+                    <div class="featured__item__text">
+                        <h6><a href="#">샘플1</a></h6>
                     </div>
                 </div>
             </div>
-        </section>
+          </div>
+        </div>
+    </section>
+  </section>
+      <!-- Hero Section End -->
+  
+  
+  
     
+        
 
 
     <!-- Footer Section Begin -->
@@ -336,31 +392,44 @@
                 <a href="./index.html"><img src="img/logo.png" alt="" /></a>
               </div>
               <ul>
-                <p>TEAM : 오늘 뭐 먹지? TOGETHER EAT!</p>
-                <p>김세령 오준석 이서원 최하영 함형진</p>
+                <li>team: 점메추 저메추</li>
+                <li>김세령</li>
+                <li>오준석</li>
+                <li>이서원</li>
+                <li>최하영</li>
+                <li>함형진</li>
               </ul>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-5 offset-lg-1">
+          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
             <div class="footer__widget">
               <h6>Useful Links</h6>
               <ul>
-                <li><a href="./terms.html">이용 약관</a></li>
+                <li><a href="#">이용 약관</a></li>
               </ul>
             </div>
           </div>
           <div class="col-lg-4 col-md-12">
             <div class="footer__widget">
-              <h6>GitHub</h6>
+              <h6>팀 점메추저메추 깃허브</h6>
+              <p></p>
+              <!-- <form action="#">
+              <input type="text" placeholder="Enter your mail" />
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form> -->
               <div class="footer__widget__social">
                 <a href="https://github.com/Final-Project-mechu"
                   ><i class="fa fa-github"></i
                 ></a>
+                <!-- <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a> -->
               </div>
             </div>
           </div>
         </div>
         <div class="row">
+
         </div>
       </div>
     </footer>
@@ -376,6 +445,10 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/foodlist.js"></script>
+    <!-- 부트스트랩 JS 및 jQuery 추가 -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   </body>
 </html>

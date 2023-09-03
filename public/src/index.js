@@ -88,7 +88,6 @@ function verifyCode() {
     email: $('#email').val(),
     code: $('#Code').val(),
   };
-
   axios
     .post('http://localhost:3000/users/verify-code', data)
     .then(response => {
@@ -128,11 +127,14 @@ function sign(event) {
 //로그인
 function login() {
   const data = {
-    email: $('#Email').val(),
-    password: $('#Password').val(),
+    is_admin: $('#admin').val(),
+    email: $('#email').val(),
+    nick_name: $('#signupNickname').val(),
+    password: $('#signupPassword').val(),
+    passwordConfirm: $('#signupPasswordConfirm').val(),
   };
   axios
-    .post('http://localhost:3000/users/login', data)
+    .post('http://localhost:3000/users/sign', data)
     .then(response => {
       console.log(data);
       alert('로그인 완료');

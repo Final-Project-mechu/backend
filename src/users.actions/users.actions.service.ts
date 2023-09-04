@@ -6,11 +6,19 @@ import { Food } from 'src/entity/food.entity';
 import { Ingredient } from 'src/entity/ingredient.entity';
 import { CreateFavoriteDto } from './dto/create.users.actions.dto';
 import { FoodIngredient } from 'src/entity/food.ingredient.entity';
+import { Category } from 'src/entity/category.entity';
 
 const DEFAULT_USER_ID = 1;
 const FAVORITE_WEIGHT = 10;
 const LIKE_WEIGHT = 1;
 const EXCLUDE_WEIGHT = -1000;
+interface FoodWeight {
+  foodId: number;
+  categoryId: number;
+  weight: number;
+  probability?: number;
+  cumulativeProbability?: number;
+}
 
 @Injectable()
 export class UsersActionsService {
@@ -23,6 +31,8 @@ export class UsersActionsService {
     private ingredientRepo: Repository<Ingredient>,
     @InjectRepository(FoodIngredient)
     private foodingredientRepo: Repository<FoodIngredient>,
+    @InjectRepository(Category) 
+    private categoryRepo: Repository<Category>,
   ) {}
 
   private async getEntityIdByName(
@@ -72,7 +82,7 @@ export class UsersActionsService {
       })
       .execute();
   }
-
+  // 선호 음식 체크 조회
   async getFavoriteFoodsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -91,7 +101,7 @@ export class UsersActionsService {
 
     return results.map(result => result.foodName);
   }
-
+  // 좋아요한 음식 조회
   async getLikedFoodsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -105,7 +115,7 @@ export class UsersActionsService {
 
     return results.map(result => result.foodName);
   }
-
+  // 제외한 음식 조회
   async getExcludedFoodsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -123,7 +133,7 @@ export class UsersActionsService {
       .getRawMany();
     return results.map(result => result.foodName);
   }
-
+  // 제외한 재료 조회
   async getExcludedIngredientsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -142,7 +152,7 @@ export class UsersActionsService {
 
     return results.map(result => result.ingredientName);
   }
-
+  // 제외한 재료에 따른 음식 조회
   async getExcludedFoodsIngredientsForUser(
     userId: number = DEFAULT_USER_ID,
   ): Promise<string[]> {
@@ -160,7 +170,7 @@ export class UsersActionsService {
       .getRawMany();
     return results.map(result => result.foodName);
   }
-
+  // 선호 음식 추가
   async addFavoriteFood(createFavoriteDto: CreateFavoriteDto): Promise<any> {
     const { foodName } = createFavoriteDto;
     const foodId = await this.getEntityIdByName(
@@ -189,7 +199,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 좋아한 음식 추가 (좋아요)
   async addLikeForFood(foodName: string): Promise<any> {
     const foodId = await this.getEntityIdByName(
       this.foodRepo,
@@ -204,7 +214,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 제외 음식 추가
   async excludeFood(foodName: string): Promise<any> {
     const foodId = await this.getEntityIdByName(
       this.foodRepo,
@@ -232,7 +242,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 제외 재료 추가
   async excludeIngredient(ingredientName: string): Promise<any> {
     const ingredientId = await this.getEntityIdByName(
       this.ingredientRepo,
@@ -278,7 +288,7 @@ export class UsersActionsService {
 
     return await this.userActionRepo.query(query);
   }
-
+  // 선호한 음식 체크 해제
   async cancelFavoriteFood(createFavoriteDto: CreateFavoriteDto): Promise<any> {
     const { foodName } = createFavoriteDto;
     const foodId = await this.getEntityIdByName(
@@ -305,7 +315,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 제외한 음식 체크 해제
   async cancelExclusionOfFood(
     createFavoriteDto: CreateFavoriteDto,
   ): Promise<any> {
@@ -334,7 +344,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
-
+  // 제외한 재료 체크 해제
   async cancelExclusionIngredient(ingredientName: string): Promise<any> {
     const ingredientId = await this.getEntityIdByName(
       this.ingredientRepo,
@@ -380,4 +390,122 @@ export class UsersActionsService {
 
     return await this.userActionRepo.query(query);
   }
+
+  // 음식 추천 룰렛
+  // 해당 카테고리와 관련된 모든 하위 카테고리 ID를 가져오는 함수
+  async getSubCategories(categoryId: number): Promise<number[]> {
+    const subCategories = await this.categoryRepo.find({
+      where: { top_category_id: categoryId },
+    });
+    console.log("카테고리 A :",subCategories)
+    return subCategories.map(category => category.id);
+  }
+
+  // 하위 카테고리 ID를 가져오는 함수. catecory 테이블의 top_category_id가 null인 경우
+  async isTopLevelCategory(categoryId: number): Promise<boolean> {
+    const category = await this.categoryRepo.findOne({
+      where: { id: categoryId },
+    }); 
+    console.log("카테고리 B :",category)
+    return category?.top_category_id === null;
+  }
+
+  async getRandomWeightedFood(
+    categoryId: number,
+    userId: number = DEFAULT_USER_ID,
+  ): Promise<string> {
+    let relatedCategoryIds = [categoryId];
+    if (await this.isTopLevelCategory(categoryId)) {
+      relatedCategoryIds = relatedCategoryIds.concat(
+        await this.getSubCategories(categoryId),
+      );
+    }
+  
+    const foods = await this.getFoodsByCategoryIds(relatedCategoryIds);
+    const foodsWeights = this.calculateBasicWeights(foods);
+    const filteredFoods = this.filterFoodsByCategory(foodsWeights, relatedCategoryIds);
+    await this.adjustWeightsByUserActions(filteredFoods, userId);
+    const validFoods = this.getValidFoods(filteredFoods);
+    this.calculateProbabilities(validFoods);
+    const selectedFood = this.performRandomWeightedSelection(validFoods);
+  
+    if (!selectedFood) {
+      throw new BadRequestException(
+        '음식을 선택할 수 없습니다.',
+      );
+    }
+    const food = await this.foodRepo.findOne({
+      where: { id: selectedFood.foodId },
+    });
+    return food?.food_name || '해당 음식을 찾을 수 없습니다.';
+  }
+  
+  async getFoodsByCategoryIds(relatedCategoryIds: number[]): Promise<Food[]> {
+    return await this.foodRepo
+      .createQueryBuilder('food')
+      .where('food.category_id IN (:...relatedCategoryIds)', {
+        relatedCategoryIds,
+      })
+      .getMany();
+  }
+  
+  calculateBasicWeights(foods: Food[]): FoodWeight[] {
+    return foods.map(food => ({
+      foodId: food.id,
+      categoryId: food.category_id,
+      weight: 10,
+    }));
+  }
+  
+  filterFoodsByCategory(foodsWeights: FoodWeight[], targetCategoryIds: number[]): FoodWeight[] {
+    return foodsWeights.filter(food => targetCategoryIds.includes(food.categoryId));
+  }
+  
+  async adjustWeightsByUserActions(filteredFoods: FoodWeight[], userId: number): Promise<void> {
+    for (const foodWeight of filteredFoods) {
+      const userActionWeight = await this.userActionRepo
+        .createQueryBuilder('ua')
+        .select('SUM(ua.weight)', 'totalWeight')
+        .where('ua.user_id = :userId', { userId })
+        .andWhere('ua.food_id = :foodId', { foodId: foodWeight.foodId })
+        .getRawOne();
+  
+      const additionalWeight =
+        userActionWeight && userActionWeight.totalWeight
+          ? parseInt(userActionWeight.totalWeight)
+          : 0;
+      foodWeight.weight += additionalWeight;
+    }
+  }
+  
+  getValidFoods(filteredFoods: FoodWeight[]): FoodWeight[] {
+    return filteredFoods.filter(foodWeight => foodWeight.weight > -500);
+  }
+  
+  calculateProbabilities(validFoods: FoodWeight[]): void {
+    const totalWeight = validFoods.reduce((acc, food) => acc + food.weight, 0);
+    validFoods.forEach(food => {
+      food.probability = food.weight / totalWeight;
+    });
+  
+    let cumulativeProbability = 0;
+    validFoods.forEach(food => {
+      food.cumulativeProbability = cumulativeProbability + food.probability;
+      cumulativeProbability = food.cumulativeProbability;
+    });
+  }
+  
+  performRandomWeightedSelection(validFoods: FoodWeight[]): FoodWeight | undefined {
+    const randomValue = Math.random();
+    return validFoods.find((food, index) => {
+      if (index === 0) {
+        return randomValue < food.cumulativeProbability;
+      }
+      return (
+        randomValue >= validFoods[index - 1].cumulativeProbability &&
+        randomValue < food.cumulativeProbability
+      );
+    });
+  }
+  
 }

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ogani Template" />
+    <meta name="keywords" content="Ogani, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>점메추저메추</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Css Styles START-->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+    <!-- CSS Styles END -->
+    <script async src="./src/preference.js" defer></script>
+  <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+    </div>
+    <!--여기부터-->
+    <!--주석 처리한 부분은 필요 없다고 생각될 경우 제거 예정입니다.-->
+    <!-- Header Section Begin -->
+    <header class="header">
+      <div class="header__top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="header__top__left">
+                <ul></ul>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="header__top__right">
+                <div class="header__top__right__auth">
+                  <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="header__top__right__auth"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--index.html의 216라인부터 246라인까지 모든 html에 복붙하고 복붙한 리스트 클래스에 class=action을 적용시켜줍니다.-->
+      <!--html주소는 다를 수있으니 본인의 hmtl링크 주소를 확인해주세요-->
+      <!--다른 html에서는 div class=container의 div부터 해당 div가 끝나는 라인까지 복붙하면 됩니다. 잘 모르겠으면 메뉴를 검색해서 나오는 컨테이너를 찾아 복붙-->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="header__logo">
+              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+            </div>
+          </div>
+          <nav class="humberger__menu__nav mobile-menu"></nav>
+          <div class="col-lg-6">
+            <nav class="header__menu">
+              <ul>
+                <li><a href="./index.html">홈</a></li>
+                <li class="active"><a href="./preference.html">선호도</a></li>
+                <li><a href="./foodlist.html">메뉴판</a></li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                <li><a href="./feed.html">피드</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+            </div>
+          </div>
+        </div>
+    </header>
+    <section class="from-blog spad">
+      <div class="section-title">
+        <h2>선호도 조사</h2>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="dropdown">
+              <select id="search-category">
+                <option value="카테고리">카테고리</option>
+                <option value="선호 메뉴">선호 메뉴</option>
+                <option value="제외 메뉴">제외 메뉴</option>
+                <option value="제외 재료">제외 재료</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-9">
+            <div class="hero__search">
+              <div class="hero__search__form">
+                <form action="#" id="search-form">
+                  <input id="survey-search-input" type="text" placeholder="검색해보세요" />
+                  <button type="submit" class="site-btn">추가하기</button>
+                </form>
+              </div>
+              <div class="hero__search__phone">
+                <a href="#" class="site-btn">메뉴판 보기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Header Section End --> 
+    <section class="product spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="featured__controls">
+              <ul>
+                <li data-filter=".likes">선호 음식</li>
+                <li data-filter=".excluded-foods">제외 음식</li>
+                <li data-filter=".excluede-ingredient">제외 재료</li>
+                <li data-filter=".excluded-ing-foods">제외 재료 포함 음식</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row featured__filter">
+          <!-- <div class="col-lg-3 col-md-4 col-sm-6 mix likes">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <label for="acc">
+                  체크(옆에 반응 필요)
+                  <input type="checkbox" id="acc" />
+                  <span class="checkmark"></span>
+                </label>
+                <h6>김치찌개</a></h6>
+              </div>
+            </div>
+          </div> -->
+          <div class="col-lg-3 col-md-4 col-sm-6 mix excluede-ingredient">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <h6>제외재료 샘플</a></h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix excluded-foods">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <h6>제외 음식1</a></h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood likes">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <h6 id="favorite-food">좋아하는 음식샘플1</a></h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix excluded-foods">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <h6>제외하는 음식샘플2</a></h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix likes fastfood">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <h6>좋아하는 음식샘플</a></h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix excluded-foods">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <h6>제외하는 음식샘플3</a></h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix excluede-ingredient">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <h6>제외하는 재료 샘플2</a></h6>
+                <h5></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix excluded-ing-foods">
+            <div class="featured__item">
+              <div class="featured__item__text">
+                <h6>제외 재료 포함음식 1</a></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="footer__about">
+              <div class="footer__about__logo">
+                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+              </div>
+              <ul>
+                <p>TEAM : 오늘 뭐 먹지? TOGETHER EAT!</p>
+                <p>김세령 오준석 이서원 최하영 함형진</p>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-5 offset-lg-1">
+            <div class="footer__widget">
+              <h6>Useful Links</h6>
+              <ul>
+                <li><a href="./terms.html">이용 약관</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="footer__widget">
+              <h6>GitHub</h6>
+              <div class="footer__widget__social">
+                <a href="https://github.com/Final-Project-mechu"
+                  ><i class="fa fa-github"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+        </div>
+      </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    
+  </body>
+</html>

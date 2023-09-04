@@ -26,7 +26,6 @@ export class CreateUserDto {
   @IsString()
   readonly nick_name: string;
 
-  @IsNumber()
+  @IsString()
   readonly is_admin: number;
-
 }

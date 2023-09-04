@@ -24,10 +24,10 @@ export class IngredientService {
       where: { id: user_id },
       select: ['is_admin'],
     });
-    if (confirmAdmin.is_admin !== 1) {
-      console.log('관리자가 아닙니다.');
-      throw new UnauthorizedException('관리자가 아닙니다.');
-    }
+    // if (confirmAdmin.is_admin !== 1) {
+    //   console.log('관리자가 아닙니다.');
+    //   throw new UnauthorizedException('관리자가 아닙니다.');
+    // }
     return this.ingredientReository.insert({
       ingredient_name,
     });
@@ -43,10 +43,10 @@ export class IngredientService {
       where: { id: user_id },
       select: ['is_admin'],
     });
-    if (confirmAdmin.is_admin !== 1) {
-      console.log('관리자가 아닙니다.');
-      throw new UnauthorizedException('관리자가 아닙니다.');
-    }
+    // if (confirmAdmin.is_admin !== 1) {
+    //   console.log('관리자가 아닙니다.');
+    //   throw new UnauthorizedException('관리자가 아닙니다.');
+    // }
     await this.ingredientReository.update(ingredient_id, {
       ingredient_name,
     });
@@ -61,9 +61,7 @@ export class IngredientService {
 
   //카테고리 전체 조회
   async getIngredientAll() {
-    return await this.ingredientReository.query(
-      `select * from ingredient;`,
-    );
+    return await this.ingredientReository.query(`select * from ingredient;`);
   }
 
   //재료 삭제

@@ -79,7 +79,7 @@ function searchExcludeIngredients() {
     method: 'post',
     url: 'http://localhost:3000/user-actions/exclude-ingredients',
     data: {
-      foodName: searchValue,
+      ingredientName: searchValue,
     },
   })
     .then(function (res) {

@@ -1,5 +1,7 @@
 let randomData;
 
+// HINT : 변수에 함수를 넣을 수 있다
+// 제일 쉬운 방법은 전역변수 사용(위치)
 /**
  * 사용자의 GPS 정보를 불러오는 함수
  */
@@ -7,11 +9,12 @@ navigator.geolocation.getCurrentPosition(
   function (pos) {
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
+    console.log('GPS 실행');
     createMap(latitude, longitude);
   },
-  () => {
-    console.log('위치 허용을 설정해야 사용할 수 있는 기능입니다.');
-  },
+  // () => {
+  //   console.log('위치 허용을 설정해야 사용할 수 있는 기능입니다.');
+  // },
 );
 
 /**
@@ -26,12 +29,13 @@ function createMap(latitude, longitude) {
     } else if (status === kakao.maps.services.Status.ERROR) {
       new Error('검색 결과 중 오류가 발생했습니다.');
     }
+    console.log('createMap 함수실행');
     successOnGetPlace(data, latitude, longitude);
   });
 }
 
 /**
- * 데이터 불러오는 것 성공 시 가져오는 함수
+ * 데이터 불러오는 것 성공 시 데이터 가공 후 마커를 붙이는 함수
  * @param {*} data : 성공 시 가져오는 데이터(15개정도 됨)
  * @param {*} latitude : 사용자의 GPS정보
  * @param {*} longitude : 사용자의 GPS정보
@@ -53,6 +57,7 @@ function successOnGetPlace(data, latitude, longitude) {
   });
   marker.setMap(map);
   infoWindow.open(map, marker);
+  console.log('successOnGetPlace 함수실행', data, randomData);
 }
 
 /**
@@ -71,6 +76,7 @@ function getMap(latitude, longitude) {
       // sort: kakao.maps.services.SortBy.DISTANCE,
     };
 
+  console.log('getMap 함수실행');
   return new kakao.maps.Map(mapContainer, mapOption);
 }
 
@@ -83,6 +89,8 @@ function getMap(latitude, longitude) {
 function searchPlaces(latitude, longitude, callback) {
   // const keyword = sendKeyword();
   const keyword = '치킨';
+  console.log(keywordResult);
+  // const keyword = keywordResult;
   const searchOptions = {
     x: longitude,
     y: latitude, // 검색 중심 좌표를 기존 지도의 중심 좌표로 설정
@@ -90,12 +98,9 @@ function searchPlaces(latitude, longitude, callback) {
   };
   // 장소 검색 객체를 생성합니다
   const places = new kakao.maps.services.Places();
-  places.keywordSearch(keyword, callback, searchOptions);
+  console.log('searchPlaces 함수실행', keyword);
+  return places.keywordSearch(keyword, callback, searchOptions);
 }
-
-// export function sendKeyword(keyword) {
-//   return keyword;
-// }
 
 /**
  * 찜하기 눌렀을 때 사용자의 찜하기 목록생성 함수

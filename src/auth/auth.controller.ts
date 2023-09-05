@@ -119,18 +119,4 @@ export class AuthController {
         return res.send('logout error');
       });
   }
-
-  @Post('refresh-token')
-  async refreshAccessToken(@Req() request) {
-    const refresh_token = request.headers[''];
-    console.log('1', refresh_token, '2', request.headers);
-
-    if (!refresh_token) {
-      throw new UnauthorizedException(`리프레시 토큰이 필요합니다.`);
-    }
-    const newAccessToken =
-      await this.authService.refreshAccessToken(refresh_token);
-
-    return { accessToken: newAccessToken };
-  }
 }

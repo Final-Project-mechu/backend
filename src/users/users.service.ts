@@ -98,15 +98,8 @@ export class UsersService {
       is_admin,
       email,
       nick_name,
-      password,
+      password: hashedPassword,
     });
-
-    const refresh_token_payload = {};
-    const refresh_token = await this.jwtService.signAsync(
-      refresh_token_payload,
-      { expiresIn: '1d' },
-    );
-    return { refresh_token };
     delete isEmailVerified[email];
   }
 
@@ -118,19 +111,27 @@ export class UsersService {
           `e메일을 찾을 수 없습니다. user email: ${email}`,
         );
       }
-      if (userConfirm.password !== password) {
-        throw new UnauthorizedException('비밀번호가 올바르지 않습니다.');
-      }
+      // const isPasswordValid = await bcrypt.compare(
+      //   password,
+      //   userConfirm.password,
+      // );
+
+      // if (!isPasswordValid) {
+      //   throw new UnauthorizedException('비밀번호가 올바르지 않습니다.');
+      // }
       const payload = {
         id: userConfirm.id,
         nick_name: userConfirm.nick_name,
       };
-      const accessToken = await this.jwtService.signAsync(
-        payload,
-        // {expiresIn: '60m'}
-      );
+      const accessToken = await this.jwtService.signAsync(payload, {
+        expiresIn: '1d',
+      });
 
-      return accessToken;
+      const refreshToken = await this.jwtService.signAsync(payload, {
+        expiresIn: '7d',
+      });
+
+      return { access_Token: accessToken, refresh_Token: refreshToken };
     } catch (error) {
       throw error;
     }

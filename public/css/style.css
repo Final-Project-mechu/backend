@@ -3594,3 +3594,114 @@ ol {
   height: 30px;
   background-color: skyblue;
 }
+
+/* 식사, 디저트 버튼 css */
+.filter-button {
+  margin: auto;
+  align-items: center;
+  margin-left: 10px;
+  background-color: skyblue;
+}
+
+/* 하위 카테고리 버튼 css */
+.sub-filter-button {
+  margin: auto;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: goldenrod;
+}
+
+.filter-buttons {
+  margin: auto;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.sub-filter-buttons {
+  margin: auto;
+  align-items: center;
+}
+
+/* 식사, 디저트 버튼 css */
+.filter-button {
+  margin: auto;
+  align-items: center;
+  margin-left: 10px;
+  background-color: skyblue;
+}
+
+/* 하위 카테고리 버튼 css */
+.sub-filter-button {
+  margin: auto;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: goldenrod;
+}
+
+.filter-buttons {
+  margin: auto;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.sub-filter-buttons {
+  margin: auto;
+  align-items: center;
+}
+
+/* 스타일을 추가하여 모달을 가리키는 버튼과 모달 스타일링 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center; 
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+#addMenuButton {
+  z-index: 1;
+    position: relative;
+    top: 180px;
+    left: 1200px;
+    cursor: pointer; /* Add this to change the cursor to a pointer when hovering over the button */
+  }
+  
+
+
+#editMenuButton {
+  z-index: 1;
+    position: relative;
+    top: 180px;
+    left: 1200px;
+    cursor: pointer; /* Add this to change the cursor to a pointer when hovering over the button */
+  }

@@ -100,6 +100,13 @@ export class UsersService {
       nick_name,
       password,
     });
+
+    const refresh_token_payload = {};
+    const refresh_token = await this.jwtService.signAsync(
+      refresh_token_payload,
+      { expiresIn: '1d' },
+    );
+    return { refresh_token };
     delete isEmailVerified[email];
   }
 
@@ -118,12 +125,11 @@ export class UsersService {
         id: userConfirm.id,
         nick_name: userConfirm.nick_name,
       };
-      const accessToken = await this.jwtService.signAsync(payload);
-      const refresh_token_payload = {};
-      const refresh_token = await this.jwtService.signAsync(
-        refresh_token_payload,
-        { expiresIn: '1d' },
+      const accessToken = await this.jwtService.signAsync(
+        payload,
+        // {expiresIn: '60m'}
       );
+
       return accessToken;
     } catch (error) {
       throw error;
@@ -175,5 +181,17 @@ export class UsersService {
   private generateVerificationCode(): number {
     // 4자리 인증번호 생성 로직
     return Math.floor(1000 + Math.random() * 9000);
+  }
+
+  async createGoogleUser(data: any) {
+    const existUser = await this.userRepository.findOne({
+      where: { email: data.email },
+    });
+    if (existUser) {
+      throw new ConflictException(`이미 가입된 회원입니다.`);
+    }
+
+    const user = this.userRepository.create(data);
+    return await this.userRepository.save(user);
   }
 }

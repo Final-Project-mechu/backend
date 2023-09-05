@@ -50,7 +50,7 @@ export class User {
   password: string;
   @Column('varchar', {
     select: false,
-    default: uuidv4(),
+    default: 'defalut-refresh',
   })
   refresh_token: string;
   @CreateDateColumn()

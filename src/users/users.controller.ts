@@ -55,7 +55,6 @@ export class UsersController {
   // 회원가입
   @Post('/sign')
   async createUser(@Body() data) {
-    console.log(data);
     const new_user = await this.userService.createUser(
       data.is_admin,
       data.email,
@@ -75,6 +74,10 @@ export class UsersController {
       data.email,
       data.password,
     );
+    response.cookie('Authentication', 'Bearer ' + authentication),
+      {
+        httpOnly: true,
+      };
     return { message: authentication };
   }
 

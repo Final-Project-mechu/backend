@@ -20,6 +20,9 @@ import { Friends } from './friend.entity';
 //
 @Entity({ schema: 'finalpj', name: 'user' })
 export class User {
+  findUserByIdWithoutPassword(id: number) {
+    throw new Error('Method not implemented.');
+  }
   @PrimaryGeneratedColumn()
   id: number;
   @OneToMany(() => Feed, feed => feed.users)

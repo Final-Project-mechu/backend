@@ -125,7 +125,7 @@ function sign(event) {
     });
 }
 
-//로그인
+// 로그인
 function login() {
   const data = {
     email: $('#Email').val(),
@@ -136,12 +136,52 @@ function login() {
     .then(response => {
       console.log(data);
       alert('로그인 완료');
-      document.getElementById('loginLink').textContent = '로그아웃';
-      localStorage.setItem('isLoggedIn', 'true');
+      // 로그인이 완료된 경우 로그아웃 버튼을 생성하고 로그인 링크를 변경
+      createLogoutButton();
     })
     .catch(error => {
       // 에러 처리
       alert('로그인 실패');
       console.error(error);
     });
+}
+
+// 로그아웃 버튼을 생성하고 로그인 링크를 변경하는 함수
+function createLogoutButton() {
+  const loginLink = document.getElementById('loginLink');
+  loginLink.innerHTML = '<i class="fa fa-user"></i>로그아웃';
+  loginLink.removeAttribute('onclick'); // 이전의 클릭 이벤트를 제거
+
+  // 새로운 클릭 이벤트를 추가하여 로그아웃 함수를 호출
+  loginLink.addEventListener('click', function () {
+    singOut();
+  });
+}
+
+// 로그아웃
+function singOut() {
+  axios
+    .delete('http://localhost:3000/users/logOut')
+    .then(response => {
+      alert('로그아웃 완료');
+      // 로그아웃이 완료된 경우 다시 로그인 링크로 변경
+      resetLoginLink();
+      location.reload();
+    })
+    .catch(error => {
+      alert('로그아웃 실패');
+      console.error(error);
+    });
+}
+
+// 로그아웃 후 다시 로그인 링크로 변경하는 함수
+function resetLoginLink() {
+  const loginLink = document.getElementById('loginLink');
+  loginLink.innerHTML = '<i class="fa fa-user"></i>로그인';
+  loginLink.removeAttribute('onclick'); // 이전의 클릭 이벤트를 제거
+
+  // 새로운 클릭 이벤트를 추가하여 로그인 함수를 호출
+  loginLink.addEventListener('click', function () {
+    login();
+  });
 }

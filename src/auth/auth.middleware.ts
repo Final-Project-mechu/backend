@@ -35,6 +35,8 @@ export class AuthMiddleware implements NestMiddleware {
 
       req.locals.user = payload; // req.locals.user에 파싱한 토큰 전달
 
+      // 여기서
+
       //
       next();
     } catch (err) {

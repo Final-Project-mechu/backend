@@ -89,10 +89,10 @@ export class UsersService {
 
     // 지금 테스트때문에 막아놨음
     // 이메일이 인증된 이메일인지 확인한다.
-    if (!isEmailVerified['email'] === true) {
-      console.log('이메일확인용 콘솔', isEmailVerified);
-      throw new ConflictException(`인증된 이메일이 아닙니다.`);
-    }
+    // if (!isEmailVerified['email'] === true) {
+    //   console.log('이메일확인용 콘솔', isEmailVerified);
+    //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
+    // }
 
     const insertResult = await this.userRepository.insert({
       is_admin,
@@ -100,13 +100,6 @@ export class UsersService {
       nick_name,
       password,
     });
-
-    const refresh_token_payload = {};
-    const refresh_token = await this.jwtService.signAsync(
-      refresh_token_payload,
-      { expiresIn: '1d' },
-    );
-    return { refresh_token };
     delete isEmailVerified[email];
   }
 
@@ -126,7 +119,11 @@ export class UsersService {
         nick_name: userConfirm.nick_name,
       };
       const accessToken = await this.jwtService.signAsync(payload);
-
+      const refresh_token_payload = {};
+      const refresh_token = await this.jwtService.signAsync(
+        refresh_token_payload,
+        { expiresIn: '1d' },
+      );
       return accessToken;
     } catch (error) {
       throw error;
@@ -150,12 +147,6 @@ export class UsersService {
     }
 
     if (password !== confirmUserPass.password) {
-      console.log(
-        '비밀번호',
-        password,
-        '확인비밀번호',
-        confirmUserPass.password,
-      );
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
     return this.userRepository.update(id, {
@@ -184,17 +175,5 @@ export class UsersService {
   private generateVerificationCode(): number {
     // 4자리 인증번호 생성 로직
     return Math.floor(1000 + Math.random() * 9000);
-  }
-
-  async createGoogleUser(data: any) {
-    const existUser = await this.userRepository.findOne({
-      where: { email: data.email },
-    });
-    if (existUser) {
-      throw new ConflictException(`이미 가입된 회원입니다.`);
-    }
-
-    const user = this.userRepository.create(data);
-    return await this.userRepository.save(user);
   }
 }

@@ -104,13 +104,16 @@ function verifyCode() {
 
 //회원가입
 function sign(event) {
+  const isAdmin = document.getElementById('admin').checked ? 1 : 0;
+  console.log('클라콘솔', isAdmin);
   const data = {
-    is_admin: $('#admin').val(),
+    is_admin: isAdmin,
     email: $('#email').val(),
     nick_name: $('#signupNickname').val(),
     password: $('#signupPassword').val(),
     passwordConfirm: $('#signupPasswordConfirm').val(),
   };
+  console.log(data.is_admin);
   axios
     .post('http://localhost:3000/users/sign', data)
     .then(response => {
@@ -120,8 +123,8 @@ function sign(event) {
     })
     .catch(error => {
       // 에러 처리
-      alert('회원가입 실패');
       console.error(error);
+      alert('회원가입 실패');
     });
 }
 

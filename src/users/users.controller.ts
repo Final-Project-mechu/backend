@@ -56,19 +56,14 @@ export class UsersController {
   // 회원가입
   @Post('/sign')
   async createUser(@Body() data: CreateUserDto) {
-    const { is_admin, email, nick_name, password } = data;
+    const { email, nick_name, password } = data;
     const saltRounds = 10;
     try {
       // 비밀번호를 bcrypt를 사용하여 해싱
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       // UserService의 createUser 메서드를 호출하여 사용자 생성
-      await this.userService.createUser(
-        is_admin,
-        email,
-        nick_name,
-        hashedPassword,
-      );
+      await this.userService.createUser(0, email, nick_name, hashedPassword);
 
       return { message: '회원 가입이 완료되었습니다.' };
     } catch (error) {

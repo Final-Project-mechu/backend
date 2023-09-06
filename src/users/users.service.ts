@@ -77,8 +77,7 @@ export class UsersService {
     password: string,
     // 회원가입 로직에서 중복이메일을 한번 더 체크
   ) {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const existUser = await this.getUserInfo(email);
     if (!_.isNil(existUser)) {
@@ -98,7 +97,7 @@ export class UsersService {
       is_admin,
       email,
       nick_name,
-      password,
+      password: hashedPassword,
     });
 
     const newUser = {
@@ -121,9 +120,16 @@ export class UsersService {
           `e메일을 찾을 수 없습니다. user email: ${email}`,
         );
       }
-      if (userConfirm.password !== password) {
-        throw new UnauthorizedException('비밀번호가 올바르지 않습니다.');
+
+      const matchedPassward = await bcrypt.compare(
+        password,
+        userConfirm.password,
+      );
+
+      if (!matchedPassward) {
+        throw new ConflictException('비밀번호가 일치하지 않습니다.');
       }
+
       const payload = {
         id: userConfirm.id,
         nick_name: userConfirm.nick_name,
@@ -142,26 +148,27 @@ export class UsersService {
     }
   }
 
-  async updateUser(
-    id: number,
-    newNick_name: string,
-    password: string,
-    newPassword: string,
-  ) {
-    const confirmUserPass = await this.userRepository.findOne({
+  async updateUser(id: number, password: string, newPassword: string) {
+    const user = await this.userRepository.findOne({
       where: { id },
-      select: ['nick_name', 'password'],
     });
-    if (!confirmUserPass) {
+
+    if (!user) {
       throw new NotFoundException('유저를 찾을 수 없습니다.');
     }
 
-    if (password !== confirmUserPass.password) {
-      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
+    const matchedPassword = await bcrypt.compare(password, user.password);
+
+    if (!matchedPassword) {
+      throw new ConflictException('비밀번호가 일치하지 않습니다.');
     }
+
+    // 새로운 비밀번호를 해시화하여 저장
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // 데이터베이스를 업데이트
     return this.userRepository.update(id, {
-      nick_name: newNick_name,
-      password: newPassword,
+      password: hashedNewPassword,
     });
   }
 

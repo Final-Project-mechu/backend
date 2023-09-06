@@ -91,7 +91,7 @@ export class UsersController {
     return { logout, message: '에러있으면 뱉어라' };
   }
 
-  //유저 정보 수정(닉네임, 패스워드)
+  //유저 정보 수정(패스워드)
   @Patch('/update')
   async updateUser(
     @Body() data: UpdateUserDto,
@@ -101,11 +101,10 @@ export class UsersController {
     try {
       await this.userService.updateUser(
         auth.id,
-        data.newNick_name,
         data.password,
         data.newPassword,
       );
-      return { message: '닉네임, 비밀번호가 정상적으로 수정되었습니다.' };
+      return { message: '비밀번호가 정상적으로 수정되었습니다.' };
     } catch (error) {
       throw new BadRequestException(error.message);
     }

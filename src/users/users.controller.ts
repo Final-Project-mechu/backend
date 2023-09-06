@@ -23,7 +23,6 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Request, Response, response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
-import * as bcrypt from 'bcrypt';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -55,27 +54,16 @@ export class UsersController {
 
   // 회원가입
   @Post('/sign')
-  async createUser(@Body() data: CreateUserDto) {
-    const { is_admin, email, nick_name, password } = data;
-    const saltRounds = 10;
-    try {
-      // 비밀번호를 bcrypt를 사용하여 해싱
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      // UserService의 createUser 메서드를 호출하여 사용자 생성
-      await this.userService.createUser(
-        is_admin,
-        email,
-        nick_name,
-        hashedPassword,
-      );
-
-      return { message: '회원 가입이 완료되었습니다.' };
-    } catch (error) {
-      // 오류 처리
-      // 이 부분에서 오류 처리 로직을 추가하실 수 있습니다.
-      return { error: '회원 가입 중 오류가 발생했습니다.' };
-    }
+  async createUser(@Body() data) {
+    console.log(data);
+    const { refresh_token } = await this.userService.createUser(
+      data.is_admin,
+      data.email,
+      data.nick_name,
+      data.password,
+    );
+    console.log(refresh_token);
+    return { refresh_token };
   }
 
   //로그인
@@ -88,17 +76,21 @@ export class UsersController {
       data.email,
       data.password,
     );
-    response.cookie('AccessToken', 'Bearer ' + authentication.access_Token);
-    response.cookie('RefreshToken', 'Bearer ' + authentication.refresh_Token);
-
-    return { message: authentication };
+    response.cookie('Authentication', 'Bearer ' + authentication),
+      {
+        httpOnly: true,
+      };
+    return { message: '로그인 성공' };
   }
 
   //로그아웃 기능 구현중
-  @Delete('/logOut')
-  async signout(@Res() response: Response) {
-    response.clearCookie('Authentication');
-    return response.status(200).send('signed out successfully');
+  @Post('/logout')
+  async logout(@Res() response: Response, @Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    const pastDate = new Date(0);
+    const logout = response.cookie('Authentication', '', { expires: pastDate });
+
+    return { logout, message: '에러있으면 뱉어라' };
   }
 
   //유저 정보 수정(닉네임, 패스워드)
@@ -111,7 +103,6 @@ export class UsersController {
     try {
       await this.userService.updateUser(
         auth.id,
-        data.nick_name,
         data.newNick_name,
         data.password,
         data.newPassword,

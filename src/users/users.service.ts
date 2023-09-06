@@ -89,17 +89,24 @@ export class UsersService {
 
     // 지금 테스트때문에 막아놨음
     // 이메일이 인증된 이메일인지 확인한다.
-    // if (!isEmailVerified['email'] === true) {
-    //   console.log('이메일확인용 콘솔', isEmailVerified);
-    //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
-    // }
+    if (!isEmailVerified['email'] === true) {
+      console.log('이메일확인용 콘솔', isEmailVerified);
+      throw new ConflictException(`인증된 이메일이 아닙니다.`);
+    }
 
     const insertResult = await this.userRepository.insert({
       is_admin,
       email,
       nick_name,
-      password: hashedPassword,
+      password,
     });
+
+    const refresh_token_payload = {};
+    const refresh_token = await this.jwtService.signAsync(
+      refresh_token_payload,
+      { expiresIn: '1d' },
+    );
+    return { refresh_token };
     delete isEmailVerified[email];
   }
 
@@ -111,27 +118,16 @@ export class UsersService {
           `e메일을 찾을 수 없습니다. user email: ${email}`,
         );
       }
-      // const isPasswordValid = await bcrypt.compare(
-      //   password,
-      //   userConfirm.password,
-      // );
-
-      // if (!isPasswordValid) {
-      //   throw new UnauthorizedException('비밀번호가 올바르지 않습니다.');
-      // }
+      if (userConfirm.password !== password) {
+        throw new UnauthorizedException('비밀번호가 올바르지 않습니다.');
+      }
       const payload = {
         id: userConfirm.id,
         nick_name: userConfirm.nick_name,
       };
-      const accessToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '1d',
-      });
+      const accessToken = await this.jwtService.signAsync(payload);
 
-      const refreshToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '7d',
-      });
-
-      return { access_Token: accessToken, refresh_Token: refreshToken };
+      return accessToken;
     } catch (error) {
       throw error;
     }
@@ -139,7 +135,6 @@ export class UsersService {
 
   async updateUser(
     id: number,
-    nick_name: string,
     newNick_name: string,
     password: string,
     newPassword: string,

@@ -14,12 +14,11 @@ function sendRequest(categoryId) {
       const resultDiv = document.getElementById('result3');
       resultDiv.innerHTML = `<h2>${response.data}</h2>`;
       storeBtn.style.display = 'block';
-      storeBtn.addEventListener('click', openKakaopage);
       keywordResult = response.data;
-      console.log('전역변수 키워드', keywordResult);
+      storeBtn.addEventListener('click', openKakaopage(keywordResult));
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('요청 중 오류가 발생했습니다.'); // Display error message to the user
+      alert('요청 중 오류가 발생했습니다.');
     });
 }

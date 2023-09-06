@@ -1,29 +1,26 @@
-let randomData;
-
-// HINT : 변수에 함수를 넣을 수 있다
-// 제일 쉬운 방법은 전역변수 사용(위치)
 /**
  * 사용자의 GPS 정보를 불러오는 함수
  */
-navigator.geolocation.getCurrentPosition(
-  function (pos) {
-    const latitude = pos.coords.latitude;
-    const longitude = pos.coords.longitude;
-    console.log('GPS 실행');
-    createMap(latitude, longitude);
-  },
-  // () => {
-  //   console.log('위치 허용을 설정해야 사용할 수 있는 기능입니다.');
-  // },
-);
+navigator.geolocation.getCurrentPosition(function (pos) {
+  console.log('abc');
+  const latitude = pos.coords.latitude;
+  const longitude = pos.coords.longitude;
+  const urlParams = new URLSearchParams(window.location.search);
+  const keyword = urlParams.get('keyword');
+  if (!keyword) {
+    alert('잘못된 접근 입니다.');
+    window.close();
+  }
+  createMap(latitude, longitude, keyword);
+});
 
 /**
  * 지도를 만드는 함수
  * @param {*} latitude
  * @param {*} longitude
  */
-function createMap(latitude, longitude) {
-  searchPlaces(latitude, longitude, (data, status) => {
+function createMap(latitude, longitude, keyword) {
+  searchPlaces(keyword, latitude, longitude, (data, status) => {
     if (status === kakao.maps.services.Status.ZERO_RESULT) {
       new Error('검색 결과가 존재하지 않습니다.');
     } else if (status === kakao.maps.services.Status.ERROR) {
@@ -42,7 +39,7 @@ function createMap(latitude, longitude) {
  */
 function successOnGetPlace(data, latitude, longitude) {
   const randomIndex = Math.floor(Math.random() * data.length);
-  randomData = data[randomIndex];
+  const randomData = data[randomIndex];
   const placeX = randomData.x;
   const placeY = randomData.y;
   const map = getMap(placeY, placeX);
@@ -57,7 +54,6 @@ function successOnGetPlace(data, latitude, longitude) {
   });
   marker.setMap(map);
   infoWindow.open(map, marker);
-  console.log('successOnGetPlace 함수실행', data, randomData);
 }
 
 /**
@@ -86,11 +82,7 @@ function getMap(latitude, longitude) {
  * @param {*} longitude 경도
  * @param {*} callback 키워드와 위치를 받아 검색 한 후 결과
  */
-function searchPlaces(latitude, longitude, callback) {
-  // const keyword = sendKeyword();
-  const keyword = '치킨';
-  console.log(keywordResult);
-  // const keyword = keywordResult;
+function searchPlaces(keyword, latitude, longitude, callback) {
   const searchOptions = {
     x: longitude,
     y: latitude, // 검색 중심 좌표를 기존 지도의 중심 좌표로 설정

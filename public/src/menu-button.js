@@ -10,9 +10,12 @@ function buttons() {
   storeBtn.style.display = 'none';
 }
 // 버튼 클릭 시 새페이지로 창 띄움
-function openKakaopage() {
-  const kakaoUrl = 'http://localhost:3000/kakaomap-api.html';
-  window.open(kakaoUrl, '_blank');
+function openKakaopage(keyword) {
+  return () => {
+    const kakaoUrl =
+      'http://localhost:3000/kakaomap-api.html?keyword=' + keyword;
+    window.open(kakaoUrl, '_blank');
+  };
 }
 
 // 전역 변수로 선택된 카테고리 ID를 저장합니다.

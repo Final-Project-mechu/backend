@@ -46,6 +46,7 @@ export class FriendController {
         data.receiverEmail,
         data.status,
       );
+      console.log('확인용', data.sender);
       return { message: '친구 요청을 성공적으로 보냈습니다.' };
     } catch (error) {
       throw new BadRequestException(error.message);

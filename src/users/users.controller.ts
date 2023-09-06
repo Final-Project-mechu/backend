@@ -56,14 +56,13 @@ export class UsersController {
   @Post('/sign')
   async createUser(@Body() data) {
     console.log(data);
-    const { refresh_token } = await this.userService.createUser(
+    const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,
       data.nick_name,
       data.password,
     );
-    console.log(refresh_token);
-    return { refresh_token };
+    return { message: '회원가입이 완료되었습니다.' };
   }
 
   //로그인
@@ -76,11 +75,10 @@ export class UsersController {
       data.email,
       data.password,
     );
-    response.cookie('Authentication', 'Bearer ' + authentication),
-      {
-        httpOnly: true,
-      };
-    return { message: '로그인 성공' };
+    response.cookie('Authentication', 'Bearer ' + authentication.access_Token);
+    response.cookie('Authentication', 'Bearer ' + authentication.refresh_Token);
+
+    return { message: authentication };
   }
 
   //로그아웃 기능 구현중

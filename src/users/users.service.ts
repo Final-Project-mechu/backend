@@ -27,7 +27,7 @@ export class UsersService {
   async getUserInfo(email: string) {
     return await this.userRepository.findOne({
       where: { email },
-      select: ['id', 'email', 'password'],
+      select: ['id', 'email', 'password', 'nick_name'],
     });
   }
 
@@ -89,10 +89,10 @@ export class UsersService {
 
     // 지금 테스트때문에 막아놨음
     // 이메일이 인증된 이메일인지 확인한다.
-    if (!isEmailVerified['email'] === true) {
-      console.log('이메일확인용 콘솔', isEmailVerified);
-      throw new ConflictException(`인증된 이메일이 아닙니다.`);
-    }
+    // if (!isEmailVerified['email'] === true) {
+    //   console.log('이메일확인용 콘솔', isEmailVerified);
+    //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
+    // }
 
     const insertResult = await this.userRepository.insert({
       is_admin,
@@ -101,13 +101,16 @@ export class UsersService {
       password,
     });
 
-    const refresh_token_payload = {};
-    const refresh_token = await this.jwtService.signAsync(
-      refresh_token_payload,
-      { expiresIn: '1d' },
-    );
-    return { refresh_token };
+    const newUser = {
+      id: insertResult.identifiers[0].id,
+      is_admin,
+      email,
+      nick_name,
+    };
+
     delete isEmailVerified[email];
+
+    return newUser;
   }
 
   async login(email: string, password: string) {
@@ -125,9 +128,15 @@ export class UsersService {
         id: userConfirm.id,
         nick_name: userConfirm.nick_name,
       };
-      const accessToken = await this.jwtService.signAsync(payload);
+      const accessToken = await this.jwtService.signAsync(payload, {
+        expiresIn: '5s',
+      });
 
-      return accessToken;
+      const refreshToken = await this.jwtService.signAsync(payload, {
+        expiresIn: '7d',
+      });
+
+      return { access_Token: accessToken, refresh_Token: refreshToken };
     } catch (error) {
       throw error;
     }
@@ -143,7 +152,6 @@ export class UsersService {
       where: { id },
       select: ['nick_name', 'password'],
     });
-
     if (!confirmUserPass) {
       throw new NotFoundException('유저를 찾을 수 없습니다.');
     }

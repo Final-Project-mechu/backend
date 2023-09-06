@@ -38,13 +38,13 @@ export class AuthMiddleware implements NestMiddleware {
 
       req.locals.user = payload; // req.locals.user에 파싱한 토큰 전달
 
-      // 여기서 리프레시토큰을 액세스토큰으로 변환하는 로직을 작성
       const refreshToken = req.cookies.RefreshToken; // 리프레시 토큰 가져오기
 
       if (refreshToken) {
         // 리프레시 토큰이 있다면, 새로운 액세스 토큰 발급
-        const newAccessToken = this.authService.generateAccessToken(payload); // 액세스 토큰 재발급
-        res.cookie('AccessToken', 'Bearer ' + newAccessToken); // 새로운 액세스 토큰을 클라이언트에 설정
+        const newAccessToken =
+          await this.authService.generateAccessToken(payload); // 액세스 토큰 재발급
+        res.cookie('Authentication', 'Bearer ' + newAccessToken); // 새로운 액세스 토큰을 클라이언트에 설정
       }
 
       next();

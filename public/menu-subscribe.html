@@ -6,7 +6,8 @@
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>점메추저메추</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
     <link
@@ -23,6 +24,15 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- script import -->
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca07a2cd35a8566747953c5991111a1a&libraries=services"
+    ></script>
+    <script src="./src/mechu.js" defer></script>
+    <script src="./src/menu-subscribe.js" defer></script>
+    <script src="./src/menu-button.js" defer></script>
+  
   </head>
 
   <body>
@@ -113,8 +123,6 @@
           </div>
         </div>
       </div>
-      <!--여기div라인부터 div가 끝나는 라인까지 모든 html에 복붙-->
-      <!--다른 html에서는 div class container의 div부터 해당 div가 끝나는 라인까지 복붙하면 됩니다. -->
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
@@ -148,11 +156,23 @@
         <img src="/img/simsimi.png" alt="" class="center-image" />
       </div>
 
+      <div id="result3"></div>
+
       <div class="filter-buttons">
-        <button id="top_category_01" class="filter-button" category="meal">
+        <button
+          id="top_category_01"
+          class="filter-button"
+          data-category-id="1"
+          category="meal"
+        >
           식사
         </button>
-        <button id="top_category_02" class="filter-button" category="dessert">
+        <button
+          id="top_category_02"
+          class="filter-button"
+          data-category-id="2"
+          category="dessert"
+        >
           디저트
         </button>
       </div>
@@ -160,6 +180,7 @@
         <button
           id="top_category_03"
           class="sub-filter-button"
+          data-category-id="3"
           category="korean"
         >
           한식
@@ -167,6 +188,7 @@
         <button
           id="top_category_04"
           class="sub-filter-button"
+          data-category-id="4"
           category="chinese"
         >
           중식
@@ -174,6 +196,7 @@
         <button
           id="top_category_05"
           class="sub-filter-button"
+          data-category-id="5"
           category="japanese"
         >
           일식
@@ -181,61 +204,76 @@
         <button
           id="top_category_06"
           class="sub-filter-button"
+          data-category-id="6"
           category="western"
         >
-          양식
+          분식
         </button>
         <button
           id="top_category_07"
           class="sub-filter-button"
+          data-category-id="7"
           category="indian"
         >
-          인도식
+          기타
         </button>
       </div>
+
       <div class="sub-filter-buttons">
         <button
           id="top_category_08"
           class="sub-filter-button"
+          data-category-id="8"
           category="coffee"
         >
           커피
         </button>
-        <button id="top_category_09" class="sub-filter-button" category="cake">
-          케이크
+        <button
+          id="top_category_09"
+          class="sub-filter-button"
+          data-category-id="9"
+          category="cake"
+        >
+          스무디
         </button>
-        <button id="top_category_10" class="sub-filter-button" category="bread">
-          빵
+        <button
+          id="top_category_10"
+          class="sub-filter-button"
+          data-category-id="10"
+          category="bread"
+        >
+          간식
         </button>
         <button
           id="top_category_11"
           class="sub-filter-button"
+          data-category-id="11"
           category="tanghulu"
         >
-          탕후루
+          기타
         </button>
       </div>
-      <main>
+      <main style="text-align: center">
         <div class="food-item meal">식사가 선택되었습니다.</div>
         <div class="food-item korean">한식이 선택되었습니다.</div>
         <div class="food-item chinese">중식이 선택되었습니다.</div>
         <div class="food-item japanese">일식이 선택되었습니다.</div>
-        <div class="food-item western">양식이 선택되었습니다.</div>
-        <div class="food-item indian">인도 음식이 선택되었습니다.</div>
+        <div class="food-item western">분식이 선택되었습니다.</div>
+        <div class="food-item indian">기타 카테고리가 선택되었습니다.</div>
         <div class="food-item dessert">디저트가 선택되었습니다.</div>
         <div class="food-item coffee">커피가 선택되었습니다.</div>
-        <div class="food-item cake">케잌이 선택되었습니다.</div>
-        <div class="food-item bread">빵이 선택되었습니다.</div>
-        <div class="food-item tanghulu">탕후루가 선택되었습니다.</div>
+        <div class="food-item cake">스무디가 선택되었습니다.</div>
+        <div class="food-item bread">간식이 선택되었습니다.</div>
+        <div class="food-item tanghulu">기타 카테고리가 선택되었습니다.</div>
       </main>
     </div>
 
     <div class="button-container2">
-      <button class="button">메뉴 추천받기!</button>
+      <button type="submit" class="button">메뉴 추천받기!</button>
     </div>
 
     <div class="button-container3">
-      <button class="button">맛집 추천받기!</button>
+      <button class="button" id="storeBtn" onclick="">맛집 추천받기!</button>
     </div>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -247,16 +285,12 @@
                 <a href="./index.html"><img src="img/logo.png" alt="" /></a>
               </div>
               <ul>
-                <li>team: 점메추 저메추</li>
-                <li>김세령</li>
-                <li>오준석</li>
-                <li>이서원</li>
-                <li>최하영</li>
-                <li>함형진</li>
+                <p>TEAM : 오늘 뭐 먹지? TOGETHER EAT!</p>
+                <p>김세령 오준석 이서원 최하영 함형진</p>
               </ul>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+          <div class="col-lg-4 col-md-6 col-sm-5 offset-lg-1">
             <div class="footer__widget">
               <h6>Useful Links</h6>
               <ul>
@@ -280,8 +314,7 @@
         <div class="row"></div>
       </div>
     </footer>
-    <!-- Footer Section End -->
-    <script src="./src/mechu.js" defer></script>
+
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -291,5 +324,7 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <!-- Footer Section End -->
+
   </body>
 </html>

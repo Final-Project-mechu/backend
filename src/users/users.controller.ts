@@ -23,7 +23,6 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Request, Response, response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
-import * as bcrypt from 'bcrypt';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -83,20 +82,20 @@ export class UsersController {
       data.email,
       data.password,
     );
-    response.cookie('AccessToken', 'Bearer ' + authentication.access_Token);
-    response.cookie('RefreshToken', 'Bearer ' + authentication.refresh_Token);
+    response.cookie('Authentication', 'Bearer ' + authentication.access_Token);
+    response.cookie('Authentication', 'Bearer ' + authentication.refresh_Token);
 
     return { message: authentication };
   }
 
   //로그아웃 기능 구현중
-  @Delete('/logOut')
+  @Delete('/logout')
   async signout(@Res() response: Response) {
     response.clearCookie('Authentication');
     return response.status(200).send('signed out successfully');
   }
 
-  //유저 정보 수정(닉네임, 패스워드)
+  //유저 정보 수정(패스워드)
   @Patch('/update')
   async updateUser(
     @Body() data: UpdateUserDto,
@@ -106,12 +105,10 @@ export class UsersController {
     try {
       await this.userService.updateUser(
         auth.id,
-        data.nick_name,
-        data.newNick_name,
         data.password,
         data.newPassword,
       );
-      return { message: '닉네임, 비밀번호가 정상적으로 수정되었습니다.' };
+      return { message: '비밀번호가 정상적으로 수정되었습니다.' };
     } catch (error) {
       throw new BadRequestException(error.message);
     }

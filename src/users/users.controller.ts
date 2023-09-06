@@ -54,22 +54,15 @@ export class UsersController {
 
   // 회원가입
   @Post('/sign')
-  async createUser(@Body() data: CreateUserDto) {
-    const { email, nick_name, password } = data;
-    const saltRounds = 10;
-    try {
-      // 비밀번호를 bcrypt를 사용하여 해싱
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      // UserService의 createUser 메서드를 호출하여 사용자 생성
-      await this.userService.createUser(0, email, nick_name, hashedPassword);
-
-      return { message: '회원 가입이 완료되었습니다.' };
-    } catch (error) {
-      // 오류 처리
-      // 이 부분에서 오류 처리 로직을 추가하실 수 있습니다.
-      return { error: '회원 가입 중 오류가 발생했습니다.' };
-    }
+  async createUser(@Body() data) {
+    console.log(data);
+    const newUser = await this.userService.createUser(
+      data.is_admin,
+      data.email,
+      data.nick_name,
+      data.password,
+    );
+    return { message: '회원가입이 완료되었습니다.' };
   }
 
   //로그인

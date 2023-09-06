@@ -127,4 +127,17 @@ export class UsersController {
       data.passwordConfirm,
     );
   }
+
+  //어드민 변환
+  @Post('admin')
+  async transfer() {
+    try {
+      // UserService의 transfer 메서드를 호출하여 is_admin 값을 변경합니다.
+      await this.userService.transfer(0); // is_admin 값을 0에서 1로 변경하려면 0을 전달합니다.
+      return { message: '유저를 어드민으로 변환했습니다.' };
+    } catch (error) {
+      // 오류 처리
+      return { error: 'is_admin 값을 변경하는 중 오류가 발생했습니다.' };
+    }
+  }
 }

@@ -195,4 +195,16 @@ export class UsersService {
     const user = this.userRepository.create(data);
     return await this.userRepository.save(user);
   }
+
+  async transfer(is_admin: number) {
+    const userToUpdate = await this.userRepository.findOne({
+      where: { is_admin: 0 }, // is_admin이 0인 사용자를 찾습니다.
+    });
+
+    if (userToUpdate) {
+      // is_admin 값을 1로 업데이트합니다.
+      userToUpdate.is_admin = 1;
+      await this.userRepository.save(userToUpdate); // 변경 사항을 저장합니다.
+    }
+  }
 }

@@ -26,7 +26,7 @@
 ## ❄️ Project Architecture
 
 <p align="center">
-<img width="766" alt="image" src="https://github.com/rammakasty/readmy/assets/25074165/b553ff2f-b5d4-471b-81db-ad21d78681ee">
+<img width="766" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/0a8255b5-1a88-411c-83df-a88f2705dde6">
 </p>
 
 

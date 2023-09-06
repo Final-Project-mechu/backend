@@ -82,13 +82,10 @@ export class UsersController {
   }
 
   //로그아웃 기능 구현중
-  @Post('/logout')
-  async logout(@Res() response: Response, @Req() request: RequestWithLocals) {
-    const auth = request.locals.user;
-    const pastDate = new Date(0);
-    const logout = response.cookie('Authentication', '', { expires: pastDate });
-
-    return { logout, message: '에러있으면 뱉어라' };
+  @Delete('/logout')
+  async signout(@Res() response: Response) {
+    response.clearCookie('Authentication');
+    return response.status(200).send('signed out successfully');
   }
 
   //유저 정보 수정(패스워드)

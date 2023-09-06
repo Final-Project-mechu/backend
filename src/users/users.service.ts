@@ -151,7 +151,9 @@ export class UsersService {
   async updateUser(id: number, password: string, newPassword: string) {
     const user = await this.userRepository.findOne({
       where: { id },
+      select: ['password'],
     });
+    console.log('확인', user);
 
     if (!user) {
       throw new NotFoundException('유저를 찾을 수 없습니다.');
@@ -182,8 +184,10 @@ export class UsersService {
       throw new UnauthorizedException('사용자를 찾을 수없습니다.');
     }
 
-    if (password !== user.password) {
-      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
+    const matchedPassword = await bcrypt.compare(password, user.password);
+
+    if (!matchedPassword) {
+      throw new ConflictException('비밀번호가 일치하지 않습니다.');
     }
 
     return this.userRepository.softDelete(id);

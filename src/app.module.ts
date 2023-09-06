@@ -109,7 +109,7 @@ export class AppModule implements NestModule {
         { path: 'users/update', method: RequestMethod.PATCH },
         { path: 'users/quit', method: RequestMethod.DELETE },
         { path: 'users/logout', method: RequestMethod.POST },
-        { path: 'friends/send-request', method: RequestMethod.POST },
+        { path: 'friends/send', method: RequestMethod.POST },
         { path: 'friends/accept-friend', method: RequestMethod.POST },
         { path: 'category', method: RequestMethod.POST },
         { path: 'category/:category_id', method: RequestMethod.PATCH },

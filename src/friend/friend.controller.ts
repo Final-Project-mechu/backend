@@ -16,7 +16,6 @@ interface RequestWithLocals extends Request {
   locals: {
     user: {
       id: number;
-      sender: string;
     };
   };
 }
@@ -25,50 +24,42 @@ interface RequestWithLocals extends Request {
 export class FriendController {
   constructor(private friendService: FriendsService) {}
 
-  @Get('/find-friend')
-  async findFriend(@Body() data: CreateFriendDto) {
-    const allFriend = await this.friendService.getFriendInfo(
-      data.receiverEmail,
-    );
-    return allFriend;
-  }
+  // @Get('/find-friend')
+  // async findFriend(@Body() data: CreateFriendDto) {
+  //   const allFriend = await this.friendService.getFriendInfo(
+  //     data.receiverEmail,
+  //   );
+  //   return allFriend;
+  // }
 
-  @Post('send-request')
-  async sendFriendRequest(
-    @Body() data: CreateFriendDto,
-    @Req() request: RequestWithLocals,
-  ) {
+  @Post('send')
+  async send(@Body() data: CreateFriendDto, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
     try {
-      await this.friendService.requestFriend(
-        auth.id,
-        data.sender,
-        data.receiverEmail,
-        data.status,
-      );
-      console.log('확인용', data.sender);
-      return { message: '친구 요청을 성공적으로 보냈습니다.' };
+      await this.friendService.requestFriend(data.email, data.receiverEmail);
+      console.log(data.email);
+      return { msg: '친구 요청 성공 ' };
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
 
-  @Post('accept-friend')
-  async acceptFriend(
-    @Body() data: UpdateFriendDto,
-    @Req() request: RequestWithLocals,
-  ) {
-    const auth = request.locals.user;
+  // @Post('accept-friend')
+  // async acceptFriend(
+  //   @Body() data: UpdateFriendDto,
+  //   @Req() request: RequestWithLocals,
+  // ) {
+  //   const auth = request.locals.user;
 
-    await this.friendService.acceptFriend(
-      auth.id,
-      data.sender,
-      data.receiverEmail,
-      data.status,
-    );
+  //   await this.friendService.acceptFriend(
+  //     auth.id,
+  //     data.sender,
+  //     data.receiverEmail,
+  //     data.status,
+  //   );
 
-    return { message: '친구 요청을 수락했습니다.' };
-  }
+  //   return { message: '친구 요청을 수락했습니다.' };
+  // }
 
   @Post('reject-friend')
   async rejectFriend(@Body() data: UpdateFriendDto) {

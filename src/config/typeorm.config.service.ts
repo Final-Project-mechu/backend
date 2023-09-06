@@ -50,7 +50,8 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         Friends,
         Friendlist,
       ],
-      synchronize: this.configService.get<string>('DATABASE_SYNCHRONIZE') === 'true',
+      synchronize:
+        this.configService.get<string>('DATABASE_SYNCHRONIZE') === 'true',
     };
   }
 }

@@ -56,14 +56,13 @@ export class UsersController {
   @Post('/sign')
   async createUser(@Body() data) {
     console.log(data);
-    const { refresh_token } = await this.userService.createUser(
+    const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,
       data.nick_name,
       data.password,
     );
-    console.log(refresh_token);
-    return { refresh_token };
+    return { message: '회원가입이 완료되었습니다.' };
   }
 
   //로그인
@@ -76,24 +75,20 @@ export class UsersController {
       data.email,
       data.password,
     );
-    response.cookie('Authentication', 'Bearer ' + authentication),
-      {
-        httpOnly: true,
-      };
-    return { message: '로그인 성공' };
+    response.cookie('Authentication', 'Bearer ' + authentication.access_Token);
+    response.cookie('Authentication', 'Bearer ' + authentication.refresh_Token);
+
+    return { message: authentication };
   }
 
   //로그아웃 기능 구현중
-  @Post('/logout')
-  async logout(@Res() response: Response, @Req() request: RequestWithLocals) {
-    const auth = request.locals.user;
-    const pastDate = new Date(0);
-    const logout = response.cookie('Authentication', '', { expires: pastDate });
-
-    return { logout, message: '에러있으면 뱉어라' };
+  @Delete('/logout')
+  async signout(@Res() response: Response) {
+    response.clearCookie('Authentication');
+    return response.status(200).send('signed out successfully');
   }
 
-  //유저 정보 수정(닉네임, 패스워드)
+  //유저 정보 수정(패스워드)
   @Patch('/update')
   async updateUser(
     @Body() data: UpdateUserDto,
@@ -103,11 +98,10 @@ export class UsersController {
     try {
       await this.userService.updateUser(
         auth.id,
-        data.newNick_name,
         data.password,
         data.newPassword,
       );
-      return { message: '닉네임, 비밀번호가 정상적으로 수정되었습니다.' };
+      return { message: '비밀번호가 정상적으로 수정되었습니다.' };
     } catch (error) {
       throw new BadRequestException(error.message);
     }

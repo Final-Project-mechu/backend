@@ -125,7 +125,7 @@ function sign(event) {
     });
 }
 
-//로그인
+// 로그인
 function login() {
   const data = {
     email: $('#Email').val(),
@@ -136,6 +136,8 @@ function login() {
     .then(response => {
       console.log(data);
       alert('로그인 완료');
+      // 로그인이 완료된 경우 로그아웃 버튼을 생성하고 로그인 링크를 변경
+      createLogoutButton();
     })
     .catch(error => {
       // 에러 처리

@@ -11,6 +11,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   Req,
   Res,
   UnauthorizedException,
@@ -38,6 +39,12 @@ export class UsersController {
   jwtService: any;
   constructor(private readonly userService: UsersService) {}
 
+  @Get('/find')
+  async getUserEmail(@Query('email') email: string) {
+    const usefInfo = await this.userService.getUserNickName(email);
+    return usefInfo.nick_name;
+  }
+
   // 인증번호 전송 엔드포인트
   @Post('/send-code')
   async mailSend(@Body('email') email: string, code: string) {
@@ -55,7 +62,6 @@ export class UsersController {
   // 회원가입
   @Post('/sign')
   async createUser(@Body() data) {
-    console.log(data);
     const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,
@@ -98,17 +104,18 @@ export class UsersController {
     try {
       await this.userService.updateUser(
         auth.id,
+        data.newNick_name,
         data.password,
         data.newPassword,
       );
-      return { message: '비밀번호가 정상적으로 수정되었습니다.' };
+      return { message: '닉네임, 비밀번호가 정상적으로 수정되었습니다.' };
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
 
   //회원삭제(회원탈퇴)
-  @Delete('/quit')
+  @Post('/quit')
   DeleteUser(@Body() data: DeleteUserDto, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
     return this.userService.deleteUser(
@@ -116,5 +123,18 @@ export class UsersController {
       data.password,
       data.passwordConfirm,
     );
+  }
+
+  //어드민 변환
+  @Post('admin')
+  async transfer() {
+    try {
+      // UserService의 transfer 메서드를 호출하여 is_admin 값을 변경합니다.
+      await this.userService.transfer(0); // is_admin 값을 0에서 1로 변경하려면 0을 전달합니다.
+      return { message: '유저를 어드민으로 변환했습니다.' };
+    } catch (error) {
+      // 오류 처리
+      return { error: 'is_admin 값을 변경하는 중 오류가 발생했습니다.' };
+    }
   }
 }

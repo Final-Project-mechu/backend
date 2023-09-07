@@ -31,6 +31,13 @@ export class UsersService {
     });
   }
 
+  async getUserNickName(email: string) {
+    return await this.userRepository.findOne({
+      where: { email },
+      select: ['nick_name'],
+    });
+  }
+
   // 중복이메일 확인
   async mailSend(email: string, code: string) {
     const existUser = await this.userRepository.findOne({
@@ -148,12 +155,16 @@ export class UsersService {
     }
   }
 
-  async updateUser(id: number, password: string, newPassword: string) {
+  async updateUser(
+    id: number,
+    newNick_name: string,
+    password: string,
+    newPassword: string,
+  ) {
     const user = await this.userRepository.findOne({
       where: { id },
-      select: ['password'],
+      select: ['password', 'nick_name'],
     });
-    console.log('확인', user);
 
     if (!user) {
       throw new NotFoundException('유저를 찾을 수 없습니다.');
@@ -170,6 +181,7 @@ export class UsersService {
 
     // 데이터베이스를 업데이트
     return this.userRepository.update(id, {
+      nick_name: newNick_name,
       password: hashedNewPassword,
     });
   }
@@ -208,5 +220,17 @@ export class UsersService {
 
     const user = this.userRepository.create(data);
     return await this.userRepository.save(user);
+  }
+
+  async transfer(is_admin: number) {
+    const userToUpdate = await this.userRepository.findOne({
+      where: { is_admin: 0 }, // is_admin이 0인 사용자를 찾습니다.
+    });
+
+    if (userToUpdate) {
+      // is_admin 값을 1로 업데이트합니다.
+      userToUpdate.is_admin = 1;
+      await this.userRepository.save(userToUpdate); // 변경 사항을 저장합니다.
+    }
   }
 }

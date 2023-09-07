@@ -5,7 +5,6 @@ import { Column } from 'typeorm';
 
 export class UpdateUserDto extends PickType(CreateUserDto, [
   'password',
-  // 'nick_name',
 ] as const) {
   @IsString()
   @MinLength(4)
@@ -13,5 +12,6 @@ export class UpdateUserDto extends PickType(CreateUserDto, [
   @Matches(/(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])/)
   readonly newPassword: string;
 
-  // readonly newNick_name: string;
+  @IsString()
+  readonly newNick_name: string;
 }

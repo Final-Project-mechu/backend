@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const response = await axios.get('http://localhost:3000/users/find');
 
     if (response.status === 200) {
-      const nickName = response.data.nick_name;
+      const nickName = response.data;
 
       const profileNickNameElement =
         document.getElementById('profile-nickName');
@@ -38,6 +38,7 @@ updatePasswordButton.addEventListener('click', async () => {
     if (response.status === 200) {
       alert('비밀번호가 성공적으로 수정되었습니다.');
       modal.style.display = 'none';
+      location.reload();
     } else {
       console.error('서버 응답 오류:', response.status);
     }

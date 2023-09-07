@@ -41,8 +41,8 @@ export class UsersController {
 
   @Get('/find')
   async getUserEmail(@Query('email') email: string) {
-    const usefInfo = await this.userService.getUserEmail(email);
-    return usefInfo.email;
+    const usefInfo = await this.userService.getUserNickName(email);
+    return usefInfo.nick_name;
   }
 
   // 인증번호 전송 엔드포인트
@@ -108,7 +108,7 @@ export class UsersController {
         data.password,
         data.newPassword,
       );
-      return { message: '비밀번호가 정상적으로 수정되었습니다.' };
+      return { message: '닉네임, 비밀번호가 정상적으로 수정되었습니다.' };
     } catch (error) {
       throw new BadRequestException(error.message);
     }

@@ -31,10 +31,10 @@ export class UsersService {
     });
   }
 
-  async getUserEmail(email: string) {
+  async getUserNickName(email: string) {
     return await this.userRepository.findOne({
       where: { email },
-      select: ['email'],
+      select: ['nick_name'],
     });
   }
 

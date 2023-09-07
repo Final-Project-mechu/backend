@@ -3615,3 +3615,7 @@ ol {
   text-decoration: none;
   cursor: pointer;
 }
+
+.mypageImg {
+  margin: auto;
+}

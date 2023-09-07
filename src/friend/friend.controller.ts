@@ -61,16 +61,16 @@ export class FriendController {
   //   return { message: '친구 요청을 수락했습니다.' };
   // }
 
-  @Post('reject-friend')
-  async rejectFriend(@Body() data: UpdateFriendDto) {
-    await this.friendService.rejectFriend(data.receiverEmail, data.status);
+  // @Post('reject-friend')
+  // async rejectFriend(@Body() data: UpdateFriendDto) {
+  //   await this.friendService.rejectFriend(data.receiverEmail, data.status);
 
-    return { message: '친구 요청을 거절했습니다.' };
-  }
+  //   return { message: '친구 요청을 거절했습니다.' };
+  // }
 
-  @Delete('delete-friend')
-  async deleteFriend(@Body() data: UpdateFriendDto) {
-    await this.friendService.deleteFriend(data.receiverEmail, data.status);
-    return { message: '친구 삭제가 완료되었습니다.' };
-  }
+  // @Delete('delete-friend')
+  // async deleteFriend(@Body() data: UpdateFriendDto) {
+  //   await this.friendService.deleteFriend(data.receiverEmail, data.status);
+  //   return { message: '친구 삭제가 완료되었습니다.' };
+  // }
 }

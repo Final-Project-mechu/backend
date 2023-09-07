@@ -11,6 +11,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   Req,
   Res,
   UnauthorizedException,
@@ -37,6 +38,12 @@ interface RequestWithLocals extends Request {
 export class UsersController {
   jwtService: any;
   constructor(private readonly userService: UsersService) {}
+
+  @Get('/find')
+  async getUserEmail(@Query('email') email: string) {
+    const usefInfo = await this.userService.getUserEmail(email);
+    return usefInfo.email;
+  }
 
   // 인증번호 전송 엔드포인트
   @Post('/send-code')

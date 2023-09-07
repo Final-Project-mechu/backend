@@ -9,9 +9,10 @@ import {
   JoinColumn,
   Entity,
   PrimaryColumn,
+  OneToMany,
 } from 'typeorm';
 import { User } from './user.entity';
-import { Feed } from './feed.entity';
+import { FeedFavorite } from './feed.favorite.entity';
 
 @Entity({ schema: 'finalpj', name: 'favorite' })
 export class Favorite {
@@ -22,9 +23,9 @@ export class Favorite {
   @JoinColumn({ name: 'user_id' })
   users: number;
 
-  @ManyToOne(() => Feed, feed => feed.favorites)
-  @JoinColumn({ name: 'feed_id' })
-  feeds: Feed[] | null;
+  @OneToMany(() => FeedFavorite, feedFavorite => feedFavorite.favorite_id)
+  @JoinColumn({ name: 'favorite_id' })
+  feedFavorite: FeedFavorite[] | null;
 
   @Column('varchar', { length: 30 })
   address_name: string;

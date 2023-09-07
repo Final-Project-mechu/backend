@@ -7,28 +7,25 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Feed } from 'src/entity/feed.entity';
 import { FeedLike } from 'src/entity/feed.like.entity';
 import { Favorite } from 'src/entity/favorite.entity';
+import { FeedFavorite } from 'src/entity/feed.favorite.entity';
+import { User } from 'src/entity/user.entity';
 import { DataSource, Repository } from 'typeorm';
 import _ from 'lodash';
 
 @Injectable()
 export class FeedsService {
   constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Feed) private readonly feedRepository: Repository<Feed>,
     @InjectRepository(FeedLike)
     private readonly feedLikeRepository: Repository<FeedLike>,
     @InjectRepository(Favorite)
     private readonly favoriteRepository: Repository<Favorite>,
+    @InjectRepository(FeedFavorite)
+    private readonly feedFavoriteRepository: Repository<FeedFavorite>,
     private dataSource: DataSource,
   ) {}
-  // 1번. 피드의 제목과 설명을 붙인 게시글을 작성한다.
-  // 2번. 작성한 피드의 아이디를 가져온다.
-  // 1번. (각각의)favorite id에 해당하는 row를 update 시켜준다
-  //  : feed_id = null => feed_id = feed_id
-  //  : deleted_at = 2023 ...
-  // 2번. 업데이트 한 favorite의 정보를 가져온다.
-  // 3번. 피드의 제목과 설명을 붙인 게시글을 작성완료한다.
-  // 트랜잭션 적용해야 됨 자꾸 favorite id가 없는데 생성되니까
-  async createFeed(
+  async createFavoriteFeed(
     user_id: number,
     favorite_ids: number[],
     title: string,
@@ -46,27 +43,14 @@ export class FeedsService {
       });
       const createdFeedId = createdFeed.identifiers[0].id;
       for (const favorite_id of favorite_ids) {
-        const favoriteConfirm = await this.favoriteRepository.findOne({
-          where: { id: favorite_id, deletedAt: null },
+        await this.feedFavoriteRepository.insert({
+          feed_id: createdFeedId,
+          favorite_id: favorite_id,
         });
-        if (!favoriteConfirm) {
-          // await queryRunner.rollbackTransaction();
-          throw new NotFoundException('이미 삭제된 favorite_id입니다.');
-        }
-        await this.favoriteRepository
-          .createQueryBuilder()
-          .update(Favorite)
-          .set({
-            feeds: createdFeedId,
-            deletedAt: new Date(),
-          })
-          .where('id = :id', { id: favorite_id })
-          .execute();
       }
       await queryRunner.commitTransaction();
-
       return {
-        message: `${favorite_ids}로 피드번호 ${createdFeedId}번으로 피드가 생성되었습니다.`,
+        Message: `favorite id: ${favorite_ids}로 피드번호 ${createdFeedId}번으로 피드가 생성되었습니다.`,
       };
     } catch (err) {
       await queryRunner.rollbackTransaction();
@@ -74,6 +58,18 @@ export class FeedsService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  async createFeed(user_id: number, title: string, description: string) {
+    const user = { id: user_id };
+    const createdFeed = await this.feedRepository.insert({
+      users: user,
+      title,
+      description,
+    });
+    return {
+      Message: `피드번호 : ${createdFeed.identifiers[0].id}로 생성되었습니다.`,
+    };
   }
 
   async getFeeds() {
@@ -89,9 +85,8 @@ export class FeedsService {
 
   // 피드 상세조회
   async getFeed(id: number) {
-    const findFeed = await this.feedRepository.findOne({
+    const feedInfo = await this.feedRepository.findOne({
       where: { id },
-      relations: ['users'],
       select: [
         'id',
         'user_id',
@@ -101,23 +96,31 @@ export class FeedsService {
         'updatedAt',
       ],
     });
-    if (!findFeed) {
-      return { errorMessage: '잘못된 id입니다.' };
-    }
-    const favoritesInFeed = await this.favoriteRepository.query(
-      `SELECT * FROM favorite WHERE feed_id = ${id}`,
+    const feedOwner = feedInfo.user_id;
+    const feedNickname = await this.userRepository.findOne({
+      where: { id: feedOwner },
+      select: ['nick_name'],
+    });
+    const findFeedinFavorites = await this.feedFavoriteRepository.find({
+      where: { feed_id: id },
+      select: ['favorite_id'],
+    });
+    const favoriteIds = findFeedinFavorites.map(
+      feedFavorite => feedFavorite.favorite_id,
     );
 
-    // 물어보기 왜 안되는지???
-    // const favoritesInFeed = await this.favoriteRepository.find({
-    //   where: {
-    //     feeds: { id: id },
-    //     deletedAt: Not(IsNull()),
-    //   },
-    //   relations: ['feeds'],
-    // });
-    console.log(`잘들어왔나 확인 ${id}`, favoritesInFeed);
-    return [findFeed, favoritesInFeed];
+    if (favoriteIds.length > 0) {
+      const favoriteInfos = [];
+      for (const favoriteId of favoriteIds) {
+        const favoriteInfo = await this.favoriteRepository.findOne({
+          where: { id: favoriteId },
+        });
+        favoriteInfos.push(favoriteInfo);
+      }
+      return [feedInfo, feedNickname, favoriteInfos];
+    } else {
+      return [feedInfo, feedNickname];
+    }
   }
 
   // 피드 수정하기 (제목, 내용만 수정가능)
@@ -127,7 +130,9 @@ export class FeedsService {
     title: string,
     description: string,
   ) {
-    const findFeed = await this.getFeed(id);
+    const findFeed = await this.feedRepository.findOne({
+      where: { id: id },
+    });
     if (_.isNil(findFeed)) {
       throw new NotFoundException(
         `피드번호 ${id}번의 피드를 찾을 수 없습니다.`,
@@ -137,11 +142,14 @@ export class FeedsService {
       throw new UnauthorizedException('작성자만 수정 가능합니다.');
     }
     await this.feedRepository.update(id, { title, description });
+    return { Message: `피드번호 ${id}번의 피드가 수정되었습니다.` };
   }
 
   // 피드 삭제하기
   async deleteFeed(id: number, user_id: number) {
-    const findFeed = await this.getFeed(id);
+    const findFeed = await this.feedRepository.findOne({
+      where: { id: id },
+    });
     if (_.isNil(findFeed)) {
       throw new NotFoundException(
         `피드번호 ${id}번의 피드를 찾을 수 없습니다.`,

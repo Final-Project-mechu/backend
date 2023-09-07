@@ -27,19 +27,34 @@ interface RequestWithLocals extends Request {
 export class FeedsController {
   constructor(private readonly feedsService: FeedsService) {}
 
-  @ApiOperation({ summary: '피드 생성' })
+  @ApiOperation({ summary: '찜한 상점과 함께 피드 생성' })
   @Post('/')
-  createFeed(
+  createFavoriteFeed(
     @Body()
-    data: { favorite_ids: number[]; title: string; description: string },
+    data: { favorite_ids: number[] },
+    @Body() createFeedDto: CreateFeedDto,
+    @Req() request: RequestWithLocals,
+  ) {
+    const auth = request.locals.user;
+    return this.feedsService.createFavoriteFeed(
+      auth.id,
+      data.favorite_ids,
+      createFeedDto.title,
+      createFeedDto.description,
+    );
+  }
+
+  @ApiOperation({ summary: '피드 생성' })
+  @Post('/common')
+  createFeed(
+    @Body() createFeedDto: CreateFeedDto,
     @Req() request: RequestWithLocals,
   ) {
     const auth = request.locals.user;
     return this.feedsService.createFeed(
       auth.id,
-      data.favorite_ids,
-      data.title,
-      data.description,
+      createFeedDto.title,
+      createFeedDto.description,
     );
   }
 
@@ -55,7 +70,7 @@ export class FeedsController {
     return this.feedsService.getFeed(id);
   }
 
-  @ApiOperation({ summary: '피드 수정' })
+  @ApiOperation({ summary: '피드 수정(제목, 내용만 수정가능)' })
   @Patch('/:id')
   updateFeed(
     @Param('id') id: number,

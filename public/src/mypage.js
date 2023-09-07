@@ -1,115 +1,75 @@
-// 친구요청 모달 창 열기
-document.getElementById('friend').addEventListener('click', function () {
-  document.getElementById('myModal').style.display = 'block';
-});
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/users/find');
 
-// 친구수락 모달 창 열기
-document.getElementById('friendAccept').addEventListener('click', function () {
-  document.getElementById('myModalAccpet').style.display = 'block';
-});
+    if (response.status === 200) {
+      const nickName = response.data.nick_name;
 
-// 친구거절 모달 창 열기
-document.getElementById('friendReject').addEventListener('click', function () {
-  document.getElementById('myModalReject').style.display = 'block';
-});
-
-// 친구요청 모달 창 닫기
-document
-  .getElementsByClassName('close')[0]
-  .addEventListener('click', function () {
-    document.getElementById('myModal').style.display = 'none';
-  });
-
-// 친구수락 모달 창 닫기
-document
-  .getElementsByClassName('close')[0]
-  .addEventListener('click', function () {
-    document.getElementById('myModalAccpet').style.display = 'none';
-  });
-
-// 친구거절 모달 창 닫기
-document
-  .getElementsByClassName('close')[0]
-  .addEventListener('click', function () {
-    document.getElementById('myModalReject').style.display = 'none';
-  });
-
-// 친구요청 모달 창 외부 클릭 시 닫기
-window.addEventListener('click', function (event) {
-  if (event.target == document.getElementById('myModal')) {
-    document.getElementById('myModal').style.display = 'none';
+      const profileNickNameElement =
+        document.getElementById('profile-nickName');
+      profileNickNameElement.textContent = '닉네임: ' + nickName;
+    } else {
+      console.error('서버 응답 오류:', response.status);
+    }
+  } catch (error) {
+    console.error('닉네임을 가져오는 중 오류 발생:', error);
   }
 });
 
-// 친구수락 모달 창 외부 클릭 시 닫기
-window.addEventListener('click', function (event) {
-  if (event.target == document.getElementById('myModalAccpet')) {
-    document.getElementById('myModalAccpet').style.display = 'none';
+const openModalButton = document.getElementById('open-modal-button');
+const modal = document.getElementById('modal');
+openModalButton.addEventListener('click', () => {
+  modal.style.display = 'block';
+});
+
+const updatePasswordButton = document.getElementById('update-password-button');
+updatePasswordButton.addEventListener('click', async () => {
+  const newNickName = document.getElementById('newNick_Name').value;
+  const password = document.getElementById('password').value;
+  const newPassword = document.getElementById('new-password').value;
+
+  try {
+    const response = await axios.patch('http://localhost:3000/users/update', {
+      newNick_name: newNickName,
+      password: password,
+      newPassword: newPassword,
+    });
+
+    if (response.status === 200) {
+      alert('비밀번호가 성공적으로 수정되었습니다.');
+      modal.style.display = 'none';
+    } else {
+      console.error('서버 응답 오류:', response.status);
+    }
+  } catch (error) {
+    console.error('비밀번호 수정 중 오류 발생:', error);
   }
 });
 
-// 친구거절 모달 창 외부 클릭 시 닫기
-window.addEventListener('click', function (event) {
-  if (event.target == document.getElementById('myModalReject')) {
-    document.getElementById('myModalReject').style.display = 'none';
-  }
+const openModalDelete = document.getElementById('open-modal-delete');
+const deleteModal = document.getElementById('modal-delete');
+openModalDelete.addEventListener('click', () => {
+  deleteModal.style.display = 'block';
 });
 
-function addFriend() {
-  const data = {
-    sender: $('#sender').val(),
-    receiverEmail: $('#requestTarget').val(),
-    status: $('#status').val(),
-  };
-  axios
-    .post('http://localhost:3000/friends/send-request', data)
-    .then(response => {
-      console.log(data);
-      alert('친구 요청을 보냈습니다.');
-    })
-    .catch(error => {
-      alert('친구 요청 실패');
-      console.log(error);
-      console.log(error.response);
-    });
-}
+const deleteButton = document.getElementById('delete-button');
+deleteButton.addEventListener('click', async () => {
+  const password = document.getElementById('passwordDelete1').value;
+  const passwordConfirm = document.getElementById('passwordDelete2').value;
 
-function accpetFriend() {
-  const data = {
-    sender: $('#senderEmail').val(),
-    receiverEmail: $('#requestTargetEmail').val(),
-    status: $('#status2').val(),
-  };
-  axios
-    .post('http://localhost:3000/friends/accept-friend', data)
-    .then(response => {
-      console.log(data);
-      alert('친구 요청을 수락했습니다.');
-    })
-    .catch(error => {
-      alert('친구 수락 실패');
-      console.log(error);
-      console.log(error.response);
+  try {
+    const response = await axios.post('http://localhost:3000/users/quit', {
+      password: password,
+      passwordConfirm: passwordConfirm,
     });
-}
 
-function rejectFriend() {
-  const data = {
-    sender: $('#senderEmail2').val(),
-    receiverEmail: $('#requestTargetEmail2').val(),
-    status: $('#status3').val(),
-  };
-  console.log(data);
-  axios
-    .post('http://localhost:3000/friends/reject-friend', data)
-    .then(response => {
-      console.log(data);
-      alert('친구 요청을 거절했습니다.');
-      location.reload();
-    })
-    .catch(error => {
-      alert('친구 거절 실패');
-      console.log(error);
-      console.log(error.response);
-    });
-}
+    if (response.status === 200) {
+      alert('회원 탈퇴 성공');
+      modal.style.display = 'none';
+    } else {
+      console.error('서버 응답 오류:', response.status);
+    }
+  } catch (error) {
+    console.error('비밀번호 수정 중 오류 발생:', error);
+  }
+});

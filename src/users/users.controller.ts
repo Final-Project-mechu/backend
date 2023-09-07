@@ -62,7 +62,6 @@ export class UsersController {
   // 회원가입
   @Post('/sign')
   async createUser(@Body() data) {
-    console.log(data);
     const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,
@@ -105,6 +104,7 @@ export class UsersController {
     try {
       await this.userService.updateUser(
         auth.id,
+        data.newNick_name,
         data.password,
         data.newPassword,
       );
@@ -115,7 +115,7 @@ export class UsersController {
   }
 
   //회원삭제(회원탈퇴)
-  @Delete('/quit')
+  @Post('/quit')
   DeleteUser(@Body() data: DeleteUserDto, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
     return this.userService.deleteUser(

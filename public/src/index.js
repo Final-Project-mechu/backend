@@ -57,7 +57,6 @@ function verifyEmail() {
     .post('http://localhost:3000/users/send-code', data)
     .then(response => {
       console.log(data);
-      console.log('이메일정보확인2', email);
       alert('메일을 전송했습니다.');
     })
     .catch(error => {

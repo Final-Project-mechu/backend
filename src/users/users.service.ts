@@ -155,12 +155,16 @@ export class UsersService {
     }
   }
 
-  async updateUser(id: number, password: string, newPassword: string) {
+  async updateUser(
+    id: number,
+    newNick_name: string,
+    password: string,
+    newPassword: string,
+  ) {
     const user = await this.userRepository.findOne({
       where: { id },
-      select: ['password'],
+      select: ['password', 'nick_name'],
     });
-    console.log('확인', user);
 
     if (!user) {
       throw new NotFoundException('유저를 찾을 수 없습니다.');
@@ -177,6 +181,7 @@ export class UsersService {
 
     // 데이터베이스를 업데이트
     return this.userRepository.update(id, {
+      nick_name: newNick_name,
       password: hashedNewPassword,
     });
   }

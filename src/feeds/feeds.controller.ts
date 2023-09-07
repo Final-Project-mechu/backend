@@ -31,15 +31,16 @@ export class FeedsController {
   @Post('/')
   createFeed(
     @Body()
-    data: { favorite_ids: number[]; title: string; description: string },
+    data: { favorite_ids: number[] },
+    @Body() createFeedDto: CreateFeedDto,
     @Req() request: RequestWithLocals,
   ) {
     const auth = request.locals.user;
     return this.feedsService.createFeed(
       auth.id,
       data.favorite_ids,
-      data.title,
-      data.description,
+      createFeedDto.title,
+      createFeedDto.description,
     );
   }
 

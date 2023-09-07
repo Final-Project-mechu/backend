@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Feed } from 'src/entity/feed.entity';
 import { FeedLike } from 'src/entity/feed.like.entity';
 import { Favorite } from 'src/entity/favorite.entity';
+import { FeedFavorite } from 'src/entity/feed.favorite.entity';
 import { DataSource, Repository } from 'typeorm';
 import _ from 'lodash';
 
@@ -18,16 +19,10 @@ export class FeedsService {
     private readonly feedLikeRepository: Repository<FeedLike>,
     @InjectRepository(Favorite)
     private readonly favoriteRepository: Repository<Favorite>,
+    @InjectRepository(FeedFavorite)
+    private readonly feedFavoriteRepository: Repository<FeedFavorite>,
     private dataSource: DataSource,
   ) {}
-  // 1번. 피드의 제목과 설명을 붙인 게시글을 작성한다.
-  // 2번. 작성한 피드의 아이디를 가져온다.
-  // 1번. (각각의)favorite id에 해당하는 row를 update 시켜준다
-  //  : feed_id = null => feed_id = feed_id
-  //  : deleted_at = 2023 ...
-  // 2번. 업데이트 한 favorite의 정보를 가져온다.
-  // 3번. 피드의 제목과 설명을 붙인 게시글을 작성완료한다.
-  // 트랜잭션 적용해야 됨 자꾸 favorite id가 없는데 생성되니까
   async createFeed(
     user_id: number,
     favorite_ids: number[],
@@ -53,15 +48,6 @@ export class FeedsService {
           // await queryRunner.rollbackTransaction();
           throw new NotFoundException('이미 삭제된 favorite_id입니다.');
         }
-        await this.favoriteRepository
-          .createQueryBuilder()
-          .update(Favorite)
-          .set({
-            feeds: createdFeedId,
-            deletedAt: new Date(),
-          })
-          .where('id = :id', { id: favorite_id })
-          .execute();
       }
       await queryRunner.commitTransaction();
 
@@ -107,15 +93,6 @@ export class FeedsService {
     const favoritesInFeed = await this.favoriteRepository.query(
       `SELECT * FROM favorite WHERE feed_id = ${id}`,
     );
-
-    // 물어보기 왜 안되는지???
-    // const favoritesInFeed = await this.favoriteRepository.find({
-    //   where: {
-    //     feeds: { id: id },
-    //     deletedAt: Not(IsNull()),
-    //   },
-    //   relations: ['feeds'],
-    // });
     console.log(`잘들어왔나 확인 ${id}`, favoritesInFeed);
     return [findFeed, favoritesInFeed];
   }

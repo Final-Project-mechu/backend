@@ -31,6 +31,13 @@ export class UsersService {
     });
   }
 
+  async getUserEmail(email: string) {
+    return await this.userRepository.findOne({
+      where: { email },
+      select: ['email'],
+    });
+  }
+
   // 중복이메일 확인
   async mailSend(email: string, code: string) {
     const existUser = await this.userRepository.findOne({

@@ -3,28 +3,59 @@ writeButton.addEventListener('click', feedCreate);
 
 const cancelButton = document.getElementById('cancelBtn');
 cancelButton.addEventListener('click', redirectToFeedPage);
+function redirectToFeedPage() {
+  window.location.href = 'feed.html';
+}
 
 document
   .getElementById('openNewWindowBtn')
   .addEventListener('click', function () {
-    // 새 창을 열고 보여줄 콘텐츠를 설정합니다.
-    const userData = ['항목 1', '항목 2', '항목 3']; // 사용자가 담았던 항목 데이터
+    const userData = ['항목1', '항목2', '항목3'];
 
-    // 사용자가 담았던 항목을 HTML 문자열로 만듭니다.
-    const userDataHtml = userData.map(item => `<li>${item}</li>`).join('');
+    const userDataHtml = userData
+      .map(
+        item =>
+          `<li><input type="checkbox" class="item-checkbox" name="test" value="test1">${item}</li>`,
+      )
+      .join('');
 
-    // 새 창을 열고 HTML 콘텐츠를 설정합니다.
     const newWindow = window.open('', 'userDataWindow', 'width=400,height=300');
     newWindow.document.body.innerHTML = `
       <h2>담았던 항목 목록</h2>
-      <ul>${userDataHtml}</ul>
+      <ul>
+      ${userDataHtml}
+      </ul>
+      <button id="selectItemsBtn">선택하기</button>
     `;
-  });
 
-function redirectToFeedPage() {
-  console.log('버튼 클릭');
-  location.replace('feed.html');
-}
+    newWindow.document
+      .getElementById('selectItemsBtn')
+      .addEventListener('click', function () {
+        const selectedItems = [];
+        const checkboxes =
+          newWindow.document.querySelectorAll('.item-checkbox');
+
+        checkboxes.forEach(checkbox => {
+          if (checkbox.checked) {
+            selectedItems.push(
+              checkbox.nextSibling
+                ? checkbox.nextSibling.textContent.trim()
+                : '체크테스트',
+            );
+          }
+        });
+
+        const parentWindow = window.opener;
+        if (parentWindow) {
+          const favoriteInput =
+            parentWindow.document.getElementById('favoriteid');
+          if (favoriteInput) {
+            favoriteInput.value = selectedItems.join(', ');
+          }
+        }
+        newWindow.close();
+      });
+  });
 
 function feedCreate() {
   const titleInput = document.getElementById('feedtitle').value;

@@ -16,10 +16,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-const openModalButton = document.getElementById('open-modal-button');
+const toggleModalButton = document.getElementById('toggle-modal-button');
 const modal = document.getElementById('modal');
-openModalButton.addEventListener('click', () => {
-  modal.style.display = 'block';
+
+toggleModalButton.addEventListener('click', () => {
+  if (modal.style.display === 'block') {
+    modal.style.display = 'none';
+    toggleModalButton.textContent = '유저 정보 수정'; // 버튼 텍스트 변경
+  } else {
+    modal.style.display = 'block';
+    toggleModalButton.textContent = '모달 닫기'; // 버튼 텍스트 변경
+  }
 });
 
 const updatePasswordButton = document.getElementById('update-password-button');
@@ -47,10 +54,32 @@ updatePasswordButton.addEventListener('click', async () => {
   }
 });
 
-const openModalDelete = document.getElementById('open-modal-delete');
-const deleteModal = document.getElementById('modal-delete');
-openModalDelete.addEventListener('click', () => {
-  deleteModal.style.display = 'block';
+// const toggleModalButton = document.getElementById('toggle-modal-button');
+// const modal = document.getElementById('modal');
+
+// toggleModalButton.addEventListener('click', () => {
+//   if (modal.style.display === 'block') {
+//     modal.style.display = 'none';
+//     toggleModalButton.textContent = '유저 정보 수정'; // 버튼 텍스트 변경
+//   } else {
+//     modal.style.display = 'block';
+//     toggleModalButton.textContent = '모달 닫기'; // 버튼 텍스트 변경
+//   }
+// });
+
+const toggleModalButtonDelete = document.getElementById(
+  'toggle-modal-button-delete',
+);
+const modal_Delete = document.getElementById('modal-delete');
+
+toggleModalButtonDelete.addEventListener('click', () => {
+  if (modal_Delete.style.display === 'block') {
+    modal_Delete.style.display = 'none';
+    toggleModalButtonDelete.textContent = '회원 탈퇴'; // 버튼 텍스트 변경
+  } else {
+    modal_Delete.style.display = 'block';
+    toggleModalButtonDelete.textContent = '모달 닫기'; // 버튼 텍스트 변경
+  }
 });
 
 const deleteButton = document.getElementById('delete-button');

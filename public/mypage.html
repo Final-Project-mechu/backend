@@ -148,7 +148,7 @@
           <i class="fa fa-bars"></i>
         </div>
       </div>
-    </header>
+ 
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
@@ -158,10 +158,6 @@
       </div>
     </section>
     <!-- Hero Section End -->
-
-
-
-  
       <section class="product spad">
         <div>
           <form action="#" style="text-align: center">
@@ -185,12 +181,11 @@
                 </div>
               </div>  
              </section>
-             <div>
-              <button id="open-modal-button">유저 정보 수정</button>
-              </div>
+            <div>
+              <button id="toggle-modal-button">유저 정보 수정</button>
+            </div>
              <!-- 모달 창 -->
               <div id="modal" style="display: none;">
-               <h5>비밀번호 수정</h5>
                 <label for="newNick_Name">변경할 닉네임:</label>
                <input type="newNick_Name" id="newNick_Name">
                 <label for="password">현재 비밀번호:</label>
@@ -198,21 +193,20 @@
                 <label for="new-password">새 비밀번호:</label>
                 <input type="password" id="new-password">
                 <button id="update-password-button" type="submit">수정하기</button>
-               </div>
+              </div>
                <div>
-                <button id="open-modal-delete">회원 탈퇴</button>
+                <button id="toggle-modal-button-delete">회원 탈퇴</button>
                 </div>
                <!-- 모달 창 -->
                 <div id="modal-delete" style="display: none;">
-                 <h5>회원 탈퇴</h5>
-                  <label for="password-delete1">현재 비밀번호:</label>
+                  <label for="passwordDelete1">현재 비밀번호:</label>
                   <input type="password" id="passwordDelete1">
-                  <label for="password-delete2">새 비밀번호:</label>
+                  <label for="passwordDelete2">비밀번호 확인:</label>
                   <input type="password" id="passwordDelete2">
-                  <button id="delete-button">확인</button>
-                 </div>
-
-
+                  <button id="user-delete-button" type="submit">확인</button>
+                </div>
+              </div>
+       </section>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
       <div class="container">
@@ -278,6 +272,5 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/foodlist.js"></script>
-
   </body>
 </html>

@@ -1,3 +1,4 @@
+let randomData;
 /**
  * 사용자의 GPS 정보를 불러오는 함수
  */
@@ -39,7 +40,7 @@ function createMap(latitude, longitude, keyword) {
  */
 function successOnGetPlace(data, latitude, longitude) {
   const randomIndex = Math.floor(Math.random() * data.length);
-  const randomData = data[randomIndex];
+  randomData = data[randomIndex];
   const placeX = randomData.x;
   const placeY = randomData.y;
   const map = getMap(placeY, placeX);

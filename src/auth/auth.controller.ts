@@ -19,6 +19,23 @@ export class AuthController {
 
   @Get('kakaoLogin')
   @Header('Content-Type', 'text/html')
+  // async kakaoUserInfo(@Res() res) {
+  //   const _url = 'http://kapi.kakao.com/v2/user/me';
+  //   const _headers = {
+  //     headers: {
+  //       Authorization: `Bearer ${res.access_Token}`,
+  //     },
+  //   };
+  //   this.authService
+  //     .showUserInfo(_url, _headers.headers)
+  //     .then(e => {
+  //       console.log(e);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       return res.send('error');
+  //     });
+  // }
   getKakaoLoginPage(): string {
     return `
       <div>

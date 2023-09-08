@@ -49,6 +49,11 @@ export class AuthService {
     return await lastValueFrom(this.http.post(_url, '', { headers: _headers }));
   }
 
+  async showUserInfo(url: string, headers: any): Promise<any> {
+    // console.log(`헤더: ${JSON.stringify(headers.headers)}`)
+    return await lastValueFrom(this.http.get(url, { headers }));
+  }
+
   async generateAccessToken(payload: string) {
     const access_Token = await this.jwtService.signAsync(payload, {
       secret: this.configService.get('JWT_SECRET_KEY'),

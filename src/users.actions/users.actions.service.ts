@@ -7,6 +7,7 @@ import { Ingredient } from 'src/entity/ingredient.entity';
 import { CreateFavoriteDto } from './dto/create.users.actions.dto';
 import { FoodIngredient } from 'src/entity/food.ingredient.entity';
 import { Category } from 'src/entity/category.entity';
+import { Between } from 'typeorm';
 
 const FAVORITE_WEIGHT = 10;
 const LIKE_WEIGHT = 1;
@@ -199,6 +200,31 @@ export class UsersActionsService {
       foodName,
       'food_name',
     );
+
+    // 날짜의 시작과 끝 지정
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
+
+    // 해당 유저가 오늘 해당 음식에 대해 'like' 액션을 수행했는지 확인
+    const existingLike = await this.userActionRepo.findOne({
+      where: {
+        user_id: userId,
+        food_id: foodId,
+        action: 'like',
+        createdAt: Between(startOfDay, endOfDay),
+      },
+    });
+
+    // 이미 좋아요를 눌렀다면 메시지를 발생
+    if (existingLike) {
+      throw new BadRequestException(
+        '하루에 한 번만 좋아요를 누를 수 있습니다.',
+      );
+    }
+
+    // 좋아요가 눌린 내역이 없다면 'like' 액션을 인서트
     return this.insertUserAction(
       userId,
       foodId,

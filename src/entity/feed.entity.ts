@@ -11,8 +11,8 @@ import {
   OneToMany,
 } from 'typeorm';
 import { User } from './user.entity';
-import { Favorite } from './favorite.entity';
 import { FeedLike } from './feed.like.entity';
+import { FeedFavorite } from './feed.favorite.entity';
 
 @Entity({ schema: 'finalpj', name: 'feed' })
 export class Feed {
@@ -25,8 +25,8 @@ export class Feed {
   @Column({ type: 'int', nullable: false })
   user_id: number;
 
-  @OneToMany(() => Favorite, favorite => favorite.feeds)
-  favorites: Favorite[];
+  @OneToMany(() => FeedFavorite, feedFavorite => feedFavorite.feed_id)
+  feedFavorites: FeedFavorite[];
   @OneToMany(() => FeedLike, feedLike => feedLike.feed_id)
   feedLike: FeedLike[];
 

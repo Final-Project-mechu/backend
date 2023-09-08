@@ -12,6 +12,7 @@ import { FeedsService } from './feeds.service';
 import { CreateFeedDto } from './dto/create.feeds.dto';
 import { UpdateFeedDto } from './dto/update.feeds.dto';
 import { Request } from 'express';
+import { ApiOperation } from '@nestjs/swagger';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -26,27 +27,50 @@ interface RequestWithLocals extends Request {
 export class FeedsController {
   constructor(private readonly feedsService: FeedsService) {}
 
+  @ApiOperation({ summary: '찜한 상점과 함께 피드 생성' })
   @Post('/')
-  createFeed(@Body() data: any, @Req() request: RequestWithLocals) {
+  createFavoriteFeed(
+    @Body()
+    data: { favorite_ids: number[] },
+    @Body() createFeedDto: CreateFeedDto,
+    @Req() request: RequestWithLocals,
+  ) {
     const auth = request.locals.user;
-    return this.feedsService.createFeed(
+    return this.feedsService.createFavoriteFeed(
       auth.id,
-      data.favorite_id,
-      data.title,
-      data.description,
+      data.favorite_ids,
+      createFeedDto.title,
+      createFeedDto.description,
     );
   }
 
+  @ApiOperation({ summary: '피드 생성' })
+  @Post('/common')
+  createFeed(
+    @Body() createFeedDto: CreateFeedDto,
+    @Req() request: RequestWithLocals,
+  ) {
+    const auth = request.locals.user;
+    return this.feedsService.createFeed(
+      auth.id,
+      createFeedDto.title,
+      createFeedDto.description,
+    );
+  }
+
+  @ApiOperation({ summary: '피드 전체 조회' })
   @Get()
   getFeeds() {
     return this.feedsService.getFeeds();
   }
 
+  @ApiOperation({ summary: '피드 상세 조회' })
   @Get('/:id')
   getFeed(@Param('id') id: number) {
     return this.feedsService.getFeed(id);
   }
 
+  @ApiOperation({ summary: '피드 수정(제목, 내용만 수정가능)' })
   @Patch('/:id')
   updateFeed(
     @Param('id') id: number,
@@ -62,23 +86,27 @@ export class FeedsController {
     );
   }
 
+  @ApiOperation({ summary: '피드 삭제' })
   @Delete('/:id')
   deleteFeed(@Param('id') id: number, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
     return this.feedsService.deleteFeed(id, auth.id);
   }
 
+  @ApiOperation({ summary: '피드 좋아요 수 조회' })
   @Get('/:id/like')
   getFeedLikes(@Param('id') id: number) {
     return this.feedsService.getFeedLikes(id);
   }
 
+  @ApiOperation({ summary: '피드 좋아요' })
   @Post('/:id/like')
   feedLike(@Param('id') id: number, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
     return this.feedsService.feedLike(id, auth.id);
   }
 
+  @ApiOperation({ summary: '피드 좋아요 취소' })
   @Delete('/:id/like')
   feedLikeCancel(@Param('id') id: number, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;

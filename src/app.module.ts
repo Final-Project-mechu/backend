@@ -45,6 +45,7 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
 import { FoodsImgsController } from './foods.imgs/foods.imags.controller';
 import { FoodsImagsService } from './foods.imgs/foods.imags.service';
 import { FoodsImagsModule } from './foods.imgs/foods.imags.module';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
@@ -100,6 +101,7 @@ import { FoodsImagsModule } from './foods.imgs/foods.imags.module';
     FriendlistModule,
     FeedsModule,
     FoodsImagsModule,
+    UploadsModule,
   ],
   controllers: [AppController,  ],
   providers: [AppService, AuthMiddleware, ],
@@ -110,10 +112,11 @@ export class AppModule implements NestModule {
     consumer
       .apply(AuthMiddleware)
       .forRoutes(
+        { path: 'users/find', method: RequestMethod.GET },
         { path: 'users/update', method: RequestMethod.PATCH },
-        { path: 'users/quit', method: RequestMethod.DELETE },
+        { path: 'users/quit', method: RequestMethod.POST },
         { path: 'users/logout', method: RequestMethod.POST },
-        { path: 'friends/send-request', method: RequestMethod.POST },
+        { path: 'friends/send', method: RequestMethod.POST },
         { path: 'friends/accept-friend', method: RequestMethod.POST },
         { path: 'category', method: RequestMethod.POST },
         { path: 'category/:category_id', method: RequestMethod.PATCH },
@@ -131,6 +134,41 @@ export class AppModule implements NestModule {
         { path: 'food/:food_id', method: RequestMethod.PATCH },
         { path: 'foods-ingredients', method: RequestMethod.POST },
         { path: 'foodimage', method: RequestMethod.POST},
-        );
+      
+        { path: 'feeds', method: RequestMethod.POST },
+        { path: 'feeds/common', method: RequestMethod.POST },
+        { path: 'feeds/:id', method: RequestMethod.PATCH },
+        { path: 'feeds/:id', method: RequestMethod.DELETE },
+        { path: 'feeds/:id/like', method: RequestMethod.POST },
+        { path: 'feeds/:id/like', method: RequestMethod.DELETE },
+        { path: 'user-actions/favorites', method: RequestMethod.GET },
+        { path: 'user-actions/likes', method: RequestMethod.GET },
+        { path: 'user-actions/exclude-foods', method: RequestMethod.GET },
+        { path: 'user-actions/exclude-ingredients', method: RequestMethod.GET },
+        {
+          path: 'user-actions/exclude-foods-ingredients',
+          method: RequestMethod.GET,
+        },
+        { path: 'user-actions/favorites', method: RequestMethod.POST },
+        { path: 'user-actions/likes', method: RequestMethod.POST },
+        { path: 'user-actions/exclude-foods', method: RequestMethod.POST },
+        {
+          path: 'user-actions/exclude-ingredients',
+          method: RequestMethod.POST,
+        },
+        { path: 'user-actions/favorites-cancel', method: RequestMethod.POST },
+        {
+          path: 'user-actions/exclude-foods-cancel',
+          method: RequestMethod.POST,
+        },
+        {
+          path: 'user-actions/exclude-ingredients-cancel',
+          method: RequestMethod.POST,
+        },
+        {
+          path: 'user-actions/random-weighted-foods',
+          method: RequestMethod.POST,
+        },
+      );
   }
 }

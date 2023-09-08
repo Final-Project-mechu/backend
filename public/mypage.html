@@ -1,13 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zxx">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Ogani Template" />
-    <meta name="keywords" content="Ogani, unica, creative, html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
     <title>오늘 뭐 먹지?</title>
+
+  <link rel="icon">
 
     <!-- Google Font -->
     <link
@@ -24,15 +27,6 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <!-- script import -->
-    <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca07a2cd35a8566747953c5991111a1a&libraries=services"
-    ></script>
-    <script src="./src/mechu.js" defer></script>
-    <script src="./src/menu-subscribe.js" defer></script>
-    <script src="./src/menu-button.js" defer></script>
-  
   </head>
 
   <body>
@@ -75,7 +69,7 @@
       <nav class="humberger__menu__nav mobile-menu">
         <ul>
           <li class="active"><a href="./index.html">Home</a></li>
-          <li><a href="./menu-subscribe.html">Shop</a></li>
+          <li><a href="./shop-grid.html">Shop</a></li>
           <li>
             <a href="#">Pages</a>
             <ul class="header__menu__dropdown">
@@ -105,19 +99,26 @@
     </div>
     <!-- Humberger End -->
 
+    <!--여기부터-->
+    <!--주석 처리한 부분은 필요 없다고 생각될 경우 제거 예정입니다.-->
     <!-- Header Section Begin -->
     <header class="header">
       <div class="header__top">
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
-              <div class="header__top__left"></div>
+              <div class="header__top__left">
+                <ul></ul>
+              </div>
             </div>
             <div class="col-lg-6">
               <div class="header__top__right">
                 <div class="header__top__right__auth">
                   <a href="#"><i class="fa fa-github"></i></a>
                 </div>
+                <div class="header__top__right__auth">
+                  <a href="#" id="signupLink"
+                      ><i class="fa fa-user"></i>친구</a>
               </div>
             </div>
           </div>
@@ -130,151 +131,84 @@
               <a href="./index.html"><img src="img/logo.png" alt="" /></a>
             </div>
           </div>
-          <nav class="humberger__menu__nav mobile-menu"></nav>
           <div class="col-lg-6">
             <nav class="header__menu">
               <ul>
                 <li><a href="./index.html">홈</a></li>
                 <li><a href="./preference.html">선호도</a></li>
-                <li><a href="./foodlist.html">메뉴판</a></li>
-                <li class="active">
-                  <a href="./menu-subscribe.html">메뉴 추천</a>
-                </li>
+                <li class="active"><a href="./foodlist.html">메뉴판</a></li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
                 <li><a href="./feed.html">피드</a></li>
               </ul>
             </nav>
           </div>
-          <div class="col-lg-3"></div>
+          <div class="col-lg-3">
+
+          </div>
+        </div>
+        <div class="humberger__open">
+          <i class="fa fa-bars"></i>
         </div>
       </div>
-    </header>
+ 
+    <!-- Header Section End -->
 
-    <div class="meal-all">
-      <h2>메뉴 추천받기</h2>
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+      <div class="container">
 
-      <div class="image-container">
-        <img src="/img/simsimi.png" alt="" class="center-image" />
       </div>
-
-      <div id="result3"></div>
-
-      <div class="filter-buttons">
-        <button
-          id="top_category_01"
-          class="filter-button"
-          data-category-id="1"
-          category="meal"
-        >
-          식사
-        </button>
-        <button
-          id="top_category_02"
-          class="filter-button"
-          data-category-id="2"
-          category="dessert"
-        >
-          디저트
-        </button>
-      </div>
-      <div class="sub-filter-buttons">
-        <button
-          id="top_category_03"
-          class="sub-filter-button"
-          data-category-id="3"
-          category="korean"
-        >
-          한식
-        </button>
-        <button
-          id="top_category_04"
-          class="sub-filter-button"
-          data-category-id="4"
-          category="chinese"
-        >
-          중식
-        </button>
-        <button
-          id="top_category_05"
-          class="sub-filter-button"
-          data-category-id="5"
-          category="japanese"
-        >
-          일식
-        </button>
-        <button
-          id="top_category_06"
-          class="sub-filter-button"
-          data-category-id="6"
-          category="western"
-        >
-          분식
-        </button>
-        <button
-          id="top_category_07"
-          class="sub-filter-button"
-          data-category-id="7"
-          category="indian"
-        >
-          기타
-        </button>
-      </div>
-
-      <div class="sub-filter-buttons">
-        <button
-          id="top_category_08"
-          class="sub-filter-button"
-          data-category-id="8"
-          category="coffee"
-        >
-          커피
-        </button>
-        <button
-          id="top_category_09"
-          class="sub-filter-button"
-          data-category-id="9"
-          category="cake"
-        >
-          스무디
-        </button>
-        <button
-          id="top_category_10"
-          class="sub-filter-button"
-          data-category-id="10"
-          category="bread"
-        >
-          간식
-        </button>
-        <button
-          id="top_category_11"
-          class="sub-filter-button"
-          data-category-id="11"
-          category="tanghulu"
-        >
-          기타
-        </button>
-      </div>
-      <main style="text-align: center">
-        <div class="food-item meal">식사가 선택되었습니다.</div>
-        <div class="food-item korean">한식이 선택되었습니다.</div>
-        <div class="food-item chinese">중식이 선택되었습니다.</div>
-        <div class="food-item japanese">일식이 선택되었습니다.</div>
-        <div class="food-item western">분식이 선택되었습니다.</div>
-        <div class="food-item indian">기타 카테고리가 선택되었습니다.</div>
-        <div class="food-item dessert">디저트가 선택되었습니다.</div>
-        <div class="food-item coffee">커피가 선택되었습니다.</div>
-        <div class="food-item cake">스무디가 선택되었습니다.</div>
-        <div class="food-item bread">간식이 선택되었습니다.</div>
-        <div class="food-item tanghulu">기타 카테고리가 선택되었습니다.</div>
-      </main>
-    </div>
-
-    <div class="button-container2">
-      <button type="submit" class="button">메뉴 추천받기!</button>
-    </div>
-
-    <div class="button-container3">
-      <button class="button" id="storeBtn" onclick="">맛집 추천받기!</button>
-    </div>
+    </section>
+    <!-- Hero Section End -->
+      <section class="product spad">
+        <div>
+          <form action="#" style="text-align: center">
+            <h2>내 정보</h2> <br>
+            <div id="profile-nickName"></div>
+          </form>
+        </div>
+        
+          <section class="featured spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title">
+                            <h2>마이페이지: 오늘의 메뉴</h2>
+                        </div>
+                    </div>
+                  <div class="mypageImg">
+                    실제 이미지 가져올 땐 닉네임처럼 axios.get 써서 가져오면 될거같습니다.
+                    <img src="./img/simsimi.png" alt="테스트용">
+                  </div>
+                </div>
+              </div>  
+             </section>
+            <div>
+              <button id="toggle-modal-button">유저 정보 수정</button>
+            </div>
+             <!-- 모달 창 -->
+              <div id="modal" style="display: none;">
+                <label for="newNick_Name">변경할 닉네임:</label>
+               <input type="newNick_Name" id="newNick_Name">
+                <label for="password">현재 비밀번호:</label>
+                <input type="password" id="password">
+                <label for="new-password">새 비밀번호:</label>
+                <input type="password" id="new-password">
+                <button id="update-password-button" type="submit">수정하기</button>
+              </div>
+               <div>
+                <button id="toggle-modal-button-delete">회원 탈퇴</button>
+                </div>
+               <!-- 모달 창 -->
+                <div id="modal-delete" style="display: none;">
+                  <label for="passwordDelete1">현재 비밀번호:</label>
+                  <input type="password" id="passwordDelete1">
+                  <label for="passwordDelete2">비밀번호 확인:</label>
+                  <input type="password" id="passwordDelete2">
+                  <button id="user-delete-button" type="submit">확인</button>
+                </div>
+              </div>
+       </section>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
       <div class="container">
@@ -290,30 +224,41 @@
               </ul>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-5 offset-lg-1">
+          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
             <div class="footer__widget">
               <h6>Useful Links</h6>
               <ul>
-                <li><a href="./terms.html">이용 약관</a></li>
+                <li><a href="#">이용 약관</a></li>
               </ul>
             </div>
           </div>
           <div class="col-lg-4 col-md-12">
             <div class="footer__widget">
-              <h6>팀 점메추저메추 깃허브</h6>
+              <h6>팀 오늘뭐먹지 깃허브</h6>
               <p></p>
-
+              <!-- <form action="#">
+              <input type="text" placeholder="Enter your mail" />
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form> -->
               <div class="footer__widget__social">
                 <a href="https://github.com/Final-Project-mechu"
                   ><i class="fa fa-github"></i
                 ></a>
+                <!-- <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a> -->
               </div>
             </div>
           </div>
         </div>
-        <div class="row"></div>
+        <div class="row">
+
+        </div>
       </div>
     </footer>
+    <!-- Footer Section End -->
+
+    <script src="./src/mypage.js"></script>
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -324,7 +269,6 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-    <!-- Footer Section End -->
-
+    <script src="js/foodlist.js"></script>
   </body>
 </html>

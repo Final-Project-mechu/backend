@@ -19,13 +19,10 @@ export class Friends {
   user_id: number;
 
   @Column('varchar')
-  sender: string;
+  email: string;
 
   @Column('varchar')
   receiverEmail: string;
-
-  @Column('varchar')
-  status: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

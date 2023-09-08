@@ -11,6 +11,7 @@ import { MailService } from 'src/mail/mail.service';
 import { FriendModule } from 'src/friend/friend.module';
 import { FriendsService } from 'src/friend/friend.service';
 import { Friends } from 'src/entity/friend.entity';
+import { AuthService } from 'src/auth/auth.service';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { Friends } from 'src/entity/friend.entity';
       inject: [ConfigService],
     }),
   ],
-  providers: [UsersService, MailService, FriendsService],
+  providers: [UsersService, MailService, FriendsService, AuthService],
   exports: [UsersService],
   controllers: [UsersController],
 })

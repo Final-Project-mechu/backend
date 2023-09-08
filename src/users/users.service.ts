@@ -27,7 +27,14 @@ export class UsersService {
   async getUserInfo(email: string) {
     return await this.userRepository.findOne({
       where: { email },
-      select: ['id', 'email', 'password'],
+      select: ['id', 'email', 'password', 'nick_name'],
+    });
+  }
+
+  async getUserNickName(email: string) {
+    return await this.userRepository.findOne({
+      where: { email },
+      select: ['nick_name'],
     });
   }
 
@@ -77,8 +84,7 @@ export class UsersService {
     password: string,
     // 회원가입 로직에서 중복이메일을 한번 더 체크
   ) {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const existUser = await this.getUserInfo(email);
     if (!_.isNil(existUser)) {
@@ -89,25 +95,28 @@ export class UsersService {
 
     // 지금 테스트때문에 막아놨음
     // 이메일이 인증된 이메일인지 확인한다.
-    if (!isEmailVerified['email'] === true) {
-      console.log('이메일확인용 콘솔', isEmailVerified);
-      throw new ConflictException(`인증된 이메일이 아닙니다.`);
-    }
+    // if (!isEmailVerified['email'] === true) {
+    //   console.log('이메일확인용 콘솔', isEmailVerified);
+    //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
+    // }
 
     const insertResult = await this.userRepository.insert({
       is_admin,
       email,
       nick_name,
-      password,
+      password: hashedPassword,
     });
 
-    const refresh_token_payload = {};
-    const refresh_token = await this.jwtService.signAsync(
-      refresh_token_payload,
-      { expiresIn: '1d' },
-    );
-    return { refresh_token };
+    const newUser = {
+      id: insertResult.identifiers[0].id,
+      is_admin,
+      email,
+      nick_name,
+    };
+
     delete isEmailVerified[email];
+
+    return newUser;
   }
 
   async login(email: string, password: string) {
@@ -118,16 +127,29 @@ export class UsersService {
           `e메일을 찾을 수 없습니다. user email: ${email}`,
         );
       }
-      if (userConfirm.password !== password) {
-        throw new UnauthorizedException('비밀번호가 올바르지 않습니다.');
+
+      const matchedPassward = await bcrypt.compare(
+        password,
+        userConfirm.password,
+      );
+
+      if (!matchedPassward) {
+        throw new ConflictException('비밀번호가 일치하지 않습니다.');
       }
+
       const payload = {
         id: userConfirm.id,
         nick_name: userConfirm.nick_name,
       };
-      const accessToken = await this.jwtService.signAsync(payload);
+      const accessToken = await this.jwtService.signAsync(payload, {
+        expiresIn: '5s',
+      });
 
-      return accessToken;
+      const refreshToken = await this.jwtService.signAsync(payload, {
+        expiresIn: '7d',
+      });
+
+      return { access_Token: accessToken, refresh_Token: refreshToken };
     } catch (error) {
       throw error;
     }
@@ -139,21 +161,28 @@ export class UsersService {
     password: string,
     newPassword: string,
   ) {
-    const confirmUserPass = await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { id },
-      select: ['nick_name', 'password'],
+      select: ['password', 'nick_name'],
     });
 
-    if (!confirmUserPass) {
+    if (!user) {
       throw new NotFoundException('유저를 찾을 수 없습니다.');
     }
 
-    if (password !== confirmUserPass.password) {
-      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
+    const matchedPassword = await bcrypt.compare(password, user.password);
+
+    if (!matchedPassword) {
+      throw new ConflictException('비밀번호가 일치하지 않습니다.');
     }
+
+    // 새로운 비밀번호를 해시화하여 저장
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // 데이터베이스를 업데이트
     return this.userRepository.update(id, {
       nick_name: newNick_name,
-      password: newPassword,
+      password: hashedNewPassword,
     });
   }
 
@@ -167,8 +196,10 @@ export class UsersService {
       throw new UnauthorizedException('사용자를 찾을 수없습니다.');
     }
 
-    if (password !== user.password) {
-      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
+    const matchedPassword = await bcrypt.compare(password, user.password);
+
+    if (!matchedPassword) {
+      throw new ConflictException('비밀번호가 일치하지 않습니다.');
     }
 
     return this.userRepository.softDelete(id);
@@ -189,5 +220,17 @@ export class UsersService {
 
     const user = this.userRepository.create(data);
     return await this.userRepository.save(user);
+  }
+
+  async transfer(is_admin: number) {
+    const userToUpdate = await this.userRepository.findOne({
+      where: { is_admin: 0 }, // is_admin이 0인 사용자를 찾습니다.
+    });
+
+    if (userToUpdate) {
+      // is_admin 값을 1로 업데이트합니다.
+      userToUpdate.is_admin = 1;
+      await this.userRepository.save(userToUpdate); // 변경 사항을 저장합니다.
+    }
   }
 }

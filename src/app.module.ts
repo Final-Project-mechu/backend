@@ -42,6 +42,7 @@ import { FeedsModule } from './feeds/feeds.module';
 import { FoodsIngredientsController } from './foods.ingredients/foods.ingredients.controller';
 import { FoodsIngredientsService } from './foods.ingredients/foods.ingredients.service';
 import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.module';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
@@ -96,6 +97,7 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
     AuthModule,
     FriendlistModule,
     FeedsModule,
+    UploadsModule,
   ],
   controllers: [AppController, FoodsIngredientsController],
   providers: [AppService, AuthMiddleware, FoodsIngredientsService],

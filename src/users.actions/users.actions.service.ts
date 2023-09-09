@@ -419,34 +419,23 @@ export class UsersActionsService {
 
     return await this.userActionRepo.query(query);
   }
-  // 해당 카테고리와 관련된 모든 하위 카테고리 ID를 가져오는 함수
-  async getSubCategories(categoryId: number): Promise<number[]> {
-    const subCategories = await this.categoryRepo.find({
-      where: { top_category_id: categoryId },
-    });
-    return subCategories.map(category => category.id);
-  }
-  // 최상위 카테고리인지 확인하는 함수. catecory 테이블의 top_category_id가 null인 경우
-  async isTopLevelCategory(categoryId: number): Promise<boolean> {
-    const category = await this.categoryRepo.findOne({
-      where: { id: categoryId },
-    });
-    return category?.top_category_id === null;
-  }
   // 음식 추천 룰렛
   async getRandomWeightedFood(
     categoryId: number,
     userId: number,
   ): Promise<string> {
     let relatedCategoryIds = [categoryId];
-    if (await this.isTopLevelCategory(categoryId)) {
-      relatedCategoryIds = relatedCategoryIds.concat(
-        await this.getSubCategories(categoryId),
-      );
+
+    // category_id가 0인 경우 모든 카테고리를 대상으로 함
+    if (categoryId === 0) {
+      const allCategories = await this.categoryRepo.find();
+      relatedCategoryIds = allCategories.map(category => category.id);
     }
 
     const foods = await this.getFoodsByCategoryIds(relatedCategoryIds);
+    // console.log('확인용1111 : ', foods);
     const foodsWeights = this.calculateBasicWeights(foods);
+    // console.log('확인용2222 : ', foodsWeights);
     const filteredFoods = this.filterFoodsByCategory(
       foodsWeights,
       relatedCategoryIds,
@@ -465,6 +454,7 @@ export class UsersActionsService {
     return food?.food_name || '해당 음식을 찾을 수 없습니다.';
   }
 
+  // 모든 카테고리 ID를 가져오는 함수
   async getFoodsByCategoryIds(relatedCategoryIds: number[]): Promise<Food[]> {
     return await this.foodRepo
       .createQueryBuilder('food')
@@ -536,6 +526,8 @@ export class UsersActionsService {
       if (index === 0) {
         return randomValue < food.cumulativeProbability;
       }
+      // 확률 확인
+      // console.log("totalWeight", validFoods)
       return (
         randomValue >= validFoods[index - 1].cumulativeProbability &&
         randomValue < food.cumulativeProbability

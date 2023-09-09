@@ -42,9 +42,6 @@ import { FeedsModule } from './feeds/feeds.module';
 import { FoodsIngredientsController } from './foods.ingredients/foods.ingredients.controller';
 import { FoodsIngredientsService } from './foods.ingredients/foods.ingredients.service';
 import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.module';
-import { FoodsImgsController } from './foods.imgs/foods.imags.controller';
-import { FoodsImagsService } from './foods.imgs/foods.imags.service';
-import { FoodsImagsModule } from './foods.imgs/foods.imags.module';
 import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
@@ -100,7 +97,6 @@ import { UploadsModule } from './uploads/uploads.module';
     AuthModule,
     FriendlistModule,
     FeedsModule,
-    FoodsImagsModule,
     UploadsModule,
   ],
   controllers: [AppController,  ],

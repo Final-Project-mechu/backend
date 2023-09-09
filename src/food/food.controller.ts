@@ -9,11 +9,16 @@ import {
   Param,
   BadRequestException,
   Patch,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { FoodService } from './food.service';
 import { createFoodsDto } from './dto/create.foods.dto';
 import { updateFoodsDto } from './dto/update.foods.dto';
 import { Request, Response, response } from 'express';
+import { Express } from 'express'; 
+import { FileInterceptor } from '@nestjs/platform-express';
+import { request } from 'http';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -96,5 +101,57 @@ export class FoodController {
     return { message: '음식 삭제 완료.' };
   }
 
+  /*=================================================================*/
+
+  //음식 사진까지 해서 생성하기.
+  @Post('/foodimg')
+  @UseInterceptors(FileInterceptor('file'))
+  async createFoodImg(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() data ,
+    //@Req() request: RequestWithLocals,
+  ){
+    //const userId = request.locals.user
+    console.log(file);
+    console.log(data);
+    //console.log(userId);
+    return {messege : "하하하하"};
+  }
+
+
+  //음식 사진만 추가하기
+  @Patch('/addfoodimg')
+  async updateFoodImg(
+
+  ){
+    
+  }
+
+
+  //삭제하기
+  @Delete('/deletefoodimg')
+  async deleteFoodImg(
+
+  ){
+    
+  }
+
+
+  //상세조회하기 -> foodingredient
+  @Get('/getfoodimg')
+  async getFoodImg(
+
+  ){
+    
+  }
+
+
+  //전체 조회하기.
+  @Get('/getallfoodimg')
+  async getAllFoodImg(
+
+  ){
+    
+  }
 
 }

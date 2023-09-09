@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Feed } from 'src/entity/feed.entity';
@@ -11,6 +12,7 @@ import { FeedFavorite } from 'src/entity/feed.favorite.entity';
 import { User } from 'src/entity/user.entity';
 import { DataSource, Repository } from 'typeorm';
 import _ from 'lodash';
+import { S3Service } from 'src/aws/s3.service';
 
 @Injectable()
 export class FeedsService {
@@ -24,13 +26,22 @@ export class FeedsService {
     @InjectRepository(FeedFavorite)
     private readonly feedFavoriteRepository: Repository<FeedFavorite>,
     private dataSource: DataSource,
+    private readonly s3Service: S3Service,
   ) {}
   async createFavoriteFeed(
     user_id: number,
-    favorite_ids: number[],
+    favorite_ids: number | string,
     title: string,
     description: string,
+    file: Express.Multer.File,
   ) {
+    let favoriteIdsArry: number[];
+    const image = await this.s3Service.putObject(file);
+    if (typeof favorite_ids === 'string') {
+      favoriteIdsArry = favorite_ids.split(',').map(id => parseInt(id));
+    } else {
+      favoriteIdsArry = [favorite_ids];
+    }
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -40,9 +51,10 @@ export class FeedsService {
         users: user,
         title,
         description,
+        image: image,
       });
       const createdFeedId = createdFeed.identifiers[0].id;
-      for (const favorite_id of favorite_ids) {
+      for (const favorite_id of favoriteIdsArry) {
         await this.feedFavoriteRepository.insert({
           feed_id: createdFeedId,
           favorite_id: favorite_id,
@@ -60,12 +72,19 @@ export class FeedsService {
     }
   }
 
-  async createFeed(user_id: number, title: string, description: string) {
+  async createFeed(
+    user_id: number,
+    title: string,
+    description: string,
+    file: Express.Multer.File,
+  ) {
     const user = { id: user_id };
+    const image = await this.s3Service.putObject(file);
     const createdFeed = await this.feedRepository.insert({
       users: user,
       title,
       description,
+      image,
     });
     return {
       Message: `피드번호 : ${createdFeed.identifiers[0].id}로 생성되었습니다.`,
@@ -74,7 +93,7 @@ export class FeedsService {
 
   async getFeeds() {
     const allFeeds = await this.feedLikeRepository
-      .query(`select f.title, f.createdAt, count(fl.feed_id) as likecount 
+      .query(`select f.title, f.createdAt, f.image, count(fl.feed_id) as likecount 
       from feed f
       left join feed_like fl on f.id = fl.feed_id
       group by f.id
@@ -91,6 +110,7 @@ export class FeedsService {
         'id',
         'user_id',
         'title',
+        'image',
         'description',
         'createdAt',
         'updatedAt',
@@ -129,10 +149,14 @@ export class FeedsService {
     user_id: number,
     title: string,
     description: string,
+    file: Express.Multer.File,
   ) {
     const findFeed = await this.feedRepository.findOne({
       where: { id: id },
     });
+    if (!title && !description && !file) {
+      throw new BadRequestException('수정사항이 하나라도 있어야합니다.');
+    }
     if (_.isNil(findFeed)) {
       throw new NotFoundException(
         `피드번호 ${id}번의 피드를 찾을 수 없습니다.`,
@@ -141,7 +165,8 @@ export class FeedsService {
     if (findFeed['user_id'] !== user_id) {
       throw new UnauthorizedException('작성자만 수정 가능합니다.');
     }
-    await this.feedRepository.update(id, { title, description });
+    const image = await this.s3Service.putObject(file);
+    await this.feedRepository.update(id, { title, description, image });
     return { Message: `피드번호 ${id}번의 피드가 수정되었습니다.` };
   }
 

@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Category } from './category.entity';
 
@@ -21,4 +22,12 @@ export class Food {
 
   @Column()
   category_id: number;
+
+  @Column()
+  food_img: string | null ;
+
+  @DeleteDateColumn({ type: 'timestamp' })
+  deletedAt: Date | null;
+
+  
 }

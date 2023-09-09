@@ -25,6 +25,7 @@ export class S3Service {
     console.log(image);
     console.log(this.bucket);
     const resizeImg = sharp(image.path);
+    console.log("s3",resizeImg);
     let { width, height } = await resizeImg.metadata();
 
     if (_.isUndefined(width)) {

@@ -19,6 +19,7 @@ import { Request, Response, response } from 'express';
 import { Express } from 'express'; 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { request } from 'http';
+import { CreateFoodsImgDto } from './dto/create.foodsimg.dto';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -59,7 +60,6 @@ export class FoodController {
       throw new BadRequestException(error.message);
     }
   }
-
   //음식 수정
   @Patch('/:food_id')
   async updateFood(
@@ -76,6 +76,67 @@ export class FoodController {
     );
     return { message: '음식 변경 완료' };
   }
+  //음식삭제
+  @Delete('/:id')
+  async deleteFood(
+    @Req() request: RequestWithLocals,
+    @Param('id') id: number,
+  ) {
+    await this.foodService.deleteFood(id);
+    return { message: '음식 삭제 완료.' };
+  }
+
+  
+  /*=================================================================*/
+
+  //음식 사진까지 해서 생성하기.
+  @Post('/foodimg')
+  @UseInterceptors(FileInterceptor('file'))
+  async createFoodImg(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() data : CreateFoodsImgDto,
+    @Req() request: RequestWithLocals,
+  ){
+    const user = request.locals.user
+    await this.foodService.createFoodImage(
+      user.id,
+      file,
+      data.food_name,
+      data.category_id,
+    )
+    return {messege : "음식정보 게시 완료."};
+  }
+
+
+  //음식 정보 및 사진 추가, 변경
+  @Patch('/foodimg/:food_id')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateFoodImg(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() data : CreateFoodsImgDto,
+    @Req() request: RequestWithLocals,
+    @Param('food_id') food_id: number,
+  ){
+    const user = request.locals.user;
+    await this.foodService.updateFoodImage(
+      user.id,
+      food_id,
+      data.food_name,
+      data.category_id,
+      file,
+    );
+    return { message : '음식 정보 변경 완료'};
+  }
+
+
+  //삭제하기
+  @Delete('/deletefoodimg')
+  async deleteFoodImg(
+
+  ){
+    
+  }
+
 
   //음식 전체조회
   @Get('/')
@@ -91,67 +152,5 @@ export class FoodController {
     return this.foodService.getFood(id);
   }
 
-  //음식삭제
-  @Delete('/:id')
-  async deleteFood(
-    @Req() request: RequestWithLocals,
-    @Param('id') id: number,
-  ) {
-    await this.foodService.deleteFood(id);
-    return { message: '음식 삭제 완료.' };
-  }
-
-  /*=================================================================*/
-
-  //음식 사진까지 해서 생성하기.
-  @Post('/foodimg')
-  @UseInterceptors(FileInterceptor('file'))
-  async createFoodImg(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() data ,
-    //@Req() request: RequestWithLocals,
-  ){
-    //const userId = request.locals.user
-    console.log(file);
-    console.log(data);
-    //console.log(userId);
-    return {messege : "하하하하"};
-  }
-
-
-  //음식 사진만 추가하기
-  @Patch('/addfoodimg')
-  async updateFoodImg(
-
-  ){
-    
-  }
-
-
-  //삭제하기
-  @Delete('/deletefoodimg')
-  async deleteFoodImg(
-
-  ){
-    
-  }
-
-
-  //상세조회하기 -> foodingredient
-  @Get('/getfoodimg')
-  async getFoodImg(
-
-  ){
-    
-  }
-
-
-  //전체 조회하기.
-  @Get('/getallfoodimg')
-  async getAllFoodImg(
-
-  ){
-    
-  }
 
 }

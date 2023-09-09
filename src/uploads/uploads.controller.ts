@@ -12,10 +12,14 @@ import * as AWS from 'aws-sdk';
 import { FileSizeValidationPipe } from './dto/uploads.create.dto';
 import { S3Module } from 'nestjs-s3';
 import { Express } from 'express';
+import { S3Service } from 'src/aws/s3.service';
 
 @Controller('uploads')
 export class UploadsController {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly s3Service: S3Service,
+  ) {}
 
   @Post('')
   @UseInterceptors(FileInterceptor('file'))
@@ -24,27 +28,7 @@ export class UploadsController {
     file: Express.Multer.File,
   ) {
     console.log(file);
-    AWS.config.update({
-      region: 'ap-northeast-2',
-      credentials: {
-        accessKeyId: this.configService.get<string>('AWS_ACCESS_KEY'),
-        secretAccessKey: this.configService.get<string>('AWS_SECRET_KEY'),
-      },
-    });
-
-    try {
-      const upload = await new AWS.S3()
-        .upload({
-          Bucket: 'final-bucket-ksr',
-          Key: file.originalname,
-          Body: file.buffer,
-        })
-        .promise();
-      console.log(file);
-      console.log(upload);
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
+    const image = await this.s3Service.putObject(file);
+    return image;
   }
 }

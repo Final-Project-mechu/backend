@@ -141,6 +141,22 @@ export class FoodService {
 
   //삭제하기
   // 디비에서 에서 삭제 /  S3 버켓에서 삭제 ~
+  async deleteFoodImg(
+    id : number,
+    food_id : number
+  ){
+    const checkAdmin = await this.confirmAdmin(id);
+    if (checkAdmin.is_admin !== 1) {
+      console.log('관리자가 아닙니다.');
+      throw new UnauthorizedException('관리자가 아닙니다.');
+    }
+    this.foodReository.softDelete({id :food_id});
+  }
+
+
+
+
+
   //상세조회하기 -> foodingredient
   //전체 조회하기
   async getAllFoodImg(){

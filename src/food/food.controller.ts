@@ -20,6 +20,7 @@ import { Express } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { request } from 'http';
 import { CreateFoodsImgDto } from './dto/create.foodsimg.dto';
+import { async } from 'rxjs';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -130,11 +131,17 @@ export class FoodController {
 
 
   //삭제하기
-  @Delete('/deletefoodimg')
+  @Delete('/foodimg/:food_id')
   async deleteFoodImg(
-
+    @Req() request: RequestWithLocals,
+    @Param('food_id') food_id: number,
   ){
-    
+    const user = request.locals.user;
+    await this.foodService.deleteFoodImg(
+      user.id,
+      food_id,
+    );
+    return { message : '음식 정보 삭제 완료'}
   }
 
 

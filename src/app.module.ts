@@ -132,6 +132,7 @@ export class AppModule implements NestModule {
         { path: 'foodimage', method: RequestMethod.POST},
         { path: 'food/foodimg', method: RequestMethod.POST},
         { path: 'food/foodimg/:food_id', method: RequestMethod.PATCH },
+        { path: 'food/foodimg/:food_id', method: RequestMethod.DELETE },
       
         { path: 'feeds', method: RequestMethod.POST },
         { path: 'feeds/common', method: RequestMethod.POST },

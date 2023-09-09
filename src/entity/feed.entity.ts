@@ -36,6 +36,9 @@ export class Feed {
   @Column('varchar', { length: 300 })
   description: string;
 
+  @Column('varchar')
+  image: string;
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 

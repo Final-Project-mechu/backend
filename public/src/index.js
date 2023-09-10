@@ -110,8 +110,11 @@ function login() {
     .then(response => {
       console.log(data);
       alert('로그인 완료');
-      // 로그인이 완료된 경우 로그아웃 버튼을 생성하고 로그인 링크를 변경
+      closeModal();
+      document.cookie = 'isLoggedIn=true'; // 예시로 "isLoggedIn" 쿠키 사용
       createLogoutButton();
+      const mypageButton = document.getElementById('mypageLink');
+      mypageButton.style.display = 'block';
     })
     .catch(error => {
       // 에러 처리
@@ -120,7 +123,32 @@ function login() {
     });
 }
 
-// 로그아웃 버튼을 생성하고 로그인 링크를 변경하는 함수
+// 홈 페이지 로딩 시 로그인 상태 확인
+window.onload = function () {
+  const isLoggedIn = getCookie('isLoggedIn');
+  if (isLoggedIn === 'true') {
+    createLogoutButton();
+  }
+};
+
+// 쿠키 가져오기 함수
+function getCookie(name) {
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [key, value] = cookie.trim().split('=');
+    if (key === name) {
+      return value;
+    }
+  }
+  return '';
+}
+
+// "마이페이지" 링크를 보이게 하는 함수
+function showMyPageLink() {
+  const myPageLink = document.getElementById('myPageLink');
+  myPageLink.style.display = 'inline'; // 보이게 설정
+}
+
 function createLogoutButton() {
   const loginLink = document.getElementById('loginLink');
   loginLink.innerHTML = '<i class="fa fa-user"></i>로그아웃';
@@ -129,6 +157,7 @@ function createLogoutButton() {
   // 새로운 클릭 이벤트를 추가하여 로그아웃 함수를 호출
   loginLink.addEventListener('click', function () {
     singOut();
+    closeModal();
   });
 }
 
@@ -138,8 +167,8 @@ function singOut() {
     .delete('http://localhost:3000/users/logOut')
     .then(response => {
       alert('로그아웃 완료');
-      // 로그아웃이 완료된 경우 다시 로그인 링크로 변경
-      resetLoginLink();
+      document.cookie =
+        'isLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       location.reload();
     })
     .catch(error => {

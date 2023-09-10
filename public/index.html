@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ogani Template" />
+    <meta name="keywords" content="Ogani, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>오늘 뭐 먹지?</title>
+
+    <Google Font>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/modal.css" type="text/css">
+  </head>
+
+  <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+      <div class="humberger__menu__logo">
+        <a href="#"><img src="img/logo.png" alt="" /></a>
+      </div>
+      <div class="humberger__menu__cart">
+        <ul>
+          <li>
+            <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
+          </li>
+        </ul>
+        <div class="header__cart__price">item: <span>$150.00</span></div>
+      </div>
+      <div class="humberger__menu__widget">
+        <div class="header__top__right__language">
+          <img src="img/language.png" alt="" />
+          <div>English</div>
+          <span class="arrow_carrot-down"></span>
+          <ul>
+            <li><a href="#">Spanis</a></li>
+            <li><a href="#">English</a></li>
+          </ul>
+        </div>
+        <div class="header__top__right__auth">
+          <a href="#"><i class="fa fa-user"></i> Login</a>
+        </div>
+      </div>
+      <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+          <li class="active"><a href="./index.html">Home</a></li>
+          <li><a href="./menu-subscribe.html">Shop</a></li>
+          <li>
+            <a href="#">Pages</a>
+            <ul class="header__menu__dropdown">
+              <li><a href="./shop-details.html">Shop Details</a></li>
+              <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+              <li><a href="./checkout.html">Check Out</a></li>
+              <li><a href="./blog-details.html">Blog Details</a></li>
+            </ul>
+          </li>
+          <li><a href="./feed.html">Blog</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div id="mobile-menu-wrap"></div>
+      <div class="header__top__right__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+      </div>
+      <div class="humberger__menu__contact">
+        <ul>
+          <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+          <li>Free Shipping for all Order of $99</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Humberger End -->
+
+    <!--여기부터-->
+    <!--주석 처리한 부분은 필요 없다고 생각될 경우 제거 예정입니다.-->
+    <!-- Header Section Begin -->
+    <header class="header">
+      <div class="header__top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="header__top__left">
+                <ul>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="header__top__right">
+                <div class="header__top__right__auth">
+                  <!-- <a href="#"><i class="fa fa-github"></i></a> -->
+                </div>
+                <div class="header__top__right__auth">
+                  <div class="header__top__right__auth">
+                    <a href="#" id="signupLink"
+                      ><i class="fa fa-user"></i>회원가입</a
+                    >
+                    <div id="signupModal" class="modal">
+                      <div class="modal-content">
+                        <form>
+                          <label for="admin"></label>
+                         <input id="admin" name="admin" value="1" style="display: none;"/>
+                          <br>
+
+                          <label for="signupEmail">이메일:</label>
+                          <button type="button" onclick="verifyEmail()">인증번호 전송</button>
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            autocomplete="additional-name"
+                          /><br />
+
+                          <label for="verifyCode">인증번호 확인:</label>
+                          <button type="button" onclick="verifyCode()">인증번호 확인</button>
+                          <input
+                            type="text"
+                            id="Code"
+                            name="Code"
+                            autocomplete="additional-name"
+                          /><br />
+
+                          <label for="signupNickname">닉네임:</label>
+                          <input
+                            type="text"
+                            id="signupNickname"
+                            name="Nickname"
+                            autocomplete="additional-name"
+                          /><br />
+
+                          <label for="signupPassword">비밀번호:</label>
+                          <input
+                            type="password"
+                            id="signupPassword"
+                            name="password"
+                            autocomplete="current-password"
+                          /><br />
+
+                          <label for="signupPasswordConfirm"
+                            >비밀번호 확인:</label
+                          >
+                          <input
+                            type="password"
+                            id="signupPasswordConfirm"
+                            name="password"
+                            autocomplete="current-password"
+                          /><br />
+
+                          <button type="submit" onclick="sign(event)">
+                            회원가입
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                    <a href="#" id="loginLink"
+                      ><i class="fa fa-user"></i>로그인</a
+                    >
+
+                    <div id="loginModal" class="modal">
+                      <div class="modal-content">
+                        <form>
+                          <label for="Email">이메일:</label>
+                          <input
+                            type="email"
+                            id="Email"
+                            name="Email"
+                            autocomplete="additional-name"
+                          /><br />
+
+                          <label for="Password">비밀번호:</label>
+                          <input
+                            type="password"
+                            id="Password"
+                            name="Password"
+                            autocomplete="current-password"
+                          /><br />
+
+                          <button type="submit" onclick="login()">
+                            로그인
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--index.html의 해당라인부터 div가 끝나는 라인까지 모든 html에 복붙하고 복붙한 리스트 클래스에 class=action을 적용시켜줍니다.-->
+      <!--다른 html에서는 div class=container의 div부터 해당 div가 끝나는 라인까지 복붙하면 됩니다. 잘 모르겠으면 메뉴를 검색해서 나오는 컨테이너를 찾아 복붙-->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="header__logo">
+              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+            </div>
+          </div>
+          <nav class="humberger__menu__nav mobile-menu"></nav>
+          <div class="col-lg-6">
+            <nav class="header__menu">
+              <ul>
+                <li class="active"><a href="./index.html">홈</a></li>
+                <li><a href="./preference.html">선호도</a></li>
+                <li><a href="./foodlist.html">메뉴판</a></li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                <li><a href="./feed.html">피드</a></li>
+              </ul>
+            </nav>
+          </div>
+          <!--적용 취소하려면 컨테이너 col-lg-6의 </div> 라인 밑에 242번라인~247번라인을 제거하면 됩니다.-->
+          <div class="col-lg-3">
+            <div class="header__cart">
+              <div class="header__cart__price">오늘의 메뉴: <span>차돌짬뽕</span></div>
+            </div>
+          </div>
+          </div>
+        </div>
+    </header>
+    <!-- Featured Section Begin -->
+    <section class="featured spad">
+      <div class="hero__item set-bg" data-setbg="img/hero/pancake.jpg">
+        <div class="hero__text">
+            <span>오늘 뭐 먹지?</span>
+            <h2>TOGETHER EAT!</h2>
+            <a href="menu-subscribe.html" class="main-btn">메뉴 추천받기</a>
+        </div>
+    </div>
+    </section>
+    <!-- Featured Section End -->
+    <!-- Blog Section Begin -->
+    <section class="from-blog spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title from-blog__title">
+              <h2>From The Blog</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- 피드 나누기 : 이 부분을 복사하면 피드가 여러 개 복사됨 -->
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="blog__item">
+              <div class="blog__item__pic">
+                <img src="img/blog/blog-1.jpg" alt="" />
+              </div>
+              <div class="blog__item__text">
+                <ul>
+                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                  <li><i class="fa fa-comment-o"></i> 5</li>
+                </ul>
+                <h5><a href="#">Feed Title</a></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="blog__item">
+              <div class="blog__item__pic">
+                <img src="img/blog/blog-2.jpg" alt="" />
+              </div>
+              <div class="blog__item__text">
+                <ul>
+                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                  <li><i class="fa fa-comment-o"></i> 5</li>
+                </ul>
+                <h5><a href="#">Feed Title</a></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="blog__item">
+              <div class="blog__item__pic">
+                <img src="img/blog/blog-3.jpg" alt="" />
+              </div>
+              <div class="blog__item__text">
+                <ul>
+                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                  <li><i class="fa fa-comment-o"></i> 5</li>
+                </ul>
+                <h5><a href="#">Feed Title</a></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="blog__item">
+              <div class="blog__item__pic">
+                <img src="img/blog/blog-3.jpg" alt="" />
+              </div>
+              <div class="blog__item__text">
+                <ul>
+                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                  <li><i class="fa fa-comment-o"></i> 5</li>
+                </ul>
+                <h5><a href="#">Feed Title</a></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="blog__item">
+              <div class="blog__item__pic">
+                <img src="img/blog/blog-3.jpg" alt="" />
+              </div>
+              <div class="blog__item__text">
+                <ul>
+                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                  <li><i class="fa fa-comment-o"></i> 5</li>
+                </ul>
+                <h5><a href="#">Feed Title</a></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="blog__item">
+              <div class="blog__item__pic">
+                <img src="img/blog/blog-3.jpg" alt="" />
+              </div>
+              <div class="blog__item__text">
+                <ul>
+                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                  <li><i class="fa fa-comment-o"></i> 5</li>
+                </ul>
+                <h5><a href="#">Feed Title</a></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Blog Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="footer__about">
+              <div class="footer__about__logo">
+                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+              </div>
+              <ul>
+                <p>TEAM : 오늘 뭐 먹지? TOGETHER EAT!</p>
+                <p>김세령 오준석 이서원 최하영 함형진</p>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+            <div class="footer__widget">
+              <h6>Useful Links</h6>
+              <ul>
+                <li><a href="./terms.html">이용 약관</a></li>
+                <li><a href="./mypage.html">마이페이지</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="footer__widget">
+              <h6>팀 점메추저메추 깃허브</h6>
+              <p>
+              </p>
+              <!-- <form action="#">
+                <input type="text" placeholder="Enter your mail" />
+                <button type="submit" class="site-btn">Subscribe</button>
+              </form> -->
+              <div class="footer__widget__social">
+                <a href="https://github.com/Final-Project-mechu"><i class="fa fa-github"></i></a>
+                <!-- <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-pinterest"></i></a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- <div class="col-lg-12">
+            <div class="footer__copyright">
+              <div class="footer__copyright__text">
+                <p>
+                  Copyright &copy;
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  All rights reserved | This template is made with
+                  <i class="fa fa-heart" aria-hidden="true"></i> by
+                  <a href="https://colorlib.com" target="_blank">Colorlib</a>
+
+                </p>
+              </div>
+              <div class="footer__copyright__payment">
+                <img src="img/payment-item.png" alt="" />
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </footer>
+    <!-- Footer Section End -->
+
+   
+  <script src="./src/index.js" defer></script>
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

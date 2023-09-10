@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ogani Template" />
+    <meta name="keywords" content="Ogani, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>오늘 뭐 먹지?</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- script import -->
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca07a2cd35a8566747953c5991111a1a&libraries=services"
+    ></script>
+    <script src="./src/mechu.js" defer></script>
+    <script src="./src/menu-subscribe.js" defer></script>
+    <script src="./src/menu-button.js" defer></script>
+  
+  </head>
+
+  <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+      <div class="humberger__menu__logo">
+        <a href="#"><img src="img/logo.png" alt="" /></a>
+      </div>
+      <div class="humberger__menu__cart">
+        <ul>
+          <li>
+            <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
+          </li>
+        </ul>
+        <div class="header__cart__price">item: <span>$150.00</span></div>
+      </div>
+      <div class="humberger__menu__widget">
+        <div class="header__top__right__language">
+          <img src="img/language.png" alt="" />
+          <div>English</div>
+          <span class="arrow_carrot-down"></span>
+          <ul>
+            <li><a href="#">Spanis</a></li>
+            <li><a href="#">English</a></li>
+          </ul>
+        </div>
+        <div class="header__top__right__auth">
+          <a href="#"><i class="fa fa-user"></i> Login</a>
+        </div>
+      </div>
+      <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+          <li class="active"><a href="./index.html">Home</a></li>
+          <li><a href="./menu-subscribe.html">Shop</a></li>
+          <li>
+            <a href="#">Pages</a>
+            <ul class="header__menu__dropdown">
+              <li><a href="./shop-details.html">Shop Details</a></li>
+              <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+              <li><a href="./checkout.html">Check Out</a></li>
+              <li><a href="./blog-details.html">Blog Details</a></li>
+            </ul>
+          </li>
+          <li><a href="./blog.html">Blog</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div id="mobile-menu-wrap"></div>
+      <div class="header__top__right__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+      </div>
+      <div class="humberger__menu__contact">
+        <ul>
+          <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+          <li>Free Shipping for all Order of $99</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Humberger End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+      <div class="header__top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="header__top__left"></div>
+            </div>
+            <div class="col-lg-6">
+              <div class="header__top__right">
+                <div class="header__top__right__auth">
+                  <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="header__logo">
+              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+            </div>
+          </div>
+          <nav class="humberger__menu__nav mobile-menu"></nav>
+          <div class="col-lg-6">
+            <nav class="header__menu">
+              <ul>
+                <li><a href="./index.html">홈</a></li>
+                <li><a href="./preference.html">선호도</a></li>
+                <li><a href="./foodlist.html">메뉴판</a></li>
+                <li class="active">
+                  <a href="./menu-subscribe.html">메뉴 추천</a>
+                </li>
+                <li><a href="./feed.html">피드</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3"></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="meal-all">
+      <h2>메뉴 추천받기</h2>
+
+      <div class="image-container">
+        <img src="/img/simsimi.png" alt="" class="center-image" />
+      </div>
+
+      <div id="result3"></div>
+
+      <div class="filter-buttons">
+        <button
+          id="top_category_01"
+          class="filter-button"
+          data-category-id="1"
+          category="meal"
+        >
+          식사
+        </button>
+        <button
+          id="top_category_02"
+          class="filter-button"
+          data-category-id="2"
+          category="dessert"
+        >
+          디저트
+        </button>
+      </div>
+      <div class="sub-filter-buttons">
+        <button
+          id="top_category_03"
+          class="sub-filter-button"
+          data-category-id="3"
+          category="korean"
+        >
+          한식
+        </button>
+        <button
+          id="top_category_04"
+          class="sub-filter-button"
+          data-category-id="4"
+          category="chinese"
+        >
+          중식
+        </button>
+        <button
+          id="top_category_05"
+          class="sub-filter-button"
+          data-category-id="5"
+          category="japanese"
+        >
+          일식
+        </button>
+        <button
+          id="top_category_06"
+          class="sub-filter-button"
+          data-category-id="6"
+          category="western"
+        >
+          분식
+        </button>
+        <button
+          id="top_category_07"
+          class="sub-filter-button"
+          data-category-id="7"
+          category="indian"
+        >
+          기타
+        </button>
+      </div>
+
+      <div class="sub-filter-buttons">
+        <button
+          id="top_category_08"
+          class="sub-filter-button"
+          data-category-id="8"
+          category="coffee"
+        >
+          커피
+        </button>
+        <button
+          id="top_category_09"
+          class="sub-filter-button"
+          data-category-id="9"
+          category="cake"
+        >
+          스무디
+        </button>
+        <button
+          id="top_category_10"
+          class="sub-filter-button"
+          data-category-id="10"
+          category="bread"
+        >
+          간식
+        </button>
+        <button
+          id="top_category_11"
+          class="sub-filter-button"
+          data-category-id="11"
+          category="tanghulu"
+        >
+          기타
+        </button>
+      </div>
+      <main style="text-align: center">
+        <div class="food-item meal">식사가 선택되었습니다.</div>
+        <div class="food-item korean">한식이 선택되었습니다.</div>
+        <div class="food-item chinese">중식이 선택되었습니다.</div>
+        <div class="food-item japanese">일식이 선택되었습니다.</div>
+        <div class="food-item western">분식이 선택되었습니다.</div>
+        <div class="food-item indian">기타 카테고리가 선택되었습니다.</div>
+        <div class="food-item dessert">디저트가 선택되었습니다.</div>
+        <div class="food-item coffee">커피가 선택되었습니다.</div>
+        <div class="food-item cake">스무디가 선택되었습니다.</div>
+        <div class="food-item bread">간식이 선택되었습니다.</div>
+        <div class="food-item tanghulu">기타 카테고리가 선택되었습니다.</div>
+      </main>
+    </div>
+
+    <div class="button-container2">
+      <button type="submit" class="button">메뉴 추천받기!</button>
+    </div>
+
+    <div class="button-container3">
+      <button class="button" id="storeBtn" onclick="">맛집 추천받기!</button>
+    </div>
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="footer__about">
+              <div class="footer__about__logo">
+                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+              </div>
+              <ul>
+                <p>TEAM : 오늘 뭐 먹지? TOGETHER EAT!</p>
+                <p>김세령 오준석 이서원 최하영 함형진</p>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-5 offset-lg-1">
+            <div class="footer__widget">
+              <h6>Useful Links</h6>
+              <ul>
+                <li><a href="./terms.html">이용 약관</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="footer__widget">
+              <h6>팀 점메추저메추 깃허브</h6>
+              <p></p>
+
+              <div class="footer__widget__social">
+                <a href="https://github.com/Final-Project-mechu"
+                  ><i class="fa fa-github"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row"></div>
+      </div>
+    </footer>
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- Footer Section End -->
+
+  </body>
+</html>

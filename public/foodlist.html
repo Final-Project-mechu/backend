@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ogani Template" />
+    <meta name="keywords" content="Ogani, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>오늘 뭐 먹지?</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- 부트스트랩 JavaScript 파일 추가 (jQuery와 Popper.js를 포함) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+
+  
+  
+      <!-- Page Preloder -->
+      <div id="preloder">
+        <div class="loader"></div>
+      </div>
+  
+      <!-- Humberger Begin -->
+      <div class="humberger__menu__overlay"></div>
+      <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+          <a href="#"><img src="img/logo.png" alt="" /></a>
+        </div>
+        <div class="humberger__menu__cart">
+          <ul>
+            <li>
+              <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
+            </li>
+          </ul>
+          <div class="header__cart__price">item: <span>$150.00</span></div>
+        </div>
+        <div class="humberger__menu__widget">
+          <div class="header__top__right__language">
+            <img src="img/language.png" alt="" />
+            <div>English</div>
+            <span class="arrow_carrot-down"></span>
+            <ul>
+              <li><a href="#">Spanis</a></li>
+              <li><a href="#">English</a></li>
+            </ul>
+          </div>
+          <div class="header__top__right__auth">
+            <a href="#"><i class="fa fa-user"></i> Login</a>
+          </div>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+          <ul>
+            <li class="active"><a href="./index.html">Home</a></li>
+            <li><a href="./shop-grid.html">Shop</a></li>
+            <li>
+              <a href="#">Pages</a>
+              <ul class="header__menu__dropdown">
+                <li><a href="./shop-details.html">Shop Details</a></li>
+                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                <li><a href="./checkout.html">Check Out</a></li>
+                <li><a href="./blog-details.html">Blog Details</a></li>
+              </ul>
+            </li>
+            <li><a href="./blog.html">Blog</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
+          <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+          <ul>
+            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+            <li>Free Shipping for all Order of $99</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Humberger End -->
+  
+      <!--여기부터-->
+      <!--주석 처리한 부분은 필요 없다고 생각될 경우 제거 예정입니다.-->
+      <!-- Header Section Begin -->
+      <header class="header">
+        <div class="header__top">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="header__top__left">
+                  <ul></ul>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="header__top__right">
+                  <div class="header__top__right__auth">
+                    <a href="#"><i class="fa fa-github"></i></a>
+                  </div>
+                  <div class="header__top__right__auth"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="header__logo">
+                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <nav class="header__menu">
+                <ul>
+                  <li><a href="./index.html">홈</a></li>
+                  <li><a href="./preference.html">선호도</a></li>
+                  <li class="active"><a href="./foodlist.html">메뉴판</a></li>
+                  <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                  <li><a href="./feed.html">피드</a></li>
+                </ul>
+              </nav>
+            </div>
+            <div class="col-lg-3">
+  
+            </div>
+          </div>
+          <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+          </div>
+        </div>
+      </header>
+      <!-- Header Section End -->
+  
+      <!-- Hero Section Begin -->
+      <section class="hero hero-normal">
+        <div class="container">
+  
+        </div>
+      </section>
+      <!-- Hero Section End -->
+  
+  
+  
+    
+        <section class="product spad">
+          
+          <div>
+            <div class="dropdown">
+              <select>
+                <option value="식사">식사</option>
+                <option value="디저트">디저트</option>
+              </select>
+            </div>
+            <form action="#" style="text-align: center">
+              
+              <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+              <button onclick="search()">검색</button>
+            </form>
+       
+  
+            <section class="featured spad">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-lg-12">
+                        <div class="filter-buttons">
+                          <form action="#" style="text-align: center">                       
+  
+                      </div>
+                          <div class="featured__controls">
+                            <ul>
+                              <li class="active" data-filter="*">All</li>
+                              <li data-filter=".meal">식사</li>
+                              <li data-filter=".dessert">디저트</li>
+                          </ul>
+                          <ul>
+                            <li data-filter=".meal">식사</li>
+                            <li data-filter=".korea">한식</li>
+                            <li data-filter=".chinese">중식</li>
+                            <li data-filter=".Western">양식</li> 
+                            <li data-filter=".japan">일식</li>
+                            <li data-filter=".Indian">인도식</li>
+                        </ul>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row featured__filter">
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix chinese meal">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MThfMTMx%2FMDAxNjg5Njc0NTg2MDEw.WPcAkQjFFaUZBvq49aVwv8FgDKOurIRkqv52hVmH-HMg.ekmPPlVUAA9_JGjpY-F1jlvtR3Mfg2V1hP_V_RNZEcUg.JPEG.techmass3%2F20230718_120811.jpg&type=a340">
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">샘플1</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix korea meal">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA0MDVfMTU3%2FMDAxNjgwNjIxNjU0NDMz.JvMF6qvzOvrflCv0sjZCsG01OgZDP4RqwwBW1BXLXuMg.l1ygJPN0u7yVq7WlnTkjYfgY3grcouohZkWxA9hm25gg.JPEG.congsarang1%2FIMG_0853.JPG&type=a340">
+                               
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">샘플2</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix Western meal">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fshop1.phinf.naver.net%2F20221214_171%2F16709924755527L2Yi_JPEG%2F72128318180512400_2043325730.jpg&type=sc960_832">
+                               
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">샘플3</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjFfMTgg%2FMDAxNjg3MzU1ODgzNTg2.6Yeun19uKu9C-jAjCIn-tZMxg41gn2idTDEeSvxG7ZAg.JFm8SVYZ787lqv0Q8Z2hnBeOmwDABB0lpOvQzVcbbJUg.JPEG.prspring%2FIMG_3329.JPG&type=sc960_832">
+                               
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">샘플4</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix chinese">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MzBfMTY0%2FMDAxNjg4MTMzNzQzMDAy.YxVza0lZ_-yrWXduko0eYZU0fVElnUn-csFOt6L0dJsg.RBqHdjrrDQB6eqZnms0218Eq6Kuov-i2_I7c5mqO8kQg.JPEG.baeh76%2F20230609_163858.jpg&type=a340">
+                               
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">샘플5</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix Western">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
+                               
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">샘플6</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MTNfMTIz%2FMDAxNjgzOTU1Mzk0OTcz.H0I2MCyt-3a5EHZn_vHnf4aDopkKCTtMm75kBvt4gIEg.rDENWW0SGYyheqMNnM-CVuDCRqoRErS4fIlYi6cQpAgg.JPEG.holyfsss%2FKakaoTalk_20230504_114130310_20.jpg&type=sc960_832">
+                               
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">샘플7</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix korea">
+                      <div class="featured__item">
+                          <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjhfMzUg%2FMDAxNjY5NjM0ODA0MzIx.mzdKbwqEPejUtpfc7zjhRmRgkG5IYmg69-QvjIAXtL8g.BlGx7Ex-70rGxm0ohU5pGyiRHTe1nBV_axtFvIMGEdIg.JPEG.ajung8904%2FP20221118_133812697_E8C719C0-7426-4F76-A26D-7A55CCD817F7.jpg&type=sc960_832">
+                          </div>
+                          <div class="featured__item__text">
+                              <h6><a href="#">샘플8</a></h6>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 mix japan">
+                      <div class="featured__item">
+                          <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MjFfMTY5%2FMDAxNjg5OTQ2MDAyODI0.74N5ezr9LiakaV7gPqwGaz6_v4s0DmF1R0QmULIrGesg.ipkpOp_YvBI5kqZDBu9lIGjdV4FVcpalGqmynDNSHKUg.JPEG.tmfrl4918%2FIMG_9143.jpg&type=a340">
+                          </div>
+                          <div class="featured__item__text">
+                              <h6><a href="#">샘플1</a></h6>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 mix japan">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzA3MDVfMzYg%2FMDAxNDk5MjIyNjE2NTA5.0TxN7PLZquGhjYIQj9NiU4xLEnwy6kcm1JyYYCMTE6Qg.dfpdTXzirq7gCAK5g7OObMdgSF66Pk4KmivyuK0nB4gg.JPEG.dongyumokj%2F%25C4%25AB%25C3%25F7%25B5%25BF.jpg&type=sc960_832">
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">샘플1</a></h6>
+                        </div>
+                    </div>
+                </div><div class="col-lg-3 col-md-6 col-sm-6 mix dessert">
+                  <div class="featured__item">
+                      <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAyMjdfMTg4%2FMDAxNjQ1OTY2MTg1NjA5.JPBxkFiCNG3bqRA1nVEFF2Q0vnFZGiKuw3x0LKD4NOYg.z0eY0mVYVsmNqkIzglnTgIBpAhi8x3xpYE89ORLc3zIg.JPEG.sip707%2Foutput_734202219.jpg&type=a340">
+                      </div>
+                      <div class="featured__item__text">
+                          <h6><a href="#">샘플1</a></h6>
+                      </div>
+                  </div>
+              </div><div class="col-lg-3 col-md-6 col-sm-6 mix dessert">
+                <div class="featured__item">
+                    <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjZfMjQy%2FMDAxNjg3NzQ2ODc3OTUw.brwrbq_3Z2RAdgz9_Zuo9qwtITyax_J-4t02fOxWz2sg.GmUxfnlfjWNmlUSUzR2yU_xNUvWwSNJzDCBWrot3pGYg.JPEG.s_oogle%2FIMG_0972.jpg&type=a340">
+                    </div>
+                    <div class="featured__item__text">
+                        <h6><a href="#">샘플1</a></h6>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </section>
+  </section>
+      <!-- Hero Section End -->
+  
+  
+  
+    
+       
+    
+
+
+     <!-- Footer Section Begin -->
+     <footer class="footer spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="footer__about">
+              <div class="footer__about__logo">
+                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+              </div>
+              <ul>
+                <li>team: 점메추 저메추</li>
+                <li>김세령</li>
+                <li>오준석</li>
+                <li>이서원</li>
+                <li>최하영</li>
+                <li>함형진</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+            <div class="footer__widget">
+              <h6>Useful Links</h6>
+              <ul>
+                <li><a href="#">이용 약관</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="footer__widget">
+              <h6>팀 점메추저메추 깃허브</h6>
+              <p></p>
+              <!-- <form action="#">
+              <input type="text" placeholder="Enter your mail" />
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form> -->
+              <div class="footer__widget__social">
+                <a href="https://github.com/Final-Project-mechu"
+                  ><i class="fa fa-github"></i
+                ></a>
+                <!-- <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+        </div>
+      </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/foodlist.js"></script>
+    <script></script>
+
+  </body>
+</html>

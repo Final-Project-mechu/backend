@@ -35,6 +35,7 @@ jobs:
 
       # 환경변수 세팅
       - name: ⚙️ 환경변수 설정
+        working-directory: ./
         env:
          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}

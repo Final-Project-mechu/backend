@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>오늘 뭐 먹지?</title>
+
+  <link rel="icon">
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/favoritelist.css" type="text/css" />
+  </head>
+
+  <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header">
+      <div class="header__top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="header__top__left">
+                <ul></ul>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="header__top__right">
+                <div class="header__top__right__auth">
+                  <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="header__top__right__auth">
+                  <a href="#" id="signupLink"
+                      ><i class="fa fa-user"></i>친구</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="header__logo">
+              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <nav class="header__menu">
+              <ul>
+                <li><a href="./index.html">홈</a></li>
+                <li><a href="./preference.html">선호도</a></li>
+                <li class="active"><a href="./foodlist.html">메뉴판</a></li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                <li><a href="./feed.html">피드</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+
+          </div>
+        </div>
+        <div class="humberger__open">
+          <i class="fa fa-bars"></i>
+        </div>
+      </div>
+ 
+    <!-- Header Section End -->
+
+<!-- Main Content -->
+
+<h2 class="favorite-name display-4 mt-5">오준석 님의 찜목록</h2>
+<div class="content-wrapper mt-5"> 
+  <div class="restaurant mb-4">
+    <!-- 체크 박스 추가 -->
+    <input type="checkbox" class="restaurant-checkbox">
+    <h3 class="restaurant-name display-5">음식점 이름</h3>
+    <ul class="list-group">
+      <li class="list-group-item">음식점 URL: <a href="#">www.example.com</a></li>
+      <li class="list-group-item">음식점 카테고리: 한식</li>
+      <li class="list-group-item">음식점 위치: 서울시 강남구</li>
+    </ul>
+  </div>
+  <div class="restaurant">
+    <!-- 체크 박스 추가 -->
+    <input type="checkbox" class="restaurant-checkbox">
+    <h3 class="restaurant-name display-5">음식점2 이름</h3>
+    <ul class="list-group">
+      <li class="list-group-item">음식점2 URL: <a href="#">www.example2.com</a></li>
+      <li class="list-group-item">음식점2 카테고리: 중식</li>
+      <li class="list-group-item">음식점2 위치: 서울시 서초구</li>
+    </ul>
+  </div>
+</div>
+
+<!-- "피드 올리러 가기" 버튼 추가 -->
+<div class="button-group">
+  <button class="btn btn-primary go-to-feed-btn">피드 올리러 가기</button>
+  <!-- "삭제하기" 버튼 추가 -->
+  <button class="btn btn-danger delete-btn">삭제하기</button>
+</div>
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="footer__about">
+              <div class="footer__about__logo">
+                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+              </div>
+              <ul>
+                <p>TEAM : 오늘 뭐 먹지? TOGETHER EAT!</p>
+                <p>김세령 오준석 이서원 최하영 함형진</p>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+            <div class="footer__widget">
+              <h6>Useful Links</h6>
+              <ul>
+                <li><a href="#">이용 약관</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="footer__widget">
+              <h6>팀 오늘뭐먹지 깃허브</h6>
+              <p></p>
+              <!-- <form action="#">
+              <input type="text" placeholder="Enter your mail" />
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form> -->
+              <div class="footer__widget__social">
+                <a href="https://github.com/Final-Project-mechu"
+                  ><i class="fa fa-github"></i
+                ></a>
+                <!-- <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+        </div>
+      </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <script src="./src/mypage.js"></script>
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/foodlist.js"></script>
+  </body>
+</html>

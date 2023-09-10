@@ -63,7 +63,7 @@ jobs:
         run: npm run build
 
       - name: 📦 빌드한 코드를 압축
-        run: zip -r backend.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./eslintrc.js ./prettierrc ./webpack-hmr.config.js
+        run: zip -r backend.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./eslintrc.js ./prettierrc ./webpack-hmr.config.js ./tsconfig.build.json ./tsconfig.json
 
       - name: 🌎 AWS에 접속
         uses: aws-actions/configure-aws-credentials@v1

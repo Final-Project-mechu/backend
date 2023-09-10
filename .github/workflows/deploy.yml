@@ -9,9 +9,9 @@ on:
 # 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름, env 환경변수 이름
 env:
   AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: my-github-actions-a3-bucket
+  S3_BUCKET_NAME: my-github-actions-a3-bucket1
   CODE_DEPLOY_APPLICATION_NAME: my-codedeploy-app
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: my-codedeploy-deployment-group
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: my-codedeploy-deply-deployment-group
 
 permissions:
   contents: read
@@ -33,7 +33,8 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: ⚙️ 환경변수를 설정합니다.
+      # 환경변수 세팅
+      - name: ⚙️ 환경변수 설정
         env:
          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
@@ -63,8 +64,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_TEST1 }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_TEST1 }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
       
       # (5) 빌드 결과물을 S3 버킷에 업로드

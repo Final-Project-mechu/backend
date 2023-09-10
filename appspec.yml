@@ -1,19 +1,12 @@
 version: 0.0
 os: linux
-
 files:
-  - source:  /
+  - source: /
     destination: /home/ubuntu/app
     overwrite: yes
-
-permissions:
-  - object: /
-    pattern: "**"
-    owner: ubuntu
-    group: ubuntu
+    file_exists_behavior: OVERWRITE
 
 hooks:
-  ApplicationStart:
-    - location: scripts/start.sh
-      timeout: 60
+  AfterInstall:
+    - location: scripts/after-deploy.sh
       runas: ubuntu

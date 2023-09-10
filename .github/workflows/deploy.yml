@@ -73,7 +73,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: 🦖 S3에 압축된 서버 코드를 업로드
-        run: aws s3 cp --region ${{ env.AWS_REGION }} ./backend.zip s3://my-github-actions-a3-bucket2
+        run: aws s3 cp --region ${{ env.AWS_REGION }} ./backend.zip s3://my-github-actions-a3-bucket4
 
       - name: 🚀 AWS codeDeploy로 배포를 시작
         run: aws deploy create-deployment

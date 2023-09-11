@@ -23,7 +23,7 @@ export class Food {
   @Column()
   category_id: number;
 
-  @Column()
+  @Column({nullable: true})
   food_img: string | null ;
 
   @DeleteDateColumn({ type: 'timestamp' })

@@ -1,7 +1,4 @@
 // 카테고리 조회 함수
-
-
-
 // id, category_name, 
 async function categoryGet(){
     const callCategoryServer = await axios({

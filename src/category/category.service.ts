@@ -70,7 +70,7 @@ export class CategoryService {
   //카테고리 전체 조회
   async getCategoryAll() {
     return await this.categoryReository.query(
-      `select category_name , top_category_id from category;`,
+      `select * from category;`,
     );
   }
 

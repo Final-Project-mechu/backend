@@ -35,14 +35,14 @@ export class FeedsController {
   @Post('/')
   @UseInterceptors(FileInterceptor('file'))
   createFavoriteFeed(
-    @Body()
-    favorite_ids: string | number,
+    @Body() favorite_ids: string | number,
     @Body() data: CreateFeedDto,
     @UploadedFile()
     file: Express.Multer.File,
     @Req() request: RequestWithLocals,
   ) {
     const auth = request.locals.user;
+    console.log('컨트롤러 확인', data);
     return this.feedsService.createFavoriteFeed(
       auth.id,
       favorite_ids,

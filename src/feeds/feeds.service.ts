@@ -37,11 +37,13 @@ export class FeedsService {
   ) {
     let favoriteIdsArry: number[];
     const image = await this.s3Service.putObject(file);
+    console.log('서비스 확인', favorite_ids);
     if (typeof favorite_ids === 'string') {
       favoriteIdsArry = favorite_ids.split(',').map(id => parseInt(id));
     } else {
       favoriteIdsArry = [favorite_ids];
     }
+    console.log(favoriteIdsArry);
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -55,6 +57,7 @@ export class FeedsService {
       });
       const createdFeedId = createdFeed.identifiers[0].id;
       for (const favorite_id of favoriteIdsArry) {
+        console.log('for문 도는중', favorite_id);
         await this.feedFavoriteRepository.insert({
           feed_id: createdFeedId,
           favorite_id: favorite_id,

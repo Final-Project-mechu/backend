@@ -6,9 +6,6 @@ window.onload = function () {
   }
 };
 
-const writeButton = document.getElementById('writeBtn');
-writeButton.addEventListener('click', feedCreate);
-
 const cancelButton = document.getElementById('cancelBtn');
 cancelButton.addEventListener('click', redirectToFeedPage);
 function redirectToFeedPage() {
@@ -17,13 +14,13 @@ function redirectToFeedPage() {
 
 document
   .getElementById('openNewWindowBtn')
-  .addEventListener('click', function () {
-    const userData = ['항목1', '항목2', '항목3', '항목4', '항목5', '항목6'];
-
-    const userDataHtml = userData
+  .addEventListener('click', async function () {
+    const userFavorites = await findFavorites();
+    console.log(userFavorites);
+    const userDataHtml = userFavorites
       .map(
         item =>
-          `<li><input type="checkbox" class="item-checkbox" value="${item}">${item}</li>`,
+          `<li><input type="checkbox" class="item-checkbox" value="${item.id}">${item.place_name}</li>`,
       )
       .join('');
 
@@ -55,29 +52,65 @@ function handleSelectItems(newWindow) {
 
       const favoriteidInput = document.getElementById('favoriteid');
       favoriteidInput.value = selectedItems.join(', '); // 선택한 항목들을 쉼표로 구분하여 인풋 필드에 표시
+      newWindow.close();
     });
 }
 
 function feedCreate() {
   const titleInput = document.getElementById('feedtitle').value;
   const favorites = document.getElementById('favoriteid').value;
-  //   const imgFile = document.getElementById('menuImg').files[0];
   const descriptionInput = document.getElementById('description').value;
+  const imgFile = document.getElementById('menuImage').files[0];
 
-  axios({
-    method: 'post',
-    url: 'http://localhost:3000/feeds',
-    data: {
-      favorite_id: favorites,
-      title: titleInput,
-      description: descriptionInput,
-    },
-  })
-    .then(function (res) {
-      console.log(res);
-      console.log('서버에 feed 생성하기 성공!');
+  const formData = new FormData();
+  formData.append('title', titleInput);
+  formData.append('description', descriptionInput);
+  formData.append('file', imgFile);
+
+  if (favorites) {
+    formData.append('favorite_ids', favorites);
+    console.log(formData);
+    console.log('페이보릿', favorites);
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/feeds',
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
-    .catch(error => {
-      console.log(error);
-    });
+      .then(function (res) {
+        alert('찜한 상점의 피드가 생성되었습니다!');
+        location.href = 'http://localhost:3000/feed.html';
+      })
+      .catch(err => {
+        alert(err.response.data.message);
+      });
+  } else if (!favorites) {
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/feeds/common',
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then(function (res) {
+        alert('피드가 생성되었습니다!');
+        location.href = 'http://localhost:3000/feed.html';
+      })
+      .catch(err => {
+        alert(err.response.data.message);
+      });
+  }
+}
+
+async function findFavorites() {
+  const callServer = await axios({
+    method: 'get',
+    url: 'http://localhost:3000/favorites',
+  });
+  const allFavorites = callServer.data;
+  console.log(allFavorites);
+  return allFavorites;
 }

@@ -21,6 +21,7 @@ export class S3Service {
   }
 
   async putObject(image: any) {
+    console.log(image);
     const resizeImg = sharp(image.path);
     let { width, height } = await resizeImg.metadata();
 

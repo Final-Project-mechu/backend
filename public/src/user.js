@@ -90,7 +90,7 @@ function sign(event) {
     .then(response => {
       alert(response.message);
       // 회원가입 되면 바로 선호도조사 페이지로 이동
-      location.href('http://localhost:3000/preference.html');
+      location.href = 'http://localhost:3000/preference.html';
     })
     .catch(error => {
       alert(error.response.message);
@@ -106,11 +106,11 @@ function login() {
   axios
     .post('http://localhost:3000/users/login', data)
     .then(response => {
-      console.log(response);
-      location.href('http://localhost:3000/menu-subscribe.html');
+      // 로그인하면 바로 메뉴추천 페이지로 이동
+      location.href ='http://localhost:3000/menu-subscribe.html';
     })
-    .catch(error => {
-      alert(error.response.message);
+    .catch(err => {
+      alert(err.response.data.message);
     });
 }
 

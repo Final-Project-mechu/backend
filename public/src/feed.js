@@ -1,4 +1,12 @@
 // 피드 조회 함수(제목과 이미지, 생성시점만)
+function writeClick() {
+  let cookies = document.cookie;
+  if (!cookies.includes('Authentication=Bearer%20')) {
+    return alert('로그인이 필요한 기능입니다!');
+  } else {
+    location.href = 'http://localhost:3000/feed-create.html';
+  }
+}
 
 async function feedsGet() {
   const callServer = await axios({
@@ -6,7 +14,6 @@ async function feedsGet() {
     url: 'http://localhost:3000/feeds',
   });
   const allFeeds = callServer.data;
-  console.log(allFeeds);
   createAllFeedsItems(allFeeds);
 }
 

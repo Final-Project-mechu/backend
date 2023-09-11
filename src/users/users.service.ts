@@ -85,7 +85,6 @@ export class UsersService {
     // 회원가입 로직에서 중복이메일을 한번 더 체크
   ) {
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const existUser = await this.getUserInfo(email);
     if (!_.isNil(existUser)) {
       throw new ConflictException(

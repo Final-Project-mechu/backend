@@ -93,12 +93,14 @@ button:focus,
 textarea:focus {
   outline: none;
 }
-
+a {
+  color: black;
+}
 a:hover,
 a:focus {
   text-decoration: none;
   outline: none;
-  color: #ffffff;
+  color: #4d4b4b;
 }
 
 ul,
@@ -110,6 +112,25 @@ ol {
 /*---------------------
   Helper CSS
 -----------------------*/
+.top-row {
+  height: 100%;
+  text-align: center;
+}
+
+.mypage-buttons {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+}
+
+.mypage-buttons button {
+  margin: 0 10px; /* 버튼 사이 간격조절 */
+}
+
+.featured-spad {
+  text-align: center;
+  margin: 0;
+}
 
 .section-title {
   margin-bottom: 50px;
@@ -138,11 +159,6 @@ ol {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-}
-
-.spad {
-  padding-top: 100px;
-  padding-bottom: 100px;
 }
 
 .text-white h1,
@@ -303,104 +319,8 @@ ol {
 .header__top__right {
   text-align: right;
   padding: 10px 0 13px;
-}
-
-.header__top__right__social {
-  position: relative;
-  display: inline-block;
-  margin-right: 35px;
-}
-
-.header__top__right__social:after {
-  position: absolute;
-  right: -20px;
-  top: 1px;
-  height: 20px;
-  width: 1px;
-  background: #000000;
-  opacity: 0.1;
-  content: '';
-}
-
-.header__top__right__social a {
-  font-size: 14px;
-  display: inline-block;
-  color: #1c1c1c;
-  margin-right: 20px;
-}
-
-.header__top__right__social a:last-child {
-  margin-right: 0;
-}
-
-.header__top__right__language {
-  position: relative;
-  display: inline-block;
-  margin-right: 40px;
-  cursor: pointer;
-}
-
-.header__top__right__language:hover ul {
-  top: 23px;
-  opacity: 1;
-  visibility: visible;
-}
-
-.header__top__right__language:after {
-  position: absolute;
-  right: -21px;
-  top: 1px;
-  height: 20px;
-  width: 1px;
-  background: #000000;
-  opacity: 0.1;
-  content: '';
-}
-
-.header__top__right__language img {
-  margin-right: 6px;
-}
-
-.header__top__right__language div {
-  font-size: 14px;
-  color: #1c1c1c;
-  display: inline-block;
-  margin-right: 4px;
-}
-
-.header__top__right__language span {
-  font-size: 14px;
-  color: #1c1c1c;
-  position: relative;
-  top: 2px;
-}
-
-.header__top__right__language ul {
-  background: #222222;
-  width: 100px;
-  text-align: left;
-  padding: 5px 0;
-  position: absolute;
-  left: 0;
-  top: 43px;
-  z-index: 9;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: all, 0.3s;
-  -moz-transition: all, 0.3s;
-  -ms-transition: all, 0.3s;
-  -o-transition: all, 0.3s;
-  transition: all, 0.3s;
-}
-
-.header__top__right__language ul li {
-  list-style: none;
-}
-
-.header__top__right__language ul li a {
-  font-size: 14px;
-  color: #ffffff;
-  padding: 5px 10px;
+  width: 200px;
+  margin: 0 0 auto 320px;
 }
 
 .header__top__right__auth {
@@ -418,7 +338,7 @@ ol {
 }
 
 .header__logo {
-  margin: 0 130px;
+  margin: 0 0px;
   height: 150px;
   width: 150px;
 }
@@ -739,8 +659,8 @@ ol {
 }
 
 .hero__item {
-  width: 80%;
-  height: 431px;
+  width: 100%;
+  height: 250px;
   display: flex;
   align-items: center;
   padding-left: 75px;
@@ -2646,9 +2566,8 @@ ol {
 -----------------------*/
 
 .footer {
-  background: #f3f6fa;
-  padding-top: 70px;
-  padding-bottom: 0;
+  background: #d1d3d3;
+  height: 150px;
 }
 
 .footer__about {
@@ -2664,6 +2583,8 @@ ol {
 
 .footer__about__logo {
   margin-bottom: 15px;
+  height: 100px;
+  width: 100px;
 }
 
 .footer__about__logo a {
@@ -2758,10 +2679,8 @@ ol {
 }
 
 .footer__copyright {
-  border-top: 1px solid #ebebeb;
   padding: 15px 0;
   overflow: hidden;
-  margin-top: 20px;
 }
 
 .footer__copyright__text {
@@ -2936,7 +2855,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
   .container {
-    max-width: 1170px;
+    max-width: 1000px;
   }
 }
 
@@ -3113,16 +3032,8 @@ ol {
   .humberger__menu__widget {
     margin-bottom: 20px;
   }
-  .humberger__menu__widget .header__top__right__language {
-    margin-right: 20px;
-  }
   .humberger__menu__nav {
     display: none;
-  }
-  .humberger__menu__wrapper .header__top__right__social {
-    display: block;
-    margin-right: 0;
-    margin-bottom: 20px;
   }
   .humberger__menu__wrapper .slicknav_btn {
     display: none;
@@ -3596,14 +3507,6 @@ ol {
   height: 30px;
   background-color: skyblue;
 }
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-}
-
 .close {
   color: #aaa;
   float: right;
@@ -3647,4 +3550,46 @@ ol {
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;
+}
+
+#favoriteButton {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+#feed-like {
+  margin: auto;
+  margin-left: 20px;
+}
+
+#feed-change {
+  font-size: 10px;
+  margin: auto;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+#feed-delete {
+  font-size: 10px;
+  margin: auto;
+}
+
+#commentCreate {
+  font-size: 10px;
+  margin: auto;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#comment-change {
+  font-size: 10px;
+  margin: auto;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+#comment-delete {
+  font-size: 10px;
+  margin: auto;
 }

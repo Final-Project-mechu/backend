@@ -6,6 +6,11 @@
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>오늘 뭐 먹지?</title>
 
@@ -26,10 +31,11 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/modaltest.css" type="text/css">
+    <link rel="stylesheet" href="css/modaltest.css" type="text/css" />
     <!-- axios 적용을 위한 script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS Styles END -->
+    <link rel="stylesheet" href="css/menu-subscribe.css" type="text/css" />
     <!-- script import -->
     <script
       type="text/javascript"
@@ -38,7 +44,6 @@
     <script src="./src/mechu.js" defer></script>
     <script src="./src/menu-subscribe.js" defer></script>
     <script src="./src/menu-button.js" defer></script>
-  
   </head>
 
   <body>
@@ -48,97 +53,112 @@
     </div>
     <!-- 가입 모달 -->
     <div
-    class="modal fade"
-    id="signModal"
-    tabindex="-1"
-    aria-labelledby="signModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
-          <button
-            type="button"
-            class="signbutton"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ><span aria-hidden="true">X</span>
-        </button>
-        </div>
-        <div class="modal-body">
-          <form class="sign-wrap">
-            <div class="row mb-3">
-              <div class="col">
-                <input type="email"
-                       class="modal-input"
-                       placeholder="이메일 주소"
-                       required>
+      class="modal fade"
+      id="signModal"
+      tabindex="-1"
+      aria-labelledby="signModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">X</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="sign-wrap">
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="email"
+                    class="modal-input"
+                    placeholder="이메일 주소"
+                    required
+                  />
+                </div>
+                <div class="col-auto">
+                  <button
+                    class="signbutton btn-block"
+                    id="verifyEmailBtn"
+                    type="button"
+                  >
+                    발송
+                  </button>
+                </div>
               </div>
-              <div class="col-auto">
-                <button class="signbutton btn-block" id="verifyEmailBtn" type="button">
-                  발송
-                </button>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="인증 번호"
+                    class="modal-input"
+                    placeholder="인증 코드"
+                    required
+                  />
+                </div>
+                <div class="col-auto">
+                  <button class="signbutton" id="verifyEmailBtn" type="button">
+                    확인
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="인증 번호"
-                       class="modal-input"
-                       placeholder="인증 코드"
-                       required>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="인증 번호"
+                    class="modal-input"
+                    placeholder="비밀번호"
+                    required
+                  />
+                </div>
               </div>
-              <div class="col-auto">
-                <button class="signbutton" id="verifyEmailBtn" type="button">
-                  확인
-                </button>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="인증 번호"
+                    class="modal-input"
+                    placeholder="비밀번호 확인"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="인증 번호"
-                       class="modal-input"
-                       placeholder="비밀번호"
-                       required>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="code"
+                    class="modal-input"
+                    placeholder="닉네임"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="인증 번호"
-                       class="modal-input"
-                       placeholder="비밀번호 확인"
-                       required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="code"
-                       class="modal-input"
-                       placeholder="닉네임"
-                       required>
-              </div>
-            </div>
-            <div
-              class="alert alert-danger"
-              id="loginError"
-              style="display: none"
-            ></div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="signbutton"
-            data-bs-toggle="modal"
-            data-bs-target="#signupModal"
-          >
-            회원 가입
-          </button>
+              <div
+                class="alert alert-danger"
+                id="loginError"
+                style="display: none"
+              ></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+            >
+              회원 가입
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
     <!-- 가입 모달 끝 -->
     <!-- 로그인 모달 시작 -->
@@ -156,29 +176,34 @@
           <div class="modal-header">
             <h5 class="modal-title" id="loginModalLabel">LOGIN</h5>
             <button
-            type="button"
-            class="signbutton"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ><span aria-hidden="true">X</span>
-        </button>
+              type="button"
+              class="signbutton"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">X</span>
+            </button>
           </div>
           <div class="modal-body">
             <form class="login-wrap">
               <div class="row mb-3">
                 <div class="col">
-                  <input type="code"
-                         class="modal-input"
-                         placeholder="이메일"
-                         required>
+                  <input
+                    type="code"
+                    class="modal-input"
+                    placeholder="이메일"
+                    required
+                  />
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col">
-                  <input type="code"
-                         class="modal-input"
-                         placeholder="비밀번호"
-                         required>
+                  <input
+                    type="code"
+                    class="modal-input"
+                    placeholder="비밀번호"
+                    required
+                  />
                 </div>
               </div>
               <div
@@ -209,23 +234,38 @@
           <div class="row">
             <div class="col-lg-6 col-md-6">
               <div class="header__top__left">
-                <ul>
-                </ul>
+                <ul></ul>
               </div>
             </div>
             <div class="col-lg-6 col-md-6">
               <div class="header__top__right">
                 <div class="header__top__right__auth d-flex">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#signModal" id="signClick" class="signClick">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#signModal"
+                    id="signClick"
+                    class="signClick"
+                  >
                     <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
                   </a>
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginClick" class="loginClick">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    id="loginClick"
+                    class="loginClick"
+                  >
                     <i class="fa fa-user"></i>로그인
                   </a>
                   <a href="#" id="logoutClick" class="logoutClick d-none">
                     <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
                   </a>
-                  <a href="./mypage.html" id="mypageClick" class="mypageClick d-none">
+                  <a
+                    href="./mypage.html"
+                    id="mypageClick"
+                    class="mypageClick d-none"
+                  >
                     <i class="fa fa-user"></i> 마이페이지
                   </a>
                 </div>
@@ -236,36 +276,37 @@
       </div>
       <div class="container">
         <div class="top-row d-flex justify-content-between align-items-center">
-            <div class="col-lg-3" style="max-width: 150px;">
-                <div class="header__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt="" /></a>
-                </div>
+          <div class="col-lg-3" style="max-width: 150px">
+            <div class="header__logo">
+              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
             </div>
-            <nav class="humberger__menu__nav mobile-menu"></nav>
-            <div class="col-lg-8" style="max-width: 1000px;">
-                <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="./index.html">홈</a></li>
-                        <li><a href="./preference.html">선호도</a></li>
-                        <li><a href="./foodlist.html">메뉴판</a></li>
-                        <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
-                        <li><a href="./feed.html">피드</a></li>
-                    </ul>
-                </nav>
+          </div>
+          <nav class="humberger__menu__nav mobile-menu"></nav>
+          <div class="col-lg-8" style="max-width: 1000px">
+            <nav class="header__menu">
+              <ul>
+                <li class="active"><a href="./index.html">홈</a></li>
+                <li><a href="./preference.html">선호도</a></li>
+                <li><a href="./foodlist.html">메뉴판</a></li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                <li><a href="./feed.html">피드</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3" style="max-width: 200px; text-align: center">
+            <div class="header__cart">
+              <div class="header__cart__price">
+                오늘의 메뉴: <span>차돌짬뽕</span>
+              </div>
             </div>
-            <div class="col-lg-3" style="max-width: 200px; text-align: center;">
-                <div class="header__cart">
-                    <div class="header__cart__price">오늘의 메뉴: <span>차돌짬뽕</span></div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-    
+      </div>
     </header>
     <!-- 탑바 끝 -->
 
     <div class="meal-all">
-      <h2>메뉴 추천받기</h2>
+      <h2>메뉴 추천</h2>
 
       <div class="image-container">
         <img src="/img/simsimi.png" alt="" class="center-image" />
@@ -273,113 +314,24 @@
 
       <div id="result3"></div>
 
-      <div class="filter-buttons">
+      <div class="center-button">
         <button
           id="top_category_01"
           class="filter-button"
-          data-category-id="1"
+          data-category-id="0"
           category="meal"
         >
-          식사
-        </button>
-        <button
-          id="top_category_02"
-          class="filter-button"
-          data-category-id="2"
-          category="dessert"
-        >
-          디저트
-        </button>
-      </div>
-      <div class="sub-filter-buttons">
-        <button
-          id="top_category_03"
-          class="sub-filter-button"
-          data-category-id="3"
-          category="korean"
-        >
-          한식
-        </button>
-        <button
-          id="top_category_04"
-          class="sub-filter-button"
-          data-category-id="4"
-          category="chinese"
-        >
-          중식
-        </button>
-        <button
-          id="top_category_05"
-          class="sub-filter-button"
-          data-category-id="5"
-          category="japanese"
-        >
-          일식
-        </button>
-        <button
-          id="top_category_06"
-          class="sub-filter-button"
-          data-category-id="6"
-          category="western"
-        >
-          분식
-        </button>
-        <button
-          id="top_category_07"
-          class="sub-filter-button"
-          data-category-id="7"
-          category="indian"
-        >
-          기타
+          전체
         </button>
       </div>
 
-      <div class="sub-filter-buttons">
-        <button
-          id="top_category_08"
-          class="sub-filter-button"
-          data-category-id="8"
-          category="coffee"
-        >
-          커피
-        </button>
-        <button
-          id="top_category_09"
-          class="sub-filter-button"
-          data-category-id="9"
-          category="cake"
-        >
-          스무디
-        </button>
-        <button
-          id="top_category_10"
-          class="sub-filter-button"
-          data-category-id="10"
-          category="bread"
-        >
-          간식
-        </button>
-        <button
-          id="top_category_11"
-          class="sub-filter-button"
-          data-category-id="11"
-          category="tanghulu"
-        >
-          기타
-        </button>
+      <div class="filter-buttons">
+        <!-- 카테고리 버튼 여기에 나옴! -->
       </div>
+
       <main style="text-align: center">
-        <div class="food-item meal">식사가 선택되었습니다.</div>
-        <div class="food-item korean">한식이 선택되었습니다.</div>
-        <div class="food-item chinese">중식이 선택되었습니다.</div>
-        <div class="food-item japanese">일식이 선택되었습니다.</div>
-        <div class="food-item western">분식이 선택되었습니다.</div>
-        <div class="food-item indian">기타 카테고리가 선택되었습니다.</div>
-        <div class="food-item dessert">디저트가 선택되었습니다.</div>
-        <div class="food-item coffee">커피가 선택되었습니다.</div>
-        <div class="food-item cake">스무디가 선택되었습니다.</div>
-        <div class="food-item bread">간식이 선택되었습니다.</div>
-        <div class="food-item tanghulu">기타 카테고리가 선택되었습니다.</div>
+        <div class="food-item meal">전체가 선택되었습니다.</div>
+        <!-- 선택된 카테고리에 따라 메시지가 변경 -->
       </main>
     </div>
 
@@ -387,8 +339,11 @@
       <button type="submit" class="button">메뉴 추천받기!</button>
     </div>
 
+    <!-- "맛집 추천받기!" 버튼에 style 속성을 추가하여 기본적으로 숨깁니다. -->
     <div class="button-container3">
-      <button class="button" id="storeBtn" onclick="">맛집 추천받기!</button>
+      <button class="button" id="storeBtn" onclick="" style="display: none">
+        맛집 추천받기!
+      </button>
     </div>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -399,24 +354,34 @@
               <!-- GitHub Icon and Links -->
               <div class="footer__github">
                 <!-- GitHub Links -->
-                <a href="https://github.com/Final-Project-mechu" target="_blank">
-                  <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
-                </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a
+                  href="https://github.com/Final-Project-mechu"
+                  target="_blank"
+                >
+                  <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i> </a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Notion Link -->
-                <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a
+                  href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9"
+                  target="_blank"
+                  >Notion</a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Terms of Service Link -->
-                <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="https://www.yourwebsite.com/terms" target="_blank"
+                  >이용약관</a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               </div>
-              <hr> <!-- Horizontal Line -->
+              <hr />
+              <!-- Horizontal Line -->
               <div class="footer__copyright__text">
                 <p>
-                  
                   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                   Copyright &copy;
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  All rights reserved | This page is made by TEAM TOGETHER EAT! 김세령 오준석 이서원 최하영 함형진
+                  All rights reserved | This page is made by TEAM TOGETHER EAT!
+                  김세령 오준석 이서원 최하영 함형진
                   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
               </div>
@@ -425,7 +390,7 @@
         </div>
       </div>
     </footer>
-    <!-- Footer Section End -->   
+    <!-- Footer Section End -->
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
     <!-- Js Plugins -->
@@ -438,6 +403,5 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <!-- Footer Section End -->
-
   </body>
 </html>

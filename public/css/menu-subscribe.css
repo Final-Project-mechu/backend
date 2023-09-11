@@ -1,0 +1,42 @@
+/* menu-subscribe.css */
+
+.center-button {
+  text-align: center;
+  margin-bottom: 20px; /* 버튼과 아래 버튼들 사이의 간격을 조정 */
+}
+
+.center-button .filter-button {
+  font-size: 20px; /* 폰트 사이즈 조정 */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinning {
+  animation: spin 3s linear infinite;
+}
+
+/* 버튼 스타일 */
+.filter-button {
+  background: #9b111e;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 15px;
+  margin-left: 15px;
+  text-align: center;
+  opacity: 0.6;
+  transition: 0.3s;
+  margin-bottom: 20px;
+}
+
+.filter-button:hover {
+  opacity: 1;
+}

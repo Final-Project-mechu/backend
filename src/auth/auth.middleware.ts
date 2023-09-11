@@ -36,7 +36,7 @@ export class AuthMiddleware implements NestMiddleware {
         secret: this.configService.get('JWT_SECRET_KEY'), // 위에서 파싱한 토큰을 시크릿키로 인증
       });
 
-      req.locals.user = payload; // req.locals.user에 파싱한 토큰 전달
+      req.locals.user = payload; // req.locals.user에 파싱한 토큰 전달 //
 
       const refreshToken = req.cookies.RefreshToken; // 리프레시 토큰 가져오기
 

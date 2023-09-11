@@ -3,19 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <title>오늘 뭐 먹지?</title>
-    <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca07a2cd35a8566747953c5991111a1a&libraries=services"
-    ></script>
-    <!-- bootstrap 적용을 위한 링크(모달창) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
       rel="stylesheet"
     />
-    <!-- Css Styles START-->
+    <!-- 카카오용 css -->
+    <link rel="stylesheet" href="./css/kakaomap.css" />
+    <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
@@ -24,11 +19,20 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- CSS Styles END -->
-    
+    <link rel="stylesheet" href="css/modaltest.css" type="text/css">
+    <!-- 카카오 api -->
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca07a2cd35a8566747953c5991111a1a&libraries=services"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Axios 로드 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
     <script src="./src/kakaomap-api.js" defer></script>
   </head>
   <body>
@@ -41,18 +45,6 @@
               <div class="header__top__left">
                 <ul>
                 </ul>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="header__top__right">
-                <div class="header__top__right__auth d-flex">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#signModal">
-                    <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
-                  </a>
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <i class="fa fa-user"></i>로그인
-                  </a>
-                </div>
               </div>
             </div>
           </div>
@@ -74,7 +66,6 @@
                         <li><a href="./foodlist.html">메뉴판</a></li>
                         <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
                         <li><a href="./feed.html">피드</a></li>
-                        <li><a href="./mypage.html">마이페이지용</a></li>
                     </ul>
                 </nav>
             </div>
@@ -88,58 +79,57 @@
     
     </header>
     <!-- 탑바 끝 -->
-    <header>
-    </header>
     <div class="map_wrap">
       <div
         id="map"
-        style="width: 100%; height: 100%; position: relative; overflow: hidden"
+        style="width: 80%; height: 80%; position: relative; overflow: hidden;"
+        class="mapdiv"
       ></div>
     </div>
-    <div>
+    <div class="favoriteBtndiv">
       <button
         class="favoriteButton"
         id="favoriteButton"
         onclick="addToFavorite()"
       >
-        찜하기
+        추천받은 상점 찜하기
       </button>
     </div>
-        <!-- Footer Section Begin -->
-        <footer class="footer spad">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="footer__copyright">
-                  <!-- GitHub Icon and Links -->
-                  <div class="footer__github">
-                    <!-- GitHub Links -->
-                    <a href="https://github.com/Final-Project-mechu" target="_blank">
-                      <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
-                    </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <!-- Notion Link -->
-                    <a href="https://www.notion.so/your_notion_page" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <!-- Terms of Service Link -->
-                    <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                  </div>
-                  <hr> <!-- Horizontal Line -->
-                  <div class="footer__copyright__text">
-                    <p>
-                      
-                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                      Copyright &copy;
-                      <script>
-                        document.write(new Date().getFullYear());
-                      </script>
-                      All rights reserved | This page is made by TEAM TOGETHER EAT! 김세령 오준석 이서원 최하영 함형진
-                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                  </div>
-                </div>
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="footer__copyright">
+              <!-- GitHub Icon and Links -->
+              <div class="footer__github">
+                <!-- GitHub Links -->
+                <a href="https://github.com/Final-Project-mechu" target="_blank">
+                  <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
+                </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <!-- Notion Link -->
+                <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <!-- Terms of Service Link -->
+                <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+              </div>
+              <hr> <!-- Horizontal Line -->
+              <div class="footer__copyright__text">
+                <p>
+                  
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  All rights reserved | This page is made by TEAM TOGETHER EAT! 김세령 오준석 이서원 최하영 함형진
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
               </div>
             </div>
           </div>
-        </footer>
-        <!-- Footer Section End -->
+        </div>
+      </div>
+    </footer>
+    <!-- Footer Section End --> 
   </body>
 </html>

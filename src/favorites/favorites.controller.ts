@@ -22,12 +22,9 @@ interface RequestWithLocals extends Request {
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
   @Post('/')
-  createFavorite(
-    @Body() data,
-    @Req() request: RequestWithLocals,
-  ): { message: string } {
+  async createFavorite(@Body() data, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
-    return this.favoritesService.createFavorite(
+    return await this.favoritesService.createFavorite(
       auth.id,
       data.address_name,
       data.road_address_name,

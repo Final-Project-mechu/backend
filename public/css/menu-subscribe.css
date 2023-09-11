@@ -1,0 +1,19 @@
+/* menu-subscribe.css */
+
+.center-button {
+  text-align: center;
+  margin-bottom: 20px; /* 버튼과 아래 버튼들 사이의 간격을 조정 */
+}
+
+.center-button .filter-button {
+  font-size: 20px; /* 폰트 사이즈 조정 */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinning {
+  animation: spin 3s linear infinite;
+}

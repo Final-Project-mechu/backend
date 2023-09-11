@@ -17,7 +17,7 @@ import { UserAction } from './user.action';
 import { FeedLike } from './feed.like.entity';
 import { Friends } from './friend.entity';
 
-//
+
 @Entity({ schema: 'finalpj', name: 'user' })
 export class User {
   findUserByIdWithoutPassword(id: number) {

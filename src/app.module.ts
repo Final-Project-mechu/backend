@@ -29,8 +29,6 @@ import { FoodUserWeight } from './entity/food.user.weight.entity';
 import { UserAction } from './entity/user.action';
 import { FoodIngredient } from './entity/food.ingredient.entity';
 import { Ingredient } from './entity/ingredient.entity';
-//import { AuthModule } from './auth/auth.module';
-//import { FriendModule } from './friend/friend.module';
 import { IngredientModule } from './ingredient/ingredient.module';
 import { UsersActionsModule } from './users.actions/users.actions.module';
 import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
@@ -89,8 +87,6 @@ import { KakaoStrategy } from './auth/strategy/kakao.strategy';
     JwtModule,
     MailModule,
     IngredientModule,
-    // FriendModule,
-    // AuthModule,
     UsersActionsModule,
     FoodsUsersWeightsModule,
     FriendModule,
@@ -131,6 +127,7 @@ export class AppModule implements NestModule {
       { path: 'food', method: RequestMethod.POST },
       { path: 'food/:food_id', method: RequestMethod.PATCH },
       { path: 'feeds', method: RequestMethod.POST },
+      { path: 'feeds/common', method: RequestMethod.POST },
       { path: 'feeds/:id', method: RequestMethod.PATCH },
       { path: 'feeds/:id', method: RequestMethod.DELETE },
       { path: 'feeds/:id/like', method: RequestMethod.POST },

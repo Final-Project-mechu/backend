@@ -248,3 +248,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+document.getElementById('the-menu').addEventListener('click', function() {
+  console.log("Opening the menu window...");
+  const menuWindow = window.open('menu.html', '_blank', 'width=400,height=600');
+  console.log("Opening the menu window222");
+
+  menuWindow.addEventListener('load', function() {
+      console.log("Opening the menu window5555");
+
+      const foodButton = menuWindow.document.createElement('button');
+      foodButton.innerText = '음식';
+      menuWindow.document.body.appendChild(foodButton);
+
+      const ingredientButton = menuWindow.document.createElement('button');
+      ingredientButton.innerText = '재료';
+      menuWindow.document.body.appendChild(ingredientButton);
+
+      // 내용을 표시할 컨테이너 생성
+      const contentContainer = menuWindow.document.createElement('div');
+      menuWindow.document.body.appendChild(contentContainer);
+
+      foodButton.onclick = function() {
+          axios.get('http://localhost:3000/food')
+              .then(res => {
+                  const foodNames = res.data.map(item => item.food_name);
+                  console.log("foodNames", foodNames);
+                  contentContainer.innerHTML = ''; // 컨테이너 내부 초기화
+                  contentContainer.innerHTML += '<h2>음식</h2>';
+                  contentContainer.innerHTML += foodNames.join('<br>');
+              })
+              .catch(error => {
+                  console.error('Error fetching food list:', error);
+              });
+      }
+
+      ingredientButton.onclick = function() {
+          axios.get('http://localhost:3000/ingredient')
+              .then(res => {
+                  const ingredientNames = res.data.map(item => item.ingredient_name);
+                  contentContainer.innerHTML = ''; // 컨테이너 내부 초기화
+                  contentContainer.innerHTML += '<h2>재료</h2>';
+                  contentContainer.innerHTML += ingredientNames.join('<br>');
+              })
+              .catch(error => {
+                  console.error('Error fetching ingredient list:', error);
+              });
+      }
+  });
+});

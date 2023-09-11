@@ -79,13 +79,8 @@ export class FoodController {
 
   //음식삭제
   @Delete('/:id')
-  async deleteFood(
-    @Req() request: RequestWithLocals,
-    @Param('id') id: number,
-  ) {
+  async deleteFood(@Req() request: RequestWithLocals, @Param('id') id: number) {
     await this.foodService.deleteFood(id);
     return { message: '카테고리 삭제 완료.' };
   }
-
-
 }

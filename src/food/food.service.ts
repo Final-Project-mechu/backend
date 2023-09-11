@@ -75,8 +75,9 @@ export class FoodService {
   // }
   async getFood(food_id: number) {
     return await this.foodReository.query(
-      `select * from food f
+      `select distinct f.id , f.food_name , f.category_id , food_img , fi.food_id ,fi.ingredient_id ,i.ingredient_name  from food f
       left join food_ingredient fi on f.id  = fi.food_id 
+      left join ingredient i on fi.ingredient_id = i.id 
       where f.id  = ${food_id}`,
     );
   }

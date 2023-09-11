@@ -29,6 +29,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="./src/foodlist.js" defer></script>  
   </head>
 
   <body>
@@ -167,7 +172,7 @@
   
   
   
-    
+      <!-- 변경해야할 부분 -->
         <section class="product spad">
           
           <div>
@@ -195,10 +200,15 @@
                           <div class="featured__controls">
                             <ul>
                               <li class="active" data-filter="*">All</li>
-                              <li data-filter=".meal">식사</li>
-                              <li data-filter=".dessert">디저트</li>
+                              <li data-filter=".1">구이류 및 조림류</li>
+                              <li data-filter=".2">면 및 만두류</li>
+                              <li data-filter=".3">밥류</li>
+                              <li data-filter=".4">볶음류</li>
+                              <li data-filter=".5">조리가공식품류 및 빵류</li>
+                              <li data-filter=".6">찌개류</li>
+                              <li data-filter=".7">찜류 및 튀김류</li>
                           </ul>
-                          <ul>
+                           <ul>
                             <li data-filter=".meal">식사</li>
                             <li data-filter=".korea">한식</li>
                             <li data-filter=".chinese">중식</li>
@@ -212,16 +222,19 @@
                   <div class="row featured__filter">
                     <div class="col-lg-3 col-md-6 col-sm-6 mix chinese meal">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MThfMTMx%2FMDAxNjg5Njc0NTg2MDEw.WPcAkQjFFaUZBvq49aVwv8FgDKOurIRkqv52hVmH-HMg.ekmPPlVUAA9_JGjpY-F1jlvtR3Mfg2V1hP_V_RNZEcUg.JPEG.techmass3%2F20230718_120811.jpg&type=a340">
+                            <div class="featured__item__pic set-bg" data-setbg="">
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">샘플1</a></h6>
                             </div>
                         </div>
                     </div>
+
+                    <div id="foods-container"></div>
+
                     <div class="col-lg-3 col-md-6 col-sm-6 mix korea meal">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA0MDVfMTU3%2FMDAxNjgwNjIxNjU0NDMz.JvMF6qvzOvrflCv0sjZCsG01OgZDP4RqwwBW1BXLXuMg.l1ygJPN0u7yVq7WlnTkjYfgY3grcouohZkWxA9hm25gg.JPEG.congsarang1%2FIMG_0853.JPG&type=a340">
+                            <div class="featured__item__pic set-bg" data-setbg="">
                                
                             </div>
                             <div class="featured__item__text">
@@ -231,7 +244,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 mix Western meal">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fshop1.phinf.naver.net%2F20221214_171%2F16709924755527L2Yi_JPEG%2F72128318180512400_2043325730.jpg&type=sc960_832">
+                            <div class="featured__item__pic set-bg" data-setbg="">
                                
                             </div>
                             <div class="featured__item__text">
@@ -241,7 +254,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjFfMTgg%2FMDAxNjg3MzU1ODgzNTg2.6Yeun19uKu9C-jAjCIn-tZMxg41gn2idTDEeSvxG7ZAg.JFm8SVYZ787lqv0Q8Z2hnBeOmwDABB0lpOvQzVcbbJUg.JPEG.prspring%2FIMG_3329.JPG&type=sc960_832">
+                            <div class="featured__item__pic set-bg" data-setbg="">
                                
                             </div>
                             <div class="featured__item__text">
@@ -251,7 +264,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 mix chinese">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MzBfMTY0%2FMDAxNjg4MTMzNzQzMDAy.YxVza0lZ_-yrWXduko0eYZU0fVElnUn-csFOt6L0dJsg.RBqHdjrrDQB6eqZnms0218Eq6Kuov-i2_I7c5mqO8kQg.JPEG.baeh76%2F20230609_163858.jpg&type=a340">
+                            <div class="featured__item__pic set-bg" data-setbg="">
                                
                             </div>
                             <div class="featured__item__text">
@@ -261,7 +274,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 mix Western">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
+                            <div class="featured__item__pic set-bg" data-setbg="">
                                
                             </div>
                             <div class="featured__item__text">
@@ -271,7 +284,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MTNfMTIz%2FMDAxNjgzOTU1Mzk0OTcz.H0I2MCyt-3a5EHZn_vHnf4aDopkKCTtMm75kBvt4gIEg.rDENWW0SGYyheqMNnM-CVuDCRqoRErS4fIlYi6cQpAgg.JPEG.holyfsss%2FKakaoTalk_20230504_114130310_20.jpg&type=sc960_832">
+                            <div class="featured__item__pic set-bg" data-setbg="">
                                
                             </div>
                             <div class="featured__item__text">

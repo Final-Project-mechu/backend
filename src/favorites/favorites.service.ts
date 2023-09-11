@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -14,7 +15,7 @@ export class FavoritesService {
     @InjectRepository(Favorite)
     private favoriteRepository: Repository<Favorite>,
   ) {}
-  createFavorite(
+  async createFavorite(
     user_id: number,
     address_name: string,
     road_address_name: string,
@@ -24,6 +25,13 @@ export class FavoritesService {
     place_name: string,
     place_url: string,
   ) {
+    const findKakaoid = await this.favoriteRepository.findOne({
+      where: { kakao_id },
+    });
+    if (findKakaoid) {
+      throw new BadRequestException('이미 선택한 상점입니다!');
+    }
+
     const insertResult = this.favoriteRepository.query(
       `INSERT INTO favorite (user_id, address_name, road_address_name, kakao_id, category_name, phone, place_name, place_url)
        VALUES(${user_id},'${address_name}', '${road_address_name}', ${kakao_id}, '${category_name}', '${phone}', '${place_name}', '${place_url}') `,

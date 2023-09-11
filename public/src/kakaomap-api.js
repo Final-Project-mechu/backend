@@ -27,7 +27,6 @@ function createMap(latitude, longitude, keyword) {
     } else if (status === kakao.maps.services.Status.ERROR) {
       new Error('검색 결과 중 오류가 발생했습니다.');
     }
-    console.log('createMap 함수실행');
     successOnGetPlace(data, latitude, longitude);
   });
 }
@@ -70,8 +69,6 @@ function getMap(latitude, longitude) {
       level: 5, // 지도의 확대 레벨
       radius: 5000,
     };
-
-  console.log('getMap 함수실행', mapContainer);
   return new kakao.maps.Map(mapContainer, mapOption);
 }
 
@@ -89,7 +86,6 @@ function searchPlaces(keyword, latitude, longitude, callback) {
   };
   // 장소 검색 객체를 생성
   const places = new kakao.maps.services.Places();
-  console.log('searchPlaces 함수실행', keyword);
   return places.keywordSearch(keyword, callback, searchOptions);
 }
 
@@ -97,7 +93,6 @@ function searchPlaces(keyword, latitude, longitude, callback) {
  * 찜하기 눌렀을 때 사용자의 찜하기 목록생성 함수
  */
 function addToFavorite() {
-  console.log(randomData);
   // JWT 토큰 가져오기
   const cookies = document.cookie.split(';');
   let jwtToken = null;
@@ -125,15 +120,10 @@ function addToFavorite() {
       },
     })
       .then(function (res) {
-        console.log(res.result);
-        console.log('찜하기 성공');
         alert('찜하기 완료');
       })
-      .catch(error => {
-        if (error.res && error.res.data) {
-          alert('찜하기 실패');
-          console.log(error);
-        }
+      .catch(err => {
+        alert(err.response.data.message);
       });
   } else {
     console.log('데이터 없음');

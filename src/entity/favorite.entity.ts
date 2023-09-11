@@ -33,7 +33,7 @@ export class Favorite {
   @Column('varchar', { length: 300 })
   road_address_name: string;
 
-  @Column('varchar', { length: 20 })
+  @Column('varchar', { length: 20, unique: true })
   kakao_id: number;
 
   @Column('varchar', { length: 300 })

@@ -30,6 +30,7 @@
     <!-- axios 적용을 위한 script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS Styles END -->
+    <link rel="stylesheet" href="css/menu-subscribe.css" type="text/css" />
     <!-- script import -->
     <script
       type="text/javascript"
@@ -38,7 +39,6 @@
     <script src="./src/mechu.js" defer></script>
     <script src="./src/menu-subscribe.js" defer></script>
     <script src="./src/menu-button.js" defer></script>
-  
   </head>
 
   <body>
@@ -273,113 +273,25 @@
 
       <div id="result3"></div>
 
-      <div class="filter-buttons">
+      <div class="center-button">
         <button
           id="top_category_01"
           class="filter-button"
-          data-category-id="1"
+          data-category-id="0"
           category="meal"
         >
-          식사
-        </button>
-        <button
-          id="top_category_02"
-          class="filter-button"
-          data-category-id="2"
-          category="dessert"
-        >
-          디저트
-        </button>
-      </div>
-      <div class="sub-filter-buttons">
-        <button
-          id="top_category_03"
-          class="sub-filter-button"
-          data-category-id="3"
-          category="korean"
-        >
-          한식
-        </button>
-        <button
-          id="top_category_04"
-          class="sub-filter-button"
-          data-category-id="4"
-          category="chinese"
-        >
-          중식
-        </button>
-        <button
-          id="top_category_05"
-          class="sub-filter-button"
-          data-category-id="5"
-          category="japanese"
-        >
-          일식
-        </button>
-        <button
-          id="top_category_06"
-          class="sub-filter-button"
-          data-category-id="6"
-          category="western"
-        >
-          분식
-        </button>
-        <button
-          id="top_category_07"
-          class="sub-filter-button"
-          data-category-id="7"
-          category="indian"
-        >
-          기타
+          전체
         </button>
       </div>
 
-      <div class="sub-filter-buttons">
-        <button
-          id="top_category_08"
-          class="sub-filter-button"
-          data-category-id="8"
-          category="coffee"
-        >
-          커피
-        </button>
-        <button
-          id="top_category_09"
-          class="sub-filter-button"
-          data-category-id="9"
-          category="cake"
-        >
-          스무디
-        </button>
-        <button
-          id="top_category_10"
-          class="sub-filter-button"
-          data-category-id="10"
-          category="bread"
-        >
-          간식
-        </button>
-        <button
-          id="top_category_11"
-          class="sub-filter-button"
-          data-category-id="11"
-          category="tanghulu"
-        >
-          기타
-        </button>
+      <div class="filter-buttons">
+  
+        <!-- 카테고리 버튼 여기에 나옴! -->
       </div>
+
       <main style="text-align: center">
-        <div class="food-item meal">식사가 선택되었습니다.</div>
-        <div class="food-item korean">한식이 선택되었습니다.</div>
-        <div class="food-item chinese">중식이 선택되었습니다.</div>
-        <div class="food-item japanese">일식이 선택되었습니다.</div>
-        <div class="food-item western">분식이 선택되었습니다.</div>
-        <div class="food-item indian">기타 카테고리가 선택되었습니다.</div>
-        <div class="food-item dessert">디저트가 선택되었습니다.</div>
-        <div class="food-item coffee">커피가 선택되었습니다.</div>
-        <div class="food-item cake">스무디가 선택되었습니다.</div>
-        <div class="food-item bread">간식이 선택되었습니다.</div>
-        <div class="food-item tanghulu">기타 카테고리가 선택되었습니다.</div>
+        <div class="food-item meal">전체가 선택되었습니다.</div>
+        <!-- 선택된 카테고리에 따라 메시지가 변경 -->
       </main>
     </div>
 
@@ -387,8 +299,11 @@
       <button type="submit" class="button">메뉴 추천받기!</button>
     </div>
 
+    <!-- "맛집 추천받기!" 버튼에 style 속성을 추가하여 기본적으로 숨깁니다. -->
     <div class="button-container3">
-      <button class="button" id="storeBtn" onclick="">맛집 추천받기!</button>
+      <button class="button" id="storeBtn" onclick="" style="display: none">
+        맛집 추천받기!
+      </button>
     </div>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -438,6 +353,5 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <!-- Footer Section End -->
-
   </body>
 </html>

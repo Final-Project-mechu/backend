@@ -7,12 +7,16 @@ import {
   Patch,
   Post,
   Req,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { FeedsService } from './feeds.service';
 import { CreateFeedDto } from './dto/create.feeds.dto';
 import { UpdateFeedDto } from './dto/update.feeds.dto';
 import { Request } from 'express';
 import { ApiOperation } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -29,32 +33,40 @@ export class FeedsController {
 
   @ApiOperation({ summary: '찜한 상점과 함께 피드 생성' })
   @Post('/')
+  @UseInterceptors(FileInterceptor('file'))
   createFavoriteFeed(
     @Body()
-    data: { favorite_ids: number[] },
-    @Body() createFeedDto: CreateFeedDto,
+    favorite_ids: string | number,
+    @Body() data: CreateFeedDto,
+    @UploadedFile()
+    file: Express.Multer.File,
     @Req() request: RequestWithLocals,
   ) {
     const auth = request.locals.user;
     return this.feedsService.createFavoriteFeed(
       auth.id,
-      data.favorite_ids,
-      createFeedDto.title,
-      createFeedDto.description,
+      favorite_ids,
+      data.title,
+      data.description,
+      file,
     );
   }
 
   @ApiOperation({ summary: '피드 생성' })
   @Post('/common')
+  @UseInterceptors(FileInterceptor('file'))
   createFeed(
-    @Body() createFeedDto: CreateFeedDto,
+    @Body() data: CreateFeedDto,
+    @UploadedFile()
+    file: Express.Multer.File,
     @Req() request: RequestWithLocals,
   ) {
     const auth = request.locals.user;
     return this.feedsService.createFeed(
       auth.id,
-      createFeedDto.title,
-      createFeedDto.description,
+      data.title,
+      data.description,
+      file,
     );
   }
 
@@ -75,6 +87,8 @@ export class FeedsController {
   updateFeed(
     @Param('id') id: number,
     @Body() data: UpdateFeedDto,
+    @UploadedFile()
+    file: Express.Multer.File,
     @Req() request: RequestWithLocals,
   ) {
     const auth = request.locals.user;
@@ -83,6 +97,7 @@ export class FeedsController {
       auth.id,
       data.title,
       data.description,
+      file,
     );
   }
 

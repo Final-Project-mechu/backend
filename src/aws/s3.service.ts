@@ -1,5 +1,4 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'; // 여기 자동으로 안불러와짐
-import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import _ from 'lodash';
@@ -22,8 +21,6 @@ export class S3Service {
   }
 
   async putObject(image: any) {
-    console.log(image);
-    console.log(this.bucket);
     const resizeImg = sharp(image.path);
     console.log("s3",resizeImg);
     let { width, height } = await resizeImg.metadata();

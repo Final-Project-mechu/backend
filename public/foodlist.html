@@ -13,6 +13,8 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
       rel="stylesheet"
     />
+    <!-- bootstrap 적용을 위한 링크(모달창) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
@@ -37,130 +39,222 @@
   </head>
 
   <body>
-
-
-  
-  
       <!-- Page Preloder -->
       <div id="preloder">
         <div class="loader"></div>
       </div>
-  
-      <!-- Humberger Begin -->
-      <div class="humberger__menu__overlay"></div>
-      <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">
-          <a href="#"><img src="img/logo.png" alt="" /></a>
+          <!-- 가입 모달 -->
+    <div
+    class="modal fade"
+    id="signModal"
+    tabindex="-1"
+    aria-labelledby="signModalLabel"
+    aria-hidden="true"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
+          <button
+            type="button"
+            class="signbutton"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ><span aria-hidden="true">X</span>
+        </button>
         </div>
-        <div class="humberger__menu__cart">
-          <ul>
-            <li>
-              <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
-            </li>
-          </ul>
-          <div class="header__cart__price">item: <span>$150.00</span></div>
+        <div class="modal-body">
+          <form class="sign-wrap">
+            <div class="row mb-3">
+              <div class="col">
+                <input type="email"
+                       class="modal-input"
+                       placeholder="이메일 주소"
+                       required>
+              </div>
+              <div class="col-auto">
+                <button class="signbutton btn-block" id="verifyEmailBtn" type="button">
+                  발송
+                </button>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <input type="인증 번호"
+                       class="modal-input"
+                       placeholder="인증 코드"
+                       required>
+              </div>
+              <div class="col-auto">
+                <button class="signbutton" id="verifyEmailBtn" type="button">
+                  확인
+                </button>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <input type="인증 번호"
+                       class="modal-input"
+                       placeholder="비밀번호"
+                       required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <input type="인증 번호"
+                       class="modal-input"
+                       placeholder="비밀번호 확인"
+                       required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <input type="code"
+                       class="modal-input"
+                       placeholder="닉네임"
+                       required>
+              </div>
+            </div>
+            <div
+              class="alert alert-danger"
+              id="loginError"
+              style="display: none"
+            ></div>
+          </form>
         </div>
-        <div class="humberger__menu__widget">
-          <div class="header__top__right__language">
-            <img src="img/language.png" alt="" />
-            <div>English</div>
-            <span class="arrow_carrot-down"></span>
-            <ul>
-              <li><a href="#">Spanis</a></li>
-              <li><a href="#">English</a></li>
-            </ul>
-          </div>
-          <div class="header__top__right__auth">
-            <a href="#"><i class="fa fa-user"></i> Login</a>
-          </div>
-        </div>
-        <nav class="humberger__menu__nav mobile-menu">
-          <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li><a href="./shop-grid.html">Shop</a></li>
-            <li>
-              <a href="#">Pages</a>
-              <ul class="header__menu__dropdown">
-                <li><a href="./shop-details.html">Shop Details</a></li>
-                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                <li><a href="./checkout.html">Check Out</a></li>
-                <li><a href="./blog-details.html">Blog Details</a></li>
-              </ul>
-            </li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
-          </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
-          <a href="#"><i class="fa fa-facebook"></i></a>
-          <a href="#"><i class="fa fa-twitter"></i></a>
-          <a href="#"><i class="fa fa-linkedin"></i></a>
-          <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </div>
-        <div class="humberger__menu__contact">
-          <ul>
-            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-            <li>Free Shipping for all Order of $99</li>
-          </ul>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="signbutton"
+            data-bs-toggle="modal"
+            data-bs-target="#signupModal"
+          >
+            회원 가입
+          </button>
         </div>
       </div>
-      <!-- Humberger End -->
-  
-      <!--여기부터-->
-      <!--주석 처리한 부분은 필요 없다고 생각될 경우 제거 예정입니다.-->
-      <!-- Header Section Begin -->
+    </div>
+    </div>
+    <!-- 가입 모달 끝 -->
+    <!-- 로그인 모달 시작 -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">LOGIN</h5>
+            <button
+            type="button"
+            class="signbutton"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ><span aria-hidden="true">X</span>
+        </button>
+          </div>
+          <div class="modal-body">
+            <form class="login-wrap">
+              <div class="row mb-3">
+                <div class="col">
+                  <input type="code"
+                         class="modal-input"
+                         placeholder="이메일"
+                         required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input type="code"
+                         class="modal-input"
+                         placeholder="비밀번호"
+                         required>
+                </div>
+              </div>
+              <div
+                class="alert alert-danger"
+                id="loginError"
+                style="display: none"
+              ></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+            >
+              로그인
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 로그인 모달 끝 -->
+      <!-- 탑바 시작 -->
       <header class="header">
         <div class="header__top">
           <div class="container">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6">
                 <div class="header__top__left">
-                  <ul></ul>
+                  <ul>
+                  </ul>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6">
                 <div class="header__top__right">
-                  <div class="header__top__right__auth">
-                    <a href="#"><i class="fa fa-github"></i></a>
+                  <div class="header__top__right__auth d-flex">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#signModal">
+                      <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
+                    </a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                      <i class="fa fa-user"></i>로그인
+                    </a>
                   </div>
-                  <div class="header__top__right__auth"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="container">
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="header__logo">
-                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+          <div class="top-row d-flex justify-content-between align-items-center">
+              <div class="col-lg-3" style="max-width: 150px;">
+                  <div class="header__logo">
+                      <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+                  </div>
               </div>
-            </div>
-            <div class="col-lg-6">
-              <nav class="header__menu">
-                <ul>
-                  <li><a href="./index.html">홈</a></li>
-                  <li><a href="./preference.html">선호도</a></li>
-                  <li class="active"><a href="./foodlist.html">메뉴판</a></li>
-                  <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
-                  <li><a href="./feed.html">피드</a></li>
-                </ul>
-              </nav>
-            </div>
-            <div class="col-lg-3">
-  
-            </div>
+              <nav class="humberger__menu__nav mobile-menu"></nav>
+              <div class="col-lg-8" style="max-width: 1000px;">
+                  <nav class="header__menu">
+                      <ul>
+                          <li class="active"><a href="./index.html">홈</a></li>
+                          <li><a href="./preference.html">선호도</a></li>
+                          <li><a href="./foodlist.html">메뉴판</a></li>
+                          <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                          <li><a href="./feed.html">피드</a></li>
+                          <li><a href="./mypage.html">마이페이지용</a></li>
+                      </ul>
+                  </nav>
+              </div>
+              <div class="col-lg-3" style="max-width: 200px; text-align: center;">
+                  <div class="header__cart">
+                      <div class="header__cart__price">오늘의 메뉴: <span>차돌짬뽕</span></div>
+                  </div>
+              </div>
           </div>
-          <div class="humberger__open">
-            <i class="fa fa-bars"></i>
-          </div>
-        </div>
+      </div>
+      
       </header>
-      <!-- Header Section End -->
+      <!-- 탑바 끝 -->
   
       <!-- Hero Section Begin -->
       <section class="hero hero-normal">
@@ -341,67 +435,42 @@
     </section>
   </section>
       <!-- Hero Section End -->
-  
-  
-  
-    
-       
-    
-
-
-     <!-- Footer Section Begin -->
-     <footer class="footer spad">
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
       <div class="container">
         <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="footer__about">
-              <div class="footer__about__logo">
-                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+          <div class="col-lg-12">
+            <div class="footer__copyright">
+              <!-- GitHub Icon and Links -->
+              <div class="footer__github">
+                <!-- GitHub Links -->
+                <a href="https://github.com/Final-Project-mechu" target="_blank">
+                  <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
+                </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <!-- Notion Link -->
+                <a href="https://www.notion.so/your_notion_page" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <!-- Terms of Service Link -->
+                <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               </div>
-              <ul>
-                <li>team: 점메추 저메추</li>
-                <li>김세령</li>
-                <li>오준석</li>
-                <li>이서원</li>
-                <li>최하영</li>
-                <li>함형진</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-            <div class="footer__widget">
-              <h6>Useful Links</h6>
-              <ul>
-                <li><a href="#">이용 약관</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-12">
-            <div class="footer__widget">
-              <h6>팀 점메추저메추 깃허브</h6>
-              <p></p>
-              <!-- <form action="#">
-              <input type="text" placeholder="Enter your mail" />
-              <button type="submit" class="site-btn">Subscribe</button>
-            </form> -->
-              <div class="footer__widget__social">
-                <a href="https://github.com/Final-Project-mechu"
-                  ><i class="fa fa-github"></i
-                ></a>
-                <!-- <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-              <a href="#"><i class="fa fa-pinterest"></i></a> -->
+              <hr> <!-- Horizontal Line -->
+              <div class="footer__copyright__text">
+                <p>
+                  
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  All rights reserved | This page is made by TEAM TOGETHER EAT! 김세령 오준석 이서원 최하영 함형진
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-
         </div>
       </div>
     </footer>
     <!-- Footer Section End -->
-
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

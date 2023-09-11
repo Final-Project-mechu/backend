@@ -1,55 +1,14 @@
-//모달 창 생성
-const signupLink = document.getElementById('signupLink');
-const signupModal = document.getElementById('signupModal');
-
-signupLink.addEventListener('click', () => {
-  signupModal.style.display = 'block';
-});
-
-window.addEventListener('click', event => {
-  if (event.target === signupModal) {
-    signupModal.style.display = 'none';
-  }
-});
-
-window.addEventListener('click', event => {
-  if (event.target === loginModal) {
-    loginModal.style.display = 'none';
-  }
-});
-const loginLink = document.getElementById('loginLink');
-const loginModal = document.getElementById('loginModal');
-
-loginLink.addEventListener('click', () => {
-  loginModal.style.display = 'block';
-});
-
-window.addEventListener('click', event => {
-  if (event.target === loginModal) {
-    loginModal.style.display = 'none';
-  }
-});
-
-// 모달을 닫는 함수
-function closeModal() {
-  var modal = document.getElementById('signupModal');
-  modal.style.display = 'none';
-}
-
-// 모달 여는 함수
-function openModal() {
-  var modal = document.getElementById('signupModal');
-  modal.style.display = 'block';
-}
-
 // 회원가입, 로그인 백엔드 연결
 
 // 이메일 전송
+let verifyingEmail;
 function verifyEmail() {
+  const emailInput = document.getElementById('signupEmail');
+  const emailButton = document.getElementById('signupEmailBtn');
   const data = {
-    email: $('#email').val(),
+    email: $('#signupEmail').val(),
   };
-  if (!email) {
+  if (!data.email) {
     alert('이메일을 입력해주세요');
     return;
   }
@@ -58,6 +17,9 @@ function verifyEmail() {
     .then(response => {
       console.log(data);
       alert('메일을 전송했습니다.');
+      emailInput.disabled = true;
+      emailButton.disabled = true;
+      verifyingEmail = data.email;
     })
     .catch(error => {
       if (error.response) {
@@ -83,16 +45,21 @@ function verifyEmail() {
 
 // 이메일 인증
 function verifyCode() {
+  const codeInput = document.getElementById('codeInput');
+  const codeInputButton = document.getElementById('codeInputButton');
   const data = {
-    email: $('#email').val(),
-    code: $('#Code').val(),
+    email: verifyingEmail,
+    code: $('#codeInput').val(),
   };
+  console.log(data);
 
   axios
     .post('http://localhost:3000/users/verify-code', data)
     .then(response => {
       console.log(data);
       alert('인증 확인');
+      codeInput.disabled = true;
+      codeInputButton.disabled = true;
     })
     .catch(error => {
       // 에러 처리
@@ -103,11 +70,17 @@ function verifyCode() {
 
 //회원가입
 function sign(event) {
-  // event.preventDefault(); // 기본 동작 방지
+  event.preventDefault();
+  if (!document.getElementById('signupEmail').disabled) {
+    return alert('E-mail 인증 먼저 진행해주세요.');
+  }
+  if (!document.getElementById('codeInputButton').disabled) {
+    return alert('E-mail 인증 먼저 진행해주세요.');
+  }
   const isAdmin = document.getElementById('admin').checked ? 1 : 0;
   const data = {
     is_admin: isAdmin,
-    email: $('#email').val(),
+    email: verifyingEmail,
     nick_name: $('#signupNickname').val(),
     password: $('#signupPassword').val(),
     passwordConfirm: $('#signupPasswordConfirm').val(),
@@ -121,7 +94,6 @@ function sign(event) {
       closeModal();
     })
     .catch(error => {
-      // 에러 처리
       console.error(error);
       alert('회원가입 실패');
     });
@@ -138,8 +110,11 @@ function login() {
     .then(response => {
       console.log(data);
       alert('로그인 완료');
-      // 로그인이 완료된 경우 로그아웃 버튼을 생성하고 로그인 링크를 변경
+      closeModal();
+      document.cookie = 'isLoggedIn=true'; // 예시로 "isLoggedIn" 쿠키 사용
       createLogoutButton();
+      const mypageButton = document.getElementById('mypageLink');
+      mypageButton.style.display = 'block';
     })
     .catch(error => {
       // 에러 처리
@@ -148,7 +123,32 @@ function login() {
     });
 }
 
-// 로그아웃 버튼을 생성하고 로그인 링크를 변경하는 함수
+// 홈 페이지 로딩 시 로그인 상태 확인
+window.onload = function () {
+  const isLoggedIn = getCookie('isLoggedIn');
+  if (isLoggedIn === 'true') {
+    createLogoutButton();
+  }
+};
+
+// 쿠키 가져오기 함수
+function getCookie(name) {
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [key, value] = cookie.trim().split('=');
+    if (key === name) {
+      return value;
+    }
+  }
+  return '';
+}
+
+// "마이페이지" 링크를 보이게 하는 함수
+function showMyPageLink() {
+  const myPageLink = document.getElementById('myPageLink');
+  myPageLink.style.display = 'inline'; // 보이게 설정
+}
+
 function createLogoutButton() {
   const loginLink = document.getElementById('loginLink');
   loginLink.innerHTML = '<i class="fa fa-user"></i>로그아웃';
@@ -157,6 +157,7 @@ function createLogoutButton() {
   // 새로운 클릭 이벤트를 추가하여 로그아웃 함수를 호출
   loginLink.addEventListener('click', function () {
     singOut();
+    closeModal();
   });
 }
 
@@ -166,8 +167,8 @@ function singOut() {
     .delete('http://localhost:3000/users/logOut')
     .then(response => {
       alert('로그아웃 완료');
-      // 로그아웃이 완료된 경우 다시 로그인 링크로 변경
-      resetLoginLink();
+      document.cookie =
+        'isLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       location.reload();
     })
     .catch(error => {

@@ -32,7 +32,7 @@ function createAllFeedsItems(feeds) {
                                         <img src="${feed.image}" alt="https://final-bucket-ksr.s3.ap-northeast-2.amazonaws.com/ce8af23a-e098-4b43-9319-da360116361d-1694416218106.jpg" />
                                         </div>
                                         <div class="blog__item__text">
-                                        <h5><a href="#">${feed.title}</a></h5>
+                                        <h5><a href="feed-detail.html">${feed.title}</a></h5>
                                         <ul>
                                             <li><i class="fa fa-calendar-o"></i>${outputDate}</li>
                                             <li><i class="fa fa-comment-o"></i>  ${feed.likecount}</li>

@@ -107,7 +107,7 @@ function login() {
     .then(response => {
       console.log(response);
       location.reload();
-      // createLogoutButton();
+      createLogoutButton();
     })
     .catch(error => {
       // 에러 처리

@@ -14,13 +14,13 @@ export class CreateUserDto {
   @IsString()
   @MinLength(4)
   @MaxLength(10)
-  @Matches(/(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])/)
+  @Matches(/(?=.*[0-9])(?=.*[a-z])/)
   readonly password: string;
 
   @IsString()
   @MinLength(4)
   @MaxLength(10)
-  @Matches(/(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])/)
+  @Matches(/(?=.*[0-9])(?=.*[a-z])/)
   readonly passwordConfirm: string;
 
   @IsString()

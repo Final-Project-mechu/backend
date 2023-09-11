@@ -1,11 +1,23 @@
 // 회원가입, 로그인 백엔드 연결
 // 처음 HTML 정보 불러오기
-document.addEventListener('DOMContentLoaded', function() {
-  const loginButton = document.querySelector('.loginClick')
-  const signupButton = document.querySelector('.signClick')
-})
-
-
+document.addEventListener('DOMContentLoaded', function () {
+  const loginButton = document.querySelector('.loginClick');
+  const signupButton = document.querySelector('.signClick');
+  const logoutButton = document.querySelector('.logoutClick');
+  const mypageButton = document.querySelector('.mypageClick');
+  // 쿠키값 확인하여 버튼 상태 설정
+  function checkLoginStatus() {
+    let cookies = document.cookie;
+    if (cookies.includes('Authentication=Bearer%20')) {
+      loginButton.classList.add('d-none');
+      signupButton.classList.add('d-none');
+      logoutButton.classList.remove('d-none');
+      mypageButton.classList.remove('d-none');
+    }
+  }
+  checkLoginStatus();
+  document.addEventListener('cookieChange', checkLoginStatus);
+});
 
 // 이메일 전송
 let verifyingEmail;
@@ -47,14 +59,12 @@ function verifyCode() {
   axios
     .post('http://localhost:3000/users/verify-code', data)
     .then(response => {
-      console.log(data);
       alert('인증 확인');
       codeInput.disabled = true;
       codeInputButton.disabled = true;
     })
     .catch(error => {
       alert(error.message);
-      console.error(error);
     });
 }
 

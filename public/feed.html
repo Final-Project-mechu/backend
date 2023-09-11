@@ -206,11 +206,17 @@
             <div class="col-lg-6 col-md-6">
               <div class="header__top__right">
                 <div class="header__top__right__auth d-flex">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#signModal">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#signModal" id="signClick" class="signClick">
                     <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
                   </a>
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginClick" class="loginClick">
                     <i class="fa fa-user"></i>로그인
+                  </a>
+                  <a href="#" id="logoutClick" class="logoutClick d-none">
+                    <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a href="./mypage.html" id="mypageClick" class="mypageClick d-none">
+                    <i class="fa fa-user"></i> 마이페이지
                   </a>
                 </div>
               </div>
@@ -234,7 +240,6 @@
                         <li><a href="./foodlist.html">메뉴판</a></li>
                         <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
                         <li><a href="./feed.html">피드</a></li>
-                        <li><a href="./mypage.html">마이페이지용</a></li>
                     </ul>
                 </nav>
             </div>
@@ -304,7 +309,7 @@
                   <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
                 </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Notion Link -->
-                <a href="https://www.notion.so/your_notion_page" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Terms of Service Link -->
                 <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               </div>
@@ -312,7 +317,7 @@
               <div class="footer__copyright__text">
                 <p>
                   
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  <!-- Link back to Colorlib can't be removed. Template is ldwicensed under CC BY 3.0. -->
                   Copyright &copy;
                   <script>
                     document.write(new Date().getFullYear());
@@ -327,7 +332,8 @@
       </div>
     </footer>
     <!-- Footer Section End -->
-
+    <!-- 적용하려는 script 파일 -->
+    <script src="./src/user.js" defer></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

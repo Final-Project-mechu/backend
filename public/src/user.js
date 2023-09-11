@@ -107,7 +107,7 @@ function login() {
     .then(response => {
       console.log(response);
       location.reload();
-      // createLogoutButton();
+      createLogoutButton();
     })
     .catch(error => {
       // 에러 처리
@@ -130,11 +130,10 @@ function createLogoutButton() {
 // 로그아웃
 function singOut() {
   axios
-    .delete('http://localhost:3000/users/logOut')
+    .post('http://localhost:3000/users/logout')
     .then(response => {
       alert('로그아웃 완료');
       // 로그아웃이 완료된 경우 다시 로그인 링크로 변경
-      resetLoginLink();
       location.reload();
     })
     .catch(error => {

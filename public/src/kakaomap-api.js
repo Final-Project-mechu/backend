@@ -69,11 +69,9 @@ function getMap(latitude, longitude) {
       center: new kakao.maps.LatLng(latitude, longitude),
       level: 5, // 지도의 확대 레벨
       radius: 5000,
-      // draggable: true,
-      // sort: kakao.maps.services.SortBy.DISTANCE,
     };
 
-  console.log('getMap 함수실행');
+  console.log('getMap 함수실행', mapContainer);
   return new kakao.maps.Map(mapContainer, mapOption);
 }
 
@@ -89,7 +87,7 @@ function searchPlaces(keyword, latitude, longitude, callback) {
     y: latitude, // 검색 중심 좌표를 기존 지도의 중심 좌표로 설정
     radius: 5000, // 검색 반경
   };
-  // 장소 검색 객체를 생성합니다
+  // 장소 검색 객체를 생성
   const places = new kakao.maps.services.Places();
   console.log('searchPlaces 함수실행', keyword);
   return places.keywordSearch(keyword, callback, searchOptions);

@@ -111,29 +111,17 @@ function login() {
     })
     .catch(error => {
       // 에러 처리
+      console.log(error);
       alert(error.response.message);
     });
 }
 
-// 로그아웃 버튼을 생성하고 로그인 링크를 변경하는 함수
-function createLogoutButton() {
-  const loginLink = document.getElementById('loginLink');
-  loginLink.innerHTML = '<i class="fa fa-user"></i>로그아웃';
-  loginLink.removeAttribute('onclick'); // 이전의 클릭 이벤트를 제거
-
-  // 새로운 클릭 이벤트를 추가하여 로그아웃 함수를 호출
-  loginLink.addEventListener('click', function () {
-    singOut();
-  });
-}
-
 // 로그아웃
-function singOut() {
+function signOut() {
   axios
-    .post('http://localhost:3000/users/logout')
+    .delete('http://localhost:3000/users/logout')
     .then(response => {
-      alert('로그아웃 완료');
-      // 로그아웃이 완료된 경우 다시 로그인 링크로 변경
+      alert(response.data);
       location.reload();
     })
     .catch(error => {

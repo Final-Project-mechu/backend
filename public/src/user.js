@@ -89,7 +89,8 @@ function sign(event) {
     .post('http://localhost:3000/users/sign', data)
     .then(response => {
       alert(response.message);
-      location.reload();
+      // 회원가입 되면 바로 선호도조사 페이지로 이동
+      location.href('http://localhost:3000/preference.html');
     })
     .catch(error => {
       alert(error.response.message);
@@ -106,12 +107,9 @@ function login() {
     .post('http://localhost:3000/users/login', data)
     .then(response => {
       console.log(response);
-      location.reload();
-      createLogoutButton();
+      location.href('http://localhost:3000/menu-subscribe.html');
     })
     .catch(error => {
-      // 에러 처리
-      console.log(error);
       alert(error.response.message);
     });
 }

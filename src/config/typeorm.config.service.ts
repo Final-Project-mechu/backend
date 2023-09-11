@@ -18,6 +18,7 @@ import { UserAction } from 'src/entity/user.action';
 //import { Friends } from 'src/entity/friend.entity';
 import { Friends } from 'src/entity/friend.entity';
 import { Friendlist } from 'src/entity/friendlist.entity';
+import { FeedFavorite } from 'src/entity/feed.favorite.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -49,8 +50,10 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         UserAction,
         Friends,
         Friendlist,
+        FeedFavorite,
       ],
-      synchronize: this.configService.get<string>('DATABASE_SYNCHRONIZE') === 'true',
+      synchronize:
+        this.configService.get<string>('DATABASE_SYNCHRONIZE') === 'true',
     };
   }
 }

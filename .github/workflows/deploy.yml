@@ -1,0 +1,117 @@
+name: Deploy to Amazon EC2
+
+on:
+  push:
+    branches:
+      - main
+
+# 본인이 설정한 값을 여기서 채워넣습니다.
+# 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름, env11
+env:
+  AWS_REGION: ap-northeast-2
+  S3_BUCKET_NAME: my-github-actions-a3-bucket4
+  CODE_DEPLOY_APPLICATION_NAME: my-codedeploy-app
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: my-codedeploy-deployment-group
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      # (1) 기본 체크아웃
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # (2) Node.js 세팅
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+
+      # 환경변수 세팅
+      - name: ⚙️ 환경변수 설정
+        working-directory: ./
+        env:
+         DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+         DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+         DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+         DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+         DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+         JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+        run: |
+         pwd
+         touch .env
+         echo "DATABASE_HOST=$DATABASE_HOST" >> .env
+         echo "DATABASE_PORT=$DATABASE_PORT" >> .env
+         echo "DATABASE_USERNAME=$DATABASE_USERNAME" >> .env
+         echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> .env
+         echo "DATABASE_NAME=$DATABASE_NAME" >> .env
+         echo "JWT_SECRET_KEY=$JWT_SECRET_KEY" >> .env
+         cat .env
+  
+      - name: ✨ 패키지 설치
+        working-directory: ./
+        run: npm install
+
+      - name: ✨ 빌드 과정을 시작
+        working-directory: ./
+        run: npm run build
+
+      - name: 📦 빌드한 코드를 압축
+        run: zip -r backend.zip ./dist ./scripts ./appspec.yml ./.env ./package.json ./eslintrc.js ./prettierrc ./webpack-hmr.config.js ./tsconfig.build.json ./tsconfig.json
+
+      - name: 🌎 AWS에 접속
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_TEST1 }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_TEST1 }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: 🦖 S3에 압축된 서버 코드를 업로드
+        run: aws s3 cp --region ${{ env.AWS_REGION }} ./backend.zip s3://my-github-actions-a3-bucket4
+
+      - name: 🚀 AWS codeDeploy로 배포를 시작
+        run: aws deploy create-deployment
+          --ignore-application-stop-failures
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }}
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }}
+          --s3-location bucket=$S3_BUCKET_NAME,key=backend.zip,bundleType=zip
+        
+      #   # (3) build (Test 제외)
+      # - name: Install dependencies
+      #   run: npm install
+  
+      # - name: Build test
+      #   run: npm run build
+        
+      # # (4) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_TEST1 }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_TEST1 }}
+      #     aws-region: ${{ env.AWS_REGION }}
+      
+      # # (5) 빌드 결과물을 S3 버킷에 업로드
+      # - name: Upload to AWS S3
+      #   run: |
+      #     aws deploy push \
+      #       --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+      #       --ignore-hidden-files \
+      #       --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+      #       --source .
+      
+      # # (6) S3 버킷에 있는 파일을 대상으로 CodeDeploy 실행
+      # - name: Deploy to AWS EC2 from S3
+      #   run: |
+      #     aws deploy create-deployment \
+      #       --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+      #       --deployment-config-name CodeDeployDefault.AllAtOnce \
+      #       --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+      #       --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip

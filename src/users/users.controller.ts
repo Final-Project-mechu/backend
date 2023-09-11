@@ -11,6 +11,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   Req,
   Res,
   UnauthorizedException,
@@ -23,8 +24,6 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Request, Response, response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
-// import { NaverAuthGuard } from 'src/auth/utils/naver.auth-guard';
-// import { AuthService } from 'src/auth/auth.service';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -34,13 +33,17 @@ interface RequestWithLocals extends Request {
     };
   };
 }
-// @ApiTags('users')
+
 @Controller('users')
 export class UsersController {
   jwtService: any;
-  constructor(
-    private readonly userService: UsersService, // private readonly authservice: AuthService,
-  ) {}
+  constructor(private readonly userService: UsersService) {}
+
+  @Get('/find')
+  async getUserEmail(@Query('email') email: string) {
+    const usefInfo = await this.userService.getUserNickName(email);
+    return usefInfo.nick_name;
+  }
 
   // 인증번호 전송 엔드포인트
   @Post('/send-code')
@@ -56,36 +59,16 @@ export class UsersController {
     return { message: '이메일이 인증되었습니다.' };
   }
 
-  // @Post('/verify-code')
-  // async verifyCode(@Body('code') code: string, @Req() request: Request) {
-  //   const token = request.cookies['verificationToken'];
-
-  //   if (!token) {
-  //     return { message: '인증 토큰이 없습니다.' };
-  //   }
-
-  //   const isVerified = await this.userService.verifyCode(token, code);
-  //   console.log('컨트롤러 토큰', token, '컨트롤러코드', code);
-
-  //   if (isVerified) {
-  //     return { message: '인증이 완료되었습니다.' };
-  //   } else {
-  //     return { message: '인증 코드가 유효하지 않습니다.' };
-  //   }
-  // }
-
   // 회원가입
   @Post('/sign')
   async createUser(@Body() data) {
-    console.log(data);
-    const { refresh_token } = await this.userService.createUser(
+    const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,
       data.nick_name,
       data.password,
     );
-    console.log(refresh_token);
-    return { refresh_token };
+    return { message: '회원가입이 완료되었습니다.' };
   }
 
   //로그인
@@ -98,23 +81,20 @@ export class UsersController {
       data.email,
       data.password,
     );
-    response.cookie('Authentication', 'Bearer ' + authentication),
-      {
-        httpOnly: true,
-      };
-    return { message: '로그인 성공' };
+    response.cookie('Authentication', 'Bearer ' + authentication.access_Token);
+    response.cookie('Authentication', 'Bearer ' + authentication.refresh_Token);
+
+    return { message: authentication };
   }
 
-  @Post('/logout')
-  async logout(@Res() response: Response, @Req() request: RequestWithLocals) {
-    // const auth = request.locals.user;
-    const pastDate = new Date(0);
-    const logout = response.cookie('Authentication', '', { expires: pastDate });
-
-    return { logout, message: '에러있으면 뱉어라' };
+  //로그아웃 기능 구현중
+  @Delete('/logout')
+  async signout(@Res() response: Response) {
+    response.clearCookie('Authentication');
+    return response.status(200).send('signed out successfully');
   }
 
-  //유저 정보 수정(닉네임, 패스워드)
+  //유저 정보 수정(패스워드)
   @Patch('/update')
   async updateUser(
     @Body() data: UpdateUserDto,
@@ -135,7 +115,7 @@ export class UsersController {
   }
 
   //회원삭제(회원탈퇴)
-  @Delete('/quit')
+  @Post('/quit')
   DeleteUser(@Body() data: DeleteUserDto, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
     return this.userService.deleteUser(
@@ -143,5 +123,18 @@ export class UsersController {
       data.password,
       data.passwordConfirm,
     );
+  }
+
+  //어드민 변환
+  @Post('admin')
+  async transfer() {
+    try {
+      // UserService의 transfer 메서드를 호출하여 is_admin 값을 변경합니다.
+      await this.userService.transfer(0); // is_admin 값을 0에서 1로 변경하려면 0을 전달합니다.
+      return { message: '유저를 어드민으로 변환했습니다.' };
+    } catch (error) {
+      // 오류 처리
+      return { error: 'is_admin 값을 변경하는 중 오류가 발생했습니다.' };
+    }
   }
 }

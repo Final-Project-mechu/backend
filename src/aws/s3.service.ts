@@ -30,8 +30,8 @@ export class S3Service {
     if (_.isUndefined(height)) {
       height = 1;
     }
-    const maxWidth = 800;
-    const maxHeight = 600;
+    const maxWidth = 200;
+    const maxHeight = 200;
     const ratio = Math.min(maxWidth / width, maxHeight / height);
 
     await this.client.send(

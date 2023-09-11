@@ -1,4 +1,4 @@
-// 피드 조회 함수
+// 피드 조회 함수(제목과 이미지, 생성시점만)
 
 async function feedsGet() {
   const callServer = await axios({
@@ -10,21 +10,32 @@ async function feedsGet() {
   createAllFeedsItems(allFeeds);
 }
 
+function formatDate(data) {
+  const getData = new Date(data);
+  const year = getData.getFullYear();
+  const month = getData.getMonth();
+  const day = getData.getDay();
+
+  const outputDate = ' ' + month + '월 ' + day + '일 ' + ' , ' + year;
+  return outputDate;
+}
+
 function createAllFeedsItems(feeds) {
   const feedsContainer = document.getElementById('feeds-container');
   feedsContainer.innerHTML = '';
 
   feeds.forEach(feed => {
-    feedsContainer.innerHTML += `<div class="col-lg-4 col-md-4 col-sm-6" >
+    const outputDate = formatDate(feed.createdAt);
+    feedsContainer.innerHTML += `<div class="col-lg-4 col-md-4 col-sm-6">
                                     <div class="blog__item">
                                         <div class="blog__item__pic">
-                                        <img src="${feed.image}" alt="img/blog/blog-1.jpg" />
+                                        <img src="${feed.image}" alt="https://final-bucket-ksr.s3.ap-northeast-2.amazonaws.com/ce8af23a-e098-4b43-9319-da360116361d-1694416218106.jpg" />
                                         </div>
                                         <div class="blog__item__text">
                                         <h5><a href="#">${feed.title}</a></h5>
                                         <ul>
-                                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                            <li><i class="fa fa-comment-o"></i> 5</li>
+                                            <li><i class="fa fa-calendar-o"></i>${outputDate}</li>
+                                            <li><i class="fa fa-comment-o"></i>  ${feed.likecount}</li>
                                         </ul>
                                         </div>
                                     </div>

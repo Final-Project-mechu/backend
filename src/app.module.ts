@@ -29,8 +29,6 @@ import { FoodUserWeight } from './entity/food.user.weight.entity';
 import { UserAction } from './entity/user.action';
 import { FoodIngredient } from './entity/food.ingredient.entity';
 import { Ingredient } from './entity/ingredient.entity';
-//import { AuthModule } from './auth/auth.module';
-//import { FriendModule } from './friend/friend.module';
 import { IngredientModule } from './ingredient/ingredient.module';
 import { UsersActionsModule } from './users.actions/users.actions.module';
 import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
@@ -88,8 +86,6 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
     JwtModule,
     MailModule,
     IngredientModule,
-    // FriendModule,
-    // AuthModule,
     UsersActionsModule,
     FoodsUsersWeightsModule,
     FriendModule,

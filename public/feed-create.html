@@ -6,6 +6,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
     <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
@@ -69,14 +70,19 @@
                 <nav class="humberger__menu__nav mobile-menu"></nav>
                 <div class="col-lg-8" style="max-width: 1000px;">
                     <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">홈</a></li>
-                            <li><a href="./preference.html">선호도</a></li>
-                            <li><a href="./foodlist.html">메뉴판</a></li>
-                            <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
-                            <li><a href="./feed.html">피드</a></li>
-                            <li><a href="./mypage.html">마이페이지용</a></li>
-                        </ul>
+                      <ul>
+                        <li>
+                          <a id="tob-bar" href="./index.html">홈</a>
+                        </li>
+                        <li>
+                          <a id="tob-bar" href="./preference.html">선호도 조사</a>
+                        </li>
+                        <li>
+                          <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
+                        </li>
+                        <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
+                        <li><a id="tob-bar" href="./feed.html">피드</a></li>
+                      </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3" style="max-width: 200px; text-align: center;">
@@ -124,7 +130,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <button id="writeBtn" type="button" class="site-btn">글쓰기</button>
+                        <button id="writeBtn" type="button" class="site-btn" onclick="feedCreate()">글쓰기</button>
                         <button id="cancelBtn" class="site-btn" type="button" onclick="redirectToFeedPage()">취소</button>
                     </div>
                 </div>
@@ -147,7 +153,8 @@
                 <!-- Notion Link -->
                 <a href="https://www.notion.so/your_notion_page" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Terms of Service Link -->
-                <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="./terms.html" target="_blank">이용약관</a
+                  >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               </div>
               <hr> <!-- Horizontal Line -->
               <div class="footer__copyright__text">
@@ -168,6 +175,7 @@
       </div>
     </footer>
     <!-- Footer Section End -->
+    <script src="./src/feed-create.js"></script>
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>

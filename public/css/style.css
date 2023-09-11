@@ -127,7 +127,6 @@ ol {
   margin: 0 10px; /* 버튼 사이 간격조절 */
 }
 
-
 .featured-spad {
   text-align: center;
   margin: 0;
@@ -3551,4 +3550,50 @@ ol {
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;
+}
+
+#favoriteButton {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+#feed-like {
+  margin: auto;
+  margin-left: 20px;
+}
+
+#feed-change {
+  font-size: 10px;
+  margin: auto;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+#feed-delete {
+  font-size: 10px;
+  margin: auto;
+}
+
+#commentCreate {
+  font-size: 10px;
+  margin: auto;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#comment-change {
+  font-size: 10px;
+  margin: auto;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+#comment-delete {
+  font-size: 10px;
+  margin: auto;
+}
+
+#tob-bar {
+  font-size: larger;
 }

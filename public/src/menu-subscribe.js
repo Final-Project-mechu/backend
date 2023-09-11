@@ -1,8 +1,8 @@
-let selectedCategoryId = 0; 
+let selectedCategoryId = 0;
 let keywordResult;
 let isRequestInProgress = false;
 
-const storeBtn = document.getElementById('storeBtn'); 
+const storeBtn = document.getElementById('storeBtn');
 const submitButton = document.querySelector('.button[type="submit"]');
 const imageContainer = document.querySelector('.image-container img');
 
@@ -13,7 +13,8 @@ function openKakaopage(data) {
 
 function displayCategoryResponse(response) {
   setTimeout(() => {
-    document.querySelector('.food-item.meal').textContent = response.data.message;
+    document.querySelector('.food-item.meal').textContent =
+      response.data.message;
     const resultDiv = document.getElementById('result3');
     resultDiv.innerHTML = `<h2>${response.data}</h2>`;
     storeBtn.style.display = 'block';
@@ -26,14 +27,15 @@ function displayCategoryResponse(response) {
 
 function sendRequest(categoryId) {
   console.log('Sending request for category:', categoryId);
-  axios.post('http://localhost:3000/user-actions/random-weighted-foods', {
-    category_id: categoryId,
-  })
-  .then(displayCategoryResponse)
-  .catch(error => {
-    console.error('Error:', error);
-    alert('요청 중 오류가 발생했습니다.');
-  });
+  axios
+    .post('http://localhost:3000/user-actions/random-weighted-foods', {
+      category_id: categoryId,
+    })
+    .then(displayCategoryResponse)
+    .catch(error => {
+      console.error('Error:', error);
+      alert('요청 중 오류가 발생했습니다.');
+    });
 }
 
 function createCategoryButtons(categories) {
@@ -44,14 +46,17 @@ function createCategoryButtons(categories) {
     button.className = 'filter-button';
     button.textContent = category.category_name;
     button.addEventListener('click', () => {
-      document.querySelector('.food-item.meal').textContent = `${category.category_name}가 선택되었습니다.`;
+      document.querySelector(
+        '.food-item.meal',
+      ).textContent = `${category.category_name}가 선택되었습니다.`;
       selectedCategoryId = category.id;
     });
     filterButtonsDiv.appendChild(button);
   });
 }
 
-axios.get('http://localhost:3000/category')
+axios
+  .get('http://localhost:3000/category')
   .then(response => createCategoryButtons(response.data))
   .catch(error => {
     console.error('Error:', error);
@@ -63,7 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (allButton) {
     allButton.addEventListener('click', () => {
       selectedCategoryId = 0;
-      document.querySelector('.food-item.meal').textContent = '전체가 선택되었습니다.';
+      document.querySelector('.food-item.meal').textContent =
+        '전체가 선택되었습니다.';
     });
   }
 

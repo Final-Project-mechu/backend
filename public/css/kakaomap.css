@@ -34,3 +34,37 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+.map_wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.favoriteBtndiv{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.favoriteButton{
+  display: inline-block;
+  border: 2px solid #7ac142;
+  border-radius: 25px;
+  padding: 3px 12px 5px 12px;
+  letter-spacing: 0px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: #7ac142;
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  &:hover {
+    color: #7ac142;
+    background: #fff;
+    border: 2px solid #7ac142;
+  }
+  &:active {
+    box-shadow: none;
+  }
+}

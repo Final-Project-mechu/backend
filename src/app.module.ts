@@ -26,7 +26,7 @@ import { join } from 'path';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailModule } from './mail/mail.module';
 import { FoodUserWeight } from './entity/food.user.weight.entity';
-import { UserAction } from './entity/user.action';
+import { UserAction } from './entity/user.action.entity';
 import { FoodIngredient } from './entity/food.ingredient.entity';
 import { Ingredient } from './entity/ingredient.entity';
 import { IngredientModule } from './ingredient/ingredient.module';

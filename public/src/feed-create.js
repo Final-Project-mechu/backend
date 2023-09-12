@@ -3,7 +3,7 @@
  */
 window.onload = function () {
   let cookies = document.cookie;
-  if (!cookies.includes('Authentication=Bearer%20')) {
+  if (!cookies.includes('AccessToken=Bearer%20')) {
     alert('로그인이 필요한 기능입니다!');
     window.location.href = 'http://localhost:3000/feed.html';
   }

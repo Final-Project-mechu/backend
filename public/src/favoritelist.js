@@ -113,3 +113,7 @@ document.querySelector('.delete-btn').addEventListener('click', function () {
       });
   });
 });
+
+document.querySelector('.go-to-feed-btn').addEventListener('click', function() {
+  window.location.href = 'feed-create.html';
+});

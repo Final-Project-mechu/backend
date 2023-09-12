@@ -144,7 +144,7 @@ export class UsersService {
         nick_name: userConfirm.nick_name,
       };
       const accessToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '1d',
+        expiresIn: '30m',
       });
 
       const refreshToken = await this.jwtService.signAsync(payload, {

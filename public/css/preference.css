@@ -1,0 +1,22 @@
+.item-checkbox {
+  float: left;
+  margin-right: 100px;
+}
+/* 
+.site-btn {
+  float: right;
+} */
+
+#the-menu {
+  /* float: right; */
+  /* margin-left: 20px; */
+  position: relative;
+  left: 150px;
+}
+
+#prefer-delete {
+  position: fixed;
+  margin-top: 50px;
+  bottom: 475px;
+  right: 570px;
+}

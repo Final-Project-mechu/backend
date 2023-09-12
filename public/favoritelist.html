@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="zxx">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Ogani Template" />
-    <meta name="keywords" content="Ogani, unica, creative, html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>오늘 뭐 먹지?</title>
+
+  <link rel="icon">
 
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
       rel="stylesheet"
     />
-    <!-- bootstrap 적용을 위한 링크(모달창) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
@@ -25,13 +27,13 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/modaltest.css" type="text/css">
-    <link rel="stylesheet" href="css/preference.css" type="text/css">
-    <!-- axios 적용을 위한 script -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- CSS Styles END -->
+    <link rel="stylesheet" href="css/favoritelist.css" type="text/css" />
+
+        <!-- script import -->
+        <script src="./src/favoritelist.js" defer></script>
+
   </head>
-    <script async src="./src/preference.js" defer></script>
+
   <body>
    <!-- Page Preloder -->
    <div id="preloder">
@@ -283,140 +285,126 @@
       </div>
     </div>
       <div class="container">
-        <div class="top-row d-flex justify-content-between align-items-center">
-            <div class="col-lg-3" style="max-width: 150px;">
-                <div class="header__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt="" /></a>
-                </div>
-            </div>
-            <nav class="humberger__menu__nav mobile-menu"></nav>
-            <div class="col-lg-8" style="max-width: 1000px;">
-                <nav class="header__menu">
-                  <ul>
-                    <li>
-                      <a id="tob-bar" href="./index.html">홈</a>
-                    </li class="active">
-                    <li class="active">
-                      <a id="tob-bar" href="./preference.html">선호도 조사</a>
-                    </li>
-                    <li>
-                      <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
-                    </li>
-                    <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
-                    <li><a id="tob-bar" href="./feed.html">피드</a></li>
-                  </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3" style="max-width: 200px; text-align: center;">
-                <div class="header__cart">
-                    <div class="header__cart__price">오늘의 메뉴: <span>차돌짬뽕</span></div>
-                </div>
-            </div>
-        </div>
-        
-        </header>
-        <!-- 탑바 끝 -->
-
-
-      <section id="survey" class="form-blog spad">
-      <div class="section-title">
-        <h2 style="display: inline-block;">선호도 조사</h2>
-        <button id="the-menu" class="site-btn" > 메뉴판 보기 </button>
-      </div>
-      
-      <div class="container">
         <div class="row">
           <div class="col-lg-3">
-            <div class="dropdown">
-              <select id="search-category">
-                <option value="카테고리">카테고리</option>
-                <option value="선호 메뉴">선호 음식</option>
-                <option value="제외 메뉴">제외 음식</option>
-                <option value="제외 재료">제외 재료</option>
-              </select>
+            <div class="header__logo">
+              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
             </div>
           </div>
-          <div class="col-lg-9">
-            
-            <div class="hero__search">
-              
-              <div class="hero__search__form">
-                <form action="#" id="search-form">
-                  <input id="survey-search-input" type="text" placeholder="검색해보세요" />
-                  <button type="submit" class="site-btn">추가하기</button>
-
-                </form>
-              </div>
-              <div>
-                <a href="#" class="site-btn" id="prefer-delete">삭제하기</a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Header Section End --> 
-    <section class="product spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="featured__controls">
+          <div class="col-lg-6">
+            <nav class="header__menu">
               <ul>
-                <li data-filter=".favorites" id="likeBtn">선호 음식</li>
-                <li data-filter=".excluded-foods" id="excludeFoodBtn">제외 음식</li>
-                <li data-filter=".excluede-ingredient" id="excludeIngredientBtn">제외 재료</li>
-                <li data-filter=".excluded-ing-foods" id="excludeInFoodBtn">제외 재료 포함 음식</li>
+                <li>
+                  <a id="tob-bar" href="./index.html">홈</a>
+                </li>
+                <li>
+                  <a id="tob-bar" href="./preference.html">선호도 조사</a>
+                </li>
+                <li>
+                  <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
+                </li>
+                <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
+                <li><a id="tob-bar" href="./feed.html">피드</a></li>
               </ul>
-            </div>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+
           </div>
         </div>
-        <div class="row featured__filter" id="favoriteList">
+        <div class="humberger__open">
+          <i class="fa fa-bars"></i>
         </div>
       </div>
-    </section>
+ 
+    <!-- Header Section End -->
 
+<!-- Main Content -->
+
+<h2 class="favorite-name display-4 mt-5">고객님의 찜목록</h2>
+<div class="content-wrapper mt-5"> 
+  <div class="restaurant mb-4">
+    <!-- 체크 박스 추가 -->
+    <input type="checkbox" class="restaurant-checkbox">
+    <h3 class="restaurant-name display-5">음식점 이름</h3>
+    <ul class="list-group">
+      <li class="list-group-item">음식점 URL: <a href="#">www.example.com</a></li>
+      <li class="list-group-item">음식점 카테고리: 한식</li>
+      <li class="list-group-item">음식점 위치: 서울시 강남구</li>
+    </ul>
+  </div>
+  <div class="restaurant">
+    <!-- 체크 박스 추가 -->
+    <input type="checkbox" class="restaurant-checkbox">
+    <h3 class="restaurant-name display-5">음식점2 이름</h3>
+    <ul class="list-group">
+      <li class="list-group-item">음식점2 URL: <a href="#">www.example2.com</a></li>
+      <li class="list-group-item">음식점2 카테고리: 중식</li>
+      <li class="list-group-item">음식점2 위치: 서울시 서초구</li>
+    </ul>
+  </div>
+</div>
+
+<!-- "피드 올리러 가기" 버튼 추가 -->
+<div class="button-group">
+  <button class="btn btn-primary go-to-feed-btn">피드 올리러 가기</button>
+  <!-- "삭제하기" 버튼 추가 -->
+  <button class="btn btn-danger delete-btn">삭제하기</button>
+</div>
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="footer__copyright">
-                  <!-- GitHub Icon and Links -->
-                  <div class="footer__github">
-                    <!-- GitHub Links -->
-                    <a href="https://github.com/Final-Project-mechu" target="_blank">
-                      <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
-                    </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <!-- Notion Link -->
-                    <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <!-- Terms of Service Link -->
-                    <a href="./terms.html" target="_blank">이용약관</a
-                      >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                  </div>
-                  <hr> <!-- Horizontal Line -->
-                  <div class="footer__copyright__text">
-                    <p>
-                      
-                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                      Copyright &copy;
-                      <script>
-                        document.write(new Date().getFullYear());
-                      </script>
-                      All rights reserved | This page is made by TEAM TOGETHER EAT! 김세령 오준석 이서원 최하영 함형진
-                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                  </div>
-                </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="footer__about">
+              <div class="footer__about__logo">
+                <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+              </div>
+              <ul>
+                <p>TEAM : 오늘 뭐 먹지? TOGETHER EAT!</p>
+                <p>김세령 오준석 이서원 최하영 함형진</p>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+            <div class="footer__widget">
+              <h6>Useful Links</h6>
+              <ul>
+                <a href="./terms.html" target="_blank">이용약관</a
+                  >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="footer__widget">
+              <h6>팀 오늘뭐먹지 깃허브</h6>
+              <p></p>
+              <!-- <form action="#">
+              <input type="text" placeholder="Enter your mail" />
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form> -->
+              <div class="footer__widget__social">
+                <a href="https://github.com/Final-Project-mechu"
+                  ><i class="fa fa-github"></i
+                ></a>
+                <!-- <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a> -->
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
+
+        </div>
+      </div>
     </footer>
-    <!-- Footer Section End -->   
-    <!-- 적용하려는 script 파일 -->
-    <script src="./src/user.js" defer></script>
+    <!-- Footer Section End -->
+
+    <script src="./src/mypage.js"></script>
     <script src="./src/dailymenu.js" defer></script>
+
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -426,6 +414,6 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-    
+    <script src="js/foodlist.js"></script>
   </body>
 </html>

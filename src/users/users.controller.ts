@@ -97,7 +97,7 @@ export class UsersController {
   async signout(@Res() response: Response) {
     response.clearCookie('AccessToken');
     response.clearCookie('RefreshToken');
-    return response.status(200).send('signed out successfully');
+    return response.status(200).send('로그아웃 완료');
   }
 
   //유저 정보 수정(패스워드)

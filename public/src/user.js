@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const signupButton = document.querySelector('.signClick');
   const logoutButton = document.querySelector('.logoutClick');
   const mypageButton = document.querySelector('.mypageClick');
+  const favoritesButton = document.querySelector('.favoriteClick');
   // 쿠키값 확인하여 버튼 상태 설정
   function checkLoginStatus() {
     let cookies = document.cookie;
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
       signupButton.classList.add('d-none');
       logoutButton.classList.remove('d-none');
       mypageButton.classList.remove('d-none');
+      favoritesButton.classList.remove('d-none');
     }
   }
   checkLoginStatus();
@@ -88,7 +90,9 @@ function sign(event) {
   axios
     .post('https://togethereat.shop/users/sign', data)
     .then(response => {
-      alert(response.message);
+      alert(
+        '회원가입을 축하합니다! 고객님의 취향을 저격하기 위해 선호도 조사 페이지로 이동합니다!',
+      );
       // 회원가입 되면 바로 선호도조사 페이지로 이동
       location.href = 'http://localhost:3000/preference.html';
     })
@@ -104,10 +108,11 @@ function login() {
     password: $('#loginPass').val(),
   };
   axios
-    .post('https://togethereat.shop/users/login', data)
+    .post('http://localhost:3000/users/login', data)
     .then(response => {
       // 로그인하면 바로 메뉴추천 페이지로 이동
-      location.href ='http://localhost:3000/menu-subscribe.html';
+      alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
+      location.href = 'http://localhost:3000/menu-subscribe.html';
     })
     .catch(err => {
       alert(err.response.data.message);
@@ -117,14 +122,13 @@ function login() {
 // 로그아웃
 function signOut() {
   axios
-    .delete('https://togethereat.shop/users/logout')
+    .delete('http://localhost:3000/users/logout')
     .then(response => {
       alert(response.data);
       location.reload();
     })
     .catch(error => {
       alert('로그아웃 실패');
-      console.error(error);
     });
 }
 
@@ -138,6 +142,5 @@ function admintransfer() {
     })
     .catch(error => {
       alert('어드민 변환 실패');
-      console.error(error);
     });
 }

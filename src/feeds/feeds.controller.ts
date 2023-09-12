@@ -61,6 +61,7 @@ export class FeedsController {
     file: Express.Multer.File,
     @Req() request: RequestWithLocals,
   ) {
+    console.log('=====일반 피드 컨트롤러 확인====', data);
     const auth = request.locals.user;
     return this.feedsService.createFeed(
       auth.id,

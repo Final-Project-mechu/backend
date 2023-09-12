@@ -317,13 +317,14 @@ ol {
 }
 
 .header__top__right {
-  text-align: right;
+  text-align: center;
   padding: 10px 0 13px;
-  width: 200px;
-  margin: 0 0 auto 320px;
+  width: 300px;
+  margin: 0 0 auto 120px;
 }
 
 .header__top__right__auth {
+  width: 300px;
   display: inline-block;
 }
 
@@ -335,6 +336,11 @@ ol {
 
 .header__top__right__auth a i {
   margin-right: 6px;
+}
+
+.header__top__right__auth a:hover,
+.header__top__right__auth i:hover {
+  color: green;
 }
 
 .header__logo {

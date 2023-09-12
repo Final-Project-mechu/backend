@@ -6,9 +6,12 @@ const storeBtn = document.getElementById('storeBtn');
 const submitButton = document.querySelector('.button[type="submit"]');
 const imageContainer = document.querySelector('.image-container img');
 
-function openKakaopage(data) {
-  // 여기에 카카오 오픈 API 들어가면 됩니다.
-  console.log(data);
+function openKakaopage(keyword) {
+  return () => {
+    const kakaoUrl =
+      'http://localhost:3000/kakaomap-api.html?keyword=' + keyword;
+    window.open(kakaoUrl, '_blank');
+  };
 }
 
 function displayCategoryResponse(response) {
@@ -19,7 +22,7 @@ function displayCategoryResponse(response) {
     resultDiv.innerHTML = `<h2>${response.data}</h2>`;
     storeBtn.style.display = 'block';
     keywordResult = response.data;
-    storeBtn.addEventListener('click', () => openKakaopage(keywordResult));
+    storeBtn.addEventListener('click', openKakaopage(keywordResult));
     isRequestInProgress = false;
     submitButton.disabled = false;
   }, 3000);

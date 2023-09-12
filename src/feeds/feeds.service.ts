@@ -43,12 +43,11 @@ export class FeedsService {
     } else {
       favoriteIdsArry = [favorite_ids];
     }
-    console.log(favoriteIdsArry);
+    const user = { id: user_id };
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      const user = { id: user_id };
       const createdFeed = await this.feedRepository.insert({
         users: user,
         title,
@@ -57,7 +56,6 @@ export class FeedsService {
       });
       const createdFeedId = createdFeed.identifiers[0].id;
       for (const favorite_id of favoriteIdsArry) {
-        console.log('for문 도는중', favorite_id);
         await this.feedFavoriteRepository.insert({
           feed_id: createdFeedId,
           favorite_id: favorite_id,

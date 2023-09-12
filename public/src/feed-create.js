@@ -1,3 +1,6 @@
+/**
+ * 처음 write버튼 클릭 시 로그인 안하면 feed 페이지로 돌려보내는 함수
+ */
 window.onload = function () {
   let cookies = document.cookie;
   if (!cookies.includes('Authentication=Bearer%20')) {
@@ -6,17 +9,22 @@ window.onload = function () {
   }
 };
 
+/**
+ * 취소 버튼 클릭 시 feed 페이지로 돌려보내는 함수
+ */
 const cancelButton = document.getElementById('cancelBtn');
 cancelButton.addEventListener('click', redirectToFeedPage);
 function redirectToFeedPage() {
   window.location.href = 'feed.html';
 }
 
+/**
+ * 담았던 상점보기 클릭 시 열리는 창 정보를 가져오는 함수
+ */
 document
   .getElementById('openNewWindowBtn')
   .addEventListener('click', async function () {
     const userFavorites = await findFavorites();
-    console.log(userFavorites);
     const userDataHtml = userFavorites
       .map(
         item =>
@@ -33,10 +41,13 @@ document
       <button id="selectItemsBtn">선택하기</button>
     `;
 
-    // 두 번째 함수 호출
     handleSelectItems(newWindow);
   });
 
+/**
+ * 새 창에서 선택하기 클릭 시 input에 담기는 함수
+ * @param {*} newWindow
+ */
 function handleSelectItems(newWindow) {
   newWindow.document
     .getElementById('selectItemsBtn')
@@ -51,11 +62,14 @@ function handleSelectItems(newWindow) {
       });
 
       const favoriteidInput = document.getElementById('favoriteid');
-      favoriteidInput.value = selectedItems.join(', '); // 선택한 항목들을 쉼표로 구분하여 인풋 필드에 표시
+      favoriteidInput.value = selectedItems.join(',');
       newWindow.close();
     });
 }
 
+/**
+ * form데이터 방식으로 정보들을 보내는 함수
+ */
 function feedCreate() {
   const titleInput = document.getElementById('feedtitle').value;
   const favorites = document.getElementById('favoriteid').value;
@@ -105,6 +119,10 @@ function feedCreate() {
   }
 }
 
+/**
+ * 유저가 찜한 목록을 전달
+ * @returns 유저가 선택했던 상점들
+ */
 async function findFavorites() {
   const callServer = await axios({
     method: 'get',

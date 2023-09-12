@@ -32,7 +32,7 @@ function verifyEmail() {
     return;
   }
   axios
-    .post('https://togethereat.shop/users/send-code', data)
+    .post('http://localhost:3000/users/send-code', data)
     .then(response => {
       console.log(data);
       alert('인증코드가 이메일로 전송되었습니다.');
@@ -57,7 +57,7 @@ function verifyCode() {
   console.log(data);
 
   axios
-    .post('https://togethereat.shop/users/verify-code', data)
+    .post('http://localhost:3000/users/verify-code', data)
     .then(response => {
       alert('인증 확인');
       codeInput.disabled = true;
@@ -86,13 +86,22 @@ function sign(event) {
     passwordConfirm: $('#signupPasswordConfirm').val(),
   };
   axios
-    .post('https://togethereat.shop/users/sign', data)
+    .post('http://localhost:3000/users/sign', data)
     .then(response => {
       alert(response.data);
       location.reload();
     })
     .catch(error => {
-      alert(error.response.message);
+      // 서버에서 발생한 예외 처리
+      if (error.response) {
+        // 서버가 응답을 보낸 경우
+        const errorMessage = error.response.data.message;
+        alert('회원가입 실패: ' + errorMessage);
+      } else {
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        console.error('네트워크 오류:', error.message);
+        alert('네트워크 오류가 발생했습니다.');
+      }
     });
 }
 
@@ -103,7 +112,7 @@ function login() {
     password: $('#loginPass').val(),
   };
   axios
-    .post('https://togethereat.shop/users/login', data)
+    .post('http://localhost:3000/users/login', data)
     .then(response => {
       console.log(response);
       location.reload();
@@ -119,7 +128,7 @@ function login() {
 // 로그아웃
 function signOut() {
   axios
-    .delete('https://togethereat.shop/users/logout')
+    .delete('http://localhost:3000/users/logout')
     .then(response => {
       alert(response.data);
       location.reload();

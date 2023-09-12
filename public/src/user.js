@@ -32,7 +32,7 @@ function verifyEmail() {
     return;
   }
   axios
-    .post('http://localhost:3000/users/send-code', data)
+    .post('https://togethereat.shop/users/send-code', data)
     .then(response => {
       console.log(data);
       alert('인증코드가 이메일로 전송되었습니다.');
@@ -57,7 +57,7 @@ function verifyCode() {
   console.log(data);
 
   axios
-    .post('http://localhost:3000/users/verify-code', data)
+    .post('https://togethereat.shop/users/verify-code', data)
     .then(response => {
       alert('인증 확인');
       codeInput.disabled = true;
@@ -86,7 +86,7 @@ function sign(event) {
     passwordConfirm: $('#signupPasswordConfirm').val(),
   };
   axios
-    .post('http://localhost:3000/users/sign', data)
+    .post('https://togethereat.shop/users/sign', data)
     .then(response => {
       alert(response.message);
       location.reload();
@@ -103,7 +103,7 @@ function login() {
     password: $('#loginPass').val(),
   };
   axios
-    .post('http://localhost:3000/users/login', data)
+    .post('https://togethereat.shop/users/login', data)
     .then(response => {
       console.log(response);
       location.reload();
@@ -119,7 +119,7 @@ function login() {
 // 로그아웃
 function signOut() {
   axios
-    .delete('http://localhost:3000/users/logout')
+    .delete('https://togethereat.shop/users/logout')
     .then(response => {
       alert(response.data);
       location.reload();

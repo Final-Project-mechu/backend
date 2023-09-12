@@ -77,16 +77,7 @@ export class FoodController {
     );
     return { message: '음식 변경 완료' };
   }
-  //음식삭제
-  @Delete('/:id')
-  async deleteFood(
-    @Req() request: RequestWithLocals,
-    @Param('id') id: number,
-  ) {
-    await this.foodService.deleteFood(id);
-    return { message: '음식 삭제 완료.' };
-  }
-
+ 
   
   /*=================================================================*/
 
@@ -159,5 +150,10 @@ export class FoodController {
     return this.foodService.getFood(id);
   }
 
-
+  //음식삭제
+  @Delete('/:id')
+  async deleteFood(@Req() request: RequestWithLocals, @Param('id') id: number) {
+    await this.foodService.deleteFood(id);
+    return { message: '카테고리 삭제 완료.' };
+  }
 }

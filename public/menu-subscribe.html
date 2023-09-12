@@ -279,19 +279,26 @@
                     <i class="fa fa-user"></i>로그인
                   </a>
                   <a
-                    href="#"
-                    id="logoutClick"
-                    class="logoutClick d-none"
-                    onclick="signOut()"
+                    href="./favoritelist.html"
+                    id="favoriteClick"
+                    class="favoriteClick d-none"
                   >
-                    <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-user"></i>찜목록&nbsp;&nbsp;&nbsp;
                   </a>
                   <a
                     href="./mypage.html"
                     id="mypageClick"
                     class="mypageClick d-none"
                   >
-                    <i class="fa fa-user"></i> 마이페이지
+                    <i class="fa fa-user"></i>마이페이지&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a
+                    href="#"
+                    id="logoutClick"
+                    class="logoutClick d-none"
+                    onclick="signOut()"
+                  >
+                    <i class="fa fa-user"></i>로그아웃&nbsp;&nbsp;&nbsp;
                   </a>
                 </div>
               </div>
@@ -310,13 +317,13 @@
           <div class="col-lg-8" style="max-width: 1000px">
             <nav class="header__menu">
               <ul>
-                <li>
+                <li class="active">
                   <a id="tob-bar" href="./index.html">홈</a>
                 </li>
                 <li>
                   <a id="tob-bar" href="./preference.html">선호도 조사</a>
                 </li>
-                <li class="active">
+                <li>
                   <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
                 </li>
                 <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
@@ -335,7 +342,6 @@
       </div>
     </header>
     <!-- 탑바 끝 -->
-
     <div class="meal-all">
       <h2>메뉴 추천</h2>
   
@@ -363,21 +369,17 @@
           전체
         </button>
       </div>
-
       <div class="filter-buttons">
         <!-- 카테고리 버튼 여기에 나옴! -->
       </div>
-
       <main style="text-align: center">
         <div class="food-item meal">전체가 선택되었습니다.</div>
         <!-- 선택된 카테고리에 따라 메시지가 변경 -->
       </main>
     </div>
-
     <div class="button-container2">
       <button type="submit" class="button">메뉴 추천받기!</button>
     </div>
-
     <!-- "맛집 추천받기!" 버튼에 style 속성을 추가하여 기본적으로 숨깁니다. -->
     <div class="button-container3">
       <button class="button" id="storeBtn" onclick="" style="display: none">
@@ -432,6 +434,7 @@
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
     <script src="./src/dailymenu.js" defer></script>
+    <script src="./src/checkLogin.js"></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

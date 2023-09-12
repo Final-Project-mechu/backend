@@ -12,10 +12,10 @@ export class FoodIngredient {
   @PrimaryColumn()
   @ManyToOne(() => Food, food => food.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'food_id' })
-  food_id: Food;
+  food_id: number;
 
   @PrimaryColumn()
   @ManyToOne(() => Ingredient, ingredient => ingredient.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'ingredient_id' })
-  ingredient_id: Ingredient;
+  ingredient_id: number;
 }

@@ -37,16 +37,17 @@ export class FeedsService {
   ) {
     let favoriteIdsArry: number[];
     const image = await this.s3Service.putObject(file);
+    console.log('서비스 확인', favorite_ids);
     if (typeof favorite_ids === 'string') {
       favoriteIdsArry = favorite_ids.split(',').map(id => parseInt(id));
     } else {
       favoriteIdsArry = [favorite_ids];
     }
+    const user = { id: user_id };
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      const user = { id: user_id };
       const createdFeed = await this.feedRepository.insert({
         users: user,
         title,
@@ -93,7 +94,7 @@ export class FeedsService {
 
   async getFeeds() {
     const allFeeds = await this.feedLikeRepository
-      .query(`select f.title, f.createdAt, f.image, count(fl.feed_id) as likecount 
+      .query(`select f.id, f.title, f.createdAt, f.image, count(fl.feed_id) as likecount 
       from feed f
       left join feed_like fl on f.id = fl.feed_id
       group by f.id

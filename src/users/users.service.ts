@@ -84,6 +84,11 @@ export class UsersService {
     password: string,
     // 회원가입 로직에서 중복이메일을 한번 더 체크
   ) {
+    if (password.length < 6 || password.length > 10) {
+      throw new BadRequestException(
+        '비밀번호는 6자리 이상, 10자리 이하여야 합니다.',
+      );
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const existUser = await this.getUserInfo(email);
     if (!_.isNil(existUser)) {
@@ -113,8 +118,6 @@ export class UsersService {
       nick_name,
     };
 
-    delete isEmailVerified[email];
-
     return newUser;
   }
 
@@ -141,7 +144,7 @@ export class UsersService {
         nick_name: userConfirm.nick_name,
       };
       const accessToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '5s',
+        expiresIn: '30m',
       });
 
       const refreshToken = await this.jwtService.signAsync(payload, {
@@ -150,7 +153,8 @@ export class UsersService {
 
       return { access_Token: accessToken, refresh_Token: refreshToken };
     } catch (error) {
-      throw error;
+      console.error('로그인 에러:', error);
+      return { message: '로그인에 실패했습니다.' };
     }
   }
 

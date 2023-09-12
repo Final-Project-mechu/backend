@@ -117,6 +117,10 @@ ol {
   text-align: center;
 }
 
+.bi-bi-heart-fill {
+  color: red;
+}
+
 .mypage-buttons {
   justify-content: center;
   text-align: center;
@@ -317,13 +321,14 @@ ol {
 }
 
 .header__top__right {
-  text-align: right;
+  text-align: center;
   padding: 10px 0 13px;
-  width: 200px;
-  margin: 0 0 auto 320px;
+  width: 300px;
+  margin: 0 0 auto 120px;
 }
 
 .header__top__right__auth {
+  width: 300px;
   display: inline-block;
 }
 
@@ -335,6 +340,11 @@ ol {
 
 .header__top__right__auth a i {
   margin-right: 6px;
+}
+
+.header__top__right__auth a:hover,
+.header__top__right__auth i:hover {
+  color: green;
 }
 
 .header__logo {
@@ -2230,7 +2240,8 @@ ol {
 }
 
 .blog__item__pic img {
-  min-width: 100%;
+  height: 200px;
+  width: 200px;
 }
 
 .blog__item__text {
@@ -2282,6 +2293,11 @@ ol {
   position: relative;
   top: 1px;
   margin-left: 5px;
+}
+
+.blog__item__text .blog__btn img {
+  max-width: 200px;
+  height: 200px;
 }
 
 .blog__pagination {

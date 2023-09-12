@@ -3,10 +3,27 @@
 <img width="300" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/a923cc2f-4acd-492e-b732-075fd6bf6d8b">
 </p>
 
+## 📑목차
+> 1. 서비스 소개</br>
+> 2. 팀원 소개</br>
+> 3. 핵심 기능</br>
+> 4. Project Architecture</br>
+> 5. Tech Stack</br>
+> 6. Library</br>
+> 7. ERD</br>
+> 8. API</br>
+
+<br>
+<br>
+<br>
+
 ## ✍🏻 서비스 소개
 
 이 프로젝트는 Nest.js, MySQL, TypeORM을 활용하여 개인의 선호도를 반영한 음식점 추천 서비스를 구현하는 것을 목표로 합니다. <br>
 사용자의 선호도와 평가를 기반으로, 맞춤형 음식점을 랜덤으로 추천하여 사용자에게 다양하고 개인화된 음식점 경험을 제공합니다.
+
+<br>
+<br>
 
 ## ⛅️ 팀원 소개
 
@@ -16,6 +33,8 @@
   - 최하영([https://github.com/rammakasty](https://github.com/rammakasty))
   - 함형진([https://github.com/HyungJin0114](https://github.com/HyungJin0114))
 
+<br>
+<br>
     
 ## 🌿 핵심 기능 <br>
 <br>
@@ -77,5 +96,5 @@
 <img width="1000" height="600" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/a19cf5d4-d6e7-45d5-81c1-7787fe64be52">
 </p>
 
-  - api
+## 📋 API
 # [api](https://2team.gitbook.io/jumechu/)

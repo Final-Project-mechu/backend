@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 쿠키값 확인하여 버튼 상태 설정
   function checkLoginStatus() {
     let cookies = document.cookie;
-    if (cookies.includes('Authentication=Bearer%20')) {
+    if (cookies.includes('AccessToken=Bearer%20')) {
       loginButton.classList.add('d-none');
       signupButton.classList.add('d-none');
       logoutButton.classList.remove('d-none');
@@ -32,7 +32,7 @@ function verifyEmail() {
     return;
   }
   axios
-    .post('http://localhost:3000/users/send-code', data)
+    .post('https://togethereat.shop/users/send-code', data)
     .then(response => {
       console.log(data);
       alert('인증코드가 이메일로 전송되었습니다.');
@@ -57,7 +57,7 @@ function verifyCode() {
   console.log(data);
 
   axios
-    .post('http://localhost:3000/users/verify-code', data)
+    .post('https://togethereat.shop/users/verify-code', data)
     .then(response => {
       alert('인증 확인');
       codeInput.disabled = true;
@@ -86,7 +86,7 @@ function sign(event) {
     passwordConfirm: $('#signupPasswordConfirm').val(),
   };
   axios
-    .post('http://localhost:3000/users/sign', data)
+    .post('https://togethereat.shop/users/sign', data)
     .then(response => {
       alert(response.message);
       // 회원가입 되면 바로 선호도조사 페이지로 이동
@@ -104,7 +104,7 @@ function login() {
     password: $('#loginPass').val(),
   };
   axios
-    .post('http://localhost:3000/users/login', data)
+    .post('https://togethereat.shop/users/login', data)
     .then(response => {
       // 로그인하면 바로 메뉴추천 페이지로 이동
       location.href ='http://localhost:3000/menu-subscribe.html';
@@ -117,7 +117,7 @@ function login() {
 // 로그아웃
 function signOut() {
   axios
-    .delete('http://localhost:3000/users/logout')
+    .delete('https://togethereat.shop/users/logout')
     .then(response => {
       alert(response.data);
       location.reload();

@@ -94,10 +94,18 @@ function sign(event) {
       location.href = 'http://localhost:3000/preference.html';
     })
     .catch(error => {
-      alert(error.response.message);
+      // 서버에서 발생한 예외 처리
+      if (error.response) {
+        // 서버가 응답을 보낸 경우
+        const errorMessage = error.response.data.message;
+        alert('회원가입 실패: ' + errorMessage);
+      } else {
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        console.error('네트워크 오류:', error.message);
+        alert('네트워크 오류가 발생했습니다.');
+      }
     });
 }
-
 // 로그인
 function login() {
   const data = {
@@ -111,11 +119,19 @@ function login() {
       alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
       location.href = 'http://localhost:3000/menu-subscribe.html';
     })
-    .catch(err => {
-      alert(err.response.data.message);
+    .catch(error => {
+      // 서버에서 발생한 예외 처리
+      if (error.response) {
+        // 서버가 응답을 보낸 경우
+        const errorMessage = error.response.data.message;
+        alert('로그인 실패: ' + errorMessage);
+      } else {
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        console.error('네트워크 오류:', error.message);
+        alert('네트워크 오류가 발생했습니다.');
+      }
     });
 }
-
 // 로그아웃
 function signOut() {
   axios
@@ -125,19 +141,29 @@ function signOut() {
       location.reload();
     })
     .catch(error => {
-      alert('로그아웃 실패');
+      // 서버에서 발생한 예외 처리
+      if (error.response) {
+        // 서버가 응답을 보낸 경우
+        const errorMessage = error.response.data.message;
+        alert('로그아웃 실패: ' + errorMessage);
+      } else {
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        console.error('네트워크 오류:', error.message);
+        alert('네트워크 오류가 발생했습니다.');
+      }
     });
 }
 
-//어드민 변환
-function admintransfer() {
-  axios
-    .post('http://localhost:3000/users/admin')
-    .then(response => {
-      alert('어드민 변환 완료');
-      location.reload();
-    })
-    .catch(error => {
-      alert('어드민 변환 실패');
-    });
-}
+// //어드민 변환
+// function admintransfer() {
+//   axios
+//     .post('https://togethereat.shop/users/admin')
+//     .then(response => {
+//       alert('어드민 변환 완료');
+//       location.reload();
+//     })
+//     .catch(error => {
+//       alert('어드민 변환 실패');
+//       console.error(error);
+//     });
+// }

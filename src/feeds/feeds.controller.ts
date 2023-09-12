@@ -42,7 +42,6 @@ export class FeedsController {
     @Req() request: RequestWithLocals,
   ) {
     const auth = request.locals.user;
-    console.log('컨트롤러 확인', data);
     return this.feedsService.createFavoriteFeed(
       auth.id,
       favorite_ids,
@@ -61,7 +60,6 @@ export class FeedsController {
     file: Express.Multer.File,
     @Req() request: RequestWithLocals,
   ) {
-    console.log('=====일반 피드 컨트롤러 확인====', data);
     const auth = request.locals.user;
     return this.feedsService.createFeed(
       auth.id,

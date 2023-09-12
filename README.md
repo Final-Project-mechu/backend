@@ -28,17 +28,13 @@
   <br>
     - 선호도 조사와 유저의 음식 선택 가중치를 적용된 수치가 확률로 환산되어 음식이 추천되게 됩니다. (카카오맵 API 사용) <br>
   <br>
-  <br>
 
-      🌭 
-  <br>
-    - 선호도 조사와 유저의 음식 선택 가중치를 적용된 수치가 확률로 환산되어 음식이 추천되게 됩니다. (카카오맵 API 사용) <br><br>
 
 
 ## ❄️ Project Architecture
 
 <p align="center">
-<img width="1500" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/bba06c9b-aee5-4a20-8715-a0b312467ccc">
+<img width="1500" height="600 alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/bba06c9b-aee5-4a20-8715-a0b312467ccc">
 </p>
 
 
@@ -78,7 +74,7 @@
 ## 📋 ERD
 ### [erd](https://www.erdcloud.com/d/NCvcJMym5hyi5PSAS)
 <p align="center">
-<img width="1000" height="1000" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/356e9117-6029-418f-9bb7-20cbbcbb07e5">
+<img width="1000" height="600" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/a19cf5d4-d6e7-45d5-81c1-7787fe64be52">
 </p>
 
   - api

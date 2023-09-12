@@ -68,11 +68,9 @@ export class UsersController {
       data.nick_name,
       data.password,
     );
-    const authentication = await this.userService.login(
-      data.email,
-      data.password,
-    );
-    response.cookie('AccessToken', 'Bearer ' + authentication.access_Token);
+
+    response.cookie('AccessToken', 'Bearer ' + newUser.access_Token);
+    response.cookie('RefreshToken', 'Bearer ' + newUser.refresh_Token);
     return response.status(201).send('회원가입 완료');
   }
 

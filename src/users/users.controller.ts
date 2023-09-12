@@ -61,7 +61,7 @@ export class UsersController {
 
   // 회원가입
   @Post('/sign')
-  async createUser(@Body() data, @Res() response) {
+  async createUser(@Body() data: CreateUserDto, @Res() response) {
     const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,

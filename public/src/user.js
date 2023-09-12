@@ -34,9 +34,8 @@ function verifyEmail() {
     return;
   }
   axios
-    .post('https://togethereat.shop/users/send-code', data)
+    .post('http://localhost:3000/users/send-code', data)
     .then(response => {
-      console.log(data);
       alert('인증코드가 이메일로 전송되었습니다.');
       emailInput.disabled = true;
       emailButton.disabled = true;
@@ -56,10 +55,8 @@ function verifyCode() {
     email: verifyingEmail,
     code: $('#codeInput').val(),
   };
-  console.log(data);
-
   axios
-    .post('https://togethereat.shop/users/verify-code', data)
+    .post('http://localhost:3000/users/verify-code', data)
     .then(response => {
       alert('인증 확인');
       codeInput.disabled = true;
@@ -88,7 +85,7 @@ function sign(event) {
     passwordConfirm: $('#signupPasswordConfirm').val(),
   };
   axios
-    .post('https://togethereat.shop/users/sign', data)
+    .post('http://localhost:3000/users/sign', data)
     .then(response => {
       alert(
         '회원가입을 축하합니다! 고객님의 취향을 저격하기 위해 선호도 조사 페이지로 이동합니다!',

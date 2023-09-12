@@ -264,19 +264,26 @@
                   <i class="fa fa-user"></i>로그인
                 </a>
                 <a
-                  href="#"
-                  id="logoutClick"
-                  class="logoutClick d-none"
-                  onclick="signOut()"
+                  href="./favoritelist.html"
+                  id="favoriteClick"
+                  class="favoriteClick d-none"
                 >
-                  <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-user"></i>찜목록&nbsp;&nbsp;&nbsp;
                 </a>
                 <a
                   href="./mypage.html"
                   id="mypageClick"
                   class="mypageClick d-none"
                 >
-                  <i class="fa fa-user"></i> 마이페이지
+                  <i class="fa fa-user"></i>마이페이지&nbsp;&nbsp;&nbsp;
+                </a>
+                <a
+                  href="#"
+                  id="logoutClick"
+                  class="logoutClick d-none"
+                  onclick="signOut()"
+                >
+                  <i class="fa fa-user"></i>로그아웃&nbsp;&nbsp;&nbsp;
                 </a>
               </div>
             </div>
@@ -284,45 +291,46 @@
         </div>
       </div>
     </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3">
-            <div class="header__logo">
-              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+    <div class="container">
+      <div class="top-row d-flex justify-content-between align-items-center">
+        <div class="col-lg-3" style="max-width: 150px">
+          <div class="header__logo">
+            <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+          </div>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu"></nav>
+        <div class="col-lg-8" style="max-width: 1000px">
+          <nav class="header__menu">
+            <ul>
+              <li class="active">
+                <a id="tob-bar" href="./index.html">홈</a>
+              </li>
+              <li>
+                <a id="tob-bar" href="./preference.html">선호도 조사</a>
+              </li>
+              <li>
+                <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
+              </li>
+              <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
+              <li><a id="tob-bar" href="./feed.html">피드</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-lg-3" style="max-width: 200px; text-align: center">
+          <div class="header__cart">
+            <div class="header__cart__price">
+              오늘의 메뉴: <span>차돌짬뽕</span>
             </div>
           </div>
-          <div class="col-lg-6">
-            <nav class="header__menu">
-              <ul>
-                <li>
-                  <a id="tob-bar" href="./index.html">홈</a>
-                </li>
-                <li>
-                  <a id="tob-bar" href="./preference.html">선호도 조사</a>
-                </li>
-                <li>
-                  <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
-                </li>
-                <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
-                <li><a id="tob-bar" href="./feed.html">피드</a></li>
-              </ul>
-            </nav>
-          </div>
-          <div class="col-lg-3">
-
-          </div>
-        </div>
-        <div class="humberger__open">
-          <i class="fa fa-bars"></i>
         </div>
       </div>
- 
-    <!-- Header Section End -->
+    </div>
+  </header>
+  <!-- 탑바 끝 -->
+  <!-- Main Content -->
 
-<!-- Main Content -->
-
-<h2 class="favorite-name display-4 mt-5">고객님의 찜목록</h2>
-<div class="content-wrapper mt-5"> 
+  <h2 class="favorite-name display-4 mt-5">고객님의 찜목록</h2>
+  <div class="content-wrapper mt-5"> 
   <div class="restaurant mb-4">
     <!-- 체크 박스 추가 -->
     <input type="checkbox" class="restaurant-checkbox">
@@ -398,7 +406,8 @@
     </footer>
     <!-- Footer Section End -->
 
-    <script src="./src/mypage.js"></script>
+    <!-- 적용하려는 script 파일 -->
+    <script src="./src/user.js" defer></script>
     <script src="./src/dailymenu.js" defer></script>
 
     <!-- Js Plugins -->

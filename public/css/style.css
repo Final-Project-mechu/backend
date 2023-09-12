@@ -117,6 +117,10 @@ ol {
   text-align: center;
 }
 
+.bi-bi-heart-fill {
+  color: red;
+}
+
 .mypage-buttons {
   justify-content: center;
   text-align: center;

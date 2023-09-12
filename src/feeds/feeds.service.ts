@@ -94,7 +94,7 @@ export class FeedsService {
 
   async getFeeds() {
     const allFeeds = await this.feedLikeRepository
-      .query(`select f.title, f.createdAt, f.image, count(fl.feed_id) as likecount 
+      .query(`select f.id, f.title, f.createdAt, f.image, count(fl.feed_id) as likecount 
       from feed f
       left join feed_like fl on f.id = fl.feed_id
       group by f.id

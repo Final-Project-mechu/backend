@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserAction } from 'src/entity/user.action';
+import { UserAction } from 'src/entity/user.action.entity';
 import { Food } from 'src/entity/food.entity';
 import { Ingredient } from 'src/entity/ingredient.entity';
 import { CreateFavoriteDto } from './dto/create.users.actions.dto';

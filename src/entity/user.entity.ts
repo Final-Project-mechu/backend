@@ -13,7 +13,7 @@ import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
 import { Favorite } from './favorite.entity';
 import { FoodUserWeight } from './food.user.weight.entity';
-import { UserAction } from './user.action';
+import { UserAction } from './user.action.entity';
 import { FeedLike } from './feed.like.entity';
 import { Friends } from './friend.entity';
 

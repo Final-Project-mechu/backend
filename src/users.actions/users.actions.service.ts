@@ -200,31 +200,36 @@ export class UsersActionsService {
       foodName,
       'food_name',
     );
-
-    // 날짜의 시작과 끝 지정
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
 
-    // 해당 유저가 오늘 해당 음식에 대해 'like' 액션을 수행했는지 확인
-    const existingLike = await this.userActionRepo.findOne({
-      where: {
-        user_id: userId,
-        food_id: foodId,
-        action: 'like',
-        createdAt: Between(startOfDay, endOfDay),
-      },
-    });
+    const existingLike = await this.foodRepo
+      .createQueryBuilder('f')
+      .select('DISTINCT f.food_name', 'foodName')
+      .addSelect('ua.food_id', 'foodId')
+      .addSelect('ua.user_id', 'userId')
+      .innerJoin(
+        'user_action',
+        'ua',
+        'ua.food_id = f.id AND ua.food_id = :foodId',
+        { foodId },
+      )
+      .where('ua.action LIKE :action', { action: 'like' })
+      .andWhere('ua.user_id = :userId', { userId })
+      .andWhere('ua.createdAt BETWEEN :startOfDay AND :endOfDay', {
+        startOfDay,
+        endOfDay,
+      })
+      .getRawOne();
 
-    // 이미 좋아요를 눌렀다면 메시지를 발생
-    if (existingLike) {
+    if (existingLike && existingLike.foodId === foodId) {
       throw new BadRequestException(
-        '하루에 한 번만 좋아요를 누를 수 있습니다.',
+        `${foodName}은(는) 하루에 한 번만 좋아요를 누를 수 있습니다.`,
       );
     }
 
-    // 좋아요가 눌린 내역이 없다면 'like' 액션을 인서트
     return this.insertUserAction(
       userId,
       foodId,
@@ -233,6 +238,7 @@ export class UsersActionsService {
       'food_id',
     );
   }
+
   // 제외 음식 추가
   async excludeFood(foodName: string, userId: number): Promise<any> {
     const foodId = await this.getEntityIdByName(

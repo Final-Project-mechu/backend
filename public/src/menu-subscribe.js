@@ -15,6 +15,23 @@ function openKakaopage(data) {
 const emptyHeartIcon = document.querySelector('.far.fa-heart');
 const filledHeartIcon = document.querySelector('.fas.fa-heart');
 
+function likeFood() {
+  const foodName = resultDiv.textContent.trim();
+  console.log("foodName:", foodName);
+  
+  axios.post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .then(response => {
+      emptyHeartIcon.style.display = 'none';
+      filledHeartIcon.style.display = 'inline-block';
+    })
+    .catch(error => {
+      if (error.response && error.response.data.message) {
+          alert(error.response.data.message);
+      } else {
+          alert('요청 중 오류가 발생했습니다.');
+      }
+    });
+}
 // 빈 하트 아이콘 클릭 이벤트
 emptyHeartIcon.addEventListener('click', function() {
     this.style.display = 'none';
@@ -37,6 +54,50 @@ function displayCategoryResponse(response) {
       submitButton.disabled = false;
   }, 3000);
 }
+
+const resultDiv = document.getElementById('result3'); // resultDiv 변수 선언 추가
+
+// 빈 하트 아이콘 클릭 이벤트
+emptyHeartIcon.addEventListener('click', function() {
+  const foodName = resultDiv.textContent.trim();
+  console.log("foodName:", foodName);
+  
+  axios.post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .then(response => {
+      // 성공적으로 요청이 완료되면 꽉 찬 하트로 변경합니다.
+      emptyHeartIcon.style.display = 'none';
+      filledHeartIcon.style.display = 'inline-block';
+    })
+    .catch(error => {
+      // 오류가 발생하면 오류 메시지를 표시합니다.
+      if (error.response && error.response.data.message) {
+          alert(error.response.data.message);
+      } else {
+          alert('요청 중 오류가 발생했습니다.');
+      }
+    });
+});
+
+// 꽉 찬 하트 아이콘 클릭 이벤트
+filledHeartIcon.addEventListener('click', function() {
+  const foodName = resultDiv.textContent.trim();
+  console.log("foodName:", foodName);
+  
+  axios.post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .then(response => {
+      // 성공적으로 요청이 완료되면 빈 하트로 변경합니다.
+      filledHeartIcon.style.display = 'none';
+      emptyHeartIcon.style.display = 'inline-block';
+    })
+    .catch(error => {
+      // 오류가 발생하면 오류 메시지를 표시합니다.
+      if (error.response && error.response.data.message) {
+          alert(error.response.data.message);
+      } else {
+          alert('요청 중 오류가 발생했습니다.');
+      }
+    });
+});
 
 function sendRequest(categoryId) {
   console.log('Sending request for category:', categoryId);
@@ -103,4 +164,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-

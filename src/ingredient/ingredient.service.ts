@@ -17,6 +17,7 @@ export class IngredientService {
     private ingredientReository: Repository<Ingredient>,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
+  
   //재료 생성
   async createIngredient(user_id: number, ingredient_name: string) {
     const confirmAdmin = await this.userRepository.findOne({

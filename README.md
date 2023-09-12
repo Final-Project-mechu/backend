@@ -1,6 +1,6 @@
-# 🍖프로젝트 로고
+# 🍖 Together eat!
 <p align="center">
-<img width="600" alt="image" src="https://github.com/rammakasty/readmy/assets/25074165/87cb2d43-9f69-4892-973d-d6636c95c1f9">
+<img width="300" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/a923cc2f-4acd-492e-b732-075fd6bf6d8b">
 </p>
 
 ## ✍🏻 서비스 소개
@@ -18,15 +18,27 @@
 
     
 ## 🌿 핵심 기능 <br>
+<br>
   <summary>🍕 음식 랜덤 뽑기</summary>
   <br>
-    - 선호도 조사와 사용자의 음식 선택 가중치를 적용된 수치가 확률로 환산되어 음식이 추천되게 됩니다. <br>
+    - 선호도 조사와 유저의 메뉴추첨, 찜하기 등의 활동을 통해 가중치가 데이터에 반영됩니다.  <br>
+  <br>
+  <br>
+      <summary>🌭 사용자 위치기반 맛집 추천 </summary>
+  <br>
+    - 선호도 조사와 유저의 음식 선택 가중치를 적용된 수치가 확률로 환산되어 음식이 추천되게 됩니다. (카카오맵 API 사용) <br>
+  <br>
+  <br>
+
+      🌭 
+  <br>
+    - 선호도 조사와 유저의 음식 선택 가중치를 적용된 수치가 확률로 환산되어 음식이 추천되게 됩니다. (카카오맵 API 사용) <br><br>
 
 
 ## ❄️ Project Architecture
 
 <p align="center">
-<img width="766" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/0a8255b5-1a88-411c-83df-a88f2705dde6">
+<img width="1500" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/bba06c9b-aee5-4a20-8715-a0b312467ccc">
 </p>
 
 
@@ -34,9 +46,12 @@
 
 - Nest.js
 - MySQL
+- RDS
 - EC2
-- Nginx
 - S3
+- Route 53
+- Certificate Manager
+- Load Balancer
 - https
 
 
@@ -54,15 +69,17 @@
 |       mysql2        |           Node.js에서 MySQL을 사용하기 위해 사용.           |          |
 |       multer        |                         파일 업로드                         |
 |      multer-s3      |                      S3에 파일 업로드                       |
-|       Nodemailer    |        이메일 인증번호를 통한 확인 모듈                     |
+|      Nodemailer     |        이메일 인증번호를 통한 확인 모듈                     |
+|      Typeorm        |     TypeScript와 JavaScript를 위한 데이터베이스 ORM        |
+|      Nodemailer     |        이메일 인증번호를 통한 확인 모듈                     |
 
 
 
 ## 📋 ERD
 ### [erd](https://www.erdcloud.com/d/NCvcJMym5hyi5PSAS)
 <p align="center">
-<img width="1000" alt="image" src="https://github.com/rammakasty/readmy/assets/25074165/0aead7f6-1191-47b4-913e-d323ea99c740">
+<img width="1000" height="1000" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/356e9117-6029-418f-9bb7-20cbbcbb07e5">
 </p>
 
   - api
-# [api](https://app.gitbook.com/o/3ZIunUQ2WiZIp9gGAoWE/s/Kqw3yoEod59gXOBkMex4/)
+# [api](https://2team.gitbook.io/jumechu/)

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 쿠키값 확인하여 버튼 상태 설정
   function checkLoginStatus() {
     let cookies = document.cookie;
-    if (cookies.includes('Authentication=Bearer%20')) {
+    if (cookies.includes('AccessToken=Bearer%20')) {
       loginButton.classList.add('d-none');
       signupButton.classList.add('d-none');
       logoutButton.classList.remove('d-none');
@@ -88,7 +88,7 @@ function sign(event) {
   axios
     .post('https://togethereat.shop/users/sign', data)
     .then(response => {
-      alert(response.message);
+      alert(response.data);
       location.reload();
     })
     .catch(error => {

@@ -94,10 +94,10 @@ export class UsersService {
 
     // 지금 테스트때문에 막아놨음
     // 이메일이 인증된 이메일인지 확인한다.
-    // if (!isEmailVerified['email'] === true) {
-    //   console.log('이메일확인용 콘솔', isEmailVerified);
-    //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
-    // }
+    if (!isEmailVerified['email'] === true) {
+      console.log('이메일확인용 콘솔', isEmailVerified);
+      throw new ConflictException(`인증된 이메일이 아닙니다.`);
+    }
 
     const insertResult = await this.userRepository.insert({
       is_admin,
@@ -112,8 +112,6 @@ export class UsersService {
       email,
       nick_name,
     };
-
-    delete isEmailVerified[email];
 
     return newUser;
   }
@@ -141,7 +139,7 @@ export class UsersService {
         nick_name: userConfirm.nick_name,
       };
       const accessToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '5s',
+        expiresIn: '1d',
       });
 
       const refreshToken = await this.jwtService.signAsync(payload, {

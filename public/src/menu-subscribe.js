@@ -11,17 +11,30 @@ function openKakaopage(data) {
   console.log(data);
 }
 
+// 하트 아이콘
+const emptyHeartIcon = document.querySelector('.far.fa-heart');
+const filledHeartIcon = document.querySelector('.fas.fa-heart');
+
+// 빈 하트 아이콘 클릭 이벤트
+emptyHeartIcon.addEventListener('click', function() {
+    this.style.display = 'none';
+    filledHeartIcon.style.display = 'inline-block';
+});
+
 function displayCategoryResponse(response) {
   setTimeout(() => {
-    document.querySelector('.food-item.meal').textContent =
-      response.data.message;
-    const resultDiv = document.getElementById('result3');
-    resultDiv.innerHTML = `<h2>${response.data}</h2>`;
-    storeBtn.style.display = 'block';
-    keywordResult = response.data;
-    storeBtn.addEventListener('click', () => openKakaopage(keywordResult));
-    isRequestInProgress = false;
-    submitButton.disabled = false;
+      const resultDiv = document.getElementById('result3');
+      resultDiv.innerHTML = `<h2>${response.data}</h2>`;
+      
+      // 빈 하트로 초기화하고 표시
+      emptyHeartIcon.style.display = 'inline-block';
+      filledHeartIcon.style.display = 'none';
+
+      storeBtn.style.display = 'block';
+      keywordResult = response.data;
+      storeBtn.addEventListener('click', () => openKakaopage(keywordResult));
+      isRequestInProgress = false;
+      submitButton.disabled = false;
   }, 3000);
 }
 
@@ -90,3 +103,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+

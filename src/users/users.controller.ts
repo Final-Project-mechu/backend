@@ -61,14 +61,19 @@ export class UsersController {
 
   // 회원가입
   @Post('/sign')
-  async createUser(@Body() data) {
+  async createUser(@Body() data, @Res() response) {
     const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,
       data.nick_name,
       data.password,
     );
-    return { message: '회원가입이 완료되었습니다.' };
+    const authentication = await this.userService.login(
+      data.email,
+      data.password,
+    );
+    response.cookie('AccessToken', 'Bearer ' + authentication.access_Token);
+    return response.status(201).send('회원가입 완료');
   }
 
   //로그인
@@ -81,16 +86,16 @@ export class UsersController {
       data.email,
       data.password,
     );
-    response.cookie('Authentication', 'Bearer ' + authentication.access_Token);
-    response.cookie('Authentication', 'Bearer ' + authentication.refresh_Token);
+    response.cookie('RefreshToken', 'Bearer ' + authentication.refresh_Token);
 
-    return { message: authentication };
+    return response.status(200).send('로그인 완료');
   }
 
   //로그아웃 기능 구현중
   @Delete('/logout')
   async signout(@Res() response: Response) {
-    response.clearCookie('Authentication');
+    response.clearCookie('AccessToken');
+    response.clearCookie('RefreshToken');
     return response.status(200).send('signed out successfully');
   }
 

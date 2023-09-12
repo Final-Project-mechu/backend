@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="korea">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Ogani Template" />
@@ -25,109 +25,149 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/modaltest.css" type="text/css">
-    <!-- axios 적용을 위한 script -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- 부트스트랩 JavaScript 파일 추가 (jQuery와 Popper.js를 포함) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+ 
+
   </head>
 
   <body>
-      <!-- Page Preloder -->
-      <div id="preloder">
-        <div class="loader"></div>
-      </div>
-          <!-- 가입 모달 -->
-    <div
-    class="modal fade"
-    id="signModal"
-    tabindex="-1"
-    aria-labelledby="signModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
-          <button
-            type="button"
-            class="signbutton"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ><span aria-hidden="true">X</span>
-        </button>
-        </div>
-        <div class="modal-body">
-          <form class="sign-wrap">
-            <div class="row mb-3">
-              <div class="col">
-                <input type="email"
-                       class="modal-input"
-                       placeholder="이메일 주소"
-                       required>
-              </div>
-              <div class="col-auto">
-                <button class="signbutton btn-block" id="verifyEmailBtn" type="button">
-                  발송
-                </button>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="인증 번호"
-                       class="modal-input"
-                       placeholder="인증 코드"
-                       required>
-              </div>
-              <div class="col-auto">
-                <button class="signbutton" id="verifyEmailBtn" type="button">
-                  확인
-                </button>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="인증 번호"
-                       class="modal-input"
-                       placeholder="비밀번호"
-                       required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="인증 번호"
-                       class="modal-input"
-                       placeholder="비밀번호 확인"
-                       required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="code"
-                       class="modal-input"
-                       placeholder="닉네임"
-                       required>
-              </div>
-            </div>
-            <div
-              class="alert alert-danger"
-              id="loginError"
-              style="display: none"
-            ></div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="signbutton"
-            data-bs-toggle="modal"
-            data-bs-target="#signupModal"
-          >
-            회원 가입
-          </button>
-        </div>
-      </div>
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
     </div>
+    <!-- Header Section Begin -->
+    <!-- 가입 모달 -->
+    <div
+      class="modal fade"
+      id="signModal"
+      tabindex="-1"
+      aria-labelledby="signModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">X</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="sign-wrap">
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    id="admin"
+                    class="modal-input"
+                    placeholder="일반회원=0, 관리자=1"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    id="signupEmail"
+                    type="email"
+                    class="modal-input"
+                    placeholder="이메일 주소"
+                    required
+                  />
+                </div>
+                <div class="col-auto">
+                  <button
+                    class="signbutton btn-block"
+                    id="signupEmailBtn"
+                    type="button"
+                    onclick="verifyEmail()"
+                  >
+                    발송
+                  </button>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="인증 번호"
+                    id="codeInput"
+                    class="modal-input"
+                    placeholder="인증 코드"
+                    required
+                  />
+                </div>
+                <div class="col-auto">
+                  <button
+                    class="signbutton"
+                    id="codeInputButton"
+                    type="button"
+                    onclick="verifyCode()"
+                  >
+                    확인
+                  </button>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="password"
+                    class="modal-input"
+                    placeholder="비밀번호"
+                    id="signupPassword"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="password"
+                    class="modal-input"
+                    id="signupPasswordConfirm"
+                    placeholder="비밀번호 확인"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="code"
+                    class="modal-input"
+                    placeholder="닉네임"
+                    id="signupNickname"
+                    required
+                  />
+                </div>
+              </div>
+              <div
+                class="alert alert-danger"
+                id="loginError"
+                style="display: none"
+              ></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="signButton" onclick="sign(event)">회원 가입</button>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- 가입 모달 끝 -->
     <!-- 로그인 모달 시작 -->
@@ -145,29 +185,36 @@
           <div class="modal-header">
             <h5 class="modal-title" id="loginModalLabel">LOGIN</h5>
             <button
-            type="button"
-            class="signbutton"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ><span aria-hidden="true">X</span>
-        </button>
+              type="button"
+              class="signbutton"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">X</span>
+            </button>
           </div>
           <div class="modal-body">
             <form class="login-wrap">
               <div class="row mb-3">
                 <div class="col">
-                  <input type="code"
-                         class="modal-input"
-                         placeholder="이메일"
-                         required>
+                  <input
+                    type="code"
+                    id="loginEmail"
+                    class="modal-input"
+                    placeholder="이메일"
+                    required
+                  />
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col">
-                  <input type="code"
-                         class="modal-input"
-                         placeholder="비밀번호"
-                         required>
+                  <input
+                    type="password"
+                    id="loginPass"
+                    class="modal-input"
+                    placeholder="비밀번호"
+                    required
+                  />
                 </div>
               </div>
               <div
@@ -181,8 +228,8 @@
             <button
               type="button"
               class="signbutton"
-              data-bs-toggle="modal"
-              data-bs-target="#signupModal"
+              id="loginButton"
+              onclick="login()"
             >
               로그인
             </button>
@@ -198,23 +245,43 @@
           <div class="row">
             <div class="col-lg-6 col-md-6">
               <div class="header__top__left">
-                <ul>
-                </ul>
+                <ul></ul>
               </div>
             </div>
             <div class="col-lg-6 col-md-6">
               <div class="header__top__right">
                 <div class="header__top__right__auth d-flex">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#signModal" id="signClick" class="signClick">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#signModal"
+                    id="signClick"
+                    class="signClick"
+                  >
                     <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
                   </a>
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginClick" class="loginClick">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    id="loginClick"
+                    class="loginClick"
+                  >
                     <i class="fa fa-user"></i>로그인
                   </a>
-                  <a href="#" id="logoutClick" class="logoutClick d-none">
+                  <a
+                    href="#"
+                    id="logoutClick"
+                    class="logoutClick d-none"
+                    onclick="signOut()"
+                  >
                     <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
                   </a>
-                  <a href="./mypage.html" id="mypageClick" class="mypageClick d-none">
+                  <a
+                    href="./mypage.html"
+                    id="mypageClick"
+                    class="mypageClick d-none"
+                  >
                     <i class="fa fa-user"></i> 마이페이지
                   </a>
                 </div>
@@ -233,13 +300,19 @@
             <nav class="humberger__menu__nav mobile-menu"></nav>
             <div class="col-lg-8" style="max-width: 1000px;">
                 <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="./index.html">홈</a></li>
-                        <li><a href="./preference.html">선호도</a></li>
-                        <li><a href="./foodlist.html">메뉴판</a></li>
-                        <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
-                        <li><a href="./feed.html">피드</a></li>
-                    </ul>
+                  <ul>
+                    <li>
+                      <a id="tob-bar" href="./index.html">홈</a>
+                    </li>
+                    <li>
+                      <a id="tob-bar" href="./preference.html">선호도 조사</a>
+                    </li>
+                    <li>
+                      <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
+                    </li>
+                    <li class="active"><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
+                    <li><a id="tob-bar" href="./feed.html">피드</a></li>
+                  </ul>
                 </nav>
             </div>
             <div class="col-lg-3" style="max-width: 200px; text-align: center;">
@@ -258,15 +331,22 @@
         <div class="container">
   
         </div>
-    </section>
-    <!-- Hero Section End -->    
-    <section class="product spad">
+      </section>
+      <!-- Hero Section End -->
+  
+  
+  
+      <!-- 변경해야할 부분 -->
+        <section class="product spad">
+          
           <div>
             <div class="dropdown">
+              <!--
               <select>
                 <option value="식사">식사</option>
                 <option value="디저트">디저트</option>
               </select>
+              -->
             </div>
             <form action="#" style="text-align: center">
               
@@ -286,135 +366,17 @@
                           <div class="featured__controls">
                             <ul>
                               <li class="active" data-filter="*">All</li>
-                              <li data-filter=".meal">식사</li>
-                              <li data-filter=".dessert">디저트</li>
+                              <div class="active" id="category-container"></id>
                           </ul>
-                          <ul>
-                            <li data-filter=".meal">식사</li>
-                            <li data-filter=".korea">한식</li>
-                            <li data-filter=".chinese">중식</li>
-                            <li data-filter=".Western">양식</li> 
-                            <li data-filter=".japan">일식</li>
-                            <li data-filter=".Indian">인도식</li>
-                        </ul>
                           </div>
                       </div>
                   </div>
-                  <div class="row featured__filter">
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix chinese meal">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MThfMTMx%2FMDAxNjg5Njc0NTg2MDEw.WPcAkQjFFaUZBvq49aVwv8FgDKOurIRkqv52hVmH-HMg.ekmPPlVUAA9_JGjpY-F1jlvtR3Mfg2V1hP_V_RNZEcUg.JPEG.techmass3%2F20230718_120811.jpg&type=a340">
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플1</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix korea meal">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA0MDVfMTU3%2FMDAxNjgwNjIxNjU0NDMz.JvMF6qvzOvrflCv0sjZCsG01OgZDP4RqwwBW1BXLXuMg.l1ygJPN0u7yVq7WlnTkjYfgY3grcouohZkWxA9hm25gg.JPEG.congsarang1%2FIMG_0853.JPG&type=a340">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플2</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix Western meal">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fshop1.phinf.naver.net%2F20221214_171%2F16709924755527L2Yi_JPEG%2F72128318180512400_2043325730.jpg&type=sc960_832">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플3</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjFfMTgg%2FMDAxNjg3MzU1ODgzNTg2.6Yeun19uKu9C-jAjCIn-tZMxg41gn2idTDEeSvxG7ZAg.JFm8SVYZ787lqv0Q8Z2hnBeOmwDABB0lpOvQzVcbbJUg.JPEG.prspring%2FIMG_3329.JPG&type=sc960_832">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플4</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix chinese">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MzBfMTY0%2FMDAxNjg4MTMzNzQzMDAy.YxVza0lZ_-yrWXduko0eYZU0fVElnUn-csFOt6L0dJsg.RBqHdjrrDQB6eqZnms0218Eq6Kuov-i2_I7c5mqO8kQg.JPEG.baeh76%2F20230609_163858.jpg&type=a340">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플5</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix Western">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플6</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MTNfMTIz%2FMDAxNjgzOTU1Mzk0OTcz.H0I2MCyt-3a5EHZn_vHnf4aDopkKCTtMm75kBvt4gIEg.rDENWW0SGYyheqMNnM-CVuDCRqoRErS4fIlYi6cQpAgg.JPEG.holyfsss%2FKakaoTalk_20230504_114130310_20.jpg&type=sc960_832">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플7</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix korea">
-                      <div class="featured__item">
-                          <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjhfMzUg%2FMDAxNjY5NjM0ODA0MzIx.mzdKbwqEPejUtpfc7zjhRmRgkG5IYmg69-QvjIAXtL8g.BlGx7Ex-70rGxm0ohU5pGyiRHTe1nBV_axtFvIMGEdIg.JPEG.ajung8904%2FP20221118_133812697_E8C719C0-7426-4F76-A26D-7A55CCD817F7.jpg&type=sc960_832">
-                          </div>
-                          <div class="featured__item__text">
-                              <h6><a href="#">샘플8</a></h6>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix japan">
-                      <div class="featured__item">
-                          <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MjFfMTY5%2FMDAxNjg5OTQ2MDAyODI0.74N5ezr9LiakaV7gPqwGaz6_v4s0DmF1R0QmULIrGesg.ipkpOp_YvBI5kqZDBu9lIGjdV4FVcpalGqmynDNSHKUg.JPEG.tmfrl4918%2FIMG_9143.jpg&type=a340">
-                          </div>
-                          <div class="featured__item__text">
-                              <h6><a href="#">샘플1</a></h6>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 mix japan">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzA3MDVfMzYg%2FMDAxNDk5MjIyNjE2NTA5.0TxN7PLZquGhjYIQj9NiU4xLEnwy6kcm1JyYYCMTE6Qg.dfpdTXzirq7gCAK5g7OObMdgSF66Pk4KmivyuK0nB4gg.JPEG.dongyumokj%2F%25C4%25AB%25C3%25F7%25B5%25BF.jpg&type=sc960_832">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">샘플1</a></h6>
-                        </div>
-                    </div>
-                </div><div class="col-lg-3 col-md-6 col-sm-6 mix dessert">
-                  <div class="featured__item">
-                      <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAyMjdfMTg4%2FMDAxNjQ1OTY2MTg1NjA5.JPBxkFiCNG3bqRA1nVEFF2Q0vnFZGiKuw3x0LKD4NOYg.z0eY0mVYVsmNqkIzglnTgIBpAhi8x3xpYE89ORLc3zIg.JPEG.sip707%2Foutput_734202219.jpg&type=a340">
-                      </div>
-                      <div class="featured__item__text">
-                          <h6><a href="#">샘플1</a></h6>
-                      </div>
-                  </div>
-              </div><div class="col-lg-3 col-md-6 col-sm-6 mix dessert">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjZfMjQy%2FMDAxNjg3NzQ2ODc3OTUw.brwrbq_3Z2RAdgz9_Zuo9qwtITyax_J-4t02fOxWz2sg.GmUxfnlfjWNmlUSUzR2yU_xNUvWwSNJzDCBWrot3pGYg.JPEG.s_oogle%2FIMG_0972.jpg&type=a340">
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">샘플1</a></h6>
-                    </div>
-                </div>
-            </div>
-          </div>
+                  <!-- <div class="row featured__filter"> -->
+                    <div class="row featured__filter">
+                      <div class="row featured__filter" id="foods-container" ></div>
+                    </div>                         
+                 
+          <!-- </div> -->
         </div>
     </section>
     </section>
@@ -434,7 +396,8 @@
                 <!-- Notion Link -->
                 <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Terms of Service Link -->
-                <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="./terms.html" target="_blank">이용약관</a
+                  >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               </div>
               <hr> <!-- Horizontal Line -->
               <div class="footer__copyright__text">
@@ -456,7 +419,10 @@
     </footer>
     <!-- Footer Section End -->  
     <!-- 적용하려는 script 파일 -->
+    <script src="./src/foodlist.js"></script> 
+    
     <script src="./src/user.js" defer></script>
+    <script src="./src/dailymenu.js" defer></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -465,8 +431,7 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/foodlist.js"></script>
+    <script src="js/main.js"></script>    
     <script></script>
 
   </body>

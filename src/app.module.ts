@@ -94,13 +94,8 @@ import { KakaoStrategy } from './auth/strategy/kakao.strategy';
     FriendlistModule,
     FeedsModule,
   ],
-  controllers: [AppController, FoodsIngredientsController],
-  providers: [
-    AppService,
-    AuthMiddleware,
-    FoodsIngredientsService,
-    KakaoStrategy,
-  ],
+  controllers: [AppController],
+  providers: [AppService, AuthMiddleware],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
@@ -126,6 +121,12 @@ export class AppModule implements NestModule {
       { path: 'friends/accept-friend', method: RequestMethod.POST },
       { path: 'food', method: RequestMethod.POST },
       { path: 'food/:food_id', method: RequestMethod.PATCH },
+      { path: 'foods-ingredients', method: RequestMethod.POST },
+      { path: 'foodimage', method: RequestMethod.POST },
+      { path: 'food/foodimg', method: RequestMethod.POST },
+      { path: 'food/foodimg/:food_id', method: RequestMethod.PATCH },
+      { path: 'food/foodimg/:food_id', method: RequestMethod.DELETE },
+
       { path: 'feeds', method: RequestMethod.POST },
       { path: 'feeds/common', method: RequestMethod.POST },
       { path: 'feeds/:id', method: RequestMethod.PATCH },

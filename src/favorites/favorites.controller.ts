@@ -41,8 +41,8 @@ export class FavoritesController {
     return this.favoritesService.getFavorites(auth.id);
   }
   @Delete('/:id')
-  deleteFavorite(@Param() id: number, @Req() request: RequestWithLocals) {
+  deleteFavorite(@Param('id') id: string, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
-    return this.favoritesService.deleteFavorite(auth.id, id);
+    return this.favoritesService.deleteFavorite(auth.id, Number(id));
   }
 }

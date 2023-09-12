@@ -27,13 +27,11 @@ interface RequestWithLocals extends Request {
 export class CommentsController {
   constructor(private readonly commentService: CommentsService) {}
 
-//댓글 조회
-@Get('/:feed_id')
-async getCommentsByFeedId(@Param('feed_id') feed_id: number) {
-  console.log('Controller',feed_id);
-  
-  return await this.commentService.getCommentsByFeedId(feed_id);
-}
+  //댓글 조회
+  @Get('/:feed_id')
+  async getCommentsByFeedId(@Param('feed_id') feed_id: number) {
+    return await this.commentService.getCommentsByFeedId(feed_id);
+  }
 
   //댓글 쓰기
   @Post('/:feedId')
@@ -41,14 +39,10 @@ async getCommentsByFeedId(@Param('feed_id') feed_id: number) {
   CreateComment(
     @Req() request: RequestWithLocals,
     @Param('feedId') feedId: number,
-    @Body() createCommentDto: CreateCommentDto,
+    @Body() data: CreateCommentDto,
   ) {
     const auth = request.locals.user;
-    return this.commentService.createComment(
-      auth.id,
-      feedId,
-      createCommentDto,
-    );
+    return this.commentService.createComment(auth.id, feedId, data.contents);
   }
 
   // 댓글 수정
@@ -56,16 +50,10 @@ async getCommentsByFeedId(@Param('feed_id') feed_id: number) {
   updateComment(
     @Req() request: RequestWithLocals,
     @Param('commentId') commentId: number,
-    @Body() updateCommentDto: UpdateCommentDto,
-  ) 
-  
-  {
+    @Body() data: UpdateCommentDto,
+  ) {
     const auth = request.locals.user;
-    return this.commentService.updateComment(
-      auth.id,
-      commentId,
-      updateCommentDto,
-    );
+    return this.commentService.updateComment(auth.id, commentId, data.contents);
   }
 
   // 댓글 삭제
@@ -75,9 +63,6 @@ async getCommentsByFeedId(@Param('feed_id') feed_id: number) {
     @Param('commentId') commentId: number,
   ) {
     const auth = request.locals.user;
-    return this.commentService.deleteComment(
-      auth.id,
-      commentId
-    );
+    return this.commentService.deleteComment(auth.id, commentId);
   }
 }

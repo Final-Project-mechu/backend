@@ -20,7 +20,7 @@ export class AuthMiddleware implements NestMiddleware {
       req.locals = {};
       const authHeader = req.headers.cookie
         .split(';')
-        .find(cookie => cookie.trim().startsWith('Authentication='));
+        .find(cookie => cookie.trim().startsWith('AccessToken='));
       if (!authHeader) {
         throw new UnauthorizedException('JWT not found');
       }

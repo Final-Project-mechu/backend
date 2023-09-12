@@ -34,6 +34,199 @@
     <div id="preloder">
       <div class="loader"></div>
     </div>
+    <!-- Header Section Begin -->
+    <!-- 가입 모달 -->
+    <div
+      class="modal fade"
+      id="signModal"
+      tabindex="-1"
+      aria-labelledby="signModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">X</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="sign-wrap">
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    id="admin"
+                    class="modal-input"
+                    placeholder="일반회원=0, 관리자=1"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    id="signupEmail"
+                    type="email"
+                    class="modal-input"
+                    placeholder="이메일 주소"
+                    required
+                  />
+                </div>
+                <div class="col-auto">
+                  <button
+                    class="signbutton btn-block"
+                    id="signupEmailBtn"
+                    type="button"
+                    onclick="verifyEmail()"
+                  >
+                    발송
+                  </button>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="인증 번호"
+                    id="codeInput"
+                    class="modal-input"
+                    placeholder="인증 코드"
+                    required
+                  />
+                </div>
+                <div class="col-auto">
+                  <button
+                    class="signbutton"
+                    id="codeInputButton"
+                    type="button"
+                    onclick="verifyCode()"
+                  >
+                    확인
+                  </button>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="password"
+                    class="modal-input"
+                    placeholder="비밀번호"
+                    id="signupPassword"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="password"
+                    class="modal-input"
+                    id="signupPasswordConfirm"
+                    placeholder="비밀번호 확인"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="code"
+                    class="modal-input"
+                    placeholder="닉네임"
+                    id="signupNickname"
+                    required
+                  />
+                </div>
+              </div>
+              <div
+                class="alert alert-danger"
+                id="loginError"
+                style="display: none"
+              ></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="signButton" onclick="sign(event)">회원 가입</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 가입 모달 끝 -->
+    <!-- 로그인 모달 시작 -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">LOGIN</h5>
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">X</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="login-wrap">
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="code"
+                    id="loginEmail"
+                    class="modal-input"
+                    placeholder="이메일"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="password"
+                    id="loginPass"
+                    class="modal-input"
+                    placeholder="비밀번호"
+                    required
+                  />
+                </div>
+              </div>
+              <div
+                class="alert alert-danger"
+                id="loginError"
+                style="display: none"
+              ></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="signbutton"
+              id="loginButton"
+              onclick="login()"
+            >
+              로그인
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 로그인 모달 끝 -->
     <!-- 탑바 시작 -->
     <header class="header">
       <div class="header__top">
@@ -65,7 +258,12 @@
                   >
                     <i class="fa fa-user"></i>로그인
                   </a>
-                  <a href="#" id="logoutClick" class="logoutClick d-none">
+                  <a
+                    href="#"
+                    id="logoutClick"
+                    class="logoutClick d-none"
+                    onclick="signOut()"
+                  >
                     <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
                   </a>
                   <a

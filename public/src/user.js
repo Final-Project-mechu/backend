@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const signupButton = document.querySelector('.signClick');
   const logoutButton = document.querySelector('.logoutClick');
   const mypageButton = document.querySelector('.mypageClick');
+  const favoritesButton = document.querySelector('.favoriteClick');
   // 쿠키값 확인하여 버튼 상태 설정
   function checkLoginStatus() {
     let cookies = document.cookie;
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
       signupButton.classList.add('d-none');
       logoutButton.classList.remove('d-none');
       mypageButton.classList.remove('d-none');
+      favoritesButton.classList.remove('d-none');
     }
   }
   checkLoginStatus();
@@ -34,7 +36,6 @@ function verifyEmail() {
   axios
     .post('http://localhost:3000/users/send-code', data)
     .then(response => {
-      console.log(data);
       alert('인증코드가 이메일로 전송되었습니다.');
       emailInput.disabled = true;
       emailButton.disabled = true;
@@ -54,8 +55,6 @@ function verifyCode() {
     email: verifyingEmail,
     code: $('#codeInput').val(),
   };
-  console.log(data);
-
   axios
     .post('http://localhost:3000/users/verify-code', data)
     .then(response => {
@@ -88,8 +87,11 @@ function sign(event) {
   axios
     .post('http://localhost:3000/users/sign', data)
     .then(response => {
-      alert(response.data);
-      location.reload();
+      alert(
+        '회원가입을 축하합니다! 고객님의 취향을 저격하기 위해 선호도 조사 페이지로 이동합니다!',
+      );
+      // 회원가입 되면 바로 선호도조사 페이지로 이동
+      location.href = 'http://localhost:3000/preference.html';
     })
     .catch(error => {
       // 서버에서 발생한 예외 처리
@@ -113,9 +115,9 @@ function login() {
   axios
     .post('http://localhost:3000/users/login', data)
     .then(response => {
-      console.log(response);
-      location.reload();
-      createLogoutButton();
+      // 로그인하면 바로 메뉴추천 페이지로 이동
+      alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
+      location.href = 'http://localhost:3000/menu-subscribe.html';
     })
     .catch(error => {
       // 서버에서 발생한 예외 처리

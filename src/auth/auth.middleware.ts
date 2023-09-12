@@ -39,7 +39,6 @@ export class AuthMiddleware implements NestMiddleware {
       req.locals.user = payload; // req.locals.user에 파싱한 토큰 전달
 
       const refreshToken = req.cookies.RefreshToken; // 리프레시 토큰 가져오기
-
       if (refreshToken) {
         // 리프레시 토큰이 있다면, 새로운 액세스 토큰 발급
         const newAccessToken =

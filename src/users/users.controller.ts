@@ -92,7 +92,7 @@ export class UsersController {
     return response.status(200).send('로그인 완료');
   }
 
-  //로그아웃 기능 구현중
+  //로그아웃
   @Delete('/logout')
   async signout(@Res() response: Response) {
     response.clearCookie('AccessToken');
@@ -100,7 +100,7 @@ export class UsersController {
     return response.status(200).send('로그아웃 완료');
   }
 
-  //유저 정보 수정(패스워드)
+  //유저 정보 수정(닉네임, 패스워드)
   @Patch('/update')
   async updateUser(
     @Body() data: UpdateUserDto,

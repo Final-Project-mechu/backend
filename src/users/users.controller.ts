@@ -86,6 +86,7 @@ export class UsersController {
       data.email,
       data.password,
     );
+    response.cookie('AccessToken', 'Bearer ' + authentication.access_Token);
     response.cookie('RefreshToken', 'Bearer ' + authentication.refresh_Token);
 
     return response.status(200).send('로그인 완료');

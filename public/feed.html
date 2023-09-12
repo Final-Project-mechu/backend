@@ -32,7 +32,6 @@
     <div id="preloder">
       <div class="loader"></div>
     </div>
-    <!-- Header Section Begin -->
     <!-- 가입 모달 -->
     <div
       class="modal fade"
@@ -61,17 +60,6 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    id="admin"
-                    class="modal-input"
-                    placeholder="일반회원=0, 관리자=1"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col">
-                  <input
-                    id="signupEmail"
                     type="email"
                     class="modal-input"
                     placeholder="이메일 주소"
@@ -81,9 +69,8 @@
                 <div class="col-auto">
                   <button
                     class="signbutton btn-block"
-                    id="signupEmailBtn"
+                    id="verifyEmailBtn"
                     type="button"
-                    onclick="verifyEmail()"
                   >
                     발송
                   </button>
@@ -93,19 +80,13 @@
                 <div class="col">
                   <input
                     type="인증 번호"
-                    id="codeInput"
                     class="modal-input"
                     placeholder="인증 코드"
                     required
                   />
                 </div>
                 <div class="col-auto">
-                  <button
-                    class="signbutton"
-                    id="codeInputButton"
-                    type="button"
-                    onclick="verifyCode()"
-                  >
+                  <button class="signbutton" id="verifyEmailBtn" type="button">
                     확인
                   </button>
                 </div>
@@ -113,10 +94,9 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="password"
+                    type="인증 번호"
                     class="modal-input"
                     placeholder="비밀번호"
-                    id="signupPassword"
                     required
                   />
                 </div>
@@ -124,9 +104,8 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="password"
+                    type="인증 번호"
                     class="modal-input"
-                    id="signupPasswordConfirm"
                     placeholder="비밀번호 확인"
                     required
                   />
@@ -138,7 +117,6 @@
                     type="code"
                     class="modal-input"
                     placeholder="닉네임"
-                    id="signupNickname"
                     required
                   />
                 </div>
@@ -151,7 +129,14 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button class="signButton" onclick="sign(event)">회원 가입</button>
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+            >
+              회원 가입
+            </button>
           </div>
         </div>
       </div>
@@ -186,7 +171,6 @@
                 <div class="col">
                   <input
                     type="code"
-                    id="loginEmail"
                     class="modal-input"
                     placeholder="이메일"
                     required
@@ -196,8 +180,7 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="password"
-                    id="loginPass"
+                    type="code"
                     class="modal-input"
                     placeholder="비밀번호"
                     required
@@ -215,8 +198,8 @@
             <button
               type="button"
               class="signbutton"
-              id="loginButton"
-              onclick="login()"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
             >
               로그인
             </button>
@@ -256,12 +239,7 @@
                   >
                     <i class="fa fa-user"></i>로그인
                   </a>
-                  <a
-                    href="#"
-                    id="logoutClick"
-                    class="logoutClick d-none"
-                    onclick="signOut()"
-                  >
+                  <a href="#" id="logoutClick" class="logoutClick d-none">
                     <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
                   </a>
                   <a
@@ -290,19 +268,11 @@
           <div class="col-lg-8" style="max-width: 1000px">
             <nav class="header__menu">
               <ul>
-                <li>
-                  <a id="tob-bar" href="./index.html">홈</a>
-                </li>
-                <li>
-                  <a id="tob-bar" href="./preference.html">선호도 조사</a>
-                </li>
-                <li>
-                  <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
-                </li>
-                <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
-                <li class="active">
-                  <a id="tob-bar" href="./feed.html">피드</a>
-                </li>
+                <li class="active"><a href="./index.html">홈</a></li>
+                <li><a href="./preference.html">선호도</a></li>
+                <li><a href="./foodlist.html">메뉴판</a></li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                <li><a href="./feed.html">피드</a></li>
               </ul>
             </nav>
           </div>
@@ -393,7 +363,8 @@
                   >Notion</a
                 >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Terms of Service Link -->
-                <a href="./terms.html" target="_blank">이용약관</a
+                <a href="https://www.yourwebsite.com/terms" target="_blank"
+                  >이용약관</a
                 >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               </div>
               <hr />
@@ -418,7 +389,6 @@
     <!-- Footer Section End -->
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
-    <script src="./src/dailymenu.js" defer></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

@@ -16,30 +16,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// 기능구현중
-// document.addEventListener('DOMContentLoaded', async () => {
-//   try {
-//     // 랜덤 사진 가져오기
-//     const photoResponse = await axios.get('http://localhost:3000/food', {
-//       params: {
-//         food_id: id,
-//       },
-//     });
-
-//     if (photoResponse.status === 200) {
-//       const randomPhotoUrl = photoResponse.data;
-
-//       // 이미지 엘리먼트에 랜덤 사진 URL 설정
-//       const randomPhotoElement = document.getElementById('random-photo');
-//       randomPhotoElement.src = randomPhotoUrl;
-//     } else {
-//       console.error('랜덤 사진 가져오기 오류:', photoResponse.status);
-//     }
-//   } catch (error) {
-//     console.error('데이터 가져오는 중 오류 발생:', error);
-//   }
-// });
-
 const toggleModalButton = document.getElementById('toggle-modal-button');
 const modal = document.getElementById('modal');
 

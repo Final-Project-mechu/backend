@@ -26,20 +26,18 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/modaltest.css" type="text/css">
-    <link rel="stylesheet" href="css/preference.css" type="text/css">
     <!-- axios 적용을 위한 script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS Styles END -->
   </head>
     <script async src="./src/preference.js" defer></script>
   <body>
-   <!-- Page Preloder -->
-   <div id="preloder">
-    <div class="loader"></div>
-  </div>
-  <!-- Header Section Begin -->
-  <!-- 가입 모달 -->
-  <div
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+    </div>
+    <!-- 가입 모달 -->
+    <div
     class="modal fade"
     id="signModal"
     tabindex="-1"
@@ -57,95 +55,59 @@
             class="signbutton"
             data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">X</span>
-          </button>
+          ><span aria-hidden="true">X</span>
+        </button>
         </div>
         <div class="modal-body">
           <form class="sign-wrap">
             <div class="row mb-3">
               <div class="col">
-                <input
-                  id="admin"
-                  class="modal-input"
-                  placeholder="일반회원=0, 관리자=1"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input
-                  id="signupEmail"
-                  type="email"
-                  class="modal-input"
-                  placeholder="이메일 주소"
-                  required
-                />
+                <input type="email"
+                       class="modal-input"
+                       placeholder="이메일 주소"
+                       required>
               </div>
               <div class="col-auto">
-                <button
-                  class="signbutton btn-block"
-                  id="signupEmailBtn"
-                  type="button"
-                  onclick="verifyEmail()"
-                >
+                <button class="signbutton btn-block" id="verifyEmailBtn" type="button">
                   발송
                 </button>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col">
-                <input
-                  type="인증 번호"
-                  id="codeInput"
-                  class="modal-input"
-                  placeholder="인증 코드"
-                  required
-                />
+                <input type="인증 번호"
+                       class="modal-input"
+                       placeholder="인증 코드"
+                       required>
               </div>
               <div class="col-auto">
-                <button
-                  class="signbutton"
-                  id="codeInputButton"
-                  type="button"
-                  onclick="verifyCode()"
-                >
+                <button class="signbutton" id="verifyEmailBtn" type="button">
                   확인
                 </button>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col">
-                <input
-                  type="password"
-                  class="modal-input"
-                  placeholder="비밀번호"
-                  id="signupPassword"
-                  required
-                />
+                <input type="인증 번호"
+                       class="modal-input"
+                       placeholder="비밀번호"
+                       required>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col">
-                <input
-                  type="password"
-                  class="modal-input"
-                  id="signupPasswordConfirm"
-                  placeholder="비밀번호 확인"
-                  required
-                />
+                <input type="인증 번호"
+                       class="modal-input"
+                       placeholder="비밀번호 확인"
+                       required>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col">
-                <input
-                  type="code"
-                  class="modal-input"
-                  placeholder="닉네임"
-                  id="signupNickname"
-                  required
-                />
+                <input type="code"
+                       class="modal-input"
+                       placeholder="닉네임"
+                       required>
               </div>
             </div>
             <div
@@ -156,132 +118,112 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button class="signButton" onclick="sign(event)">회원 가입</button>
+          <button
+            type="button"
+            class="signbutton"
+            data-bs-toggle="modal"
+            data-bs-target="#signupModal"
+          >
+            회원 가입
+          </button>
         </div>
       </div>
     </div>
-  </div>
-  <!-- 가입 모달 끝 -->
-  <!-- 로그인 모달 시작 -->
-  <div
-    class="modal fade"
-    id="loginModal"
-    tabindex="-1"
-    aria-labelledby="loginModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginModalLabel">LOGIN</h5>
-          <button
+    </div>
+    <!-- 가입 모달 끝 -->
+    <!-- 로그인 모달 시작 -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">LOGIN</h5>
+            <button
             type="button"
             class="signbutton"
             data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">X</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form class="login-wrap">
-            <div class="row mb-3">
-              <div class="col">
-                <input
-                  type="code"
-                  id="loginEmail"
-                  class="modal-input"
-                  placeholder="이메일"
-                  required
-                />
+          ><span aria-hidden="true">X</span>
+        </button>
+          </div>
+          <div class="modal-body">
+            <form class="login-wrap">
+              <div class="row mb-3">
+                <div class="col">
+                  <input type="code"
+                         class="modal-input"
+                         placeholder="이메일"
+                         required>
+                </div>
               </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input
-                  type="password"
-                  id="loginPass"
-                  class="modal-input"
-                  placeholder="비밀번호"
-                  required
-                />
+              <div class="row mb-3">
+                <div class="col">
+                  <input type="code"
+                         class="modal-input"
+                         placeholder="비밀번호"
+                         required>
+                </div>
               </div>
-            </div>
-            <div
-              class="alert alert-danger"
-              id="loginError"
-              style="display: none"
-            ></div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="signbutton"
-            id="loginButton"
-            onclick="login()"
-          >
-            로그인
-          </button>
+              <div
+                class="alert alert-danger"
+                id="loginError"
+                style="display: none"
+              ></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+            >
+              로그인
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- 로그인 모달 끝 -->
-  <!-- 탑바 시작 -->
-  <header class="header">
-    <div class="header__top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="header__top__left">
-              <ul></ul>
+    <!-- 로그인 모달 끝 -->
+    <!-- 탑바 시작 -->
+    <header class="header">
+      <div class="header__top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="header__top__left">
+                <ul>
+                </ul>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <div class="header__top__right">
-              <div class="header__top__right__auth d-flex">
-                <a
-                  href="#"
-                  data-bs-toggle="modal"
-                  data-bs-target="#signModal"
-                  id="signClick"
-                  class="signClick"
-                >
-                  <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
-                </a>
-                <a
-                  href="#"
-                  data-bs-toggle="modal"
-                  data-bs-target="#loginModal"
-                  id="loginClick"
-                  class="loginClick"
-                >
-                  <i class="fa fa-user"></i>로그인
-                </a>
-                <a
-                  href="#"
-                  id="logoutClick"
-                  class="logoutClick d-none"
-                  onclick="signOut()"
-                >
-                  <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
-                </a>
-                <a
-                  href="./mypage.html"
-                  id="mypageClick"
-                  class="mypageClick d-none"
-                >
-                  <i class="fa fa-user"></i> 마이페이지
-                </a>
+            <div class="col-lg-6 col-md-6">
+              <div class="header__top__right">
+                <div class="header__top__right__auth d-flex">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#signModal" id="signClick" class="signClick">
+                    <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginClick" class="loginClick">
+                    <i class="fa fa-user"></i>로그인
+                  </a>
+                  <a href="#" id="logoutClick" class="logoutClick d-none">
+                    <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a href="./mypage.html" id="mypageClick" class="mypageClick d-none">
+                    <i class="fa fa-user"></i> 마이페이지
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
       <div class="container">
         <div class="top-row d-flex justify-content-between align-items-center">
             <div class="col-lg-3" style="max-width: 150px;">
@@ -292,19 +234,13 @@
             <nav class="humberger__menu__nav mobile-menu"></nav>
             <div class="col-lg-8" style="max-width: 1000px;">
                 <nav class="header__menu">
-                  <ul>
-                    <li>
-                      <a id="tob-bar" href="./index.html">홈</a>
-                    </li class="active">
-                    <li class="active">
-                      <a id="tob-bar" href="./preference.html">선호도 조사</a>
-                    </li>
-                    <li>
-                      <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
-                    </li>
-                    <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
-                    <li><a id="tob-bar" href="./feed.html">피드</a></li>
-                  </ul>
+                    <ul>
+                        <li class="active"><a href="./index.html">홈</a></li>
+                        <li><a href="./preference.html">선호도</a></li>
+                        <li><a href="./foodlist.html">메뉴판</a></li>
+                        <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                        <li><a href="./feed.html">피드</a></li>
+                    </ul>
                 </nav>
             </div>
             <div class="col-lg-3" style="max-width: 200px; text-align: center;">
@@ -313,45 +249,38 @@
                 </div>
             </div>
         </div>
-        
-        </header>
-        <!-- 탑바 끝 -->
-
-
-      <section id="survey" class="form-blog spad">
+    </div>
+    
+    </header>
+    <!-- 탑바 끝 -->
+    <section class="from-blog spad">
       <div class="section-title">
-        <h2 style="display: inline-block;">선호도 조사</h2>
-        <button id="the-menu" class="site-btn" > 메뉴판 보기 </button>
+        <h2>선호도 조사</h2>
       </div>
-      
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
             <div class="dropdown">
               <select id="search-category">
                 <option value="카테고리">카테고리</option>
-                <option value="선호 메뉴">선호 음식</option>
-                <option value="제외 메뉴">제외 음식</option>
+                <option value="선호 메뉴">선호 메뉴</option>
+                <option value="제외 메뉴">제외 메뉴</option>
                 <option value="제외 재료">제외 재료</option>
               </select>
             </div>
           </div>
           <div class="col-lg-9">
-            
             <div class="hero__search">
-              
               <div class="hero__search__form">
                 <form action="#" id="search-form">
                   <input id="survey-search-input" type="text" placeholder="검색해보세요" />
                   <button type="submit" class="site-btn">추가하기</button>
-
                 </form>
               </div>
-              <div>
-                <a href="#" class="site-btn" id="prefer-delete">삭제하기</a>
+              <div class="hero__search__phone">
+                <a href="#" class="site-btn">메뉴판 보기</a>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -363,7 +292,7 @@
           <div class="col-lg-12">
             <div class="featured__controls">
               <ul>
-                <li data-filter=".favorites" id="likeBtn">선호 음식</li>
+                <li data-filter=".likes" id="likeBtn">선호 음식</li>
                 <li data-filter=".excluded-foods" id="excludeFoodBtn">제외 음식</li>
                 <li data-filter=".excluede-ingredient" id="excludeIngredientBtn">제외 재료</li>
                 <li data-filter=".excluded-ing-foods" id="excludeInFoodBtn">제외 재료 포함 음식</li>
@@ -375,8 +304,6 @@
         </div>
       </div>
     </section>
-
-
     <!-- Footer Section Begin -->
     <footer class="footer spad">
           <div class="container">
@@ -392,8 +319,7 @@
                     <!-- Notion Link -->
                     <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <!-- Terms of Service Link -->
-                    <a href="./terms.html" target="_blank">이용약관</a
-                      >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                   </div>
                   <hr> <!-- Horizontal Line -->
                   <div class="footer__copyright__text">
@@ -416,7 +342,6 @@
     <!-- Footer Section End -->   
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
-    <script src="./src/dailymenu.js" defer></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

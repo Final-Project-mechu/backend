@@ -1,0 +1,25 @@
+.comment-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  /* .comment {
+    margin-bottom: 10px;
+  } */
+  
+  .comment-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .nickname {
+    font-weight: bold;
+  }
+ 
+  .createdAt {
+    color: #777;
+  }
+  
+  /* .comment-content {
+    margin-left: 20px;
+  } */

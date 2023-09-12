@@ -13,7 +13,7 @@ import { Note } from 'src/entity/note.entity';
 import { FoodIngredient } from 'src/entity/food.ingredient.entity';
 import { Ingredient } from 'src/entity/ingredient.entity';
 import { FoodUserWeight } from 'src/entity/food.user.weight.entity';
-import { UserAction } from 'src/entity/user.action';
+import { UserAction } from 'src/entity/user.action.entity';
 //import { Auth } from 'src/entity/auth.entity';
 //import { Friends } from 'src/entity/friend.entity';
 import { Friends } from 'src/entity/friend.entity';

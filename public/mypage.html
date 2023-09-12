@@ -258,12 +258,7 @@
                   >
                     <i class="fa fa-user"></i>로그인
                   </a>
-                  <a
-                    href="#"
-                    id="logoutClick"
-                    class="logoutClick d-none"
-                    onclick="signOut()"
-                  >
+                  <a href="#" id="logoutClick" class="logoutClick d-none">
                     <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
                   </a>
                   <a
@@ -271,7 +266,15 @@
                     id="mypageClick"
                     class="mypageClick d-none"
                   >
-                    <i class="fa fa-user"></i> 마이페이지
+                    <i class="fa fa-user"></i>마이페이지&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a
+                    href="#"
+                    id="logoutClick"
+                    class="logoutClick d-none"
+                    onclick="signOut()"
+                  >
+                    <i class="fa fa-user"></i>로그아웃&nbsp;&nbsp;&nbsp;
                   </a>
                 </div>
               </div>
@@ -290,17 +293,11 @@
           <div class="col-lg-8" style="max-width: 1000px">
             <nav class="header__menu">
               <ul>
-                <li>
-                  <a id="tob-bar" href="./index.html">홈</a>
-                </li>
-                <li>
-                  <a id="tob-bar" href="./preference.html">선호도 조사</a>
-                </li>
-                <li>
-                  <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
-                </li>
-                <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
-                <li><a id="tob-bar" href="./feed.html">피드</a></li>
+                <li class="active"><a href="./index.html">홈</a></li>
+                <li><a href="./preference.html">선호도</a></li>
+                <li><a href="./foodlist.html">메뉴판</a></li>
+                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                <li><a href="./feed.html">피드</a></li>
               </ul>
             </nav>
           </div>
@@ -315,6 +312,7 @@
       </div>
     </header>
     <!-- 탑바 끝 -->
+    <!-- 유저 정보 버튼 section 시작 -->
     <section class="product spad">
       <section class="featured-spad">
         <div class="container">
@@ -339,6 +337,7 @@
         </button>
       </div>
     </section>
+    <!-- 유저 정보 버튼 section 끝 -->
     <!-- 유저 정보 수정 모달 시작 -->
     <div
       class="modal fade"
@@ -530,6 +529,7 @@
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
     <script src="./src/mypage.js"></script>
+    <script src="./src/checkLogin.js"></script>
     <!-- 적용하려는 script 파일 끝 -->
 
     <!-- Js Plugins -->

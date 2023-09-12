@@ -35,8 +35,7 @@ export class FeedsController {
   @Post('/')
   @UseInterceptors(FileInterceptor('file'))
   createFavoriteFeed(
-    @Body()
-    favorite_ids: string | number,
+    @Body() favorite_ids: string | number,
     @Body() data: CreateFeedDto,
     @UploadedFile()
     file: Express.Multer.File,

@@ -25,101 +25,65 @@ export class CommentsService {
 
   // 게시글 ID로 댓글 전체 조회
   async getCommentsByFeedId(feed_id: number) {
-    const result = await this.commentRepository.query(
-      `select * from comment where feed_id=${feed_id} and deletedAt is null`,
-    );
-
+    const result = await this.commentRepository.find({
+      where: { feedId: feed_id, deletedAt: null },
+    });
     return result;
   }
 
   // 댓글 생성
-  async createComment(
-    user_id: number,
-    feedId: number,
-    createCommentDto: CreateCommentDto,
-  ) {
+  async createComment(user_id: number, feedId: number, contents: string) {
     const user = await this.userRepository.findOne({
       where: { id: user_id },
+      select: ['id', 'nick_name'],
     });
-
     if (!user) {
       throw new UnauthorizedException(`로그인 후 댓글 작성이 가능합니다.`);
     }
-
     const feed = await this.feedRepository.findOne({
       where: { id: feedId },
     });
     if (!feed) {
       throw new NotFoundException(`게시글이 조회되지 않습니다.`);
     }
-  
-    const { contents } = createCommentDto
-
-    if (!contents) {
-      throw new BadRequestException(`댓글을 작성해주세요.`);
-    }
-    const feedComment = this.commentRepository.create({
-      user_id,
+    this.commentRepository.insert({
+      user_id: user.id,
+      nick_name: user.nick_name,
       feedId,
       contents,
     });
-    return await this.commentRepository.save(feedComment);
+    return { Message: '댓글이 생성되었습니다!' };
   }
 
   //댓글 수정
-  async updateComment(
-    user_id: number,
-    commentId: number,
-    updateCommentDto: UpdateCommentDto,
-  ) {
-    const myComment = await this.commentRepository.query(`select * from comment where id = ${commentId}`)
-
+  async updateComment(user_id: number, commentId: number, contents: string) {
+    const myComment = await this.commentRepository.query(`
+      SELECT * FROM comment WHERE id = ${commentId}
+    `);
     if (!myComment) {
-      throw new NotFoundException(`댓글이 조회되지 않습니다.}`);
+      throw new NotFoundException('존재하지 않는 댓글입니다.');
     }
-    console.log(user_id, myComment[0].user_id);
-
     if (myComment[0].user_id !== user_id) {
-      throw new UnauthorizedException(`본인이 작성한 댓글만 수정가능합니다.`);
-    }
-
-    const { contents } = updateCommentDto;
-    if (!updateCommentDto.contents) {
-      throw new BadRequestException(`댓글을 입력해주세요`);
+      throw new UnauthorizedException('작성한 사람만 수정할 수 있습니다.');
     }
     await this.commentRepository.update({ id: commentId }, { contents });
-    return await this.commentRepository.findOne({
-      where: { id: commentId },
-    });
+    return { Message: '댓글이 수정되었습니다.' };
   }
 
-  // // 댓글 삭제
+  // 댓글 삭제
   async deleteComment(user_id: number, id: number): Promise<any> {
-    
-
-    const user = await this.userRepository.findOne({
-      where: { id: user_id },
+    const myComment = await this.commentRepository.findOne({
+      where: { id: id },
     });
-    const myCommentDelete = await this.commentRepository.query(`select * from comment where id = ${id}`)
-    
-
-    console.log(user, myCommentDelete);
-    
-    if (myCommentDelete[0].user_id !== user_id) {
+    if (myComment.user_id !== user_id) {
       throw new UnauthorizedException(
-        `본인이 작성한 댓글만 삭제가 가능합니다.`,
+        '본인이 작성한 댓글만 삭제가 가능합니다.',
       );
     }
-
-    const myComment = await this.commentRepository.findOne({
-      where: { id },
-    });
     if (!myComment) {
       throw new NotFoundException(`댓글이 조회되지 않습니다.`);
     }
-    const remove = await this.commentRepository.softDelete(id);
-    if (remove.affected === 0) {
-      throw new NotFoundException(`해당 댓글이 조회되지 않습니다.`);
-    }
+    await this.commentRepository.softDelete(id);
+    return { Message: '댓글이 삭제되었습니다.' };
   }
 }

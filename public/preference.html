@@ -182,107 +182,80 @@
             class="signbutton"
             data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">X</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form class="login-wrap">
-            <div class="row mb-3">
-              <div class="col">
-                <input
-                  type="code"
-                  id="loginEmail"
-                  class="modal-input"
-                  placeholder="이메일"
-                  required
-                />
+          ><span aria-hidden="true">X</span>
+        </button>
+          </div>
+          <div class="modal-body">
+            <form class="login-wrap">
+              <div class="row mb-3">
+                <div class="col">
+                  <input type="code"
+                         class="modal-input"
+                         placeholder="이메일"
+                         required>
+                </div>
               </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input
-                  type="password"
-                  id="loginPass"
-                  class="modal-input"
-                  placeholder="비밀번호"
-                  required
-                />
+              <div class="row mb-3">
+                <div class="col">
+                  <input type="code"
+                         class="modal-input"
+                         placeholder="비밀번호"
+                         required>
+                </div>
               </div>
-            </div>
-            <div
-              class="alert alert-danger"
-              id="loginError"
-              style="display: none"
-            ></div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="signbutton"
-            id="loginButton"
-            onclick="login()"
-          >
-            로그인
-          </button>
+              <div
+                class="alert alert-danger"
+                id="loginError"
+                style="display: none"
+              ></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="signbutton"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+            >
+              로그인
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- 로그인 모달 끝 -->
-  <!-- 탑바 시작 -->
-  <header class="header">
-    <div class="header__top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="header__top__left">
-              <ul></ul>
+    <!-- 로그인 모달 끝 -->
+    <!-- 탑바 시작 -->
+    <header class="header">
+      <div class="header__top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="header__top__left">
+                <ul>
+                </ul>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <div class="header__top__right">
-              <div class="header__top__right__auth d-flex">
-                <a
-                  href="#"
-                  data-bs-toggle="modal"
-                  data-bs-target="#signModal"
-                  id="signClick"
-                  class="signClick"
-                >
-                  <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
-                </a>
-                <a
-                  href="#"
-                  data-bs-toggle="modal"
-                  data-bs-target="#loginModal"
-                  id="loginClick"
-                  class="loginClick"
-                >
-                  <i class="fa fa-user"></i>로그인
-                </a>
-                <a
-                  href="#"
-                  id="logoutClick"
-                  class="logoutClick d-none"
-                  onclick="signOut()"
-                >
-                  <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
-                </a>
-                <a
-                  href="./mypage.html"
-                  id="mypageClick"
-                  class="mypageClick d-none"
-                >
-                  <i class="fa fa-user"></i> 마이페이지
-                </a>
+            <div class="col-lg-6 col-md-6">
+              <div class="header__top__right">
+                <div class="header__top__right__auth d-flex">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#signModal" id="signClick" class="signClick">
+                    <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginClick" class="loginClick">
+                    <i class="fa fa-user"></i>로그인
+                  </a>
+                  <a href="#" id="logoutClick" class="logoutClick d-none">
+                    <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a href="./mypage.html" id="mypageClick" class="mypageClick d-none">
+                    <i class="fa fa-user"></i> 마이페이지
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
       <div class="container">
         <div class="top-row d-flex justify-content-between align-items-center">
             <div class="col-lg-3" style="max-width: 150px;">
@@ -293,19 +266,13 @@
             <nav class="humberger__menu__nav mobile-menu"></nav>
             <div class="col-lg-8" style="max-width: 1000px;">
                 <nav class="header__menu">
-                  <ul>
-                    <li>
-                      <a id="tob-bar" href="./index.html">홈</a>
-                    </li class="active">
-                    <li class="active">
-                      <a id="tob-bar" href="./preference.html">선호도 조사</a>
-                    </li>
-                    <li>
-                      <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
-                    </li>
-                    <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
-                    <li><a id="tob-bar" href="./feed.html">피드</a></li>
-                  </ul>
+                    <ul>
+                        <li class="active"><a href="./index.html">홈</a></li>
+                        <li><a href="./preference.html">선호도</a></li>
+                        <li><a href="./foodlist.html">메뉴판</a></li>
+                        <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
+                        <li><a href="./feed.html">피드</a></li>
+                    </ul>
                 </nav>
             </div>
             <div class="col-lg-3" style="max-width: 200px; text-align: center;">
@@ -314,12 +281,12 @@
                 </div>
             </div>
         </div>
-        
-        </header>
-        <!-- 탑바 끝 -->
-
-
-      <section id="survey" class="form-blog spad">
+      </div>
+    </div>
+  </header>
+  <!-- 탑바 끝 -->
+  <!-- 선호도 조사 section 시작 -->
+  <section id="survey" class="form-blog spad">
       <div class="section-title">
         <h2 style="display: inline-block;">선호도 조사</h2>
         <button id="the-menu" class="site-btn" > 메뉴판 보기 </button>
@@ -356,9 +323,10 @@
           </div>
         </div>
       </div>
-    </section>
-    <!-- Header Section End --> 
-    <section class="product spad">
+  </section>
+  <!-- 선호도 조사 section 끝 -->
+  <!-- 선호음식 filter section 시작 --> 
+  <section class="product spad">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -375,11 +343,10 @@
         <div class="row featured__filter" id="favoriteList">
         </div>
       </div>
-    </section>
-
-
-    <!-- Footer Section Begin -->
-    <footer class="footer spad">
+  </section>
+  <!-- 선호음식 filter section 끝 -->
+  <!-- Footer Section Begin -->
+  <footer class="footer spad">
           <div class="container">
             <div class="row">
               <div class="col-lg-12">
@@ -417,7 +384,6 @@
     <!-- Footer Section End -->   
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
-    <script src="./src/dailymenu.js" defer></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

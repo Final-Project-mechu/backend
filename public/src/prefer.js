@@ -1,9 +1,28 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const button = document.querySelector(".button2");
+document.addEventListener('DOMContentLoaded', function () {
+  const loginButton = document.querySelector('.loginClick');
+  const signupButton = document.querySelector('.signClick');
+  const logoutButton = document.querySelector('.logoutClick');
+  const mypageButton = document.querySelector('.mypageClick');
+  // 쿠키값 확인하여 버튼 상태 설정
+  function checkLoginStatus() {
+    let cookies = document.cookie;
+    if (cookies.includes('Authentication=Bearer%20')) {
+      loginButton.classList.add('d-none');
+      signupButton.classList.add('d-none');
+      logoutButton.classList.remove('d-none');
+      mypageButton.classList.remove('d-none');
+    }
+  }
+  checkLoginStatus();
+  document.addEventListener('cookieChange', checkLoginStatus);
+});
 
-  button.addEventListener("click", () => {
-    const modal = document.createElement("div");
-    modal.classList.add("modal");
+document.addEventListener('DOMContentLoaded', function () {
+  const button = document.querySelector('.button2');
+
+  button.addEventListener('click', () => {
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
 
     modal.innerHTML = `
       <div class="modal-content">
@@ -27,11 +46,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.body.appendChild(modal);
 
-    const closeButton = document.querySelector(".close-button");
-    closeButton.addEventListener("click", () => {
-      modal.style.display = "none";
+    const closeButton = document.querySelector('.close-button');
+    closeButton.addEventListener('click', () => {
+      modal.style.display = 'none';
     });
 
-    modal.style.display = "block";
+    modal.style.display = 'block';
   });
 });

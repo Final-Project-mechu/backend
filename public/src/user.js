@@ -70,12 +70,12 @@ function verifyCode() {
 //회원가입
 function sign(event) {
   event.preventDefault();
-  if (!document.getElementById('signupEmail').disabled) {
-    return alert('E-mail 인증 먼저 진행해주세요.');
-  }
-  if (!document.getElementById('codeInputButton').disabled) {
-    return alert('E-mail 인증 먼저 진행해주세요.');
-  }
+  // if (!document.getElementById('signupEmail').disabled) {
+  //   return alert('E-mail 인증 먼저 진행해주세요.');
+  // }
+  // if (!document.getElementById('codeInputButton').disabled) {
+  //   return alert('E-mail 인증 먼저 진행해주세요.');
+  // }
   const isAdmin = document.getElementById('admin').checked ? 1 : 0;
   const data = {
     is_admin: isAdmin,

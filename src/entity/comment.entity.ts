@@ -32,11 +32,12 @@ export class Comment {
   @DeleteDateColumn({ type: 'timestamp' })
   deletedAt: Date | null;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, user => user.comment)
   @JoinColumn({ name: 'user_id' })
   user_id: number;
+  user: User;  // 추가된 속성
 
   @ManyToOne(() => Feed)
   @JoinColumn({ name: 'feed_id' })
-  feedId: number;
+  feed_id: number;
 }

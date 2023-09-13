@@ -28,3 +28,14 @@
 .menu-icon:hover .dropdown-menu {
     display: block;
 }
+
+.site-btn2 {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 13px 30px 12px;
+    background: #7fad39;
+    border: none;
+  }

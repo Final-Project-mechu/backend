@@ -1,9 +1,9 @@
-// 페이지가 로드될 때 한 번만 새로고침하기 위한 로직
 if (!window.location.hash) {
   window.location = window.location + '#loaded';
   window.location.reload();
   }
-  
+
+
 const form = document.getElementById('search-form');
 form.addEventListener('submit', function (event) {
   event.preventDefault(); // 폼 자동 제출 방지

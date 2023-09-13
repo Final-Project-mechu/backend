@@ -94,14 +94,13 @@ export class FeedsService {
 
   async getFeeds() {
     const allFeeds = await this.feedLikeRepository
-      .query(`select f.id, f.title, f.createdAt, f.deletedAt, f.image, count(fl.feed_id) as likecount
-    from feed f
-    left join feed_like fl on f.id = fl.feed_id
-    where f.deletedAt is null
-    group by f.id
-    order by likecount desc
-    `);
-    console.log('allFeeds : ', allFeeds);
+  .query(`select f.id, f.title, f.createdAt, f.deletedAt, f.image, count(fl.feed_id) as likecount 
+  from feed f
+  left join feed_like fl on f.id = fl.feed_id
+  where f.deletedAt is null
+  group by f.id
+  order by likecount desc
+  `);
     return allFeeds;
   }
 

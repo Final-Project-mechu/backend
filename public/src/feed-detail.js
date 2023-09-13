@@ -54,7 +54,7 @@ function createAllCommentItems(comments) {
     const outputDate = formatDate(comment.createdAt);
     commentContainer.innerHTML += `<div class="comment">
                                       <div class="comment-info">
-                                        <h6 class="nickname">${comment.nick_name}</h6>
+                                        <h6 class="nickname">닉네임 ${comment.nick_name}</h6>
                                         <h6 class="comment-content">${comment.contents}</p>
                                         <h6 class="createdAt">${outputDate}</h6>
                                       </div>

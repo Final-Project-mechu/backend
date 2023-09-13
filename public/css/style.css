@@ -179,15 +179,29 @@ ol {
 }
 
 /* buttons */
-.main-btn {
+.mainMenuBtn {
   display: inline-block;
   font-size: 20px;
   padding: 20px 28px 20px;
   color: #ffffff;
   text-transform: uppercase;
   font-weight: 700;
-  background: #7fad39;
+  background: #0cb13d;
   letter-spacing: 2px;
+  border-radius: 5PX;
+}
+
+.mainPreferBtn {
+  display: inline-block;
+  font-size: 20px;
+  padding: 20px 28px 20px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: #4a39ad;
+  letter-spacing: 2px;
+  border-radius: 5PX;
+
 }
 
 .primary-btn {
@@ -212,6 +226,9 @@ ol {
   padding: 8px 22px;
   border-radius: 6px;
   background:  #1f8f15;
+  position: relative;
+  top: 10px;
+  right: 200px;
 }
 
 /* Preloder */

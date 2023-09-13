@@ -190,7 +190,7 @@ export class UsersService {
       select: ['password'],
     });
     if (!user) {
-      throw new UnauthorizedException('사용자를 찾을 수없습니다.');
+      throw new NotFoundException('유저를 찾을 수 없습니다.');
     }
 
     const matchedPassword = await bcrypt.compare(password, user.password);

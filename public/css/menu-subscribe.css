@@ -76,3 +76,9 @@ button:hover {
   gap: 10px; /* 아이콘과 텍스트 사이의 간격 */
 }
 
+
+.result-container {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 10px; /* 아이콘과 텍스트 사이의 간격 */
+}

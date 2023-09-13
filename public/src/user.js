@@ -5,14 +5,16 @@ document.addEventListener('DOMContentLoaded', function () {
   const signupButton = document.querySelector('.signClick');
   const logoutButton = document.querySelector('.logoutClick');
   const mypageButton = document.querySelector('.mypageClick');
+  const favoritesButton = document.querySelector('.favoriteClick');
   // 쿠키값 확인하여 버튼 상태 설정
   function checkLoginStatus() {
     let cookies = document.cookie;
-    if (cookies.includes('Authentication=Bearer%20')) {
+    if (cookies.includes('AccessToken=Bearer%20')) {
       loginButton.classList.add('d-none');
       signupButton.classList.add('d-none');
       logoutButton.classList.remove('d-none');
       mypageButton.classList.remove('d-none');
+      favoritesButton.classList.remove('d-none');
     }
   }
   checkLoginStatus();
@@ -34,7 +36,6 @@ function verifyEmail() {
   axios
     .post('http://localhost:3000/users/send-code', data)
     .then(response => {
-      console.log(data);
       alert('인증코드가 이메일로 전송되었습니다.');
       emailInput.disabled = true;
       emailButton.disabled = true;
@@ -54,8 +55,6 @@ function verifyCode() {
     email: verifyingEmail,
     code: $('#codeInput').val(),
   };
-  console.log(data);
-
   axios
     .post('http://localhost:3000/users/verify-code', data)
     .then(response => {
@@ -71,12 +70,12 @@ function verifyCode() {
 //회원가입
 function sign(event) {
   event.preventDefault();
-  if (!document.getElementById('signupEmail').disabled) {
-    return alert('E-mail 인증 먼저 진행해주세요.');
-  }
-  if (!document.getElementById('codeInputButton').disabled) {
-    return alert('E-mail 인증 먼저 진행해주세요.');
-  }
+  // if (!document.getElementById('signupEmail').disabled) {
+  //   return alert('E-mail 인증 먼저 진행해주세요.');
+  // }
+  // if (!document.getElementById('codeInputButton').disabled) {
+  //   return alert('E-mail 인증 먼저 진행해주세요.');
+  // }
   const isAdmin = document.getElementById('admin').checked ? 1 : 0;
   const data = {
     is_admin: isAdmin,
@@ -88,14 +87,25 @@ function sign(event) {
   axios
     .post('http://localhost:3000/users/sign', data)
     .then(response => {
-      alert(response.message);
-      location.reload();
+      alert(
+        '회원가입을 축하합니다! 고객님의 취향을 저격하기 위해 선호도 조사 페이지로 이동합니다!',
+      );
+      // 회원가입 되면 바로 선호도조사 페이지로 이동
+      location.href = 'http://localhost:3000/preference.html';
     })
     .catch(error => {
-      alert(error.response.message);
+      // 서버에서 발생한 예외 처리
+      if (error.response) {
+        // 서버가 응답을 보낸 경우
+        const errorMessage = error.response.data.message;
+        alert('회원가입 실패: ' + errorMessage);
+      } else {
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        console.error('네트워크 오류:', error.message);
+        alert('네트워크 오류가 발생했습니다.');
+      }
     });
 }
-
 // 로그인
 function login() {
   const data = {
@@ -105,54 +115,55 @@ function login() {
   axios
     .post('http://localhost:3000/users/login', data)
     .then(response => {
-      console.log(response);
-      location.reload();
-      // createLogoutButton();
+      // 로그인하면 바로 메뉴추천 페이지로 이동
+      alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
+      location.href = 'http://localhost:3000/menu-subscribe.html';
     })
     .catch(error => {
-      // 에러 처리
-      alert(error.response.message);
+      // 서버에서 발생한 예외 처리
+      if (error.response) {
+        // 서버가 응답을 보낸 경우
+        const errorMessage = error.response.data.message;
+        alert('로그인 실패: ' + errorMessage);
+      } else {
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        console.error('네트워크 오류:', error.message);
+        alert('네트워크 오류가 발생했습니다.');
+      }
     });
 }
-
-// 로그아웃 버튼을 생성하고 로그인 링크를 변경하는 함수
-function createLogoutButton() {
-  const loginLink = document.getElementById('loginLink');
-  loginLink.innerHTML = '<i class="fa fa-user"></i>로그아웃';
-  loginLink.removeAttribute('onclick'); // 이전의 클릭 이벤트를 제거
-
-  // 새로운 클릭 이벤트를 추가하여 로그아웃 함수를 호출
-  loginLink.addEventListener('click', function () {
-    singOut();
-  });
-}
-
 // 로그아웃
-function singOut() {
+function signOut() {
   axios
-    .delete('http://localhost:3000/users/logOut')
+    .delete('http://localhost:3000/users/logout')
     .then(response => {
-      alert('로그아웃 완료');
-      // 로그아웃이 완료된 경우 다시 로그인 링크로 변경
-      resetLoginLink();
+      alert(response.data);
       location.reload();
     })
     .catch(error => {
-      alert('로그아웃 실패');
-      console.error(error);
+      // 서버에서 발생한 예외 처리
+      if (error.response) {
+        // 서버가 응답을 보낸 경우
+        const errorMessage = error.response.data.message;
+        alert('로그아웃 실패: ' + errorMessage);
+      } else {
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        console.error('네트워크 오류:', error.message);
+        alert('네트워크 오류가 발생했습니다.');
+      }
     });
 }
 
-//어드민 변환
-function admintransfer() {
-  axios
-    .post('http://localhost:3000/users/admin')
-    .then(response => {
-      alert('어드민 변환 완료');
-      location.reload();
-    })
-    .catch(error => {
-      alert('어드민 변환 실패');
-      console.error(error);
-    });
-}
+// //어드민 변환
+// function admintransfer() {
+//   axios
+//     .post('https://togethereat.shop/users/admin')
+//     .then(response => {
+//       alert('어드민 변환 완료');
+//       location.reload();
+//     })
+//     .catch(error => {
+//       alert('어드민 변환 실패');
+//       console.error(error);
+//     });
+// }

@@ -18,7 +18,7 @@
   box-shadow: none;
   -webkit-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
-  outline: none; /* 이 부분을 추가하세요 */
+  outline: none;
   &:hover {
     color: black;
     background: #fff;
@@ -29,7 +29,7 @@
 
 .col {
   display: inline-block;
-  width: auto; /* 자식 요소의 너비를 내용에 맞게 설정 */
+  width: auto;
 }
 
 .col-auto {

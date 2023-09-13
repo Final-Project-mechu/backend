@@ -1,16 +1,23 @@
-import { ManyToOne, JoinColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  ManyToOne,
+  JoinColumn,
+  Entity,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Feed } from './feed.entity';
 import { Favorite } from './favorite.entity';
 
 @Entity({ schema: 'finalpj', name: 'feed_favorite' })
 export class FeedFavorite {
-  @PrimaryColumn()
-  @ManyToOne(() => Feed)
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @ManyToOne(() => Feed, feed => feed.feedFavorites)
   @JoinColumn({ name: 'feed_id' })
   feed_id: number;
 
-  @PrimaryColumn()
-  @ManyToOne(() => Favorite)
+  @ManyToOne(() => Favorite, favorite => favorite.feedFavorite)
   @JoinColumn({ name: 'favorite_id' })
   favorite_id: number;
 }

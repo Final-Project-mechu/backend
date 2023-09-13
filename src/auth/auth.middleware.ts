@@ -23,7 +23,6 @@ export class AuthMiddleware implements NestMiddleware {
       if (!authHeader) {
         throw new UnauthorizedException('JWT not found');
       }
-      console.log('Middleware', authHeader);
       const decodedRefresh = decodeURIComponent(AccessToken.split('=')[1]);
       const decodedAccess = decodeURIComponent(RefreshToken.split('=')[1]);
       if (

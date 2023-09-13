@@ -119,12 +119,16 @@ function setCookie(cookie_name, value, days) {
   document.cookie = cookie_name + '=' + cookie_value;
 }
 
+function deleteCookie(name) {
+  setCookie(name, '', -1);
+}
+
 // 로그아웃
 function signOut() {
-  document.cookie = setCookie('AccessToken', 'expired', 0);
-  document.cookie = setCookie('RefreshToken', 'expired', 0);
+  document.cookie = deleteCookie('AccessToken');
+  document.cookie = deleteCookie('RefreshToken');
   alert('로그아웃 되었습니다.');
-  location.reload();
+  console.log(document.cookie);
 }
 
 // 로그인
@@ -140,7 +144,7 @@ function login() {
       setCookie('AccessToken', response.data.AccessToken, 1);
       setCookie('RefreshToken', response.data.RefreshToken, 1);
       alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
-      location.href = 'http://localhost:3000/menu-subscribe.html';
+      // location.href = 'http://localhost:3000/menu-subscribe.html';
     })
     .catch(error => {
       // 서버에서 발생한 예외 처리

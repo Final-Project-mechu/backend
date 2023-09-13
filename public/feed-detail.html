@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/comment.css" type="text/css" />
+    <link rel="stylesheet" href="css/feed-detail.css" type="text/css" />
   </head>
 
   <body>
@@ -350,25 +351,59 @@
               </div>
               <div class="blog__item__text">
                 <button class="site-btn" id="feed-change">피드 수정</button>
+                <button class="site-btn" id="feed-delete" onclick="feedDelete()">피드 삭제</button>
+                <!-- 댓글 section 시작 -->
+<div id="comment-section">
+  <div class="comment-input-box">
+      <textarea id="comment-text" placeholder="댓글을 입력하세요..."></textarea>
+      <button class="site-btn" id="commentCreate">댓글 생성</button>
+  </div>
+  <div id="comment-box">
+      <!-- 각 댓글은 아래와 같은 구조로 반복됩니다. -->
+      <div class="comment">
+        <div class="comment-info">
+            <h6 class="nickname">닉네임</h6>
+            <h6 class="comment-content">댓글 내용</h6>
+            
+            <!-- 세로 점 세 개 메뉴 아이콘 -->
+            <div class="menu-icon">
+                &#8942; <!-- 세로 점 세 개의 HTML 엔터티 코드 -->
+                <!-- 드롭다운 메뉴 -->
+                <div class="dropdown-menu">
+                    <button id="comment-change">댓글 수정</button>
+                    <button id="comment-delete">댓글 삭제</button>
+                <button class="site-btn" id="feed-change" onclick=>피드 수정</button>
+                <button class="site-btn" id="feed-delete" onclick="feedDelete()">피드 삭제</button>
+                <!-- 댓글 section 시작 -->
+<div id="comment-section">
+  <div class="comment-input-box">
+      <textarea id="comment-text" placeholder="댓글을 입력하세요..."></textarea>
+      <button class="site-btn" id="commentCreate">댓글 생성</button>
+  </div>
+  <div id="comment-box">
+      <!-- 각 댓글은 아래와 같은 구조로 반복됩니다. -->
+      <div class="comment">
+        <div class="comment-info">
+            <h6 class="nickname">닉네임</h6>
+            <h6 class="comment-content">댓글 내용</h6>
+            
+            <!-- 세로 점 세 개 메뉴 아이콘 -->
+            <div class="menu-icon">
+                &#8942; <!-- 세로 점 세 개의 HTML 엔터티 코드 -->
+                <!-- 드롭다운 메뉴 -->
+                <div class="dropdown-menu">
+                    <button id="comment-change">댓글 수정</button>
+                    <button id="comment-delete">댓글 삭제</button>
+                <button class="site-btn" id="feed-change">피드 수정</button>
                 <button class="site-btn" id="feed-delete">피드 삭제</button>
                 <!-- <button class="site-btn" id="commentCreate">댓글 생성</button> -->
               </div>
-              <!-- 댓글 section 시작 -->
-              <div id="comment-box">
-                <div class="comment">
-                  <div class="comment-info">
-                    <h6 class="nickname">닉네임</h6>
-                    <h6 class="comment-content">댓글 내용</p>
-                    <h6 class="createdAt">작성일</h6>
-                  </div>
                 </div>
-              </div>
-              <!-- 댓글 section 끝 -->
-            <!-- <button class="site-btn" id="comment-change">댓글 수정</button>
-            <button class="site-btn" id="comment-delete">댓글 삭제</button> -->
-          </div>
+            </div>
         </div>
-      </div>
+    </div>
+<!-- 댓글 section 끝 -->
+
     </section>
     <!-- 피드 상세 section  -->
     <!-- Contact Section Begin -->

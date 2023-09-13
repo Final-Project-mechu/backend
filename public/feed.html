@@ -295,7 +295,7 @@
           <div class="col-lg-8" style="max-width: 1000px">
             <nav class="header__menu">
               <ul>
-                <li class="active">
+                <li>
                   <a id="tob-bar" href="./index.html">홈</a>
                 </li>
                 <li>
@@ -305,7 +305,9 @@
                   <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
                 </li>
                 <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
-                <li><a id="tob-bar" href="./feed.html">피드</a></li>
+                <li class="active">
+                  <a id="tob-bar" href="./feed.html">피드</a>
+                </li>
               </ul>
             </nav>
           </div>
@@ -329,11 +331,7 @@
               <h2>Feed Page</h2>
             </div>
             <div class="feedbutton-wrap">
-              <button
-                onclick="writeClick()"
-                class="site-btn"
-                id="writeButton"
-              >
+              <button onclick="writeClick()" class="site-btn" id="writeButton">
                 WRITE
               </button>
             </div>

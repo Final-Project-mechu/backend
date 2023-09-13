@@ -55,7 +55,7 @@ export class CategoryController {
     @Req() request: RequestWithLocals,
     @Param('category_id') category_id: number,
   ) {
-    console.log(category_id)
+    console.log(category_id);
     const user = request.locals.user;
     await this.categoryService.updateCategory(
       user.id,

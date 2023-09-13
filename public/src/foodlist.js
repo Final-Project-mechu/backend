@@ -1,3 +1,9 @@
+// 페이지가 로드될 때 한 번만 새로고침하기 위한 로직
+if (!window.location.hash) {
+  window.location = window.location + '#loaded';
+  window.location.reload();
+}
+
 // 카테고리 조회 함수
 // id, category_name,
 async function categoryGet() {

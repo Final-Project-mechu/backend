@@ -253,12 +253,9 @@ document.querySelector('#likeBtn').addEventListener('click', async () => {
 });
 
 document.getElementById('the-menu').addEventListener('click', function () {
-  console.log('Opening the menu window...');
-  const menuWindow = window.open('', '_blank', 'width=400,height=600');
-  console.log('Opening the menu window222');
-
+  const menuWindow = window.open('menu.html', '_blank', 'width=400,height=600');
   menuWindow.addEventListener('load', function () {
-    console.log('Opening the menu window5555');
+
 
     const foodButton = menuWindow.document.createElement('button');
     foodButton.innerText = '음식';

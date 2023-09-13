@@ -253,29 +253,9 @@ document.querySelector('#likeBtn').addEventListener('click', async () => {
 });
 
 document.getElementById('the-menu').addEventListener('click', function () {
-  console.log('Opening the menu window...');
-  var popupW = 400;
-var popupH = 300;
-var left = Math.ceil((window.screen.width - popupW) / 2);
-var top = Math.ceil((window.screen.height - popupH) / 2);
-
-  const menuWindow = window.open('',
-  'userDataWindow',
-  'width=' +
-  popupH +
-  ',height=' +
-  popupH +
-  ',left=' +
-  left +
-  ',top=' +
-  top +
-  ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',
-  );
-
-  console.log('Opening the menu window222');
-
+  const menuWindow = window.open('menu.html', '_blank', 'width=400,height=600');
   menuWindow.addEventListener('load', function () {
-    console.log('Opening the menu window5555');
+
 
     const foodButton = menuWindow.document.createElement('button');
     foodButton.innerText = '음식';

@@ -47,7 +47,7 @@ async function commentsGet() {
   }
 }
 
-// 피드 삭제 
+// 피드 삭제
 function feedDelete() {
   axios
     .delete(`http://localhost:3000/feeds/${feedId}`)
@@ -69,10 +69,21 @@ function feedDelete() {
     });
 }
 
-// 댓글 조회 부분 
+async function commentsGet() {
+  try {
+    const serverCall = await axios.get(
+      `http://localhost:3000/comments/${feedId}`,
+    );
+    const commentList = serverCall.data;
+    createAllCommentItems(commentList);
+  } catch (err) {
+    console.err('commentsGet', err);
+  }
+}
+
 function createAllCommentItems(comments) {
   const commentContainer = document.getElementById('comment-box');
-  commentContainer.innerHTML = ''; 
+  commentContainer.innerHTML = '';
 
   comments.forEach(comment => {
     commentContainer.innerHTML += `
@@ -99,39 +110,84 @@ function createAllCommentItems(comments) {
 async function deleteComment(commentId) {
   try {
     await axios.delete(`http://localhost:3000/comments/${commentId}`);
-    alert("댓글이 삭제되었습니다.");
+    alert('댓글이 삭제되었습니다.');
     commentsGet(); // 댓글 삭제 후 댓글 목록을 다시 가져옵니다.
   } catch (error) {
-    alert("댓글 삭제는 본인만 가능합니다.");
+    alert('댓글 삭제는 본인만 가능합니다.');
   }
 }
 
 // "댓글 생성" 버튼 클릭 이벤트 추가
-document.getElementById('commentCreate').addEventListener('click', async function() {
-  const commentText = document.getElementById('comment-text').value;
+document
+  .getElementById('commentCreate')
+  .addEventListener('click', async function () {
+    const commentText = document.getElementById('comment-text').value;
 
-  // 댓글 내용이 비어있지 않은 경우에만 요청을 보냄
-  if (commentText) {
+    // 댓글 내용이 비어있지 않은 경우에만 요청을 보냄
+    if (commentText) {
       try {
-          const response = await axios.post(`http://localhost:3000/comments/${feedId}`, {
-              contents: commentText
-          });
+        const response = await axios.post(
+          `http://localhost:3000/comments/${feedId}`,
+          {
+            contents: commentText,
+          },
+        );
 
-          if (response.status === 201) {
-              commentsGet();
-              document.getElementById('comment-text').value = ''; 
-              alert('댓글 작성 완료'); 
-          } else {
-              console.error('댓글 생성 실패:', response.statusText);
-          }
+        if (response.status === 201) {
+          commentsGet();
+          document.getElementById('comment-text').value = '';
+          alert('댓글 작성 완료');
+        } else {
+          console.error('댓글 생성 실패:', response.statusText);
+        }
       } catch (error) {
-          console.error('댓글 생성 중 오류 발생:', error);
+        console.error('댓글 생성 중 오류 발생:', error);
       }
-  } else {
+    } else {
       alert('댓글 내용을 입력해주세요.');
-  }
-});
+    }
+  });
 
+async function deleteComment(commentId) {
+  try {
+    await axios.delete(`http://localhost:3000/comments/${commentId}`);
+    alert('댓글이 삭제되었습니다.');
+    commentsGet(); // 댓글 삭제 후 댓글 목록을 다시 가져옵니다.
+  } catch (error) {
+    alert('댓글 삭제는 본인만 가능합니다.');
+  }
+}
+
+// "댓글 생성" 버튼 클릭 이벤트 추가
+document
+  .getElementById('commentCreate')
+  .addEventListener('click', async function () {
+    const commentText = document.getElementById('comment-text').value;
+
+    // 댓글 내용이 비어있지 않은 경우에만 요청을 보냄
+    if (commentText) {
+      try {
+        const response = await axios.post(
+          `http://localhost:3000/comments/${feedId}`,
+          {
+            contents: commentText,
+          },
+        );
+
+        if (response.status === 201) {
+          commentsGet();
+          document.getElementById('comment-text').value = '';
+          alert('댓글 작성 완료');
+        } else {
+          console.error('댓글 생성 실패:', response.statusText);
+        }
+      } catch (error) {
+        console.error('댓글 생성 중 오류 발생:', error);
+      }
+    } else {
+      alert('댓글 내용을 입력해주세요.');
+    }
+  });
 
 window.onload = function () {
   commentsGet();

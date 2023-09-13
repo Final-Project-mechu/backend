@@ -47,7 +47,7 @@ async function commentsGet() {
   }
 }
 
-// 피드 삭제 
+// 피드 삭제
 function feedDelete() {
   axios
     .delete(`http://localhost:3000/feeds/${feedId}`)
@@ -69,10 +69,10 @@ function feedDelete() {
     });
 }
 
-// 댓글 조회 부분 
+// 댓글 조회 부분
 function createAllCommentItems(comments) {
   const commentContainer = document.getElementById('comment-box');
-  commentContainer.innerHTML = ''; 
+  commentContainer.innerHTML = '';
 
   comments.forEach(comment => {
     commentContainer.innerHTML += `
@@ -86,7 +86,6 @@ function createAllCommentItems(comments) {
             &#8942; <!-- 세로 점 세 개의 HTML 엔터티 코드 -->
             <!-- 드롭다운 메뉴 -->
             <div class="dropdown-menu">
-              <button id="comment-change-${comment.id}">댓글 수정</button>
               <button id="comment-delete-${comment.id}" onclick="deleteComment(${comment.id})">댓글 삭제</button>
             </div>
           </div>
@@ -95,43 +94,84 @@ function createAllCommentItems(comments) {
     `;
   });
 }
+{
+  /* <button id="comment-change-${comment.id}">댓글 수정</button> */
+}
 
 async function deleteComment(commentId) {
   try {
     await axios.delete(`http://localhost:3000/comments/${commentId}`);
-    alert("댓글이 삭제되었습니다.");
+    alert('댓글이 삭제되었습니다.');
     commentsGet(); // 댓글 삭제 후 댓글 목록을 다시 가져옵니다.
   } catch (error) {
-    alert("댓글 삭제는 본인만 가능합니다.");
+    alert('댓글 삭제는 본인만 가능합니다.');
   }
 }
 
-// "댓글 생성" 버튼 클릭 이벤트 추가
-document.getElementById('commentCreate').addEventListener('click', async function() {
-  const commentText = document.getElementById('comment-text').value;
+// 엔터키로 댓글 생성
+document
+  .getElementById('comment-text')
+  .addEventListener('keydown', async function (event) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      // shift 키와 함께 엔터키를 누르는 경우를 제외
+      event.preventDefault(); // 기본 엔터키 동작(새 줄 추가)을 막습니다.
 
-  // 댓글 내용이 비어있지 않은 경우에만 요청을 보냄
-  if (commentText) {
-      try {
-          const response = await axios.post(`http://localhost:3000/comments/${feedId}`, {
-              contents: commentText
-          });
+      const commentText = this.value;
+
+      if (commentText) {
+        try {
+          const response = await axios.post(
+            `http://localhost:3000/comments/${feedId}`,
+            {
+              contents: commentText,
+            },
+          );
 
           if (response.status === 201) {
-              commentsGet();
-              document.getElementById('comment-text').value = ''; 
-              alert('댓글 작성 완료'); 
+            commentsGet();
+            this.value = '';
+            alert('댓글 작성 완료');
           } else {
-              console.error('댓글 생성 실패:', response.statusText);
+            console.error('댓글 생성 실패:', response.statusText);
           }
-      } catch (error) {
+        } catch (error) {
           console.error('댓글 생성 중 오류 발생:', error);
+        }
+      } else {
+        alert('댓글 내용을 입력해주세요.');
       }
-  } else {
-      alert('댓글 내용을 입력해주세요.');
-  }
-});
+    }
+  });
 
+// "댓글 생성" 버튼 클릭 이벤트 추가
+document
+  .getElementById('commentCreate')
+  .addEventListener('click', async function () {
+    const commentText = document.getElementById('comment-text').value;
+
+    if (commentText) {
+      try {
+        const response = await axios.post(
+          `http://localhost:3000/comments/${feedId}`,
+          {
+            contents: commentText,
+          },
+        );
+
+        if (response.status === 201) {
+          commentsGet();
+          document.getElementById('comment-text').value = '';
+          alert('댓글 작성 완료');
+        } else {
+          console.error('댓글 생성 실패:', response.statusText);
+        }
+      } catch (error) {
+        console.error('댓글 생성 중 오류 발생:', error);
+      }
+    } else {
+      alert('댓글 내용을 입력해주세요.');
+    }
+  });
 
 window.onload = function () {
   commentsGet();

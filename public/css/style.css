@@ -139,6 +139,7 @@ ol {
 .section-title {
   margin-bottom: 50px;
   text-align: center;
+  
 }
 
 .section-title h2 {
@@ -178,6 +179,10 @@ ol {
   color: #fff;
 }
 
+.menu-preference-container {
+  margin: 10px;
+}
+
 /* buttons */
 .mainMenuBtn {
   display: inline-block;
@@ -201,8 +206,12 @@ ol {
   background: #4a39ad;
   letter-spacing: 2px;
   border-radius: 5PX;
-
 }
+
+.mainPreferBtn:hover {
+  color: #ccb911;
+}
+
 
 .primary-btn {
   display: inline-block;

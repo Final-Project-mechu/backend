@@ -1,3 +1,9 @@
+if (!window.location.hash) {
+  window.location = window.location + '#loaded';
+  window.location.reload();
+  }
+
+
 const form = document.getElementById('search-form');
 form.addEventListener('submit', function (event) {
   event.preventDefault(); // 폼 자동 제출 방지
@@ -248,7 +254,7 @@ document.querySelector('#likeBtn').addEventListener('click', async () => {
 
 document.getElementById('the-menu').addEventListener('click', function () {
   console.log('Opening the menu window...');
-  const menuWindow = window.open('menu.html', '_blank', 'width=400,height=600');
+  const menuWindow = window.open('', '_blank', 'width=400,height=600');
   console.log('Opening the menu window222');
 
   menuWindow.addEventListener('load', function () {

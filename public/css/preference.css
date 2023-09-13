@@ -19,4 +19,6 @@
   margin-top: 50px;
   bottom: 475px;
   right: 570px;
+  z-index: 10;
+  cursor: pointer;
 }

@@ -1,6 +1,3 @@
-/**
- * 초기 form제출 전 설정 함수
- */
 const form = document.getElementById('search-form');
 form.addEventListener('submit', function (event) {
   event.preventDefault(); // 폼 자동 제출 방지
@@ -19,9 +16,6 @@ form.addEventListener('submit', function (event) {
   }
 });
 
-/**
- * 선호 메뉴 검색함수
- */
 function searchFavorites() {
   const searchInput = document.getElementById('survey-search-input');
   const searchValue = searchInput.value.trim();
@@ -150,73 +144,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  document
-    .querySelector('.hero__search__phone')
-    .addEventListener('click', async () => {
-      const checkedItems = document.querySelectorAll('.item-checkbox:checked');
-      const itemsToDelete = Array.from(checkedItems)
-        .map(checkbox =>
-          checkbox.parentElement.querySelector('h6').textContent.trim(),
-        )
-        .filter(item => item);
-      // 체크박스가 선택되지 않았을 경우 메시지 표시
-      if (itemsToDelete.length === 0) {
-        alert('삭제할 항목을 선택해주세요.');
-        return;
+  document.getElementById('prefer-delete').addEventListener('click', async () => {
+    const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+    const itemsToDelete = Array.from(checkedItems)
+      .map(checkbox =>
+        checkbox.parentElement.querySelector('h6').textContent.trim(),
+      )
+      .filter(item => item);
+  
+    // 체크박스가 선택되지 않았을 경우 메시지 표시
+    if (itemsToDelete.length === 0) {
+      alert('삭제할 항목을 선택해주세요.');
+      return;
+    }
+  
+    let url;
+    let dataKey;
+    if (currentFilter === 'favorites') {
+      url = 'http://localhost:3000/user-actions/favorites-cancel';
+      dataKey = 'foodName';
+    } else if (currentFilter === 'excluded-foods') {
+      url = 'http://localhost:3000/user-actions/exclude-foods-cancel';
+      dataKey = 'foodName';
+    } else if (currentFilter === 'excluede-ingredient') {
+      url = 'http://localhost:3000/user-actions/exclude-ingredients-cancel';
+      dataKey = 'ingredientName';
+    } else {
+      console.error('Invalid currentFilter value:', currentFilter); 
+      return; 
+    }
+    try {
+      for (const item of itemsToDelete) {
+        console.log('Sending request for item:', item); 
+        await axios({
+          method: 'post',
+          url: url,
+          data: {
+            [dataKey]: item,
+          },
+        });
       }
-
-      let url;
-      let dataKey;
-      if (currentFilter === 'favorites') {
-        url = 'http://localhost:3000/user-actions/favorites-cancel';
-        dataKey = 'foodName';
-      } else if (currentFilter === 'excluded-foods') {
-        url = 'http://localhost:3000/user-actions/exclude-foods-cancel';
-        dataKey = 'foodName';
-      } else if (currentFilter === 'excluede-ingredient') {
-        url = 'http://localhost:3000/user-actions/exclude-ingredients-cancel';
-        dataKey = 'ingredientName';
-      } else {
-        console.error('Invalid currentFilter value:', currentFilter); // 로깅: 잘못된 currentFilter 값
-        return; // 함수 종료
-      }
-
-      console.log('URL:', url); // 로깅: 요청 URL
-      console.log('Data Key:', dataKey); // 로깅: 데이터 키
-      console.log('Items to Delete:', itemsToDelete); // 로깅: 삭제할 아이템들
-
-      try {
-        for (const item of itemsToDelete) {
-          console.log('Sending request for item:', item); // 로깅: 현재 요청 중인 아이템
-          await axios({
-            method: 'post',
-            url: url,
-            data: {
-              [dataKey]: item,
-            },
-          });
-        }
-        alert('삭제되었습니다.');
-        location.reload();
-      } catch (error) {
-        console.log(error);
-        alert('삭제 중 오류가 발생했습니다.');
-      }
-    });
+      alert('삭제되었습니다.');
+      location.reload();
+    } catch (error) {
+      console.log(error);
+      alert('삭제 중 오류가 발생했습니다.');
+    }
+  });
 
   // 페이지 로드 시 handleFiltering 함수 호출
   handleFiltering();
 
   // 선호 메뉴 조회
-  document.querySelector('#likeBtn').addEventListener('click', async () => {
-    const callServer = await axios({
-      method: 'get',
-      url: 'http://localhost:3000/user-actions/favorites',
-    });
-    const callFavorites = callServer.data;
-    createItems(callFavorites, 'favorites');
-    handleFiltering();
+document.querySelector('#likeBtn').addEventListener('click', async () => {
+  const callServer = await axios({
+    method: 'get',
+    url: 'http://localhost:3000/user-actions/favorites',
   });
+  const callFavorites = callServer.data;
+  createItems(callFavorites, 'favorites');
+  handleFiltering();
+});
 
   // 제외한 음식 조회
   document
@@ -298,7 +286,7 @@ document.getElementById('the-menu').addEventListener('click', function () {
         .get('http://localhost:3000/ingredient')
         .then(res => {
           const ingredientNames = res.data.map(item => item.ingredient_name);
-          contentContainer.innerHTML = ''; // 컨테이너 내부 초기화
+          contentContainer.innerHTML = ''; 
           contentContainer.innerHTML += '<h2>재료</h2>';
           contentContainer.innerHTML += ingredientNames.join('<br>');
         })

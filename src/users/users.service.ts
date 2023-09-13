@@ -24,16 +24,16 @@ export class UsersService {
     private mailservice: MailService,
   ) {}
 
-  async getUserInfo(email: string) {
+  async findUser(email: string) {
     return await this.userRepository.findOne({
       where: { email },
-      select: ['id', 'email', 'password', 'nick_name', 'refresh_token'],
+      select: ['id', 'nick_name', 'password', 'refresh_token'],
     });
   }
 
-  async getUserNickName(email: string) {
+  async getUserNickName(user_id: number) {
     return await this.userRepository.findOne({
-      where: { email },
+      where: { id: user_id },
       select: ['nick_name'],
     });
   }
@@ -90,7 +90,7 @@ export class UsersService {
       );
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const existUser = await this.getUserInfo(email);
+    const existUser = await this.findUser(email);
     if (!_.isNil(existUser)) {
       throw new ConflictException(
         `e메일이 이미 사용 중입니다. email: ${email}`,
@@ -102,7 +102,6 @@ export class UsersService {
       nick_name,
       password: hashedPassword,
     });
-    console.log('insertResult', insertResult);
     const payload = {
       id: insertResult.identifiers[0].id,
     };
@@ -120,22 +119,19 @@ export class UsersService {
 
   async login(email: string, password: string) {
     try {
-      const userConfirm = await this.getUserInfo(email);
+      const userConfirm = await this.findUser(email);
       if (_.isNil(userConfirm)) {
         throw new NotFoundException(
           `e메일을 찾을 수 없습니다. user email: ${email}`,
         );
       }
-
       const matchedPassward = await bcrypt.compare(
         password,
         userConfirm.password,
       );
-
       if (!matchedPassward) {
         throw new ConflictException('비밀번호가 일치하지 않습니다.');
       }
-
       const payload = {
         id: userConfirm.id,
         nick_name: userConfirm.nick_name,
@@ -145,7 +141,7 @@ export class UsersService {
       });
       const refreshToken = userConfirm.refresh_token;
 
-      return { access_Token: accessToken, refresh_Token: refreshToken };
+      return { accessToken, refreshToken };
     } catch (error) {
       console.error('로그인 에러:', error);
       return { message: '로그인에 실패했습니다.' };

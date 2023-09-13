@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { AuthService } from './auth.service';
-import { asyncScheduler } from 'rxjs';
+import { AuthService } from './auth.service'; // 안씀
+
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(
@@ -23,7 +23,7 @@ export class AuthMiddleware implements NestMiddleware {
       if (!authHeader) {
         throw new UnauthorizedException('JWT not found');
       }
-
+      console.log('Middleware', authHeader);
       const decodedRefresh = decodeURIComponent(AccessToken.split('=')[1]);
       const decodedAccess = decodeURIComponent(RefreshToken.split('=')[1]);
       if (
@@ -46,7 +46,7 @@ export class AuthMiddleware implements NestMiddleware {
       if (!AccessToken) {
         const newAccessToken =
           await this.authService.generateAccessToken(payload);
-        res.cookie('AccessToken', 'Bearer ' + newAccessToken);
+        return { AccessToken: 'Bearer ' + newAccessToken };
       }
 
       next();

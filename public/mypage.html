@@ -339,10 +339,18 @@
         </div>
       </section>
       <div class="mypage-buttons">
-        <button data-bs-toggle="modal" data-bs-target="#modifyUserModal">
+        <button
+          data-bs-toggle="modal"
+          class="site-btn"
+          data-bs-target="#modifyUserModal"
+        >
           내 정보 수정
         </button>
-        <button data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+        <button
+          data-bs-toggle="modal"
+          class="site-btn"
+          data-bs-target="#deleteUserModal"
+        >
           회원 탈퇴
         </button>
       </div>
@@ -378,6 +386,7 @@
                   <input
                     type="code"
                     class="modal-input"
+                    id="newNick_Name"
                     placeholder="변경할 닉네임"
                     required
                   />
@@ -386,8 +395,9 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="code"
+                    type="password"
                     class="modal-input"
+                    id="password"
                     placeholder="현재 비밀번호"
                     required
                   />
@@ -396,8 +406,9 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="code"
+                    type="password"
                     class="modal-input"
+                    id="new-password"
                     placeholder="새 비밀번호"
                     required
                   />
@@ -452,7 +463,8 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="code"
+                    type="password"
+                    id="passwordDelete1"
                     class="modal-input"
                     placeholder="비밀번호"
                     required
@@ -464,6 +476,7 @@
                   <input
                     type="code"
                     class="modal-input"
+                    id="passwordDelete2"
                     placeholder="비밀번호 확인"
                     required
                   />
@@ -538,6 +551,7 @@
     <!-- Footer Section End -->
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
+    <script src="./src/dailymenu.js" defer></script>
     <script src="./src/mypage.js"></script>
     <script src="./src/checkLogin.js"></script>
     <!-- 적용하려는 script 파일 끝 -->

@@ -53,38 +53,6 @@ function createAllFoodItems(foods) {
 }
 foodGet();
 
-// window.onload = function () {
-//   document
-//     .getElementById('openNewWindowBtn')
-//     .addEventListener('click', async function () {
-//       const fId = document.getElementById('openNewWindowBtn');
-//       const foodId = fId.getAttribute('data-food-id');
-//       console.log(foodId);
-
-//       url = `http://localhost:3000/food/${Number(foodId)}`;
-//       const callFoodIngredient = await axios.get(url);
-//       const allFoodsIngredient = callFoodIngredient.data;
-
-//       const foodIgredientHtml = allFoodsIngredient
-//         .map(item => `<li>${item.ingredient_name}</li>`)
-//         .join('');
-
-//       console.log(foodIgredientHtml);
-//       const newWindow = window.open(
-//         '',
-//         'userDataWindow',
-//         'width=400,height=300',
-//       );
-//       newWindow.document.body.innerHTML = `
-//          <ul>
-//             <h2><h2>
-//             <h3>재료</h3>
-//             ${foodIgredientHtml}
-//          </ul>
-//         `;
-//     });
-// };
-
 async function foodInfo(foodId) {
   console.log(foodId);
   url = `http://localhost:3000/food/${Number(foodId)}`;

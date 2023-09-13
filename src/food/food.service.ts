@@ -75,6 +75,12 @@ export class FoodService {
     );
   }
 
+  async getOneFood(food_id: number) {
+    return await this.foodReository.query(
+      `select * from food f where f.id = ${food_id}`,
+    );
+  }
+
 
 
   //음식삭제
@@ -109,17 +115,17 @@ export class FoodService {
 
   //음식 정보 수정 및 사진 추가하기
   async updateFoodImage(
-    id: number,
+    // id: number,
     food_id: number,
     food_name: string,
     category_id: number,
     file: Express.Multer.File,
   ) {
-    const checkAdmin = await this.confirmAdmin(id);
-    if (checkAdmin.is_admin !== 1) {
-      console.log('관리자가 아닙니다.');
-      throw new UnauthorizedException('관리자가 아닙니다.');
-    }
+    // const checkAdmin = await this.confirmAdmin(id);
+    // if (checkAdmin.is_admin !== 1) {
+    //   console.log('관리자가 아닙니다.');
+    //   throw new UnauthorizedException('관리자가 아닙니다.');
+    // }
     const food_img = await this.s3Service.putObject(file);
     
 

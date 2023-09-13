@@ -23,11 +23,22 @@ export class CommentsService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  // 게시글 ID로 댓글 전체 조회
+  // 피드 ID에 따른 댓글 전체 조회
   async getCommentsByFeedId(feed_id: number) {
-    const result = await this.commentRepository.find({
-      where: { feedId: feed_id, deletedAt: null },
-    });
+    const result = await this.commentRepository
+      .createQueryBuilder('comment')
+      .select([
+        'comment.id',
+        'comment.nick_name',
+        'comment.contents',
+        'comment.createdAt',
+        'comment.updatedAt',
+        'comment.deletedAt',
+        'comment.feed_id',
+      ])
+      .where('comment.feed_id = :feed_id', { feed_id: feed_id })
+      .andWhere('comment.deletedAt IS NULL')
+      .getMany();
     return result;
   }
 
@@ -49,7 +60,7 @@ export class CommentsService {
     this.commentRepository.insert({
       user_id: user.id,
       nick_name: user.nick_name,
-      feedId,
+      feed_id: feed.id,
       contents,
     });
     return { Message: '댓글이 생성되었습니다!' };
@@ -72,18 +83,27 @@ export class CommentsService {
 
   // 댓글 삭제
   async deleteComment(user_id: number, id: number): Promise<any> {
-    const myComment = await this.commentRepository.findOne({
-      where: { id: id },
-    });
-    if (myComment.user_id !== user_id) {
+    const myComment = await this.commentRepository.query(`
+    SELECT * FROM comment WHERE id = ${id}
+    `);
+
+    if (!myComment) {
+      throw new NotFoundException(`댓글이 조회되지 않습니다.`);
+    }
+
+    if (myComment[0].user_id !== user_id) {
       throw new UnauthorizedException(
         '본인이 작성한 댓글만 삭제가 가능합니다.',
       );
     }
-    if (!myComment) {
-      throw new NotFoundException(`댓글이 조회되지 않습니다.`);
-    }
-    await this.commentRepository.softDelete(id);
+
+    await this.commentRepository
+      .createQueryBuilder()
+      .softDelete()
+      .from(Comment)
+      .where('id = :id', { id: id })
+      .execute();
+
     return { Message: '댓글이 삭제되었습니다.' };
   }
 }

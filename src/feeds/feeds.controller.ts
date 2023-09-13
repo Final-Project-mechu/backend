@@ -96,7 +96,6 @@ export class FeedsController {
       auth.id,
       data.title,
       data.description,
-      file,
     );
   }
 

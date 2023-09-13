@@ -5,7 +5,7 @@ window.onload = function () {
   let cookies = document.cookie;
   if (!cookies.includes('AccessToken=Bearer%20')) {
     alert('로그인이 필요한 기능입니다!');
-    window.location.href = 'http://localhost:3000/feed.html';
+    window.location.href = 'https://togethereat.shop/feed.html';
   }
 };
 
@@ -87,7 +87,7 @@ function feedCreate() {
     console.log('페이보릿', favorites);
     axios({
       method: 'post',
-      url: 'http://localhost:3000/feeds',
+      url: 'https://togethereat.shop/feeds',
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -95,7 +95,7 @@ function feedCreate() {
     })
       .then(function (res) {
         alert('찜한 상점의 피드가 생성되었습니다!');
-        location.href = 'http://localhost:3000/feed.html';
+        location.href = 'https://togethereat.shop/feed.html';
       })
       .catch(err => {
         alert(err.response.data.message);
@@ -103,7 +103,7 @@ function feedCreate() {
   } else if (!favorites) {
     axios({
       method: 'post',
-      url: 'http://localhost:3000/feeds/common',
+      url: 'https://togethereat.shop/feeds/common',
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -111,7 +111,7 @@ function feedCreate() {
     })
       .then(function (res) {
         alert('피드가 생성되었습니다!');
-        location.href = 'http://localhost:3000/feed.html';
+        location.href = 'https://togethereat.shop/feed.html';
       })
       .catch(err => {
         alert(err.response.data.message);
@@ -126,7 +126,7 @@ function feedCreate() {
 async function findFavorites() {
   const callServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/favorites',
+    url: 'https://togethereat.shop/favorites',
   });
   const allFavorites = callServer.data;
   console.log(allFavorites);

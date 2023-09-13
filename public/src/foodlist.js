@@ -9,7 +9,7 @@ if (!window.location.hash) {
 async function categoryGet() {
   const callCategoryServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/category',
+    url: 'https://togethereat.shop/category',
   });
   const allCategory = callCategoryServer.data;
   console.log(allCategory);
@@ -29,7 +29,7 @@ categoryGet();
 async function foodGet() {
   const callServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/food',
+    url: 'https://togethereat.shop/food',
   });
   const allFoods = callServer.data;
   console.log(allFoods);
@@ -61,7 +61,7 @@ foodGet();
 //       const foodId = fId.getAttribute('data-food-id');
 //       console.log(foodId);
 
-//       url = `http://localhost:3000/food/${Number(foodId)}`;
+//       url = `https://togethereat.shop/food/${Number(foodId)}`;
 //       const callFoodIngredient = await axios.get(url);
 //       const allFoodsIngredient = callFoodIngredient.data;
 
@@ -87,7 +87,7 @@ foodGet();
 
 async function foodInfo(foodId) {
   console.log(foodId);
-  url = `http://localhost:3000/food/${Number(foodId)}`;
+  url = `https://togethereat.shop/food/${Number(foodId)}`;
   const callFoodIngredient = await axios.get(url);
   const allFoodsIngredient = callFoodIngredient.data;
 
@@ -123,4 +123,4 @@ async function foodInfo(foodId) {
   `;
 }
 
-// <h6><a href="http://localhost:3000/food/${food.id}">${food.food_name}</a></h6>
+// <h6><a href="https://togethereat.shop/food/${food.id}">${food.food_name}</a></h6>

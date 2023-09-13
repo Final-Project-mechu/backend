@@ -2,8 +2,8 @@
 if (!window.location.hash) {
   window.location = window.location + '#loaded';
   window.location.reload();
-  }
-  
+}
+
 const form = document.getElementById('search-form');
 form.addEventListener('submit', function (event) {
   event.preventDefault(); // 폼 자동 제출 방지
@@ -29,7 +29,7 @@ function searchFavorites() {
 
   axios({
     method: 'post',
-    url: 'http://localhost:3000/user-actions/favorites',
+    url: 'https://togethereat.shop/user-actions/favorites',
     data: {
       foodName: searchValue,
     },
@@ -55,7 +55,7 @@ function searchExcludeFoods() {
 
   axios({
     method: 'post',
-    url: 'http://localhost:3000/user-actions/exclude-foods',
+    url: 'https://togethereat.shop/user-actions/exclude-foods',
     data: {
       foodName: searchValue,
     },
@@ -81,7 +81,7 @@ function searchExcludeIngredients() {
 
   axios({
     method: 'post',
-    url: 'http://localhost:3000/user-actions/exclude-ingredients',
+    url: 'https://togethereat.shop/user-actions/exclude-ingredients',
     data: {
       ingredientName: searchValue,
     },
@@ -150,67 +150,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  document.getElementById('prefer-delete').addEventListener('click', async () => {
-    const checkedItems = document.querySelectorAll('.item-checkbox:checked');
-    const itemsToDelete = Array.from(checkedItems)
-      .map(checkbox =>
-        checkbox.parentElement.querySelector('h6').textContent.trim(),
-      )
-      .filter(item => item);
-  
-    // 체크박스가 선택되지 않았을 경우 메시지 표시
-    if (itemsToDelete.length === 0) {
-      alert('삭제할 항목을 선택해주세요.');
-      return;
-    }
-  
-    let url;
-    let dataKey;
-    if (currentFilter === 'favorites') {
-      url = 'http://localhost:3000/user-actions/favorites-cancel';
-      dataKey = 'foodName';
-    } else if (currentFilter === 'excluded-foods') {
-      url = 'http://localhost:3000/user-actions/exclude-foods-cancel';
-      dataKey = 'foodName';
-    } else if (currentFilter === 'excluede-ingredient') {
-      url = 'http://localhost:3000/user-actions/exclude-ingredients-cancel';
-      dataKey = 'ingredientName';
-    } else {
-      console.error('Invalid currentFilter value:', currentFilter); 
-      return; 
-    }
-    try {
-      for (const item of itemsToDelete) {
-        console.log('Sending request for item:', item); 
-        await axios({
-          method: 'post',
-          url: url,
-          data: {
-            [dataKey]: item,
-          },
-        });
+  document
+    .getElementById('prefer-delete')
+    .addEventListener('click', async () => {
+      const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+      const itemsToDelete = Array.from(checkedItems)
+        .map(checkbox =>
+          checkbox.parentElement.querySelector('h6').textContent.trim(),
+        )
+        .filter(item => item);
+
+      // 체크박스가 선택되지 않았을 경우 메시지 표시
+      if (itemsToDelete.length === 0) {
+        alert('삭제할 항목을 선택해주세요.');
+        return;
       }
-      alert('삭제되었습니다.');
-      location.reload();
-    } catch (error) {
-      console.log(error);
-      alert('삭제 중 오류가 발생했습니다.');
-    }
-  });
+
+      let url;
+      let dataKey;
+      if (currentFilter === 'favorites') {
+        url = 'https://togethereat.shop/user-actions/favorites-cancel';
+        dataKey = 'foodName';
+      } else if (currentFilter === 'excluded-foods') {
+        url = 'https://togethereat.shop/user-actions/exclude-foods-cancel';
+        dataKey = 'foodName';
+      } else if (currentFilter === 'excluede-ingredient') {
+        url =
+          'https://togethereat.shop/user-actions/exclude-ingredients-cancel';
+        dataKey = 'ingredientName';
+      } else {
+        console.error('Invalid currentFilter value:', currentFilter);
+        return;
+      }
+      try {
+        for (const item of itemsToDelete) {
+          console.log('Sending request for item:', item);
+          await axios({
+            method: 'post',
+            url: url,
+            data: {
+              [dataKey]: item,
+            },
+          });
+        }
+        alert('삭제되었습니다.');
+        location.reload();
+      } catch (error) {
+        console.log(error);
+        alert('삭제 중 오류가 발생했습니다.');
+      }
+    });
 
   // 페이지 로드 시 handleFiltering 함수 호출
   handleFiltering();
 
   // 선호 메뉴 조회
-document.querySelector('#likeBtn').addEventListener('click', async () => {
-  const callServer = await axios({
-    method: 'get',
-    url: 'http://localhost:3000/user-actions/favorites',
+  document.querySelector('#likeBtn').addEventListener('click', async () => {
+    const callServer = await axios({
+      method: 'get',
+      url: 'https://togethereat.shop/user-actions/favorites',
+    });
+    const callFavorites = callServer.data;
+    createItems(callFavorites, 'favorites');
+    handleFiltering();
   });
-  const callFavorites = callServer.data;
-  createItems(callFavorites, 'favorites');
-  handleFiltering();
-});
 
   // 제외한 음식 조회
   document
@@ -218,7 +221,7 @@ document.querySelector('#likeBtn').addEventListener('click', async () => {
     .addEventListener('click', async () => {
       const callServer = await axios({
         method: 'get',
-        url: 'http://localhost:3000/user-actions/exclude-foods',
+        url: 'https://togethereat.shop/user-actions/exclude-foods',
       });
       const callExcluded = callServer.data;
       createItems(callExcluded, 'excluded-foods');
@@ -231,7 +234,7 @@ document.querySelector('#likeBtn').addEventListener('click', async () => {
     .addEventListener('click', async () => {
       const callServer = await axios({
         method: 'get',
-        url: 'http://localhost:3000/user-actions/exclude-ingredients',
+        url: 'https://togethereat.shop/user-actions/exclude-ingredients',
       });
       const callExcludedIngredient = callServer.data;
       createItems(callExcludedIngredient, 'excluede-ingredient');
@@ -244,7 +247,7 @@ document.querySelector('#likeBtn').addEventListener('click', async () => {
     .addEventListener('click', async () => {
       const callServer = await axios({
         method: 'get',
-        url: 'http://localhost:3000/user-actions/exclude-foods-ingredients',
+        url: 'https://togethereat.shop/user-actions/exclude-foods-ingredients',
       });
       const callExcludedInfood = callServer.data;
       createItems(callExcludedInfood, 'excluded-ing-foods');
@@ -255,21 +258,22 @@ document.querySelector('#likeBtn').addEventListener('click', async () => {
 document.getElementById('the-menu').addEventListener('click', function () {
   console.log('Opening the menu window...');
   var popupW = 400;
-var popupH = 300;
-var left = Math.ceil((window.screen.width - popupW) / 2);
-var top = Math.ceil((window.screen.height - popupH) / 2);
+  var popupH = 300;
+  var left = Math.ceil((window.screen.width - popupW) / 2);
+  var top = Math.ceil((window.screen.height - popupH) / 2);
 
-  const menuWindow = window.open('',
-  'userDataWindow',
-  'width=' +
-  popupH +
-  ',height=' +
-  popupH +
-  ',left=' +
-  left +
-  ',top=' +
-  top +
-  ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',
+  const menuWindow = window.open(
+    '',
+    'userDataWindow',
+    'width=' +
+      popupH +
+      ',height=' +
+      popupH +
+      ',left=' +
+      left +
+      ',top=' +
+      top +
+      ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',
   );
 
   console.log('Opening the menu window222');
@@ -291,7 +295,7 @@ var top = Math.ceil((window.screen.height - popupH) / 2);
 
     foodButton.onclick = function () {
       axios
-        .get('http://localhost:3000/food')
+        .get('https://togethereat.shop/food')
         .then(res => {
           const foodNames = res.data.map(item => item.food_name);
           console.log('foodNames', foodNames);
@@ -306,10 +310,10 @@ var top = Math.ceil((window.screen.height - popupH) / 2);
 
     ingredientButton.onclick = function () {
       axios
-        .get('http://localhost:3000/ingredient')
+        .get('https://togethereat.shop/ingredient')
         .then(res => {
           const ingredientNames = res.data.map(item => item.ingredient_name);
-          contentContainer.innerHTML = ''; 
+          contentContainer.innerHTML = '';
           contentContainer.innerHTML += '<h2>재료</h2>';
           contentContainer.innerHTML += ingredientNames.join('<br>');
         })

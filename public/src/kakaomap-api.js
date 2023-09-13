@@ -104,7 +104,7 @@ function addToFavorite() {
   });
   if (randomData) {
     axios({
-      url: 'http://localhost:3000/favorites',
+      url: 'https://togethereat.shop/favorites',
       method: 'post',
       data: {
         address_name: randomData.address_name,

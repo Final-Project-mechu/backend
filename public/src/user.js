@@ -34,7 +34,7 @@ function verifyEmail() {
     return;
   }
   axios
-    .post('http://localhost:3000/users/send-code', data)
+    .post('https://togethereat.shop/users/send-code', data)
     .then(response => {
       alert('인증코드가 이메일로 전송되었습니다.');
       emailInput.disabled = true;
@@ -56,7 +56,7 @@ function verifyCode() {
     code: $('#codeInput').val(),
   };
   axios
-    .post('http://localhost:3000/users/verify-code', data)
+    .post('https://togethereat.shop/users/verify-code', data)
     .then(response => {
       alert('인증 확인');
       codeInput.disabled = true;
@@ -85,13 +85,13 @@ function sign(event) {
     passwordConfirm: $('#signupPasswordConfirm').val(),
   };
   axios
-    .post('http://localhost:3000/users/sign', data)
+    .post('https://togethereat.shop/users/sign', data)
     .then(response => {
       alert(
         '회원가입을 축하합니다! 고객님의 취향을 저격하기 위해 선호도 조사 페이지로 이동합니다!',
       );
       // 회원가입 되면 바로 선호도조사 페이지로 이동
-      location.href = 'http://localhost:3000/preference.html';
+      location.href = 'https://togethereat.shop/preference.html';
     })
     .catch(error => {
       // 서버에서 발생한 예외 처리
@@ -116,11 +116,11 @@ function login() {
     password: $('#loginPass').val(),
   };
   axios
-    .post('http://localhost:3000/users/login', data)
+    .post('https://togethereat.shop/users/login', data)
     .then(response => {
       // 로그인하면 바로 메뉴추천 페이지로 이동
       alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
-      location.href = 'http://localhost:3000/menu-subscribe.html';
+      location.href = 'https://togethereat.shop/menu-subscribe.html';
     })
     .catch(error => {
       // 서버에서 발생한 예외 처리
@@ -138,7 +138,7 @@ function login() {
 // 로그아웃
 function signOut() {
   axios
-    .delete('http://localhost:3000/users/logout')
+    .delete('https://togethereat.shop/users/logout')
     .then(response => {
       alert(response.data);
       location.reload();

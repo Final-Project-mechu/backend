@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await axios.get('http://localhost:3000/users/find');
+    const response = await axios.get('https://togethereat.shop/users/find');
 
     if (response.status === 200) {
       const nickName = response.data;
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // document.addEventListener('DOMContentLoaded', async () => {
 //   try {
 //     // 랜덤 사진 가져오기
-//     const photoResponse = await axios.get('http://localhost:3000/food', {
+//     const photoResponse = await axios.get('https://togethereat.shop/food', {
 //       params: {
 //         food_id: id,
 //       },
@@ -60,11 +60,14 @@ updatePasswordButton.addEventListener('click', async () => {
   const newPassword = document.getElementById('new-password').value;
 
   try {
-    const response = await axios.patch('http://localhost:3000/users/update', {
-      newNick_name: newNickName,
-      password: password,
-      newPassword: newPassword,
-    });
+    const response = await axios.patch(
+      'https://togethereat.shop/users/update',
+      {
+        newNick_name: newNickName,
+        password: password,
+        newPassword: newPassword,
+      },
+    );
 
     if (response.status === 200) {
       alert('비밀번호가 성공적으로 수정되었습니다.');
@@ -112,7 +115,7 @@ deleteButton.addEventListener('click', async () => {
   const passwordConfirm = document.getElementById('passwordDelete2').value;
 
   try {
-    const response = await axios.post('http://localhost:3000/users/quit', {
+    const response = await axios.post('https://togethereat.shop/users/quit', {
       password: password,
       passwordConfirm: passwordConfirm,
     });

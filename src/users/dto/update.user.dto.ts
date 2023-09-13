@@ -9,7 +9,7 @@ export class UpdateUserDto extends PickType(CreateUserDto, [
   @IsString()
   @MinLength(4)
   @MaxLength(10)
-  @Matches(/(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])/)
+  @Matches(/(?=.*[0-9])(?=.*[a-z])/)
   readonly newPassword: string;
 
   @IsString()

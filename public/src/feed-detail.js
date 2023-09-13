@@ -47,6 +47,28 @@ async function commentsGet() {
   }
 }
 
+// 피드 삭제 
+function feedDelete() {
+  axios
+    .delete(`http://localhost:3000/feeds/${feedId}`)
+    .then(response => {
+      alert('피드 삭제 성공!');
+      location.href = 'http://localhost:3000/feed.html';
+    })
+    .catch(error => {
+      // 서버에서 발생한 예외 처리
+      if (error.response) {
+        // 서버가 응답을 보낸 경우
+        const errorMessage = error.response.data.message;
+        alert('피드 삭제 실패: ' + errorMessage);
+      } else {
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        console.error('네트워크 오류:', error.message);
+        alert('네트워크 오류가 발생했습니다.');
+      }
+    });
+}
+
 // 댓글 조회 부분 
 function createAllCommentItems(comments) {
   const commentContainer = document.getElementById('comment-box');

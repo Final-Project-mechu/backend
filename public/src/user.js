@@ -70,12 +70,12 @@ function verifyCode() {
 //회원가입
 function sign(event) {
   event.preventDefault();
-  // if (!document.getElementById('signupEmail').disabled) {
-  //   return alert('E-mail 인증 먼저 진행해주세요.');
-  // }
-  // if (!document.getElementById('codeInputButton').disabled) {
-  //   return alert('E-mail 인증 먼저 진행해주세요.');
-  // }
+  if (!document.getElementById('signupEmail').disabled) {
+    return alert('E-mail 인증 먼저 진행해주세요.');
+  }
+  if (!document.getElementById('codeInputButton').disabled) {
+    return alert('E-mail 인증 먼저 진행해주세요.');
+  }
   const isAdmin = document.getElementById('admin').checked ? 1 : 0;
   const data = {
     is_admin: isAdmin,
@@ -98,7 +98,10 @@ function sign(event) {
       if (error.response) {
         // 서버가 응답을 보낸 경우
         const errorMessage = error.response.data.message;
-        alert('회원가입 실패: ' + errorMessage);
+        alert(
+          '회원가입 실패: ' +
+            '비밀번호: 6~10자의 영문 소문자, 숫자를 사용해 주세요.',
+        );
       } else {
         // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
         console.error('네트워크 오류:', error.message);
@@ -124,7 +127,7 @@ function login() {
       if (error.response) {
         // 서버가 응답을 보낸 경우
         const errorMessage = error.response.data.message;
-        alert('로그인 실패: ' + errorMessage);
+        alert('로그인 실패: ' + '이메일 또는 비밀번호가 올바르지 않습니다.');
       } else {
         // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
         console.error('네트워크 오류:', error.message);

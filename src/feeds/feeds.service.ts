@@ -101,7 +101,6 @@ export class FeedsService {
   group by f.id
   order by likecount desc
   `);
-    console.log("allFeeds : ",allFeeds)
     return allFeeds;
   }
 
@@ -152,12 +151,11 @@ export class FeedsService {
     user_id: number,
     title: string,
     description: string,
-    file: Express.Multer.File,
   ) {
     const findFeed = await this.feedRepository.findOne({
       where: { id: id },
     });
-    if (!title && !description && !file) {
+    if (!title && !description) {
       throw new BadRequestException('수정사항이 하나라도 있어야합니다.');
     }
     if (_.isNil(findFeed)) {
@@ -168,8 +166,8 @@ export class FeedsService {
     if (findFeed['user_id'] !== user_id) {
       throw new UnauthorizedException('작성자만 수정 가능합니다.');
     }
-    const image = await this.s3Service.putObject(file);
-    await this.feedRepository.update(id, { title, description, image });
+
+    await this.feedRepository.update(id, { title, description });
     return { Message: `피드번호 ${id}번의 피드가 수정되었습니다.` };
   }
 

@@ -1,0 +1,78 @@
+/* menu-subscribe.css */
+
+*{
+    font-family: sans-serif;
+}
+
+.center-button {
+  text-align: center;
+  margin-bottom: 20px; /* 버튼과 아래 버튼들 사이의 간격을 조정 */
+}
+
+.center-button .filter-button {
+  font-size: 20px; /* 폰트 사이즈 조정 */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinning {
+  animation: spin 3s linear infinite;
+}
+
+/* 버튼 스타일 */
+
+
+
+.filter-button {
+  background: #09b820;
+  color: #fff;
+  border-radius: 15px;
+  padding: 8px 22px;
+  margin-right: 15px;
+  margin-left: 15px;
+  text-align: center;
+  transition: 0.1s;
+  margin-bottom: 20px;
+  font-size: 25px;
+  color: #f7f7f0;
+  
+}
+
+button:hover {
+  box-shadow: 0 0 5px ;
+}
+
+.filter-button:hover {
+  opacity: 1;
+  box-shadow: 0 0 5px rgb,
+  0 0 25px
+}
+
+.filter-buttons {
+  text-align: center;
+}
+
+.menu-btn {
+  position: relative;
+  left: 300px;
+  font-size: 3rem;
+}
+
+.fa-heart {
+  cursor: pointer;
+  transition: color 0.3s; /* 효과 */
+}
+
+.result-container {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 10px; /* 아이콘과 텍스트 사이의 간격 */
+}
+

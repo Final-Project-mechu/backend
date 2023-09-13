@@ -1,0 +1,45 @@
+.item-checkbox {
+  float: left;
+  margin-right: 100px;
+}
+/* 
+.site-btn {
+  float: right;
+} */
+
+#the-menu {
+  /* float: right; */
+  /* margin-left: 20px; */
+  position: relative;
+  left: 150px;
+}
+
+
+
+#prefer-delete {
+color: #fff;
+padding: 8px 22px;
+border-radius: 6px;
+background:  #4d2ae8;
+/* transform: all 0.2s ease; */
+position:absolute;
+top: 110px;
+right: 110px;
+}
+
+/* 특정 ID를 가진 입력 요소의 테두리 색을 진하게 만들기 */
+#survey-search-input {
+  border: 2px solid #161616; /* 2px 두께의 빨간색 테두리 */
+}
+
+
+
+  
+
+
+
+
+
+
+
+

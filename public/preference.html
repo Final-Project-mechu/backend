@@ -255,6 +255,8 @@
     <!-- 탑바 끝 -->
     <section class="from-blog spad">
       <div class="section-title">
+        <h2 style="display: inline-block;">선호도 조사</h2>
+        <button id="the-menu" class="menu-btn" > 메뉴판 보기 </button>
         <h2>선호도 조사</h2>
       </div>
       <div class="container">
@@ -277,35 +279,37 @@
                   <button type="submit" class="site-btn">추가하기</button>
                 </form>
               </div>
-              <div class="hero__search__phone">
-                <a href="#" class="site-btn">메뉴판 보기</a>
+              <div>
+                <a href="#"  id="prefer-delete">삭제하기</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <!-- Header Section End --> 
-    <section class="product spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="featured__controls">
-              <ul>
-                <li data-filter=".likes" id="likeBtn">선호 음식</li>
-                <li data-filter=".excluded-foods" id="excludeFoodBtn">제외 음식</li>
-                <li data-filter=".excluede-ingredient" id="excludeIngredientBtn">제외 재료</li>
-                <li data-filter=".excluded-ing-foods" id="excludeInFoodBtn">제외 재료 포함 음식</li>
-              </ul>
-            </div>
+  </section>
+  <!-- 선호도 조사 section 끝 -->
+  <!-- 선호음식 filter section 시작 --> 
+  <section class="product spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="featured__controls">
+            <ul>
+              <li data-filter=".favorites" id="likeBtn">선호 음식</li>
+              <li data-filter=".excluded-foods" id="excludeFoodBtn">제외 음식</li>
+              <li data-filter=".excluede-ingredient" id="excludeIngredientBtn">제외 재료</li>
+              <li data-filter=".excluded-ing-foods" id="excludeInFoodBtn">제외 재료 포함 음식</li>
+            </ul>
           </div>
         </div>
-        <div class="row featured__filter" id="favoriteList">
-        </div>
       </div>
-    </section>
-    <!-- Footer Section Begin -->
-    <footer class="footer spad">
+      <div class="col-lg-12 featured__filter" id="favoriteList">
+      </div>
+    </div>
+</section> 
+<!-- 선호음식 filter section 끝 -->
+  <!-- Footer Section Begin -->
+  <footer class="footer spad">
           <div class="container">
             <div class="row">
               <div class="col-lg-12">

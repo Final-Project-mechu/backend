@@ -330,7 +330,7 @@
     <section id="survey" class="form-blog spad">
       <div class="section-title">
         <h2 style="display: inline-block">선호도 조사</h2>
-        <button id="the-menu" class="site-btn">메뉴판 보기</button>
+        <button id="the-menu" class="site-btn">간이 메뉴판</button>
       </div>
 
       <div class="container">
@@ -358,7 +358,7 @@
                 </form>
               </div>
               <div>
-                <a href="#" class="site-btn" id="prefer-delete">삭제하기</a>
+                <a href="#"  id="prefer-delete">삭제하기</a>
               </div>
             </div>
           </div>
@@ -372,6 +372,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="featured__controls">
+              <p class="non-clickable"> 목록 </p>
               <ul>
                 <li data-filter=".favorites" id="likeBtn">선호 음식</li>
                 <li data-filter=".excluded-foods" id="excludeFoodBtn">
@@ -390,67 +391,59 @@
             </div>
           </div>
         </div>
-        <div class="row featured__filter" id="favoriteList"></div>
+        <div class="row-cols-4 featured__filter" id="favoriteList"></div>
       </div>
     </section>
     <!-- 선호음식 filter section 끝 -->
-    <!-- Footer Section Begin -->
-    <footer class="footer spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="footer__copyright">
-              <!-- GitHub Icon and Links -->
-              <div class="footer__github">
-                <!-- GitHub Links -->
-                <a
-                  href="https://github.com/Final-Project-mechu"
-                  target="_blank"
-                >
-                  <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i> </a
-                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                <!-- Notion Link -->
-                <a
-                  href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9"
-                  target="_blank"
-                  >Notion</a
-                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                <!-- Terms of Service Link -->
-                <a href="./terms.html" target="_blank">이용약관</a
-                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-              </div>
-              <hr />
-              <!-- Horizontal Line -->
-              <div class="footer__copyright__text">
-                <p>
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                  Copyright &copy;
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  All rights reserved | This page is made by TEAM TOGETHER EAT!
-                  김세령 오준석 이서원 최하영 함형진
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
+  <!-- Footer Section Begin -->
+  <footer class="footer spad">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="footer__copyright">
+                  <!-- GitHub Icon and Links -->
+                  <div class="footer__github">
+                    <!-- GitHub Links -->
+                    <a href="https://github.com/Final-Project-mechu" target="_blank">
+                      <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
+                    </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <!-- Notion Link -->
+                    <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <!-- Terms of Service Link -->
+                    <a href="./terms.html" target="_blank">이용약관</a
+                      >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                  </div>
+                  <hr> <!-- Horizontal Line -->
+                  <div class="footer__copyright__text">
+                    <p>
+                      
+                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                      Copyright &copy;
+                      <script>
+                        document.write(new Date().getFullYear());
+                      </script>
+                      All rights reserved | This page is made by TEAM TOGETHER EAT! 김세령 오준석 이서원 최하영 함형진
+                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </footer>
-    <!-- Footer Section End -->
-    <!-- 적용하려는 script 파일 -->
-    <script src="./src/user.js" defer></script>
-    <script src="./src/dailymenu.js" defer></script>
-    <script src="./src/checkLogin.js"></script>
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+  </footer>
+  <!-- Footer Section End -->   
+  <!-- 적용하려는 script 파일 -->
+  <script src="./src/user.js" defer></script>
+  <script src="./src/dailymenu.js" defer></script>
+  <script src="./src/checkLogin.js"></script>
+  <!-- Js Plugins -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.nice-select.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.slicknav.js"></script>
+  <script src="js/mixitup.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/main.js"></script> 
   </body>
 </html>

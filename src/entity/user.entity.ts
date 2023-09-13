@@ -27,7 +27,7 @@ export class User {
   id: number;
   @OneToMany(() => Feed, feed => feed.users)
   feeds: Feed[];
-  @OneToMany(() => Comment, comment => comment.user_id)
+  @OneToMany(() => Comment, comment => comment.user)
   comment: Comment[];
   @OneToMany(() => Favorite, favorate => favorate.users)
   favorites: Favorite[];

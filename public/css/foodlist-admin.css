@@ -1,0 +1,16 @@
+/* foodlist-admin에 적용 */
+.food_btn {
+    background-color: skyblue;
+  }
+  
+  .food_btn:hover {
+    background-color: orange;
+  }
+  
+  .food_btn:focus {
+    box-shadow: 0 0 0 3px purple;
+  }
+  
+  .food_btn:active {
+    background-color: red;
+  }

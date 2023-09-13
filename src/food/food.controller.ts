@@ -87,11 +87,11 @@ export class FoodController {
   async createFoodImg(
     @UploadedFile() file: Express.Multer.File,
     @Body() data : CreateFoodsImgDto,
-    @Req() request: RequestWithLocals,
+    //@Req() request: RequestWithLocals,
   ){
-    const user = request.locals.user
+    //const user = request.locals.user
     await this.foodService.createFoodImage(
-      user.id,
+      //user.id,
       file,
       data.food_name,
       data.category_id,

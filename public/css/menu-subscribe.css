@@ -1,7 +1,7 @@
 /* menu-subscribe.css */
 
-*{
-    font-family: sans-serif;
+* {
+  font-family: sans-serif;
 }
 
 .center-button {
@@ -28,31 +28,29 @@
 
 /* 버튼 스타일 */
 
-
-
 .filter-button {
   background: #09b820;
   color: #e4d2d2;
   border-radius: 15px;
-  padding: 8px 22px;
+  padding: 7px 10px;
   margin-right: 15px;
   margin-left: 15px;
   text-align: center;
   transition: 0.1s;
   margin-bottom: 20px;
-  font-size: 25px;
+  font-size: 20px;
   color: #f7f7f0;
-  
 }
 
 button:hover {
-  box-shadow: 0 0 5px ;
+  box-shadow: 0 0 5px;
 }
 
 .filter-button:hover {
   opacity: 1;
-  box-shadow: 0 0 5px rgb,
-  0 0 25px
+  box-shadow:
+    0 0 5px rgb,
+    0 0 25px;
 }
 
 .filter-buttons {
@@ -60,15 +58,16 @@ button:hover {
 }
 
 .menu-btn {
- 
-  box-shadow: 0 0 5px cyan,
-  0 0 25px cyan;
+  box-shadow:
+    0 0 5px cyan,
+    0 0 25px cyan;
 }
 .menu-btn:hover {
-  box-shadow: 0 0 5px cyan,
-  0 0 25px cyan, 0 0 50px cyan,; 
+  box-shadow:
+    0 0 5px cyan,
+    0 0 25px cyan,
+    0 0 50px cyan;
 }
-
 
 .fa-heart {
   cursor: pointer;
@@ -80,7 +79,6 @@ button:hover {
   align-items: center; /* 세로 중앙 정렬 */
   gap: 10px; /* 아이콘과 텍스트 사이의 간격 */
 }
-
 
 .result-container {
   display: flex;

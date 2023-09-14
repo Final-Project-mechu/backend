@@ -1,0 +1,11 @@
+.food-list {
+  position: relative;
+  right: 100px;
+}
+
+.foodBtn {
+  color: #fff;
+  padding: 8px 22px;
+  border-radius: 6px;
+  background: #1f8f15;
+}

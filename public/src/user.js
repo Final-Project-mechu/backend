@@ -76,9 +76,9 @@ function sign(event) {
   if (!document.getElementById('codeInputButton').disabled) {
     return alert('E-mail 인증 먼저 진행해주세요.');
   }
-  const isAdmin = document.getElementById('admin').checked ? 1 : 0;
+
   const data = {
-    is_admin: isAdmin,
+    is_admin: 0,
     email: verifyingEmail,
     nick_name: $('#signupNickname').val(),
     password: $('#signupPassword').val(),
@@ -160,7 +160,6 @@ function login() {
     });
 }
 
-
 // //어드민 변환
 // function admintransfer() {
 //   axios
@@ -174,3 +173,13 @@ function login() {
 //       console.error(error);
 //     });
 // }
+
+// window.onload = function () {
+//   let cookies = document.cookie;
+//   if (!cookies.includes('AccessToken') && !cookies.includes('RefreshToken')) {
+//     // AccessToken과 RefreshToken이 모두 존재하지 않을 때 모달을 띄우도록 합니다.
+//     const signModal = document.getElementById('signModal'); // 모달을 참조합니다.
+//     const bsModal = new bootstrap.Modal(signModal); // 부트스트랩 모달을 생성합니다.
+//     bsModal.show();
+//   }
+// };

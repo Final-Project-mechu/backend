@@ -83,8 +83,6 @@ export class FoodService {
     );
   }
 
-
-
   //음식삭제
   async deleteFood(id: number) {
     await this.foodReository.delete({ id });
@@ -131,35 +129,32 @@ export class FoodService {
       throw new UnauthorizedException('관리자가 아닙니다.');
     }
     const food_img = await this.s3Service.putObject(file);
-    
 
     return this.foodReository.update(food_id, {
       food_name,
       category_id,
       food_img,
-    })
-
+    });
   }
 
   //삭제하기
   // 디비에서 에서 삭제 /  S3 버켓에서 삭제 ~
-  async deleteFoodImg(
-    id : number,
-    food_id : number
-  ){
+  async deleteFoodImg(id: number, food_id: number) {
     const checkAdmin = await this.confirmAdmin(id);
     if (checkAdmin.is_admin !== 1) {
       console.log('관리자가 아닙니다.');
       throw new UnauthorizedException('관리자가 아닙니다.');
     }
-    this.foodReository.softDelete({id :food_id});
+    this.foodReository.softDelete({ id: food_id });
   }
 
   //상세조회하기 -> foodingredient
   //전체 조회하기
-  async getAllFoodImg(){
+  async getAllFoodImg() {
     return await this.foodReository.query(`select * from food;`);
   }
+
+
 
   // 음식 검색 
   async searchFood(query: string): Promise<Food[]> {
@@ -171,6 +166,5 @@ export class FoodService {
       .where("food.food_name LIKE :query", { query: `%${query}%` })
       .getMany();
   }
-
 }
 

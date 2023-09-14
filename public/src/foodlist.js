@@ -45,7 +45,7 @@ function createAllFoodItems(foods) {
             <div class="featured__item__pic set-bg" data-setbg="${food.food_img}">
             </div>
             <div class="featured__item__text">
-                <h6><button onclick='foodInfo(${food.id})' >${food.food_name}</button></</h6>
+                <h6><button class="foodBtn" onclick='foodInfo(${food.id})' >${food.food_name}</button></h6>
             </div>
         </div>
     </div>`;

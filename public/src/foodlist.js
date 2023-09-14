@@ -7,7 +7,6 @@ if (!window.location.hash) {
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const response = await axios.get('http://localhost:3000/users/findAdmin');
-    console.log(response.data);
     if (response.status === 200) {
       const userType = response.data;
       if (userType === 1) {
@@ -33,7 +32,6 @@ async function categoryGet() {
     url: 'http://localhost:3000/category',
   });
   const allCategory = callCategoryServer.data;
-  console.log(allCategory);
   createAllCategoryItems(allCategory);
 }
 function createAllCategoryItems(categorys) {
@@ -53,7 +51,6 @@ async function foodGet() {
     url: 'http://localhost:3000/food',
   });
   const allFoods = callServer.data;
-  console.log(allFoods);
   createAllFoodItems(allFoods);
 }
 function createAllFoodItems(foods) {
@@ -107,7 +104,6 @@ foodGet();
 // };
 
 async function foodInfo(foodId) {
-  console.log(foodId);
   url = `http://localhost:3000/food/${Number(foodId)}`;
   const callFoodIngredient = await axios.get(url);
   const allFoodsIngredient = callFoodIngredient.data;
@@ -115,7 +111,6 @@ async function foodInfo(foodId) {
   const foodIgredientHtml = allFoodsIngredient
     .map(item => `<li>${item.ingredient_name}</li>`)
     .join('');
-  console.log(foodIgredientHtml);
 
   var popupW = 400;
   var popupH = 300;

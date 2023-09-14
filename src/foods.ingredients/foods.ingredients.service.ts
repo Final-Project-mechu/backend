@@ -14,22 +14,26 @@ export class FoodsIngredientsService {
   constructor(
     @InjectRepository(FoodIngredient)
     private foodingredientReository: Repository<FoodIngredient>,
-    @InjectRepository(User) 
+    @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
 
-   //관리자 판별 메소드
-   async confirmAdmin(user_id) {
+  //관리자 판별 메소드
+  async confirmAdmin(user_id) {
     console.log(user_id);
     const confirmAdmin = await this.userRepository.findOne({
-      where: { id : user_id },
+      where: { id: user_id },
       select: ['is_admin'],
     });
     return confirmAdmin;
   }
 
   //푸드 재료 매핑
-  async createFoodsIngredient(user_id: number, food_id: number, ingredient_id: number){
+  async createFoodsIngredient(
+    user_id: number,
+    food_id: number,
+    ingredient_id: number,
+  ) {
     console.log(user_id);
     const checkAdmin = await this.confirmAdmin(user_id);
     if (checkAdmin.is_admin !== 1) {
@@ -40,10 +44,7 @@ export class FoodsIngredientsService {
       food_id,
       ingredient_id,
     });
-
   }
-
-  
 
   //음식별 재료 조회
   //재료별 음식 조회

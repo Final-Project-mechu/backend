@@ -34,7 +34,6 @@ export class FoodService {
   async createFood(id: number, food_name: string, category_id: number) {
     const checkAdmin = await this.confirmAdmin(id);
     // if (checkAdmin.is_admin !== 1) {
-    //   console.log('관리자가 아닙니다.');
     //   throw new UnauthorizedException('관리자가 아닙니다.');
     // }
     return this.foodReository.insert({
@@ -52,7 +51,6 @@ export class FoodService {
   ) {
     const checkAdmin = await this.confirmAdmin(id);
     // if (checkAdmin.is_admin !== 1) {
-    //   console.log('관리자가 아닙니다.');
     //   throw new UnauthorizedException('관리자가 아닙니다.');
     // }
     return this.foodReository.update(food_id, {
@@ -99,7 +97,6 @@ export class FoodService {
   ) {
     const checkAdmin = await this.confirmAdmin(id);
     if (checkAdmin.is_admin !== 1) {
-      console.log('관리자가 아닙니다.');
       throw new UnauthorizedException('관리자가 아닙니다.');
     }
     if (file) {
@@ -125,7 +122,6 @@ export class FoodService {
   ) {
     const checkAdmin = await this.confirmAdmin(id);
     if (checkAdmin.is_admin !== 1) {
-      console.log('관리자가 아닙니다.');
       throw new UnauthorizedException('관리자가 아닙니다.');
     }
     const food_img = await this.s3Service.putObject(file);
@@ -142,7 +138,6 @@ export class FoodService {
   async deleteFoodImg(id: number, food_id: number) {
     const checkAdmin = await this.confirmAdmin(id);
     if (checkAdmin.is_admin !== 1) {
-      console.log('관리자가 아닙니다.');
       throw new UnauthorizedException('관리자가 아닙니다.');
     }
     this.foodReository.softDelete({ id: food_id });
@@ -154,17 +149,14 @@ export class FoodService {
     return await this.foodReository.query(`select * from food;`);
   }
 
-
-
-  // 음식 검색 
+  // 음식 검색
   async searchFood(query: string): Promise<Food[]> {
     if (!query) {
       throw new BadRequestException('해당 음식은 존재하지 않습니다.');
     }
     return await this.foodReository
-      .createQueryBuilder("food")
-      .where("food.food_name LIKE :query", { query: `%${query}%` })
+      .createQueryBuilder('food')
+      .where('food.food_name LIKE :query', { query: `%${query}%` })
       .getMany();
   }
 }
-

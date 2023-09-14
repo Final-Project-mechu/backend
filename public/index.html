@@ -2,7 +2,7 @@
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
@@ -368,32 +368,23 @@
     <!-- 적용하려는 script 파일 -->
     <script>
       // window.onload = function (event) {
+      //   // 쿠키를 가져옵니다.
       //   let cookies = document.cookie;
-      //   if (!cookies.includes('AccessToken', 'RefreshToken')) {
+
+      //   // 페이지를 방문한 적이 있고, AccessToken 또는 RefreshToken이 없는 경우에 모달을 로드합니다.
+      //   if (
+      //     sessionStorage.getItem('visitedBefore') === 'true' &&
+      //     !cookies.includes('AccessToken') &&
+      //     !cookies.includes('RefreshToken')
+      //   ) {
       //     const signModal = document.getElementById('signModal');
       //     const bsModal = new bootstrap.Modal(signModal);
       //     bsModal.show();
       //   }
+
+      //   // 페이지를 방문한 흔적을 남깁니다.
+      //   sessionStorage.setItem('visitedBefore', 'true');
       // };
-
-      window.onload = function (event) {
-        // 쿠키를 가져옵니다.
-        let cookies = document.cookie;
-
-        // 페이지를 방문한 적이 있고, AccessToken 또는 RefreshToken이 없는 경우에 모달을 로드합니다.
-        if (
-          sessionStorage.getItem('visitedBefore') === 'true' &&
-          !cookies.includes('AccessToken') &&
-          !cookies.includes('RefreshToken')
-        ) {
-          const signModal = document.getElementById('signModal');
-          const bsModal = new bootstrap.Modal(signModal);
-          bsModal.show();
-        }
-
-        // 페이지를 방문한 흔적을 남깁니다.
-        sessionStorage.setItem('visitedBefore', 'true');
-      };
     </script>
     <script src="./src/user.js" defer></script>
     <script src="./src/dailymenu.js" defer></script>

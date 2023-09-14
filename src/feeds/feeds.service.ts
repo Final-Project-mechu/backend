@@ -94,7 +94,7 @@ export class FeedsService {
 
   async getFeeds() {
     const allFeeds = await this.feedLikeRepository
-  .query(`select f.id, f.title, f.createdAt, f.deletedAt, f.image, count(fl.feed_id) as likecount 
+      .query(`select f.id, f.title, f.createdAt, f.deletedAt, f.image, count(fl.feed_id) as likecount 
   from feed f
   left join feed_like fl on f.id = fl.feed_id
   where f.deletedAt is null
@@ -151,12 +151,15 @@ export class FeedsService {
     user_id: number,
     title: string,
     description: string,
+    file: Express.Multer.File,
   ) {
     const findFeed = await this.feedRepository.findOne({
       where: { id: id },
     });
-    if (!title && !description) {
-      throw new BadRequestException('수정사항이 하나라도 있어야합니다.');
+    if (!title && !description && !file) {
+      throw new BadRequestException(
+        '제목, 내용, 이미지 파일을 모두 입력해주세요!',
+      );
     }
     if (_.isNil(findFeed)) {
       throw new NotFoundException(
@@ -166,8 +169,8 @@ export class FeedsService {
     if (findFeed['user_id'] !== user_id) {
       throw new UnauthorizedException('작성자만 수정 가능합니다.');
     }
-
-    await this.feedRepository.update(id, { title, description });
+    const image = await this.s3Service.putObject(file);
+    await this.feedRepository.update(id, { title, description, image });
     return { Message: `피드번호 ${id}번의 피드가 수정되었습니다.` };
   }
 
@@ -186,6 +189,18 @@ export class FeedsService {
     }
     await this.feedRepository.softDelete(id);
     return { message: `피드번호 ${id}번의 피드가 삭제되었습니다.` };
+  }
+
+  // 유저가 특정 피드를 좋아요 했는지 조회
+  async getUserFeedLike(id: number, user_id: number) {
+    const findFeedLike = await this.feedLikeRepository.exist({
+      where: { feed_id: id, user_id },
+    });
+    if (findFeedLike) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // 피드의 좋아요 수 조회하기

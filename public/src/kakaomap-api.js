@@ -129,3 +129,7 @@ function addToFavorite() {
     console.log('데이터 없음');
   }
 }
+
+function favoriteListClick() {
+  location.href = 'http://localhost:3000/favoritelist.html';
+}

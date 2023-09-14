@@ -29,8 +29,9 @@
   background: #4d2ae8;
   /* transform: all 0.2s ease; */
   position: absolute;
-  top: 110px;
-  right: 110px;
+  top: 175px;
+  right: 120px;
+  z-index: 10;
 }
 
 .non-clickable {

@@ -85,3 +85,12 @@ button:hover {
   align-items: center; /* 세로 중앙 정렬 */
   gap: 10px; /* 아이콘과 텍스트 사이의 간격 */
 }
+
+.center-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 200px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  }

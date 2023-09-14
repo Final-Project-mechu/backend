@@ -54,7 +54,7 @@ function updateUser() {
       location.reload();
     })
     .catch(error => {
-      alert(error.message);
+      alert("내 정보 수정 실패" ); 
     });
 }
 

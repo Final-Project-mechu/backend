@@ -62,7 +62,6 @@ function displayCategoryResponse(response) {
 
 const resultDiv = document.getElementById('result3'); // resultDiv 변수 선언 추가
 
-// 빈 하트 아이콘 클릭 이벤트
 emptyHeartIcon.addEventListener('click', function () {
   const foodName = resultDiv.textContent.trim();
   console.log('foodName:', foodName);
@@ -153,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
       selectedCategoryId = 0;
       document.querySelector('.food-item.meal').textContent =
         '전체가 선택되었습니다.';
-      // event.stopPropagation();
     });
   }
 

@@ -3,6 +3,27 @@ if (!window.location.hash) {
   window.location = window.location + '#loaded';
   window.location.reload();
 }
+//관리자버튼 display 판별
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/users/findAdmin');
+    console.log(response.data);
+    if (response.status === 200) {
+      const userType = response.data;
+      if (userType === 1) {
+        // 관리자인 경우 버튼을 표시
+        document.getElementById('adminButton').style.display = 'block';
+      } else {
+        // 일반 회원인 경우 버튼을 숨김
+        document.getElementById('adminButton').style.display = 'none';
+      }
+    } else {
+      console.error('서버 응답 오류:', response.status);
+    }
+  } catch (error) {
+    console.error('닉네임을 가져오는 중 오류 발생:', error);
+  }
+});
 
 // 카테고리 조회 함수
 // id, category_name,

@@ -37,7 +37,6 @@ export class FeedsService {
   ) {
     let favoriteIdsArry: number[];
     const image = await this.s3Service.putObject(file);
-    console.log('서비스 확인', favorite_ids);
     if (typeof favorite_ids === 'string') {
       favoriteIdsArry = favorite_ids.split(',').map(id => parseInt(id));
     } else {
@@ -130,7 +129,7 @@ export class FeedsService {
     const favoriteIds = findFeedinFavorites.map(
       feedFavorite => feedFavorite.favorite_id,
     );
-
+    const feedCount = await this.getFeedLikes(id);
     if (favoriteIds.length > 0) {
       const favoriteInfos = [];
       for (const favoriteId of favoriteIds) {
@@ -141,7 +140,7 @@ export class FeedsService {
       }
       return [feedInfo, feedNickname, favoriteInfos];
     } else {
-      return [feedInfo, feedNickname];
+      return [feedInfo, feedNickname, feedCount];
     }
   }
 

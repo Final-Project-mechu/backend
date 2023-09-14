@@ -20,6 +20,7 @@ async function getFeedDetail() {
     console.log(feedDetail);
     const { nick_name } = feedDetail[1];
     const { title, description, image, createdAt } = feedDetail[0];
+    const { count } = feedDetail[2];
     const date = formatDate(createdAt);
     document.getElementById('title').textContent = title;
     document.getElementById('nickname').textContent = nick_name;
@@ -27,6 +28,7 @@ async function getFeedDetail() {
     feedimg.src = image;
     document.getElementById('description').textContent = description;
     document.getElementById('createdAt').textContent = date;
+    document.getElementById('likeCount').textContent = count;
   } catch (error) {
     console.error('피드 정보를 가져오는 중 오류 발생:', error);
     alert('해당 피드를 가져오지 못하였습니다.');
@@ -146,6 +148,7 @@ async function feedLike() {
     if (serverCall.status === 201) {
       blankHeart.style.display = 'none';
       fullHeart.style.display = 'inline-block';
+      getFeedDetail();
     }
   } catch (err) {
     console.log(err);
@@ -165,6 +168,7 @@ async function feedLikeCancel() {
     if (serverCall.data.message == '좋아요 취소') {
       blankHeart.style.display = 'inline-block';
       fullHeart.style.display = 'none';
+      getFeedDetail();
     }
   } catch {
     console.log(err);

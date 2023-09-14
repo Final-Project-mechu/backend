@@ -1,9 +1,8 @@
-// 페이지가 로드될 때 한 번만 새로고침하기 위한 로직
 if (!window.location.hash) {
   window.location = window.location + '#loaded';
   window.location.reload();
-  }
-  
+}
+
 const form = document.getElementById('search-form');
 form.addEventListener('submit', function (event) {
   event.preventDefault(); // 폼 자동 제출 방지
@@ -150,67 +149,69 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  document.getElementById('prefer-delete').addEventListener('click', async () => {
-    const checkedItems = document.querySelectorAll('.item-checkbox:checked');
-    const itemsToDelete = Array.from(checkedItems)
-      .map(checkbox =>
-        checkbox.parentElement.querySelector('h6').textContent.trim(),
-      )
-      .filter(item => item);
-  
-    // 체크박스가 선택되지 않았을 경우 메시지 표시
-    if (itemsToDelete.length === 0) {
-      alert('삭제할 항목을 선택해주세요.');
-      return;
-    }
-  
-    let url;
-    let dataKey;
-    if (currentFilter === 'favorites') {
-      url = 'http://localhost:3000/user-actions/favorites-cancel';
-      dataKey = 'foodName';
-    } else if (currentFilter === 'excluded-foods') {
-      url = 'http://localhost:3000/user-actions/exclude-foods-cancel';
-      dataKey = 'foodName';
-    } else if (currentFilter === 'excluede-ingredient') {
-      url = 'http://localhost:3000/user-actions/exclude-ingredients-cancel';
-      dataKey = 'ingredientName';
-    } else {
-      console.error('Invalid currentFilter value:', currentFilter); 
-      return; 
-    }
-    try {
-      for (const item of itemsToDelete) {
-        console.log('Sending request for item:', item); 
-        await axios({
-          method: 'post',
-          url: url,
-          data: {
-            [dataKey]: item,
-          },
-        });
+  document
+    .getElementById('prefer-delete')
+    .addEventListener('click', async () => {
+      const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+      const itemsToDelete = Array.from(checkedItems)
+        .map(checkbox =>
+          checkbox.parentElement.querySelector('h6').textContent.trim(),
+        )
+        .filter(item => item);
+
+      // 체크박스가 선택되지 않았을 경우 메시지 표시
+      if (itemsToDelete.length === 0) {
+        alert('삭제할 항목을 선택해주세요.');
+        return;
       }
-      alert('삭제되었습니다.');
-      location.reload();
-    } catch (error) {
-      console.log(error);
-      alert('삭제 중 오류가 발생했습니다.');
-    }
-  });
+
+      let url;
+      let dataKey;
+      if (currentFilter === 'favorites') {
+        url = 'http://localhost:3000/user-actions/favorites-cancel';
+        dataKey = 'foodName';
+      } else if (currentFilter === 'excluded-foods') {
+        url = 'http://localhost:3000/user-actions/exclude-foods-cancel';
+        dataKey = 'foodName';
+      } else if (currentFilter === 'excluede-ingredient') {
+        url = 'http://localhost:3000/user-actions/exclude-ingredients-cancel';
+        dataKey = 'ingredientName';
+      } else {
+        console.error('Invalid currentFilter value:', currentFilter);
+        return;
+      }
+      try {
+        for (const item of itemsToDelete) {
+          console.log('Sending request for item:', item);
+          await axios({
+            method: 'post',
+            url: url,
+            data: {
+              [dataKey]: item,
+            },
+          });
+        }
+        alert('삭제되었습니다.');
+        location.reload();
+      } catch (error) {
+        console.log(error);
+        alert('삭제 중 오류가 발생했습니다.');
+      }
+    });
 
   // 페이지 로드 시 handleFiltering 함수 호출
   handleFiltering();
 
   // 선호 메뉴 조회
-document.querySelector('#likeBtn').addEventListener('click', async () => {
-  const callServer = await axios({
-    method: 'get',
-    url: 'http://localhost:3000/user-actions/favorites',
+  document.querySelector('#likeBtn').addEventListener('click', async () => {
+    const callServer = await axios({
+      method: 'get',
+      url: 'http://localhost:3000/user-actions/favorites',
+    });
+    const callFavorites = callServer.data;
+    createItems(callFavorites, 'favorites');
+    handleFiltering();
   });
-  const callFavorites = callServer.data;
-  createItems(callFavorites, 'favorites');
-  handleFiltering();
-});
 
   // 제외한 음식 조회
   document
@@ -253,30 +254,8 @@ document.querySelector('#likeBtn').addEventListener('click', async () => {
 });
 
 document.getElementById('the-menu').addEventListener('click', function () {
-  console.log('Opening the menu window...');
-  var popupW = 400;
-var popupH = 300;
-var left = Math.ceil((window.screen.width - popupW) / 2);
-var top = Math.ceil((window.screen.height - popupH) / 2);
-
-  const menuWindow = window.open('',
-  'userDataWindow',
-  'width=' +
-  popupH +
-  ',height=' +
-  popupH +
-  ',left=' +
-  left +
-  ',top=' +
-  top +
-  ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',
-  );
-
-  console.log('Opening the menu window222');
-
+  const menuWindow = window.open('menu.html', '_blank', 'width=400,height=600');
   menuWindow.addEventListener('load', function () {
-    console.log('Opening the menu window5555');
-
     const foodButton = menuWindow.document.createElement('button');
     foodButton.innerText = '음식';
     menuWindow.document.body.appendChild(foodButton);
@@ -309,7 +288,7 @@ var top = Math.ceil((window.screen.height - popupH) / 2);
         .get('http://localhost:3000/ingredient')
         .then(res => {
           const ingredientNames = res.data.map(item => item.ingredient_name);
-          contentContainer.innerHTML = ''; 
+          contentContainer.innerHTML = '';
           contentContainer.innerHTML += '<h2>재료</h2>';
           contentContainer.innerHTML += ingredientNames.join('<br>');
         })
@@ -319,3 +298,32 @@ var top = Math.ceil((window.screen.height - popupH) / 2);
     };
   });
 });
+
+$(document).ready(function () {
+  openTooltip('.button_control', '.tooltip_layer');
+});
+
+function openTooltip(selector, layer) {
+  var $layer = $(layer);
+
+  // 툴팁버튼 처리
+  $(selector).on('click', function () {
+    $layer.toggleClass('on');
+  });
+
+  function overTooltip() {
+    var $this = $(selector);
+
+    // 마우스 오버시 툴팁 레이어 노출
+    $this.on('mouseover focusin', function () {
+      $(this).next(layer).show();
+    });
+    // 마우스 떠날시 툴팁 레이어 숨김
+    $this.on('mouseleave focusout', function () {
+      if (!$layer.hasClass('on')) {
+        $(this).next(layer).hide();
+      }
+    });
+  }
+  overTooltip();
+}

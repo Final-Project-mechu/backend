@@ -15,10 +15,6 @@ import { CommentsService } from './comments.service';
   controllers: [CommentsController],
   providers: [
     CommentsService,
-    // FeedsService,
-    // UsersService,
-    // JwtService,
-    // MailService, ==> 이 부분은 필요 없을 것 같습니다..
   ],
 })
 export class CommentsModule {}

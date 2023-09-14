@@ -341,15 +341,15 @@
       <div class="mypage-buttons">
         <button
           data-bs-toggle="modal"
-          class="site-btn"
           data-bs-target="#modifyUserModal"
+          class="site-btn"
         >
           내 정보 수정
         </button>
         <button
           data-bs-toggle="modal"
-          class="site-btn"
           data-bs-target="#deleteUserModal"
+          class="site-btn"
         >
           회원 탈퇴
         </button>
@@ -427,6 +427,7 @@
               class="signbutton"
               data-bs-toggle="modal"
               data-bs-target="#signupModal"
+              onclick="updateUser()"
             >
               수정하기
             </button>
@@ -474,7 +475,7 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="code"
+                    type="password"
                     class="modal-input"
                     id="passwordDelete2"
                     placeholder="비밀번호 확인"
@@ -495,6 +496,7 @@
               class="signbutton"
               data-bs-toggle="modal"
               data-bs-target="#signupModal"
+              onclick="deleteUser()"
             >
               탈퇴하기
             </button>

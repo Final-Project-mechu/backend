@@ -6,7 +6,9 @@ if (!window.location.hash) {
 //관리자버튼 display 판별
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await axios.get('http://localhost:3000/users/findAdmin');
+    const response = await axios.get(
+      'https://togethereat.shop/users/findAdmin',
+    );
     console.log(response.data);
     if (response.status === 200) {
       const userType = response.data;
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function categoryGet() {
   const callCategoryServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/category',
+    url: 'https://togethereat.shop/category',
   });
   const allCategory = callCategoryServer.data;
   console.log(allCategory);
@@ -50,10 +52,9 @@ categoryGet();
 async function foodGet() {
   const callServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/food',
+    url: 'https://togethereat.shop/food',
   });
   const allFoods = callServer.data;
-  console.log(allFoods);
   createAllFoodItems(allFoods);
 }
 function createAllFoodItems(foods) {
@@ -107,8 +108,7 @@ foodGet();
 // };
 
 async function foodInfo(foodId) {
-  console.log(foodId);
-  url = `http://localhost:3000/food/${Number(foodId)}`;
+  url = `https://togethereat.shop/food/${Number(foodId)}`;
   const callFoodIngredient = await axios.get(url);
   const allFoodsIngredient = callFoodIngredient.data;
 
@@ -186,7 +186,7 @@ async function search() {
   }
   // 검색어를 사용하여 서버에 GET 요청 보내기
   const response = await axios.get(
-    `http://localhost:3000/food/search?q=${searchValue}`,
+    `https://togethereat.shop/food/search?q=${searchValue}`,
   );
   // 응답 데이터 가져오기
   const foods = response.data;

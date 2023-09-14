@@ -34,7 +34,7 @@ function verifyEmail() {
     return;
   }
   axios
-    .post('http://localhost:3000/users/send-code', data)
+    .post('https://togethereat.shop/users/send-code', data)
     .then(response => {
       alert('인증코드가 이메일로 전송되었습니다.');
       emailInput.disabled = true;
@@ -43,7 +43,6 @@ function verifyEmail() {
     })
     .catch(error => {
       alert(error.response.data.message);
-      console.error(error);
     });
 }
 
@@ -56,7 +55,7 @@ function verifyCode() {
     code: $('#codeInput').val(),
   };
   axios
-    .post('http://localhost:3000/users/verify-code', data)
+    .post('https://togethereat.shop/users/verify-code', data)
     .then(response => {
       alert('인증 확인');
       codeInput.disabled = true;
@@ -85,7 +84,7 @@ function sign(event) {
     passwordConfirm: $('#signupPasswordConfirm').val(),
   };
   axios
-    .post('http://localhost:3000/users/sign', data)
+    .post('https://togethereat.shop/users/sign', data)
     .then(response => {
       setCookie('AccessToken', response.data.AccessToken, 1);
       setCookie('RefreshToken', response.data.RefreshToken, 1);
@@ -93,7 +92,7 @@ function sign(event) {
         '회원가입을 축하합니다! 고객님의 취향을 저격하기 위해 선호도 조사 페이지로 이동합니다!',
       );
       // 회원가입 되면 바로 선호도조사 페이지로 이동
-      location.href = 'http://localhost:3000/preference.html';
+      location.href = 'https://togethereat.shop/preference.html';
     })
     .catch(error => {
       // 서버에서 발생한 예외 처리
@@ -137,12 +136,12 @@ function login() {
     password: $('#loginPass').val(),
   };
   axios
-    .post('http://localhost:3000/users/login', data)
+    .post('https://togethereat.shop/users/login', data)
     .then(response => {
       setCookie('AccessToken', response.data.AccessToken, 1);
       setCookie('RefreshToken', response.data.RefreshToken, 1);
       alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
-      location.href = 'http://localhost:3000/menu-subscribe.html';
+      location.href = 'https://togethereat.shop/menu-subscribe.html';
     })
     .catch(error => {
       // 서버에서 발생한 예외 처리
@@ -152,7 +151,6 @@ function login() {
         alert('로그인 실패: ' + '이메일 또는 비밀번호가 올바르지 않습니다.');
       } else {
         // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
-        console.error('네트워크 오류:', error.message);
         alert('네트워크 오류가 발생했습니다.');
       }
     });

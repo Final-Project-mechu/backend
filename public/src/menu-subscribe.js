@@ -9,7 +9,7 @@ const imageContainer = document.querySelector('.image-container img');
 function openKakaopage(keyword) {
   return () => {
     const kakaoUrl =
-      'http://localhost:3000/kakaomap-api.html?keyword=' + keyword;
+      'https://togethereat.shop/kakaomap-api.html?keyword=' + keyword;
     window.open(kakaoUrl, '_blank');
     console.log('kakaoUrl', kakaoUrl);
   };
@@ -24,7 +24,7 @@ function likeFood() {
   console.log('foodName:', foodName);
 
   axios
-    .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .post('https://togethereat.shop/user-actions/likes', { foodName: foodName })
     .then(response => {
       emptyHeartIcon.style.display = 'none';
       filledHeartIcon.style.display = 'inline-block';
@@ -68,7 +68,7 @@ emptyHeartIcon.addEventListener('click', function () {
   console.log('foodName:', foodName);
 
   axios
-    .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .post('https://togethereat.shop/user-actions/likes', { foodName: foodName })
     .then(response => {
       // 성공적으로 요청이 완료되면 꽉 찬 하트로 변경합니다.
       emptyHeartIcon.style.display = 'none';
@@ -90,7 +90,7 @@ filledHeartIcon.addEventListener('click', function () {
   console.log('foodName:', foodName);
 
   axios
-    .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .post('https://togethereat.shop/user-actions/likes', { foodName: foodName })
     .then(response => {
       // 성공적으로 요청이 완료되면 빈 하트로 변경합니다.
       filledHeartIcon.style.display = 'none';
@@ -109,7 +109,7 @@ filledHeartIcon.addEventListener('click', function () {
 function sendRequest(categoryId) {
   console.log('Sending request for category:', categoryId);
   axios
-    .post('http://localhost:3000/user-actions/random-weighted-foods', {
+    .post('https://togethereat.shop/user-actions/random-weighted-foods', {
       category_id: categoryId,
     })
     .then(displayCategoryResponse)
@@ -141,7 +141,7 @@ function createCategoryButtons(categories) {
 }
 
 axios
-  .get('http://localhost:3000/category')
+  .get('https://togethereat.shop/category')
   .then(response => createCategoryButtons(response.data))
   .catch(error => {
     console.error('Error:', error);
@@ -155,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
       selectedCategoryId = 0;
       document.querySelector('.food-item.meal').textContent =
         '전체가 선택되었습니다.';
-      // event.stopPropagation();
     });
   }
 

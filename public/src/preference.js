@@ -24,11 +24,10 @@ form.addEventListener('submit', function (event) {
 function searchFavorites() {
   const searchInput = document.getElementById('survey-search-input');
   const searchValue = searchInput.value.trim();
-  console.log(searchValue);
 
   axios({
     method: 'post',
-    url: 'http://localhost:3000/user-actions/favorites',
+    url: 'https://togethereat.shop/user-actions/favorites',
     data: {
       foodName: searchValue,
     },
@@ -54,18 +53,16 @@ function searchExcludeFoods() {
 
   axios({
     method: 'post',
-    url: 'http://localhost:3000/user-actions/exclude-foods',
+    url: 'https://togethereat.shop/user-actions/exclude-foods',
     data: {
       foodName: searchValue,
     },
   })
     .then(function (res) {
-      console.log(res);
       alert('제외 음식에 추가되었습니다.'); // 추가된 알림 창
       location.reload(); // 페이지 새로고침
     })
     .catch(error => {
-      console.log(error);
       alert(error.response.data.message);
     });
 }
@@ -76,22 +73,18 @@ function searchExcludeFoods() {
 function searchExcludeIngredients() {
   const searchInput = document.getElementById('survey-search-input');
   const searchValue = searchInput.value.trim();
-  console.log(searchValue);
-
   axios({
     method: 'post',
-    url: 'http://localhost:3000/user-actions/exclude-ingredients',
+    url: 'https://togethereat.shop/user-actions/exclude-ingredients',
     data: {
       ingredientName: searchValue,
     },
   })
     .then(function (res) {
-      console.log(res);
       alert('제외 재료에 추가되었습니다.'); // 추가된 알림 창
       location.reload(); // 페이지 새로고침
     })
     .catch(error => {
-      console.log(error);
       alert(error.response.data.message);
     });
 }
@@ -168,13 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
       let url;
       let dataKey;
       if (currentFilter === 'favorites') {
-        url = 'http://localhost:3000/user-actions/favorites-cancel';
+        url = 'https://togethereat.shop/user-actions/favorites-cancel';
         dataKey = 'foodName';
       } else if (currentFilter === 'excluded-foods') {
-        url = 'http://localhost:3000/user-actions/exclude-foods-cancel';
+        url = 'https://togethereat.shop/user-actions/exclude-foods-cancel';
         dataKey = 'foodName';
       } else if (currentFilter === 'excluede-ingredient') {
-        url = 'http://localhost:3000/user-actions/exclude-ingredients-cancel';
+        url =
+          'https://togethereat.shop/user-actions/exclude-ingredients-cancel';
         dataKey = 'ingredientName';
       } else {
         console.error('Invalid currentFilter value:', currentFilter);
@@ -206,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#likeBtn').addEventListener('click', async () => {
     const callServer = await axios({
       method: 'get',
-      url: 'http://localhost:3000/user-actions/favorites',
+      url: 'https://togethereat.shop/user-actions/favorites',
     });
     const callFavorites = callServer.data;
     createItems(callFavorites, 'favorites');
@@ -219,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .addEventListener('click', async () => {
       const callServer = await axios({
         method: 'get',
-        url: 'http://localhost:3000/user-actions/exclude-foods',
+        url: 'https://togethereat.shop/user-actions/exclude-foods',
       });
       const callExcluded = callServer.data;
       createItems(callExcluded, 'excluded-foods');
@@ -232,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .addEventListener('click', async () => {
       const callServer = await axios({
         method: 'get',
-        url: 'http://localhost:3000/user-actions/exclude-ingredients',
+        url: 'https://togethereat.shop/user-actions/exclude-ingredients',
       });
       const callExcludedIngredient = callServer.data;
       createItems(callExcludedIngredient, 'excluede-ingredient');
@@ -245,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .addEventListener('click', async () => {
       const callServer = await axios({
         method: 'get',
-        url: 'http://localhost:3000/user-actions/exclude-foods-ingredients',
+        url: 'https://togethereat.shop/user-actions/exclude-foods-ingredients',
       });
       const callExcludedInfood = callServer.data;
       createItems(callExcludedInfood, 'excluded-ing-foods');
@@ -270,7 +264,7 @@ document.getElementById('the-menu').addEventListener('click', function () {
 
     foodButton.onclick = function () {
       axios
-        .get('http://localhost:3000/food')
+        .get('https://togethereat.shop/food')
         .then(res => {
           const foodNames = res.data.map(item => item.food_name);
           console.log('foodNames', foodNames);
@@ -285,7 +279,7 @@ document.getElementById('the-menu').addEventListener('click', function () {
 
     ingredientButton.onclick = function () {
       axios
-        .get('http://localhost:3000/ingredient')
+        .get('https://togethereat.shop/ingredient')
         .then(res => {
           const ingredientNames = res.data.map(item => item.ingredient_name);
           contentContainer.innerHTML = '';

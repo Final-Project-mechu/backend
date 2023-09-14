@@ -13,7 +13,7 @@ function buttons() {
 function openKakaopage(keyword) {
   return () => {
     const kakaoUrl =
-      'http://localhost:3000/kakaomap-api.html?keyword=' + keyword;
+      'https://togethereat.shop/kakaomap-api.html?keyword=' + keyword;
     window.open(kakaoUrl, '_blank');
   };
 }

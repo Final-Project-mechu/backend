@@ -104,7 +104,7 @@ function addToFavorite() {
   });
   if (randomData) {
     axios({
-      url: 'http://localhost:3000/favorites',
+      url: 'https://togethereat.shop/favorites',
       method: 'post',
       data: {
         address_name: randomData.address_name,
@@ -126,6 +126,6 @@ function addToFavorite() {
         alert(err.response.data.message);
       });
   } else {
-    console.log('데이터 없음');
+    alert('데이터 없음');
   }
 }

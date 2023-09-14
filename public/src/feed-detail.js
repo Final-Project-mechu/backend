@@ -15,7 +15,7 @@ async function confirmUser() {
 // 피드 상세 정보 가져오기
 async function getFeedDetail() {
   try {
-    const feedRes = await axios.get(`http://localhost:3000/feeds/${feedId}`);
+    const feedRes = await axios.get(`https://togethereat.shop/feeds/${feedId}`);
     const feedDetail = feedRes.data;
     console.log(feedDetail);
     const { nick_name } = feedDetail[1];

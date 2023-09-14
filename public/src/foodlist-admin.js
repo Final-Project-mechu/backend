@@ -7,7 +7,7 @@ if (!window.location.hash) {
 async function categoryGet() {
   const callCategoryServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/category',
+    url: 'https://togethereat.shop/category',
   });
   const allCategory = callCategoryServer.data;
   console.log(allCategory);
@@ -26,7 +26,7 @@ categoryGet();
 async function foodGet() {
   const callServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/food',
+    url: 'https://togethereat.shop/food',
   });
   const allFoods = callServer.data;
   console.log(allFoods);
@@ -52,29 +52,28 @@ function createAllFoodItems(foods) {
   });
 }
 foodGet();
-async function foodDelete(foodId){
-   // 사용자에게 확인 메시지를 보여줌
-   var confirmation = window.confirm('삭제하시겠습니까?');
+async function foodDelete(foodId) {
+  // 사용자에게 확인 메시지를 보여줌
+  var confirmation = window.confirm('삭제하시겠습니까?');
 
-   // 확인 대화 상자의 "예"를 누른 경우
-   if (confirmation) {
-       // 여기에 삭제 작업을 수행하는 코드를 추가합니다.
-       url = `http://localhost:3000/food/${foodId}`
-       const deleteFood = await axios.delete(url);
-       console.log(deleteFood);
-       alert('선택 메뉴가 삭제되었습니다.');
-       window.location.reload();
-   } else {
-       alert('삭제가 취소되었습니다.');
-   }
+  // 확인 대화 상자의 "예"를 누른 경우
+  if (confirmation) {
+    // 여기에 삭제 작업을 수행하는 코드를 추가합니다.
+    url = `https://togethereat.shop/food/${foodId}`;
+    const deleteFood = await axios.delete(url);
+    console.log(deleteFood);
+    alert('선택 메뉴가 삭제되었습니다.');
+    window.location.reload();
+  } else {
+    alert('삭제가 취소되었습니다.');
+  }
 }
 
-
-async function foodComplet(){
-  alert("짠")
+async function foodComplet() {
+  alert('짠');
 }
 async function foodUpdate(foodId) {
-  url = `http://localhost:3000/food/onefoodImg/${Number(foodId)}`;
+  url = `https://togethereat.shop/food/onefoodImg/${Number(foodId)}`;
   const callFood = await axios.get(url);
   const test = callFood.data[0];
   console.log(foodComplet);
@@ -94,7 +93,7 @@ async function foodUpdate(foodId) {
       left +
       ',top=' +
       top +
-      ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',      
+      ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',
   );
   newWindow.document.body.innerHTML = `
   <form>
@@ -111,22 +110,13 @@ async function foodUpdate(foodId) {
     `;
 }
 
-
-
-
-
-
 async function foodInfo(foodId) {
-  console.log(foodId);
-  url = `http://localhost:3000/food/${Number(foodId)}`;
+  url = `https://togethereat.shop/food/${Number(foodId)}`;
   const callFoodIngredient = await axios.get(url);
   const allFoodsIngredient = callFoodIngredient.data;
-
   const foodIgredientHtml = allFoodsIngredient
     .map(item => `<li>${item.ingredient_name}</li>`)
     .join('');
-  console.log(foodIgredientHtml);
-
   var popupW = 400;
   var popupH = 300;
   var left = Math.ceil((window.screen.width - popupW) / 2);
@@ -168,12 +158,12 @@ function foodCreate() {
   console.log(formData);
   axios({
     method: 'post',
-    url: 'http://localhost:3000/food/foodimg',
+    url: 'https://togethereat.shop/food/foodimg',
     data: formData,
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-  })
+  });
     alert('음식 생성 완료');
     window.location.reload();
     //임시

@@ -3,7 +3,7 @@
 // 페이지 로드 시 찜목록 가져오기
 document.addEventListener('DOMContentLoaded', function () {
   axios
-    .get('http://localhost:3000/favorites')
+    .get('https://togethereat.shop/favorites')
     .then(response => {
       const favorites = response.data;
       const contentWrapper = document.querySelector('.content-wrapper');
@@ -69,7 +69,7 @@ document.querySelectorAll('.restaurant-checkbox:checked').forEach(checkbox => {
 // 페이지 로드 시 사용자 이름 가져오기
 document.addEventListener('DOMContentLoaded', function () {
   axios
-    .get('http://localhost:3000/users/find')
+    .get('https://togethereat.shop/users/find')
     .then(response => {
       const userName = response.data;
       const favoriteNameElement = document.querySelector('.favorite-name');
@@ -103,7 +103,7 @@ document.querySelector('.delete-btn').addEventListener('click', function () {
   // 체크된 항목을 순회하며 DELETE 요청 보내기
   checkedIds.forEach(id => {
     axios
-      .delete(`http://localhost:3000/favorites/${id}`)
+      .delete(`https://togethereat.shop/favorites/${id}`)
       .then(response => {
         console.log('삭제 성공:', response.data);
         // 페이지 새로고침 또는 해당 항목 삭제

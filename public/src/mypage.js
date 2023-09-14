@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await axios.get('http://localhost:3000/users/find');
+    const response = await axios.get('https://togethereat.shop/users/find');
 
     if (response.status === 200) {
       const nickName = response.data;
@@ -47,9 +47,8 @@ function updateUser() {
     newPassword: $('#new-password').val(),
   };
   axios
-    .patch('http://localhost:3000/users/update', data)
+    .patch('https://togethereat.shop/users/update', data)
     .then(response => {
-      console.log(response);
       alert('닉네임, 비밀번호 변경 성공');
       location.reload();
     })
@@ -64,7 +63,7 @@ function deleteUser() {
     passwordConfirm: $('#passwordDelete2').val(),
   };
   axios
-    .post('http://localhost:3000/users/quit', data)
+    .post('https://togethereat.shop/users/quit', data)
     .then(response => {
       document.cookie = deleteCookie('AccessToken');
       document.cookie = deleteCookie('RefreshToken');
@@ -72,7 +71,6 @@ function deleteUser() {
       window.location.href = 'http://localhost:3000';
     })
     .catch(error => {
-      console.log(error);
       alert('회원탈퇴 실패');
     });
 }

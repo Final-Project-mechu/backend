@@ -4,14 +4,14 @@ function writeClick() {
   if (!cookies.includes('AccessToken', 'RefreshToken')) {
     return alert('로그인이 필요한 기능입니다!');
   } else {
-    location.href = 'http://localhost:3000/feed-create.html';
+    location.href = 'https://togethereat.shop/feed-create.html';
   }
 }
 
 async function feedsGet() {
   const callServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/feeds',
+    url: 'https://togethereat.shop/feeds',
   });
   const allFeeds = callServer.data;
   createAllFeedsItems(allFeeds);

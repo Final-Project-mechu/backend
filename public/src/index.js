@@ -60,9 +60,8 @@ function verifyEmail() {
     return;
   }
   axios
-    .post('http://localhost:3000/users/send-code', data)
+    .post('https://togethereat.shop/users/send-code', data)
     .then(response => {
-      console.log(data);
       alert('메일을 전송했습니다.');
     })
     .catch(error => {
@@ -83,7 +82,6 @@ function verifyEmail() {
         console.log('에러 메시지:', error.message);
       }
       alert('메일 전송 실패');
-      console.log(data, error.message);
     });
 }
 
@@ -95,15 +93,13 @@ function verifyCode() {
   };
 
   axios
-    .post('http://localhost:3000/users/verify-code', data)
+    .post('https://togethereat.shop/users/verify-code', data)
     .then(response => {
-      console.log(data);
       alert('인증 확인');
     })
     .catch(error => {
       // 에러 처리
       alert('인증 실패');
-      console.error(error);
     });
 }
 
@@ -120,15 +116,12 @@ function sign(event) {
   };
 
   axios
-    .post('http://localhost:3000/users/sign', data)
+    .post('https://togethereat.shop/users/sign', data)
     .then(response => {
-      console.log(data);
       alert('회원가입 완료');
       closeModal();
     })
     .catch(error => {
-      // 에러 처리
-      console.error(error);
       alert('회원가입 실패');
     });
 }
@@ -140,9 +133,8 @@ function login() {
     password: $('#Password').val(),
   };
   axios
-    .post('http://localhost:3000/users/login', data)
+    .post('https://togethereat.shop/users/login', data)
     .then(response => {
-      console.log(data);
       alert('로그인 완료');
       closeModal();
       document.cookie = 'isLoggedIn=true'; // 예시로 "isLoggedIn" 쿠키 사용
@@ -198,7 +190,7 @@ function createLogoutButton() {
 // 로그아웃
 function singOut() {
   axios
-    .delete('http://localhost:3000/users/logOut')
+    .delete('https://togethereat.shop/users/logOut')
     .then(response => {
       alert('로그아웃 완료');
       document.cookie =
@@ -207,20 +199,18 @@ function singOut() {
     })
     .catch(error => {
       alert('로그아웃 실패');
-      console.error(error);
     });
 }
 
 //어드민 변환
 function admintransfer() {
   axios
-    .post('http://localhost:3000/users/admin')
+    .post('https://togethereat.shop/users/admin')
     .then(response => {
       alert('어드민 변환 완료');
       location.reload();
     })
     .catch(error => {
       alert('어드민 변환 실패');
-      console.error(error);
     });
 }

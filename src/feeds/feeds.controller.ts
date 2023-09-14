@@ -83,6 +83,7 @@ export class FeedsController {
 
   @ApiOperation({ summary: '피드 수정(제목, 내용만 수정가능)' })
   @Patch('/:id')
+  @UseInterceptors(FileInterceptor('file'))
   updateFeed(
     @Param('id') id: number,
     @Body() data: UpdateFeedDto,
@@ -96,6 +97,7 @@ export class FeedsController {
       auth.id,
       data.title,
       data.description,
+      file,
     );
   }
 
@@ -104,6 +106,13 @@ export class FeedsController {
   deleteFeed(@Param('id') id: number, @Req() request: RequestWithLocals) {
     const auth = request.locals.user;
     return this.feedsService.deleteFeed(id, auth.id);
+  }
+
+  @ApiOperation({ summary: '유저가 특정 피드를 좋아요 했는지 조회' })
+  @Get('/:id/like/user')
+  getUserFeedLike(@Param('id') id: number, @Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    return this.feedsService.getUserFeedLike(id, auth.id);
   }
 
   @ApiOperation({ summary: '피드 좋아요 수 조회' })

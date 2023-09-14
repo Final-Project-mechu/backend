@@ -43,7 +43,7 @@ function verifyEmail() {
     })
     .catch(error => {
       alert(error.response.data.message);
-      console.log(error);
+      console.error(error);
     });
 }
 
@@ -87,6 +87,8 @@ function sign(event) {
   axios
     .post('http://localhost:3000/users/sign', data)
     .then(response => {
+      setCookie('AccessToken', response.data.AccessToken, 1);
+      setCookie('RefreshToken', response.data.RefreshToken, 1);
       alert(
         '회원가입을 축하합니다! 고객님의 취향을 저격하기 위해 선호도 조사 페이지로 이동합니다!',
       );
@@ -128,7 +130,7 @@ function signOut() {
   document.cookie = deleteCookie('AccessToken');
   document.cookie = deleteCookie('RefreshToken');
   alert('로그아웃 되었습니다.');
-  console.log(document.cookie);
+  location.reload();
 }
 
 // 로그인
@@ -140,7 +142,6 @@ function login() {
   axios
     .post('http://localhost:3000/users/login', data)
     .then(response => {
-      console.log(response.data.AccessToken);
       setCookie('AccessToken', response.data.AccessToken, 1);
       setCookie('RefreshToken', response.data.RefreshToken, 1);
       alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
@@ -159,27 +160,3 @@ function login() {
       }
     });
 }
-
-// //어드민 변환
-// function admintransfer() {
-//   axios
-//     .post('https://togethereat.shop/users/admin')
-//     .then(response => {
-//       alert('어드민 변환 완료');
-//       location.reload();
-//     })
-//     .catch(error => {
-//       alert('어드민 변환 실패');
-//       console.error(error);
-//     });
-// }
-
-// window.onload = function () {
-//   let cookies = document.cookie;
-//   if (!cookies.includes('AccessToken') && !cookies.includes('RefreshToken')) {
-//     // AccessToken과 RefreshToken이 모두 존재하지 않을 때 모달을 띄우도록 합니다.
-//     const signModal = document.getElementById('signModal'); // 모달을 참조합니다.
-//     const bsModal = new bootstrap.Modal(signModal); // 부트스트랩 모달을 생성합니다.
-//     bsModal.show();
-//   }
-// };

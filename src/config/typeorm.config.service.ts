@@ -41,6 +41,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         FoodUserWeight,
         UserAction,
         FeedFavorite,
+        FoodIngredient,
       ],
       synchronize:
         this.configService.get<string>('DATABASE_SYNCHRONIZE') === 'true',

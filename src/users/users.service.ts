@@ -26,7 +26,7 @@ export class UsersService {
 
   async findUser(email: string) {
     return await this.userRepository.findOne({
-      where: { email },
+      where: { email, deletedAt: null },
       select: ['id', 'nick_name', 'password', 'refresh_token'],
     });
   }
@@ -118,34 +118,28 @@ export class UsersService {
   }
 
   async login(email: string, password: string) {
-    try {
-      const userConfirm = await this.findUser(email);
-      if (_.isNil(userConfirm)) {
-        throw new NotFoundException(
-          `e메일을 찾을 수 없습니다. user email: ${email}`,
-        );
-      }
-      const matchedPassward = await bcrypt.compare(
-        password,
-        userConfirm.password,
+    const userConfirm = await this.findUser(email);
+    if (!userConfirm) {
+      throw new NotFoundException(
+        `e메일을 찾을 수 없습니다. user email: ${email}`,
       );
-      if (!matchedPassward) {
-        throw new ConflictException('비밀번호가 일치하지 않습니다.');
-      }
-      const payload = {
-        id: userConfirm.id,
-        nick_name: userConfirm.nick_name,
-      };
-      const accessToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '30m',
-      });
-      const refreshToken = userConfirm.refresh_token;
-
-      return { accessToken, refreshToken };
-    } catch (error) {
-      console.error('로그인 에러:', error);
-      return { message: '로그인에 실패했습니다.' };
     }
+    const matchedPassward = await bcrypt.compare(
+      password,
+      userConfirm.password,
+    );
+    if (!matchedPassward) {
+      throw new ConflictException('비밀번호가 일치하지 않습니다.');
+    }
+    const payload = {
+      id: userConfirm.id,
+      nick_name: userConfirm.nick_name,
+    };
+    const accessToken = await this.jwtService.signAsync(payload, {
+      expiresIn: '30m',
+    });
+    const refreshToken = userConfirm.refresh_token;
+    return { accessToken, refreshToken };
   }
 
   async updateUser(
@@ -225,5 +219,13 @@ export class UsersService {
       userToUpdate.is_admin = 1;
       await this.userRepository.save(userToUpdate); // 변경 사항을 저장합니다.
     }
+  }
+  
+  // 관리자 판별
+  async getUserAdmin(user_id: number) {
+    return await this.userRepository.findOne({
+      where: { id: user_id },
+      select: ['is_admin'],
+    });
   }
 }

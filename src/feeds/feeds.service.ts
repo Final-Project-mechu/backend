@@ -160,6 +160,15 @@ export class FeedsService {
         '제목, 내용, 이미지 파일을 모두 입력해주세요!',
       );
     }
+    if (!title) {
+      throw new BadRequestException('제목을 입력해주세요!');
+    }
+    if (!description) {
+      throw new BadRequestException('내용을 입력해주세요!');
+    }
+    if (!file) {
+      throw new BadRequestException('파일을 첨부해주세요!');
+    }
     if (_.isNil(findFeed)) {
       throw new NotFoundException(
         `피드번호 ${id}번의 피드를 찾을 수 없습니다.`,

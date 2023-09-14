@@ -54,7 +54,7 @@ function updateUser() {
       location.reload();
     })
     .catch(error => {
-      alert("내 정보 수정 실패" ); 
+      alert('내 정보 수정 실패');
     });
 }
 
@@ -66,11 +66,13 @@ function deleteUser() {
   axios
     .post('http://localhost:3000/users/quit', data)
     .then(response => {
-      console.log(response);
-      alert('회원탈퇴 성공');
-      location.reload();
+      document.cookie = deleteCookie('AccessToken');
+      document.cookie = deleteCookie('RefreshToken');
+      alert('정상적으로 탈퇴되었습니다');
+      window.location.href = 'http://localhost:3000';
     })
     .catch(error => {
-      alert(error.message);
+      console.log(error);
+      alert('회원탈퇴 실패');
     });
 }

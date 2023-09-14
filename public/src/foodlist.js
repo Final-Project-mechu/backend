@@ -3,6 +3,27 @@ if (!window.location.hash) {
   window.location = window.location + '#loaded';
   window.location.reload();
 }
+//관리자버튼 display 판별
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/users/findAdmin');
+    console.log(response.data);
+    if (response.status === 200) {
+      const userType = response.data;
+      if (userType === 1) {
+        // 관리자인 경우 버튼을 표시
+        document.getElementById('adminButton').style.display = 'block';
+      } else {
+        // 일반 회원인 경우 버튼을 숨김
+        document.getElementById('adminButton').style.display = 'none';
+      }
+    } else {
+      console.error('서버 응답 오류:', response.status);
+    }
+  } catch (error) {
+    console.error('닉네임을 가져오는 중 오류 발생:', error);
+  }
+});
 
 // 카테고리 조회 함수
 // id, category_name,
@@ -123,7 +144,6 @@ async function foodInfo(foodId) {
   `;
 }
 
-
 // <h6><a href="http://localhost:3000/food/${food.id}">${food.food_name}</a></h6>
 
 $(document).ready(function () {
@@ -161,11 +181,13 @@ async function search() {
   const searchValue = document.getElementById('searchInput').value;
   // 검색어가 빈칸인 경우 메시지 표시
   if (!searchValue.trim()) {
-    alert("궁금한 음식을 알려주세요!"); // 사용자에게 메시지 표시
+    alert('궁금한 음식을 알려주세요!'); // 사용자에게 메시지 표시
     return;
   }
   // 검색어를 사용하여 서버에 GET 요청 보내기
-  const response = await axios.get(`http://localhost:3000/food/search?q=${searchValue}`);
+  const response = await axios.get(
+    `http://localhost:3000/food/search?q=${searchValue}`,
+  );
   // 응답 데이터 가져오기
   const foods = response.data;
   // 응답 데이터를 화면에 표시하기 위한 함수 호출

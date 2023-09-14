@@ -128,10 +128,12 @@ function createCategoryButtons(categories) {
     button.className = 'filter-button';
     button.textContent = category.category_name;
     button.addEventListener('click', () => {
-      document.querySelector('.food-item.meal').textContent = `${category.category_name}가 선택되었습니다.`;
+      document.querySelector(
+        '.food-item.meal',
+      ).textContent = `${category.category_name}가 선택되었습니다.`;
       selectedCategoryId = category.id;
 
-      mainElement.style.display = 'block'; 
+      mainElement.style.display = 'block';
     });
     filterButtonsDiv.appendChild(button);
   });

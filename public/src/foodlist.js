@@ -123,6 +123,7 @@ async function foodInfo(foodId) {
   `;
 }
 
+
 // <h6><a href="http://localhost:3000/food/${food.id}">${food.food_name}</a></h6>
 
 $(document).ready(function () {
@@ -152,4 +153,44 @@ function openTooltip(selector, layer) {
     });
   }
   overTooltip();
+// 검색 함수
+async function search() {
+  // 사용자가 입력한 검색어 가져오기
+  const searchValue = document.getElementById('searchInput').value;
+
+  // 검색어가 빈칸인 경우 메시지 표시
+  if (!searchValue.trim()) {
+    alert("궁금한 음식을 알려주세요!"); // 사용자에게 메시지 표시
+    return;
+  }
+
+  // 검색어를 사용하여 서버에 GET 요청 보내기
+  const response = await axios.get(`http://localhost:3000/food/search?q=${searchValue}`);
+
+  // 응답 데이터 가져오기
+  const foods = response.data;
+
+  // 응답 데이터를 화면에 표시하기 위한 함수 호출
+  displaySearchResults(foods);
+}
+
+// 검색 결과를 화면에 표시하는 함수
+function displaySearchResults(foods) {
+  const foodsContainer = document.getElementById('foods-container');
+  foodsContainer.innerHTML = '';
+
+  foods.forEach(food => {
+    const foodItem = document.createElement('div');
+    foodItem.className = `col-lg-3 col-md-6 col-sm-6 mix food${food.category_id}`;
+    foodItem.innerHTML = `
+        <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+                <img src="${food.food_img}" alt="${food.food_name}" style="width: 100%; height: 100%;">
+            </div>
+            <div class="featured__item__text">
+                <h6><button class="foodBtn" onclick='foodInfo(${food.id})'>${food.food_name}</button></h6>
+            </div>
+        </div>`;
+    foodsContainer.appendChild(foodItem);
+  });
 }

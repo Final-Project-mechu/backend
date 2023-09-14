@@ -3,6 +3,7 @@ import {
   Injectable,
   UnauthorizedException,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import _ from 'lodash';
 import { Repository } from 'typeorm';
@@ -152,4 +153,18 @@ export class FoodService {
   async getAllFoodImg() {
     return await this.foodReository.query(`select * from food;`);
   }
+
+
+
+  // 음식 검색 
+  async searchFood(query: string): Promise<Food[]> {
+    if (!query) {
+      throw new BadRequestException('해당 음식은 존재하지 않습니다.');
+    }
+    return await this.foodReository
+      .createQueryBuilder("food")
+      .where("food.food_name LIKE :query", { query: `%${query}%` })
+      .getMany();
+  }
 }
+

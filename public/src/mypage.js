@@ -68,7 +68,7 @@ function deleteUser() {
       document.cookie = deleteCookie('AccessToken');
       document.cookie = deleteCookie('RefreshToken');
       alert('정상적으로 탈퇴되었습니다');
-      window.location.href = 'http://localhost:3000';
+      window.location.href = 'https://togethereat.shop';
     })
     .catch(error => {
       alert('회원탈퇴 실패');

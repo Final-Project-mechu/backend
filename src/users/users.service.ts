@@ -220,4 +220,12 @@ export class UsersService {
       await this.userRepository.save(userToUpdate); // 변경 사항을 저장합니다.
     }
   }
+  
+  // 관리자 판별
+  async getUserAdmin(user_id: number) {
+    return await this.userRepository.findOne({
+      where: { id: user_id },
+      select: ['is_admin'],
+    });
+  }
 }

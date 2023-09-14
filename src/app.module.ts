@@ -103,6 +103,7 @@ export class AppModule implements NestModule {
       .apply(AuthMiddleware)
       .forRoutes(
         { path: 'users/find', method: RequestMethod.GET },
+        { path: 'users/findAdmin', method: RequestMethod.GET },
         { path: 'users/update', method: RequestMethod.PATCH },
         { path: 'users/quit', method: RequestMethod.POST },
         { path: 'users/logout', method: RequestMethod.POST },

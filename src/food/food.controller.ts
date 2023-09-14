@@ -11,6 +11,7 @@ import {
   Patch,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { FoodService } from './food.service';
 import { createFoodsDto } from './dto/create.foods.dto';

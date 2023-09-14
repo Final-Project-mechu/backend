@@ -230,4 +230,18 @@ export class UsersService {
       await this.userRepository.save(userToUpdate); // 변경 사항을 저장합니다.
     }
   }
+
+  // async getUserAdmin(email: string) {
+  //   return await this.userRepository.query(
+  //     `select is_admin from user where user.email = "${email}"`,
+  //   );
+  // }
+
+  async getUserAdmin(email: string) {
+    console.log("ser",email)
+    return await this.userRepository.findOne({
+      where: { email },
+      select: ['is_admin'],
+    });
+  }
 }

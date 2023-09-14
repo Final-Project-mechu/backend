@@ -24,6 +24,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Request, Response, response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
+import { userInfo } from 'os';
 
 interface RequestWithLocals extends Request {
   locals: {
@@ -141,4 +142,20 @@ export class UsersController {
       return { error: 'is_admin 값을 변경하는 중 오류가 발생했습니다.' };
     }
   }
+
+  //어드민 조회
+  // @Get('/findAdmin')
+  // async getUserAdmin(@Query('email') email: string) {
+  //   const userInfo = this.userService.getUserAdmin(email);
+  //   console.log(userInfo)
+  //   return userInfo;
+  // }
+  @Get('/findAdmin')
+  async getUserAdmin(@Query('email') email: string) {
+    console.log("con",email)
+    const userInfo = await this.userService.getUserAdmin(email);
+    console.log(userInfo)
+    return userInfo.is_admin;
+  }
+  
 }

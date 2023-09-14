@@ -151,14 +151,18 @@ export class FoodService {
     this.foodReository.softDelete({id :food_id});
   }
 
-
-
-
-
   //상세조회하기 -> foodingredient
   //전체 조회하기
   async getAllFoodImg(){
     return await this.foodReository.query(`select * from food;`);
+  }
+
+  //유저 어드민값 찾기
+  async getUserNickName(email: string) {
+    return await this.userRepository.findOne({
+      where: { email },
+      select: ['is_admin'],
+    });
   }
 
 }

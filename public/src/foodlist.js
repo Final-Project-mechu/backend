@@ -4,8 +4,31 @@ if (!window.location.hash) {
   window.location.reload();
 }
 
-// 카테고리 조회 함수
-// id, category_name,
+
+
+//관리자버튼 display 판별
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/users/findAdmin');
+    console.log(response.data);
+    if (response.status === 200) {
+      const userType = response.data;
+      if (userType === 1) {
+        // 관리자인 경우 버튼을 표시
+        document.getElementById('adminButton').style.display = 'block';
+      } else {
+        // 일반 회원인 경우 버튼을 숨김
+        document.getElementById('adminButton').style.display = 'none';
+      }
+    } else {
+      console.error('서버 응답 오류:', response.status);
+    }
+  } catch (error) {
+    console.error('닉네임을 가져오는 중 오류 발생:', error);
+  }
+});
+
+//카테고리 불러오기
 async function categoryGet() {
   const callCategoryServer = await axios({
     method: 'get',
@@ -25,7 +48,6 @@ function createAllCategoryItems(categorys) {
 categoryGet();
 
 // 음식 조회 함수
-// id, food_id, category_id, food_img, deleteAt 불러옴
 async function foodGet() {
   const callServer = await axios({
     method: 'get',
@@ -35,6 +57,8 @@ async function foodGet() {
   console.log(allFoods);
   createAllFoodItems(allFoods);
 }
+
+//음식 생성
 function createAllFoodItems(foods) {
   const foodsContainer = document.getElementById('foods-container');
   foodsContainer.innerHTML = '';
@@ -51,40 +75,8 @@ function createAllFoodItems(foods) {
     </div>`;
   });
 }
-foodGet();
 
-// window.onload = function () {
-//   document
-//     .getElementById('openNewWindowBtn')
-//     .addEventListener('click', async function () {
-//       const fId = document.getElementById('openNewWindowBtn');
-//       const foodId = fId.getAttribute('data-food-id');
-//       console.log(foodId);
-
-//       url = `http://localhost:3000/food/${Number(foodId)}`;
-//       const callFoodIngredient = await axios.get(url);
-//       const allFoodsIngredient = callFoodIngredient.data;
-
-//       const foodIgredientHtml = allFoodsIngredient
-//         .map(item => `<li>${item.ingredient_name}</li>`)
-//         .join('');
-
-//       console.log(foodIgredientHtml);
-//       const newWindow = window.open(
-//         '',
-//         'userDataWindow',
-//         'width=400,height=300',
-//       );
-//       newWindow.document.body.innerHTML = `
-//          <ul>
-//             <h2><h2>
-//             <h3>재료</h3>
-//             ${foodIgredientHtml}
-//          </ul>
-//         `;
-//     });
-// };
-
+// 음식 수정 추후
 async function foodInfo(foodId) {
   console.log(foodId);
   url = `http://localhost:3000/food/${Number(foodId)}`;
@@ -123,8 +115,8 @@ async function foodInfo(foodId) {
   `;
 }
 
-
-// <h6><a href="http://localhost:3000/food/${food.id}">${food.food_name}</a></h6>
+foodGet();
+categoryGet();
 
 $(document).ready(function () {
   openTooltip('.button_control2', '.tooltip_layer2');
@@ -132,27 +124,28 @@ $(document).ready(function () {
 
 function openTooltip(selector, layer) {
   const $layer = $(layer);
+}
+// 툴팁버튼 처리
+$(selector).on('click', function () {
+  $layer.toggleClass('on');
+});
 
-  // 툴팁버튼 처리
-  $(selector).on('click', function () {
-    $layer.toggleClass('on');
+function overTooltip() {
+  var $this = $(selector);
+
+  // 마우스 오버시 툴팁 레이어 노출
+  $this.on('mouseover focusin', function () {
+    $(this).next(layer).show();
   });
+  // 마우스 떠날시 툴팁 레이어 숨김
+  $this.on('mouseleave focusout', function () {
+    if (!$layer.hasClass('on')) {
+      $(this).next(layer).hide();
+    }
+  });
+}
+overTooltip();
 
-  function overTooltip() {
-    var $this = $(selector);
-
-    // 마우스 오버시 툴팁 레이어 노출
-    $this.on('mouseover focusin', function () {
-      $(this).next(layer).show();
-    });
-    // 마우스 떠날시 툴팁 레이어 숨김
-    $this.on('mouseleave focusout', function () {
-      if (!$layer.hasClass('on')) {
-        $(this).next(layer).hide();
-      }
-    });
-  }
-  overTooltip();
 // 검색 함수
 async function search() {
   // 사용자가 입력한 검색어 가져오기
@@ -160,12 +153,14 @@ async function search() {
 
   // 검색어가 빈칸인 경우 메시지 표시
   if (!searchValue.trim()) {
-    alert("궁금한 음식을 알려주세요!"); // 사용자에게 메시지 표시
+    alert('궁금한 음식을 알려주세요!'); // 사용자에게 메시지 표시
     return;
   }
 
   // 검색어를 사용하여 서버에 GET 요청 보내기
-  const response = await axios.get(`http://localhost:3000/food/search?q=${searchValue}`);
+  const response = await axios.get(
+    `http://localhost:3000/food/search?q=${searchValue}`,
+  );
 
   // 응답 데이터 가져오기
   const foods = response.data;

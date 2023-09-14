@@ -100,10 +100,7 @@ function sign(event) {
       if (error.response) {
         // 서버가 응답을 보낸 경우
         const errorMessage = error.response.data.message;
-        alert(
-          '회원가입 실패: ' +
-            '비밀번호: 6~10자의 영문 소문자, 숫자를 사용해 주세요.',
-        );
+        alert('회원가입에 실패하였습니다.');
       } else {
         // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
         console.error('네트워크 오류:', error.message);

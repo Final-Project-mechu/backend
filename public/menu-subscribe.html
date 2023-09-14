@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/modaltest.css" type="text/css" />
+    <link rel="stylesheet" href="css/preference.css" type="text/css" />
     <!-- axios 적용을 위한 script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS Styles END -->
@@ -349,13 +350,13 @@
           <img src="/img/simsimi.png" alt="Simsimi Image" class="center-image" />
       </div>
   
-      <div class="result-container">
+      <!-- <div class="result-container">
           <div id="result3"></div>
-          <!-- 빈하트 -->
+          빈하트
           <i class="far fa-heart fa-2x" style="display: none;"></i>
-          <!-- 꽉 찬 하트 -->
+          꽉 찬 하트
           <i class="fas fa-heart fa-2x" style="color: #ec3609; display: none;"></i>
-      </div>
+      </div> -->
   
       <div class="center-button">
 
@@ -380,6 +381,13 @@
     <div class="button-container2">
       <button type="submit" class="button">메뉴 추천받기!</button>
     </div>
+    <div class="result-container" style="display: flex; justify-content: center;">
+      <div id="result3"></div>
+      <!-- 빈하트 -->
+      <i class="far fa-heart fa-2x" style="display: none;"></i>
+      <!-- 꽉 찬 하트 -->
+      <i class="fas fa-heart fa-2x" style="color: #ec3609; display: none;"></i>
+  </div>
     <!-- "맛집 추천받기!" 버튼에 style 속성을 추가하여 기본적으로 숨깁니다. -->
     <div class="button-container3">
       <button class="button" id="storeBtn" onclick="" style="display: none">

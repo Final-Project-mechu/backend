@@ -5,13 +5,11 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { LoggerMiddleware } from './middleware/logger.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { CategoryModule } from './category/category.module';
 import { CommentsModule } from './comments/comments.module';
-import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { FoodModule } from './food/food.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { JwtModule } from '@nestjs/jwt';
@@ -33,13 +31,7 @@ import { IngredientModule } from './ingredient/ingredient.module';
 import { UsersActionsModule } from './users.actions/users.actions.module';
 import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
 import { AuthModule } from './auth/auth.module';
-import { PassportModule } from '@nestjs/passport';
-import { FriendModule } from './friend/friend.module';
-import { FriendlistModule } from './friendlist/friendlist.module';
 import { FeedsModule } from './feeds/feeds.module';
-import { FoodsIngredientsController } from './foods.ingredients/foods.ingredients.controller';
-import { FoodsIngredientsService } from './foods.ingredients/foods.ingredients.service';
-import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.module';
 
 @Module({
   imports: [
@@ -70,7 +62,6 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
         },
       },
     }),
-    PassportModule.register({ session: false }),
     UsersModule,
     FoodModule,
     CategoryModule,
@@ -80,7 +71,6 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
     Ingredient,
     Favorite,
     CommentsModule,
-    AdvertisementsModule,
     JwtModule,
     FavoritesModule,
     JwtModule,
@@ -88,80 +78,74 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
     IngredientModule,
     UsersActionsModule,
     FoodsUsersWeightsModule,
-    FriendModule,
     AuthModule,
-    FriendlistModule,
     FeedsModule,
   ],
-  controllers: [AppController,  ],
-  providers: [AppService, AuthMiddleware, ],
+  controllers: [AppController],
+  providers: [AppService, AuthMiddleware],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes(
-        { path: 'users/find', method: RequestMethod.GET },
-        { path: 'users/update', method: RequestMethod.PATCH },
-        { path: 'users/quit', method: RequestMethod.POST },
-        { path: 'users/logout', method: RequestMethod.POST },
-        { path: 'friends/send', method: RequestMethod.POST },
-        { path: 'friends/accept-friend', method: RequestMethod.POST },
-        { path: 'category', method: RequestMethod.POST },
-        { path: 'category/:category_id', method: RequestMethod.PATCH },
-        { path: 'ingredient', method: RequestMethod.POST },
-        { path: 'ingredient/:ingredient_id', method: RequestMethod.PATCH },
-        { path: 'favorites', method: RequestMethod.POST },
-        { path: 'favorites', method: RequestMethod.GET },
-        { path: 'favorites/:id', method: RequestMethod.DELETE },
-        { path: 'comments/:feedId', method: RequestMethod.POST },
-        { path: 'comments/:commentId', method: RequestMethod.PATCH },
-        { path: 'comments/:commentId', method: RequestMethod.DELETE },
-        { path: 'friends/send-request', method: RequestMethod.POST },
-        { path: 'friends/accept-friend', method: RequestMethod.POST },
-        { path: 'food', method: RequestMethod.POST },
-        { path: 'food/:food_id', method: RequestMethod.PATCH },
-        { path: 'foods-ingredients', method: RequestMethod.POST },
-        { path: 'foodimage', method: RequestMethod.POST},
-        { path: 'food/foodimg', method: RequestMethod.POST},
-        { path: 'food/foodimg/:food_id', method: RequestMethod.PATCH },
-        { path: 'food/foodimg/:food_id', method: RequestMethod.DELETE },
-      
-        { path: 'feeds', method: RequestMethod.POST },
-        { path: 'feeds/common', method: RequestMethod.POST },
-        { path: 'feeds/:id', method: RequestMethod.PATCH },
-        { path: 'feeds/:id', method: RequestMethod.DELETE },
-        { path: 'feeds/:id/like', method: RequestMethod.POST },
-        { path: 'feeds/:id/like', method: RequestMethod.DELETE },
-        { path: 'user-actions/favorites', method: RequestMethod.GET },
-        { path: 'user-actions/likes', method: RequestMethod.GET },
-        { path: 'user-actions/exclude-foods', method: RequestMethod.GET },
-        { path: 'user-actions/exclude-ingredients', method: RequestMethod.GET },
-        {
-          path: 'user-actions/exclude-foods-ingredients',
-          method: RequestMethod.GET,
-        },
-        { path: 'user-actions/favorites', method: RequestMethod.POST },
-        { path: 'user-actions/likes', method: RequestMethod.POST },
-        { path: 'user-actions/exclude-foods', method: RequestMethod.POST },
-        {
-          path: 'user-actions/exclude-ingredients',
-          method: RequestMethod.POST,
-        },
-        { path: 'user-actions/favorites-cancel', method: RequestMethod.POST },
-        {
-          path: 'user-actions/exclude-foods-cancel',
-          method: RequestMethod.POST,
-        },
-        {
-          path: 'user-actions/exclude-ingredients-cancel',
-          method: RequestMethod.POST,
-        },
-        {
-          path: 'user-actions/random-weighted-foods',
-          method: RequestMethod.POST,
-        },
-      );
+    consumer.apply(AuthMiddleware).forRoutes(
+      { path: 'users/find', method: RequestMethod.GET },
+      { path: 'users/update', method: RequestMethod.PATCH },
+      { path: 'users/quit', method: RequestMethod.POST },
+      { path: 'users/logout', method: RequestMethod.POST },
+      { path: 'friends/send', method: RequestMethod.POST },
+      { path: 'friends/accept-friend', method: RequestMethod.POST },
+      { path: 'category', method: RequestMethod.POST },
+      { path: 'category/:category_id', method: RequestMethod.PATCH },
+      { path: 'ingredient', method: RequestMethod.POST },
+      { path: 'ingredient/:ingredient_id', method: RequestMethod.PATCH },
+      { path: 'favorites', method: RequestMethod.POST },
+      { path: 'favorites', method: RequestMethod.GET },
+      { path: 'favorites/:id', method: RequestMethod.DELETE },
+      { path: 'comments/:feedId', method: RequestMethod.POST },
+      { path: 'comments/:commentId', method: RequestMethod.PATCH },
+      { path: 'comments/:commentId', method: RequestMethod.DELETE },
+      { path: 'friends/send-request', method: RequestMethod.POST },
+      { path: 'friends/accept-friend', method: RequestMethod.POST },
+      { path: 'food', method: RequestMethod.POST },
+      { path: 'food/:food_id', method: RequestMethod.PATCH },
+      { path: 'foods-ingredients', method: RequestMethod.POST },
+      { path: 'foodimage', method: RequestMethod.POST },
+      { path: 'food/foodimg', method: RequestMethod.POST },
+      { path: 'food/foodimg/:food_id', method: RequestMethod.PATCH },
+      { path: 'food/foodimg/:food_id', method: RequestMethod.DELETE },
+      { path: 'feeds', method: RequestMethod.POST },
+      { path: 'feeds/common', method: RequestMethod.POST },
+      { path: 'feeds/:id', method: RequestMethod.PATCH },
+      { path: 'feeds/:id', method: RequestMethod.DELETE },
+      { path: 'feeds/:id/like', method: RequestMethod.POST },
+      { path: 'feeds/:id/like', method: RequestMethod.DELETE },
+      { path: 'user-actions/favorites', method: RequestMethod.GET },
+      { path: 'user-actions/likes', method: RequestMethod.GET },
+      { path: 'user-actions/exclude-foods', method: RequestMethod.GET },
+      { path: 'user-actions/exclude-ingredients', method: RequestMethod.GET },
+      {
+        path: 'user-actions/exclude-foods-ingredients',
+        method: RequestMethod.GET,
+      },
+      { path: 'user-actions/favorites', method: RequestMethod.POST },
+      { path: 'user-actions/likes', method: RequestMethod.POST },
+      { path: 'user-actions/exclude-foods', method: RequestMethod.POST },
+      {
+        path: 'user-actions/exclude-ingredients',
+        method: RequestMethod.POST,
+      },
+      { path: 'user-actions/favorites-cancel', method: RequestMethod.POST },
+      {
+        path: 'user-actions/exclude-foods-cancel',
+        method: RequestMethod.POST,
+      },
+      {
+        path: 'user-actions/exclude-ingredients-cancel',
+        method: RequestMethod.POST,
+      },
+      {
+        path: 'user-actions/random-weighted-foods',
+        method: RequestMethod.POST,
+      },
+    );
   }
 }

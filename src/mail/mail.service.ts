@@ -39,7 +39,6 @@ export class MailService {
         subject: subject,
         html: content,
       });
-      console.log('메일이 전송되었습니다');
     } catch (error) {
       console.log(verificationCode);
     }

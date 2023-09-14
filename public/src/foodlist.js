@@ -124,3 +124,32 @@ async function foodInfo(foodId) {
 }
 
 // <h6><a href="http://localhost:3000/food/${food.id}">${food.food_name}</a></h6>
+
+$(document).ready(function () {
+  openTooltip('.button_control2', '.tooltip_layer2');
+});
+
+function openTooltip(selector, layer) {
+  const $layer = $(layer);
+
+  // 툴팁버튼 처리
+  $(selector).on('click', function () {
+    $layer.toggleClass('on');
+  });
+
+  function overTooltip() {
+    var $this = $(selector);
+
+    // 마우스 오버시 툴팁 레이어 노출
+    $this.on('mouseover focusin', function () {
+      $(this).next(layer).show();
+    });
+    // 마우스 떠날시 툴팁 레이어 숨김
+    $this.on('mouseleave focusout', function () {
+      if (!$layer.hasClass('on')) {
+        $(this).next(layer).hide();
+      }
+    });
+  }
+  overTooltip();
+}

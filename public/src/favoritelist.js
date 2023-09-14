@@ -60,8 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
 document.querySelectorAll('.restaurant-checkbox:checked').forEach(checkbox => {
   const restaurantDiv = checkbox.closest('.restaurant');
   const id = parseInt(restaurantDiv.getAttribute('data-id'), 10); // 각 음식점 div에 data-id 속성을 추가해야 합니다.
-  if (!isNaN(id)) { // 유효한 숫자인지 확인
-      checkedIds.push(id);
+  if (!isNaN(id)) {
+    // 유효한 숫자인지 확인
+    checkedIds.push(id);
   }
 });
 
@@ -114,6 +115,8 @@ document.querySelector('.delete-btn').addEventListener('click', function () {
   });
 });
 
-document.querySelector('.go-to-feed-btn').addEventListener('click', function() {
-  window.location.href = 'feed-create.html';
-});
+document
+  .querySelector('.go-to-feed-btn')
+  .addEventListener('click', function () {
+    window.location.href = 'feed-create.html';
+  });

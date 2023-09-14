@@ -65,14 +65,6 @@
           <div class="modal-body">
             <form class="sign-wrap">
               <div class="row mb-3">
-                <div class="col">
-                  <input
-                    id="admin"
-                    class="modal-input"
-                    placeholder="일반회원=0, 관리자=1"
-                    required
-                  />
-                </div>
               </div>
               <div class="row mb-3">
                 <div class="col">
@@ -344,7 +336,6 @@
             <nav class="header__menu">
               <ul>
                 <li class="active">
-                  <a id="tob-bar" href="./index.html">홈</a>
                 </li>
                 <li>
                   <a id="tob-bar" href="./preference.html">선호도 조사</a>
@@ -397,14 +388,16 @@
                 <h5 id="likeCount"></h5>
               </div>
               <div class="blog__item__text">
-                <button class="site-btn2" id="feedupdate" data-bs-toggle="modal" data-bs-target="#feedModal">피드 수정</button>
+                <!-- <button class="site-btn2" id="feed-change">피드 수정</button> -->
                 <button class="site-btn2" id="feed-delete" onclick="feedDelete()">피드 삭제</button>
                 <!-- 댓글 section 시작 -->
 <div id="comment-section">
   <div class="comment-input-box">
       <textarea id="comment-text" placeholder="댓글을 입력하세요..."></textarea>
-      <button class="site-btn2" id="commentCreate">댓글 생성</button>
+      <button class="site-btn3" id="commentCreate">댓글 생성</button>
   </div>
+  <!-- 댓글 section 시작 -->
+<!-- 댓글 section 끝 -->
   <div id="comment-box">
       <!-- 각 댓글은 아래와 같은 구조로 반복됩니다. -->
       <div class="comment">
@@ -451,7 +444,6 @@
                   </div>
                 </div>
                 <!-- 댓글 section 끝 -->
-
     </section>
     <!-- 피드 상세 section 끝 -->
     <!-- Footer Section Begin -->

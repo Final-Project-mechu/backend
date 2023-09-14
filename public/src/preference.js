@@ -304,7 +304,7 @@ $(document).ready(function () {
 });
 
 function openTooltip(selector, layer) {
-  var $layer = $(layer);
+  const $layer = $(layer);
 
   // 툴팁버튼 처리
   $(selector).on('click', function () {

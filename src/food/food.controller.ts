@@ -11,7 +11,7 @@ import {
   Patch,
   UseInterceptors,
   UploadedFile,
-  Query,
+  Query
 } from '@nestjs/common';
 import { FoodService } from './food.service';
 import { createFoodsDto } from './dto/create.foods.dto';
@@ -43,6 +43,12 @@ export class FoodController {
     const userId = request.locals.user;
     return userId.id;
   }
+
+    // 음식 검색
+    @Get('search')
+    async searchFood(@Query('q') query: string) {
+      return this.foodService.searchFood(query);
+    }
 
   //음식 생성
   @Post('/')

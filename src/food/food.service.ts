@@ -3,6 +3,7 @@ import {
   Injectable,
   UnauthorizedException,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import _ from 'lodash';
 import { Repository } from 'typeorm';
@@ -127,14 +128,12 @@ export class FoodService {
     //   throw new UnauthorizedException('관리자가 아닙니다.');
     // }
     const food_img = await this.s3Service.putObject(file);
-    
 
     return this.foodReository.update(food_id, {
       food_name,
       category_id,
       food_img,
-    })
-
+    });
   }
 
   //삭제하기
@@ -157,12 +156,17 @@ export class FoodService {
     return await this.foodReository.query(`select * from food;`);
   }
 
-  //유저 어드민값 찾기
-  async getUserNickName(email: string) {
-    return await this.userRepository.findOne({
-      where: { email },
-      select: ['is_admin'],
-    });
-  }
 
+
+  // 음식 검색 
+  async searchFood(query: string): Promise<Food[]> {
+    if (!query) {
+      throw new BadRequestException('해당 음식은 존재하지 않습니다.');
+    }
+    return await this.foodReository
+      .createQueryBuilder("food")
+      .where("food.food_name LIKE :query", { query: `%${query}%` })
+      .getMany();
+  }
 }
+

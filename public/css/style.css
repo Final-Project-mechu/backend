@@ -232,11 +232,7 @@ ol {
   color: #fff;
   padding: 8px 22px;
   border-radius: 6px;
-<<<<<<< HEAD
-  background:  #0d8103;
-=======
   background: #1f8f15;
->>>>>>> f6f2216c0d93f2a7df73bd026adeeffd62b61fcd
   position: relative;
   top: 10px;
   right: 200px;
@@ -3513,16 +3509,6 @@ ol {
 /* 이미지 컨테이너 스타일 */
 .image-container {
   text-align: center;
-}
-
-/* 이미지 중앙 정렬 스타일 */
-.center-image {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  max-height: 200px;
-  margin-bottom: 100px;
-  margin-top: 100px;
 }
 
 .button-container2 {

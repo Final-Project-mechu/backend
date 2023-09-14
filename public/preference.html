@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/modaltest.css" type="text/css" />
     <link rel="stylesheet" href="css/preference.css" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- axios 적용을 위한 script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS Styles END -->
@@ -67,14 +68,6 @@
           <div class="modal-body">
             <form class="sign-wrap">
               <div class="row mb-3">
-                <div class="col">
-                  <input
-                    id="admin"
-                    class="modal-input"
-                    placeholder="일반회원=0, 관리자=1"
-                    required
-                  />
-                </div>
               </div>
               <div class="row mb-3">
                 <div class="col">
@@ -304,7 +297,6 @@
             <nav class="header__menu">
               <ul>
                 <li>
-                  <a id="tob-bar" href="./index.html">홈</a>
                 </li>
                 <li class="active">
                   <a id="tob-bar" href="./preference.html">선호도 조사</a>
@@ -332,18 +324,18 @@
     <section id="survey" class="form-blog spad">
       <div class="section-title">
         <div class="tooltip_wrap">
-          <a href="#url" class="button_control">페이지 이용 방법</a>
+          <button id="the-menu" class="site-btn">간이 메뉴판</button>
+          <a href="#url" class="button_control"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
           <div class="tooltip_layer">! 선호도 조사 페이지 이용 방법 !<br>
-            0. 선호하는 음식을 추가하면 메뉴 추천 확률이 증가합니다! 제외할 음식과 재료(제외 재료 포함 음식)를 추가하면 해당 항목들은 추천에서 제외됩니다.<br>
-            1. 카테고리에서 선호 음식, 제외 음식, 제외 재료 중 하나를 선택하고, "검색해보세요"에 원하는 항목을 입력 후 '추가하기' 버튼을 클릭하세요.<br>
+            0. 선호하는 음식을 추가하면 메뉴 추천 확률이 증가합니다!<br>제외할 음식과 재료(제외 재료 포함 음식)를 추가하면 해당 항목들은 추천에서 제외됩니다.<br>
+            1. 카테고리에서 선호 음식, 제외 음식, 제외 재료 중 하나를 선택하고,<br>"검색해보세요"에 원하는 항목을 입력 후 '추가하기' 버튼을 클릭하세요.<br>
             2. 음식이나 재료 목록에 대한 정보가 필요하면 "간이 메뉴판" 버튼을 통해 확인하세요.<br>
-            3. 추가한 항목들은 하단에서 확인 가능합니다. 체크 박스를 선택하여 항목을 삭제할 수 있습니다.<br>
-            4. 항목 추가나 삭제 후에 변경사항이 반영되지 않는다면 페이지를 새로고침 해주세요. 때때로 갱신이 지연되어 반영되지 않을 수 있습니다.<br>
+            3. 추가한 항목들은 하단에서 확인 가능합니다.<br> 체크 박스를 선택하여 항목을 삭제할 수 있습니다.<br>
+            4. 항목 추가나 삭제 후에 변경사항이 반영되지 않는다면 페이지를 새로고침 해주세요.<br>때때로 갱신이 지연되어 반영되지 않을 수 있습니다.<br>
             <br>
             !! 감사합니다 !!</div>
         </div>
         <h2 style="display: inline-block">선호도 조사</h2>
-        <button id="the-menu" class="site-btn">간이 메뉴판</button>
       </div>
       </button>
       <div class="container">

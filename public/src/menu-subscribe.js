@@ -121,6 +121,8 @@ function sendRequest(categoryId) {
 
 function createCategoryButtons(categories) {
   const filterButtonsDiv = document.querySelector('.filter-buttons');
+  const mainElement = document.querySelector('main');
+
   categories.forEach(category => {
     const button = document.createElement('button');
     button.id = `category_${category.id}`;
@@ -131,6 +133,8 @@ function createCategoryButtons(categories) {
         '.food-item.meal',
       ).textContent = `${category.category_name}가 선택되었습니다.`;
       selectedCategoryId = category.id;
+
+      mainElement.style.display = 'block';
     });
     filterButtonsDiv.appendChild(button);
   });
@@ -151,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
       selectedCategoryId = 0;
       document.querySelector('.food-item.meal').textContent =
         '전체가 선택되었습니다.';
-      event.stopPropagation();
+      // event.stopPropagation();
     });
   }
 

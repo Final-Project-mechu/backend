@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/modaltest.css" type="text/css" />
+    <link rel="stylesheet" href="css/feed.css" type="text/css" />
     <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/feed.js" defer></script>
@@ -58,16 +59,7 @@
           </div>
           <div class="modal-body">
             <form class="sign-wrap">
-              <div class="row mb-3">
-                <div class="col">
-                  <input
-                    id="admin"
-                    class="modal-input"
-                    placeholder="일반회원=0, 관리자=1"
-                    required
-                  />
-                </div>
-              </div>
+              <div class="row mb-3"></div>
               <div class="row mb-3">
                 <div class="col">
                   <input
@@ -297,9 +289,7 @@
           <div class="col-lg-8" style="max-width: 1000px">
             <nav class="header__menu">
               <ul>
-                <li>
-                  <a id="tob-bar" href="./index.html">홈</a>
-                </li>
+                <li></li>
                 <li>
                   <a id="tob-bar" href="./preference.html">선호도 조사</a>
                 </li>
@@ -337,7 +327,7 @@
                 WRITE
               </button>
             </div>
-            <div class="product__details__tab">
+            <!-- <div class="product__details__tab">
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                   <a
@@ -349,7 +339,7 @@
                     >좋아요순</a
                   >
                 </li>
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                   <a
                     class="nav-link"
                     data-toggle="tab"
@@ -358,9 +348,9 @@
                     aria-selected="false"
                     >최신순</a
                   >
-                </li> -->
+                </li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="row" id="feeds-container"></div>
@@ -415,7 +405,6 @@
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
     <script src="./src/dailymenu.js" defer></script>
-    <script src="./src/checkLogin.js"></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

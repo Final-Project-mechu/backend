@@ -2,13 +2,13 @@
   width: 100%;
   max-width: 1200px;
   margin: 10px auto;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
 .favorite-name {
   text-align: left;
-  padding-left: 350px; 
+  padding-left: 350px;
   font-size: 40px;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .list-group-item {
-  border: none;  
+  border: none;
 }
 
 .restaurant-name {
@@ -35,8 +35,8 @@
 
 .restaurant-checkbox {
   position: absolute; /* 체크 박스를 절대 위치로 설정 */
-  top: 10px;          /* 상단에서 10px 떨어진 위치에 위치 */
-  left: 10px;         /* 좌측에서 10px 떨어진 위치에 위치 */
+  top: 10px; /* 상단에서 10px 떨어진 위치에 위치 */
+  left: 10px; /* 좌측에서 10px 떨어진 위치에 위치 */
 }
 
 .restaurant-details p {
@@ -49,12 +49,13 @@
 }
 
 .button-group {
-  display: flex;      /* 버튼들을 가로로 배열 */
+  display: flex; /* 버튼들을 가로로 배열 */
   justify-content: center; /* 버튼들을 중앙에 위치 */
   align-items: center; /* 버튼들을 세로 중앙에 위치 */
-  margin-top: 20px;   /* 버튼 그룹의 상단 마진 설정 */
+  margin-top: 20px; /* 버튼 그룹의 상단 마진 설정 */
 }
 
-.go-to-feed-btn, .delete-btn {
-  margin: 0 10px;     /* 양쪽에 10px의 마진을 설정하여 버튼들 사이에 간격을 줌 */
+.go-to-feed-btn,
+.delete-btn {
+  margin: 0 10px; /* 양쪽에 10px의 마진을 설정하여 버튼들 사이에 간격을 줌 */
 }

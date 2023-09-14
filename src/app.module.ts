@@ -88,6 +88,7 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware).forRoutes(
       { path: 'users/find', method: RequestMethod.GET },
+      { path: 'users/findAdmin', method: RequestMethod.GET },
       { path: 'users/update', method: RequestMethod.PATCH },
       { path: 'users/quit', method: RequestMethod.POST },
       { path: 'users/logout', method: RequestMethod.POST },
@@ -116,6 +117,7 @@ export class AppModule implements NestModule {
       { path: 'feeds/common', method: RequestMethod.POST },
       { path: 'feeds/:id', method: RequestMethod.PATCH },
       { path: 'feeds/:id', method: RequestMethod.DELETE },
+      { path: 'feeds/:id/like/user', method: RequestMethod.GET },
       { path: 'feeds/:id/like', method: RequestMethod.POST },
       { path: 'feeds/:id/like', method: RequestMethod.DELETE },
       { path: 'user-actions/favorites', method: RequestMethod.GET },

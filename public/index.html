@@ -2,7 +2,7 @@
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
@@ -56,16 +56,7 @@
           </div>
           <div class="modal-body">
             <form class="sign-wrap">
-              <div class="row mb-3">
-                <div class="col">
-                  <input
-                    id="admin"
-                    class="modal-input"
-                    placeholder="일반회원=0, 관리자=1"
-                    required
-                  />
-                </div>
-              </div>
+              <div class="row mb-3"></div>
               <div class="row mb-3">
                 <div class="col">
                   <input
@@ -269,6 +260,13 @@
                     <i class="fa fa-user"></i>마이페이지&nbsp;&nbsp;&nbsp;
                   </a>
                   <a
+                    href="./foodlist-admin.html"
+                    id="mypageClick"
+                    class="mypageClick d-none"
+                  >
+                    <i class="fa fa-user"></i>관자리메뉴판&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a
                     href="#"
                     id="logoutClick"
                     class="logoutClick d-none"
@@ -293,9 +291,7 @@
           <div class="col-lg-8" style="max-width: 1000px">
             <nav class="header__menu">
               <ul>
-                <li class="active">
-                  <a id="tob-bar" href="./index.html">홈</a>
-                </li>
+                <li class="active"></li>
                 <li>
                   <a id="tob-bar" href="./preference.html">선호도 조사</a>
                 </li>
@@ -326,7 +322,7 @@
         data-setbg="img/hero/pancake.jpg"
       >
         <div class="hero__text"> -->
-      <div style="margin-bottom: 100px"class="menu-preference-container">
+      <div style="margin-bottom: 100px" class="menu-preference-container">
         <h2 style="color: black; margin-top: 50px">TOGETHER EAT!</h2>
         <a href="menu-subscribe.html" class="mainMenuBtn">메뉴 추천</a>
         <a href="./preference.html" class="mainPreferBtn">선호도 조사</a>
@@ -377,6 +373,26 @@
     </footer>
     <!-- Footer Section End -->
     <!-- 적용하려는 script 파일 -->
+    <script>
+      // window.onload = function (event) {
+      //   // 쿠키를 가져옵니다.
+      //   let cookies = document.cookie;
+
+      //   // 페이지를 방문한 적이 있고, AccessToken 또는 RefreshToken이 없는 경우에 모달을 로드합니다.
+      //   if (
+      //     sessionStorage.getItem('visitedBefore') === 'true' &&
+      //     !cookies.includes('AccessToken') &&
+      //     !cookies.includes('RefreshToken')
+      //   ) {
+      //     const signModal = document.getElementById('signModal');
+      //     const bsModal = new bootstrap.Modal(signModal);
+      //     bsModal.show();
+      //   }
+
+      //   // 페이지를 방문한 흔적을 남깁니다.
+      //   sessionStorage.setItem('visitedBefore', 'true');
+      // };
+    </script>
     <script src="./src/user.js" defer></script>
     <script src="./src/dailymenu.js" defer></script>
 

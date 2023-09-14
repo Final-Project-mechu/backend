@@ -8,12 +8,11 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { MailModule } from 'src/mail/mail.module';
 import { MailService } from 'src/mail/mail.service';
-import { Friends } from 'src/entity/friend.entity';
 import { AuthService } from 'src/auth/auth.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Friends]),
+    TypeOrmModule.forFeature([User]),
     MailModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

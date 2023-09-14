@@ -121,4 +121,12 @@ export class UsersController {
       return { error: 'is_admin 값을 변경하는 중 오류가 발생했습니다.' };
     }
   }
+  
+  //관리자 판별
+  @Get('/findAdmin')
+  async getUserAdmin(@Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    const userInfo = await this.userService.getUserAdmin(auth.id);
+    return userInfo.is_admin;
+  }
 }

@@ -8,15 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>오늘 뭐 먹지?</title>
 
-    <!-- bootstrap 적용을 위한 링크(모달창) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
       rel="stylesheet"
     />
-    <!-- Css Styles START-->
+    <!-- bootstrap 적용을 위한 링크(모달창) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
@@ -25,9 +25,17 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/modaltest.css" type="text/css">
+    <link rel="stylesheet" href="css/preference.css" type="text/css" />
+    <link rel="stylesheet" href="css/foodlist.css" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 부트스트랩 JavaScript 파일 추가 (jQuery와 Popper.js를 포함) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- CSS Styles END -->
 
 </head>
 
@@ -37,7 +45,7 @@
           <div class="modal-content">
               <!-- 모달 헤더 -->
               <div class="modal-header">
-                  <h4 class="modal-title">카테고리 및 메뉴 추가/수정</h4>
+                  <h4 class="modal-title">메뉴 추가</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <!-- 모달 본문 -->
@@ -45,22 +53,22 @@
                   <!-- 입력 폼 -->
                   <form>
                       <div class="form-group">
-                          <label for="category">카테고리:</label>
-                          <input type="text" class="form-control" id="category">
+                          <label for="category_id">카테고리:</label>
+                          <input type="text" class="form-control" id="category_id">
                       </div>
                       <div class="form-group">
-                          <label for="menuName">메뉴 이름:</label>
-                          <input type="text" class="form-control" id="menuName">
+                          <label for="food_name">메뉴 이름:</label>
+                          <input type="text" class="form-control" id="food_name">
                       </div>
                       <div class="form-group">
-                          <label for="menuImage">이미지 추가:</label>
-                          <input type="file" class="form-control" id="menuImage">
+                          <label for="food_img">이미지 추가:</label>
+                          <input type="file" class="form-control" id="food_img" >
                       </div>
                   </form>
               </div>
               <!-- 모달 푸터 -->
               <div class="modal-footer">
-                  <button type="button" class="btn btn-success" data-dismiss="modal">저장</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal" onclick="foodCreate()">저장</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
               </div>
           </div>
@@ -100,14 +108,6 @@
           <div class="modal-body">
             <form class="sign-wrap">
               <div class="row mb-3">
-                <div class="col">
-                  <input
-                    id="admin"
-                    class="modal-input"
-                    placeholder="일반회원=0, 관리자=1"
-                    required
-                  />
-                </div>
               </div>
               <div class="row mb-3">
                 <div class="col">
@@ -362,20 +362,21 @@
     </header>
     <!-- 탑바 끝 -->
       <section class="product spad">
+        <button id="addMenuButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">메뉴 추가하기</button>
         <div>
           <div class="dropdown">
-            <select>
+            <!-- <select>
               <option value="식사">식사</option>
               <option value="디저트">디저트</option>
-            </select>
+            </select> -->
           </div>
           <form action="#" style="text-align: center">
             
             <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
             <button onclick="search()">검색</button>
           </form>
-          <button id="addMenuButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">메뉴 추가하기</button>
-          <button id="editMenuButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">메뉴 수정하기</button>          <section class="featured spad">
+
+          <section class="featured spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -386,136 +387,19 @@
                         <div class="featured__controls">
                           <ul>
                             <li class="active" data-filter="*">All</li>
-                            <li data-filter=".meal">식사</li>
-                            <li data-filter=".dessert">디저트</li>
+                            <div class="active" id="category-container"></id>
                         </ul>
-                        <ul>
-                          <li data-filter=".meal">식사</li>
-                          <li data-filter=".korea">한식</li>
-                          <li data-filter=".chinese">중식</li>
-                          <li data-filter=".Western">양식</li>
-                          <li data-filter=".Indian">인도식</li>
-                      </ul>
                         </div>
                     </div>
                 </div>
-                <div class="row featured__filter">
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix chinese meal">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MThfMTMx%2FMDAxNjg5Njc0NTg2MDEw.WPcAkQjFFaUZBvq49aVwv8FgDKOurIRkqv52hVmH-HMg.ekmPPlVUAA9_JGjpY-F1jlvtR3Mfg2V1hP_V_RNZEcUg.JPEG.techmass3%2F20230718_120811.jpg&type=a340">
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플1</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix korea meal">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA0MDVfMTU3%2FMDAxNjgwNjIxNjU0NDMz.JvMF6qvzOvrflCv0sjZCsG01OgZDP4RqwwBW1BXLXuMg.l1ygJPN0u7yVq7WlnTkjYfgY3grcouohZkWxA9hm25gg.JPEG.congsarang1%2FIMG_0853.JPG&type=a340">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플2</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix Western meal">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fshop1.phinf.naver.net%2F20221214_171%2F16709924755527L2Yi_JPEG%2F72128318180512400_2043325730.jpg&type=sc960_832">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플3</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjFfMTgg%2FMDAxNjg3MzU1ODgzNTg2.6Yeun19uKu9C-jAjCIn-tZMxg41gn2idTDEeSvxG7ZAg.JFm8SVYZ787lqv0Q8Z2hnBeOmwDABB0lpOvQzVcbbJUg.JPEG.prspring%2FIMG_3329.JPG&type=sc960_832">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플4</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix chinese">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MzBfMTY0%2FMDAxNjg4MTMzNzQzMDAy.YxVza0lZ_-yrWXduko0eYZU0fVElnUn-csFOt6L0dJsg.RBqHdjrrDQB6eqZnms0218Eq6Kuov-i2_I7c5mqO8kQg.JPEG.baeh76%2F20230609_163858.jpg&type=a340">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플5</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix Western">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플6</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix Indian">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MTNfMTIz%2FMDAxNjgzOTU1Mzk0OTcz.H0I2MCyt-3a5EHZn_vHnf4aDopkKCTtMm75kBvt4gIEg.rDENWW0SGYyheqMNnM-CVuDCRqoRErS4fIlYi6cQpAgg.JPEG.holyfsss%2FKakaoTalk_20230504_114130310_20.jpg&type=sc960_832">
-                               
-                            </div>
-                            <div class="featured__item__text">
-                                <h6><a href="#">샘플7</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix korea">
-                      <div class="featured__item">
-                          <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjhfMzUg%2FMDAxNjY5NjM0ODA0MzIx.mzdKbwqEPejUtpfc7zjhRmRgkG5IYmg69-QvjIAXtL8g.BlGx7Ex-70rGxm0ohU5pGyiRHTe1nBV_axtFvIMGEdIg.JPEG.ajung8904%2FP20221118_133812697_E8C719C0-7426-4F76-A26D-7A55CCD817F7.jpg&type=sc960_832">
-                          </div>
-                          <div class="featured__item__text">
-                              <h6><a href="#">샘플8</a></h6>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mix japan">
-                      <div class="featured__item">
-                          <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA3MjFfMTY5%2FMDAxNjg5OTQ2MDAyODI0.74N5ezr9LiakaV7gPqwGaz6_v4s0DmF1R0QmULIrGesg.ipkpOp_YvBI5kqZDBu9lIGjdV4FVcpalGqmynDNSHKUg.JPEG.tmfrl4918%2FIMG_9143.jpg&type=a340">
-                          </div>
-                          <div class="featured__item__text">
-                              <h6><a href="#">샘플1</a></h6>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 mix japan">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzA3MDVfMzYg%2FMDAxNDk5MjIyNjE2NTA5.0TxN7PLZquGhjYIQj9NiU4xLEnwy6kcm1JyYYCMTE6Qg.dfpdTXzirq7gCAK5g7OObMdgSF66Pk4KmivyuK0nB4gg.JPEG.dongyumokj%2F%25C4%25AB%25C3%25F7%25B5%25BF.jpg&type=sc960_832">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">샘플1</a></h6>
-                        </div>
-                    </div>
-                </div><div class="col-lg-3 col-md-6 col-sm-6 mix dessert">
-                  <div class="featured__item">
-                      <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAyMjdfMTg4%2FMDAxNjQ1OTY2MTg1NjA5.JPBxkFiCNG3bqRA1nVEFF2Q0vnFZGiKuw3x0LKD4NOYg.z0eY0mVYVsmNqkIzglnTgIBpAhi8x3xpYE89ORLc3zIg.JPEG.sip707%2Foutput_734202219.jpg&type=a340">
-                      </div>
-                      <div class="featured__item__text">
-                          <h6><a href="#">샘플1</a></h6>
-                      </div>
-                  </div>
-              </div><div class="col-lg-3 col-md-6 col-sm-6 mix dessert">
-                <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MjZfMjQy%2FMDAxNjg3NzQ2ODc3OTUw.brwrbq_3Z2RAdgz9_Zuo9qwtITyax_J-4t02fOxWz2sg.GmUxfnlfjWNmlUSUzR2yU_xNUvWwSNJzDCBWrot3pGYg.JPEG.s_oogle%2FIMG_0972.jpg&type=a340">
-                    </div>
-                    <div class="featured__item__text">
-                        <h6><a href="#">샘플1</a></h6>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-    </section>
+                <!-- <div class="row featured__filter"> -->
+                  <div class="row featured__filter">
+                    <div class="row featured__filter" id="foods-container" ></div>
+                  </div>                         
+               
+        <!-- </div> -->
+      </div>
+  </section>
   </section>
   <!-- Hero Section End -->
   <!-- Footer Section Begin -->
@@ -556,6 +440,7 @@
     </footer>
   <!-- Footer Section End -->   
   <!-- 적용하려는 script 파일 -->
+  <script src="./src/foodlist-admin.js"></script> 
   <script src="./src/user.js" defer></script>
   <script src="./src/dailymenu.js" defer></script>
   <!-- Js Plugins -->

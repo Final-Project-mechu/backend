@@ -1,9 +1,4 @@
-import {
-  Entity,
-  PrimaryColumn,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Food } from './food.entity';
 import { Ingredient } from './ingredient.entity';
 
@@ -12,10 +7,12 @@ export class FoodIngredient {
   @PrimaryColumn()
   @ManyToOne(() => Food, food => food.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'food_id' })
-  food_id: number;
+  food_id: Food;
 
   @PrimaryColumn()
-  @ManyToOne(() => Ingredient, ingredient => ingredient.id, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Ingredient, ingredient => ingredient.id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'ingredient_id' })
-  ingredient_id: number;
+  ingredient_id: Ingredient;
 }

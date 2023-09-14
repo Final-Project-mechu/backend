@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/preference.css" type="text/css" />
+    <link rel="stylesheet" href="css/foodlist.css" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- 부트스트랩 JavaScript 파일 추가 (jQuery와 Popper.js를 포함) -->
@@ -69,14 +70,6 @@
           <div class="modal-body">
             <form class="sign-wrap">
               <div class="row mb-3">
-                <div class="col">
-                  <input
-                    id="admin"
-                    class="modal-input"
-                    placeholder="일반회원=0, 관리자=1"
-                    required
-                  />
-                </div>
               </div>
               <div class="row mb-3">
                 <div class="col">
@@ -306,7 +299,6 @@
             <nav class="header__menu">
               <ul>
                 <li>
-                  <a id="tob-bar" href="./index.html">홈</a>
                 </li>
                 <li>
                   <a id="tob-bar" href="./preference.html">선호도 조사</a>
@@ -330,6 +322,7 @@
       </div>
     </header>
     <!-- 탑바 끝 -->
+    
     <!-- 변경해야할 부분 -->
     <section class="product spad">
           <div>
@@ -341,20 +334,25 @@
               </select>
               -->
             </div>
+            <a href="#url" class="button_control2"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+          <div class="tooltip_layer2">메뉴의 버튼을 클릭하면 메뉴의 재료를 확인할 수 있습니다.</div>
+        </div>
             <form action="#" style="text-align: center">
-              
-              <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
-              <button onclick="search()">검색</button>
+              <input  type="text" id="searchInput" placeholder="검색어를 입력하세요">
+              <button class="foodBtn" onclick="search()">검색</button> 
             </form>
-       
-  
+            <br></br>
+            
+            <form action="#" style="text-align: center">
+
+            <button class="foodBtn" id="adminButton" onclick="window.open('//localhost:3000/foodlist-admin.html#loaded')" style="display: none;">관리자 버튼</button>
+            </form>
             <section class="featured spad">
               <div class="container">
                   <div class="row">
                       <div class="col-lg-12">
                         <div class="filter-buttons">
-                          <form action="#" style="text-align: center">                       
-  
+                          <form action="#" style="text-align: center">                      
                       </div>
                           <div class="featured__controls">
                             <ul>

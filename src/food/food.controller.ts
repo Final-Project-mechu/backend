@@ -11,6 +11,7 @@ import {
   Patch,
   UseInterceptors,
   UploadedFile,
+  Query
 } from '@nestjs/common';
 import { FoodService } from './food.service';
 import { createFoodsDto } from './dto/create.foods.dto';
@@ -42,6 +43,12 @@ export class FoodController {
     const userId = request.locals.user;
     return userId.id;
   }
+
+    // 음식 검색
+    @Get('search')
+    async searchFood(@Query('q') query: string) {
+      return this.foodService.searchFood(query);
+    }
 
   //음식 생성
   @Post('/')
@@ -87,11 +94,11 @@ export class FoodController {
   async createFoodImg(
     @UploadedFile() file: Express.Multer.File,
     @Body() data : CreateFoodsImgDto,
-    @Req() request: RequestWithLocals,
+    //@Req() request: RequestWithLocals,
   ){
-    const user = request.locals.user
+    //const user = request.locals.user
     await this.foodService.createFoodImage(
-      user.id,
+      //user.id,
       file,
       data.food_name,
       data.category_id,
@@ -106,12 +113,12 @@ export class FoodController {
   async updateFoodImg(
     @UploadedFile() file: Express.Multer.File,
     @Body() data : CreateFoodsImgDto,
-    @Req() request: RequestWithLocals,
+    // @Req() request: RequestWithLocals,
     @Param('food_id') food_id: number,
   ){
-    const user = request.locals.user;
+    // const user = request.locals.user;
     await this.foodService.updateFoodImage(
-      user.id,
+      // user.id,
       food_id,
       data.food_name,
       data.category_id,
@@ -148,6 +155,11 @@ export class FoodController {
   @Get('/:id')
   async getFood(@Param('id') id: number) {
     return this.foodService.getFood(id);
+  }
+
+  @Get('/onefoodImg/:id')
+  async getOneFood(@Param('id') id: number) {
+    return this.foodService.getOneFood(id);
   }
 
   //음식삭제

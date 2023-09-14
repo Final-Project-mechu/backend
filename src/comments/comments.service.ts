@@ -38,6 +38,7 @@ export class CommentsService {
       ])
       .where('comment.feed_id = :feed_id', { feed_id: feed_id })
       .andWhere('comment.deletedAt IS NULL')
+      .orderBy('comment.createdAt', 'DESC') 
       .getMany();
     return result;
   }

@@ -13,45 +13,75 @@
   /* border-radius: 5px; */
   border-radius: 3px;
   position: relative;
-  left: 150px;
+  left: 230px;
   font-size: 2rem;
   background-color: rgb(229, 233, 6);
   color: #471111;
-  box-shadow: 0 0 5px rgb(11, 160, 31),
-  0 0 25px rgb(0, 255, 21);
+  box-shadow:
+    0 0 5px rgb(11, 160, 31),
+    0 0 25px rgb(0, 255, 21);
 }
 
-
-
-
-
 #prefer-delete {
-color: #fff;
-padding: 8px 22px;
-border-radius: 6px;
-background:  #4d2ae8;
-/* transform: all 0.2s ease; */
-position:absolute;
-top: 110px;
-right: 110px;
+  color: #fff;
+  padding: 8px 22px;
+  border-radius: 6px;
+  background: #4d2ae8;
+  /* transform: all 0.2s ease; */
+  position: absolute;
+  top: 110px;
+  right: 110px;
 }
 
 .non-clickable {
   pointer-events: none; /* 클릭 불가능하게 만듭니다 */
   font-weight: bold; /* 폰트를 진하게 만듭니다 */
   font-size: 30px;
+  position: relative;
+  right: 120px;
 }
 /* 특정 ID를 가진 입력 요소의 테두리 색을 진하게 만들기 */
 #survey-search-input {
   border: 2px solid #161616; /* 2px 두께의 빨간색 테두리 */
 }
 
-  
+.food-list {
+  position: relative;
+  right: 100px;
+}
 
+.foodBtn {
+  color: #fff;
+  padding: 8px 22px;
+  border-radius: 6px;
+  background: #1f8f15;
+}
 
-
-
-
-
-
-
+.button_control {
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid green;
+  text-align: center;
+  line-height: 50px;
+  background-color: black;
+  border-radius: 10px;
+  position: relative;
+  right: 100px;
+  margin-bottom: 20px;
+}
+.tooltip_layer {
+  display: none;
+  width: 500px;
+  height: 400px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8d776;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: 0 auto;
+  position: relative;
+  right: 100px;
+}

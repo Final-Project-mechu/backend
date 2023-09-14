@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- font-awesome 적용 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
@@ -329,10 +331,21 @@
     <!-- 선호도 조사 section 시작 -->
     <section id="survey" class="form-blog spad">
       <div class="section-title">
+        <div class="tooltip_wrap">
+          <a href="#url" class="button_control">페이지 이용 방법</a>
+          <div class="tooltip_layer">! 선호도 조사 페이지 이용 방법 !<br>
+            0. 선호하는 음식을 추가하면 메뉴 추천 확률이 증가합니다! 제외할 음식과 재료(제외 재료 포함 음식)를 추가하면 해당 항목들은 추천에서 제외됩니다.<br>
+            1. 카테고리에서 선호 음식, 제외 음식, 제외 재료 중 하나를 선택하고, "검색해보세요"에 원하는 항목을 입력 후 '추가하기' 버튼을 클릭하세요.<br>
+            2. 음식이나 재료 목록에 대한 정보가 필요하면 "간이 메뉴판" 버튼을 통해 확인하세요.<br>
+            3. 추가한 항목들은 하단에서 확인 가능합니다. 체크 박스를 선택하여 항목을 삭제할 수 있습니다.<br>
+            4. 항목 추가나 삭제 후에 변경사항이 반영되지 않는다면 페이지를 새로고침 해주세요. 때때로 갱신이 지연되어 반영되지 않을 수 있습니다.<br>
+            <br>
+            !! 감사합니다 !!</div>
+        </div>
         <h2 style="display: inline-block">선호도 조사</h2>
         <button id="the-menu" class="site-btn">간이 메뉴판</button>
       </div>
-
+      </button>
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
@@ -358,7 +371,7 @@
                 </form>
               </div>
               <div>
-                <a href="#"  id="prefer-delete">삭제하기</a>
+                <a href="#" id="prefer-delete">삭제하기</a>
               </div>
             </div>
           </div>
@@ -372,8 +385,8 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="featured__controls">
-              <p class="non-clickable"> 목록 </p>
-              <ul>
+              <p class="non-clickable">목록</p>
+              <ul class="food-list">
                 <li data-filter=".favorites" id="likeBtn">선호 음식</li>
                 <li data-filter=".excluded-foods" id="excludeFoodBtn">
                   제외 음식
@@ -395,55 +408,63 @@
       </div>
     </section>
     <!-- 선호음식 filter section 끝 -->
-  <!-- Footer Section Begin -->
-  <footer class="footer spad">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="footer__copyright">
-                  <!-- GitHub Icon and Links -->
-                  <div class="footer__github">
-                    <!-- GitHub Links -->
-                    <a href="https://github.com/Final-Project-mechu" target="_blank">
-                      <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
-                    </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <!-- Notion Link -->
-                    <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <!-- Terms of Service Link -->
-                    <a href="./terms.html" target="_blank">이용약관</a
-                      >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                  </div>
-                  <hr> <!-- Horizontal Line -->
-                  <div class="footer__copyright__text">
-                    <p>
-                      
-                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                      Copyright &copy;
-                      <script>
-                        document.write(new Date().getFullYear());
-                      </script>
-                      All rights reserved | This page is made by TEAM TOGETHER EAT! 김세령 오준석 이서원 최하영 함형진
-                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                  </div>
-                </div>
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="footer__copyright">
+              <!-- GitHub Icon and Links -->
+              <div class="footer__github">
+                <!-- GitHub Links -->
+                <a
+                  href="https://github.com/Final-Project-mechu"
+                  target="_blank"
+                >
+                  <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i> </a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <!-- Notion Link -->
+                <a
+                  href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9"
+                  target="_blank"
+                  >Notion</a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <!-- Terms of Service Link -->
+                <a href="./terms.html" target="_blank">이용약관</a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+              </div>
+              <hr />
+              <!-- Horizontal Line -->
+              <div class="footer__copyright__text">
+                <p>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  All rights reserved | This page is made by TEAM TOGETHER EAT!
+                  김세령 오준석 이서원 최하영 함형진
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
               </div>
             </div>
           </div>
-  </footer>
-  <!-- Footer Section End -->   
-  <!-- 적용하려는 script 파일 -->
-  <script src="./src/user.js" defer></script>
-  <script src="./src/dailymenu.js" defer></script>
-  <script src="./src/checkLogin.js"></script>
-  <!-- Js Plugins -->
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.nice-select.min.js"></script>
-  <script src="js/jquery-ui.min.js"></script>
-  <script src="js/jquery.slicknav.js"></script>
-  <script src="js/mixitup.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/main.js"></script> 
+        </div>
+      </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- 적용하려는 script 파일 -->
+    <script src="./src/user.js" defer></script>
+    <script src="./src/dailymenu.js" defer></script>
+    <script src="./src/checkLogin.js"></script>
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

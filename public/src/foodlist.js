@@ -5,10 +5,9 @@ if (!window.location.hash) {
 }
 
 
-
+//관리자버튼 display 판별
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    
     const response = await axios.get('http://localhost:3000/users/findAdmin');
     console.log(response.data)
     if (response.status === 200) {
@@ -29,15 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// async function getUser(){
-//   const response = await axios.get('http://localhost:3000/food/findAdmin');
-//   console.log("-------",response)
-// }
-// getUser()
-
-
-// 카테고리 조회 함수
-// id, category_name,
+//카테고리 불러오기
 async function categoryGet() {
   const callCategoryServer = await axios({
     method: 'get',
@@ -57,7 +48,6 @@ function createAllCategoryItems(categorys) {
 categoryGet();
 
 // 음식 조회 함수
-// id, food_id, category_id, food_img, deleteAt 불러옴
 async function foodGet() {
   const callServer = await axios({
     method: 'get',
@@ -84,7 +74,7 @@ function createAllFoodItems(foods) {
   });
 }
 
-
+// 음식 수정 추후
 async function foodInfo(foodId) {
   console.log(foodId);
   url = `http://localhost:3000/food/${Number(foodId)}`;
@@ -128,4 +118,3 @@ foodGet();
 categoryGet();
 
 
-// <h6><a href="http://localhost:3000/food/${food.id}">${food.food_name}</a></h6>

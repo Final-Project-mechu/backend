@@ -2,13 +2,25 @@
 const urlParams = new URLSearchParams(window.location.search);
 const feedId = urlParams.get('feedId');
 
-// 서버에서 해당 피드 정보 가져오기
+// 유저가 쿠키를 갖고있는지 확인하는 함수
+async function confirmUser() {
+  if (!document.cookie.includes('AccessToken', 'RefreshToken')) {
+    blankHeart.style.display = 'inline-block';
+    fullHeart.style.display = 'none';
+    return false;
+  } else {
+    return true;
+  }
+}
+// 피드 상세 정보 가져오기
 async function getFeedDetail() {
   try {
-    const response = await axios.get(`http://localhost:3000/feeds/${feedId}`);
-    const feedDetail = response.data;
+    const feedRes = await axios.get(`http://localhost:3000/feeds/${feedId}`);
+    const feedDetail = feedRes.data;
+    console.log(feedDetail);
     const { nick_name } = feedDetail[1];
     const { title, description, image, createdAt } = feedDetail[0];
+    const { count } = feedDetail[2];
     const date = formatDate(createdAt);
     document.getElementById('title').textContent = title;
     document.getElementById('nickname').textContent = nick_name;
@@ -16,8 +28,32 @@ async function getFeedDetail() {
     feedimg.src = image;
     document.getElementById('description').textContent = description;
     document.getElementById('createdAt').textContent = date;
+    document.getElementById('likeCount').textContent = count;
   } catch (error) {
     console.error('피드 정보를 가져오는 중 오류 발생:', error);
+    alert('해당 피드를 가져오지 못하였습니다.');
+  }
+}
+// 피드 유저가 좋아요 눌렀는지 확인
+async function getUserLike() {
+  const blankHeart = document.getElementById('blankHeart');
+  const fullHeart = document.getElementById('fullHeart');
+  const confirmedUser = confirmUser();
+  if (confirmedUser === false) {
+    blankHeart.style.display = 'inline-block';
+    fullHeart.style.display = 'none';
+    return;
+  } else {
+    const feedUserLike = await axios.get(
+      `http://localhost:3000/feeds/${feedId}/like/user`,
+    );
+    if (feedUserLike.data == true) {
+      blankHeart.style.display = 'none';
+      fullHeart.style.display = 'inline-block';
+    } else if (feedUserLike.data == false) {
+      blankHeart.style.display = 'inline-block';
+      fullHeart.style.display = 'none';
+    }
   }
 }
 
@@ -34,6 +70,112 @@ function formatDate(data) {
   return outputDate;
 }
 
+// 피드 수정
+async function feedUpdate() {
+  const confirmedUser = confirmUser();
+  if (confirmedUser === false) {
+    alert('로그인이 필요한 기능입니다');
+    return;
+  }
+  const titleUpdate = document.getElementById('titleUpdate').value;
+  const descUpdate = document.getElementById('descUpdate').value;
+  const imgUpdate = document.getElementById('imgUpdate').files[0];
+  const formData = new FormData();
+  formData.append('title', titleUpdate);
+  formData.append('description', descUpdate);
+  formData.append('file', imgUpdate);
+  axios({
+    method: 'patch',
+    url: `http://localhost:3000/feeds/${feedId}`,
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+    .then(function (res) {
+      alert('해당 피드가 수정되었습니다!');
+      location.reload();
+    })
+    .catch(err => {
+      console.log(err.response);
+      alert(err.response.data.message);
+    });
+}
+
+// 피드 삭제
+function feedDelete() {
+  const confirmedUser = confirmUser();
+  if (confirmedUser === false) {
+    alert('로그인이 필요한 기능입니다');
+    return;
+  }
+  const confirmDelete = confirm('정말 삭제하시겠습니까?');
+  if (confirmDelete) {
+    axios
+      .delete(`http://localhost:3000/feeds/${feedId}`)
+      .then(response => {
+        alert('피드 삭제 성공!');
+        location.href = 'http://localhost:3000/feed.html';
+      })
+      .catch(error => {
+        // 서버에서 발생한 예외 처리
+        if (error.response) {
+          // 서버가 응답을 보낸 경우
+          const errorMessage = error.response.data.message;
+          alert('피드 삭제 실패: ' + errorMessage);
+        } else {
+          // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+          console.error('네트워크 오류:', error.message);
+          alert('네트워크 오류가 발생했습니다.');
+        }
+      });
+  }
+}
+
+// 피드 좋아요
+async function feedLike() {
+  const blankHeart = document.getElementById('blankHeart');
+  const fullHeart = document.getElementById('fullHeart');
+  const confirmedUser = await confirmUser();
+  if (confirmedUser === false) {
+    alert('로그인이 필요한 기능입니다');
+    return;
+  }
+  try {
+    const serverCall = await axios.post(
+      `http://localhost:3000/feeds/${feedId}/like`,
+    );
+    if (serverCall.status === 201) {
+      blankHeart.style.display = 'none';
+      fullHeart.style.display = 'inline-block';
+      getFeedDetail();
+    }
+  } catch (err) {
+    console.log(err);
+    alert('좋아요 실패');
+  }
+}
+
+// 피드 좋아요 취소
+async function feedLikeCancel() {
+  const blankHeart = document.getElementById('blankHeart');
+  const fullHeart = document.getElementById('fullHeart');
+  try {
+    const serverCall = await axios.delete(
+      `http://localhost:3000/feeds/${feedId}/like`,
+    );
+    console.log(serverCall);
+    if (serverCall.data.message == '좋아요 취소') {
+      blankHeart.style.display = 'inline-block';
+      fullHeart.style.display = 'none';
+      getFeedDetail();
+    }
+  } catch {
+    console.log(err);
+    alert('좋아요 실패');
+  }
+}
+
 // 해당 피드에 따른 댓글 전체 조회
 async function commentsGet() {
   try {
@@ -45,28 +187,6 @@ async function commentsGet() {
   } catch (err) {
     console.error('commentsGet', err);
   }
-}
-
-// 피드 삭제
-function feedDelete() {
-  axios
-    .delete(`http://localhost:3000/feeds/${feedId}`)
-    .then(response => {
-      alert('피드 삭제 성공!');
-      location.href = 'http://localhost:3000/feed.html';
-    })
-    .catch(error => {
-      // 서버에서 발생한 예외 처리
-      if (error.response) {
-        // 서버가 응답을 보낸 경우
-        const errorMessage = error.response.data.message;
-        alert('피드 삭제 실패: ' + errorMessage);
-      } else {
-        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
-        console.error('네트워크 오류:', error.message);
-        alert('네트워크 오류가 발생했습니다.');
-      }
-    });
 }
 
 // 댓글 조회 부분
@@ -175,4 +295,6 @@ document
 
 window.onload = function () {
   commentsGet();
+  getFeedDetail();
+  getUserLike();
 };

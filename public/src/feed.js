@@ -1,7 +1,7 @@
 // 피드 쓰기 눌렀을 때 나오는 함수
 function writeClick() {
   let cookies = document.cookie;
-  if (!cookies.includes('AccessToken=Bearer%20')) {
+  if (!cookies.includes('AccessToken', 'RefreshToken')) {
     return alert('로그인이 필요한 기능입니다!');
   } else {
     location.href = 'http://localhost:3000/feed-create.html';

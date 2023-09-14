@@ -10,7 +10,7 @@ import { FeedLike } from 'src/entity/feed.like.entity';
 import { Favorite } from 'src/entity/favorite.entity';
 import { FeedFavorite } from 'src/entity/feed.favorite.entity';
 import { User } from 'src/entity/user.entity';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, IsNull, Not, Repository } from 'typeorm';
 import _ from 'lodash';
 import { S3Service } from 'src/aws/s3.service';
 
@@ -118,27 +118,17 @@ export class FeedsService {
       ],
     });
     const feedOwner = feedInfo.user_id;
+    const feedCount = await this.getFeedLikes(id);
     const feedNickname = await this.userRepository.findOne({
       where: { id: feedOwner },
       select: ['nick_name'],
     });
-    const findFeedinFavorites = await this.feedFavoriteRepository.find({
-      where: { feed_id: id },
-      select: ['favorite_id'],
-    });
-    const favoriteIds = findFeedinFavorites.map(
-      feedFavorite => feedFavorite.favorite_id,
-    );
-    const feedCount = await this.getFeedLikes(id);
-    if (favoriteIds.length > 0) {
-      const favoriteInfos = [];
-      for (const favoriteId of favoriteIds) {
-        const favoriteInfo = await this.favoriteRepository.findOne({
-          where: { id: favoriteId },
-        });
-        favoriteInfos.push(favoriteInfo);
-      }
-      return [feedInfo, feedNickname, favoriteInfos];
+    if (!feedNickname) {
+      const findDeletedUser = await this.userRepository.query(
+        `select nick_name from user where id = ${feedOwner}`,
+      );
+      const deletedUser = findDeletedUser[0];
+      return [feedInfo, deletedUser, feedCount];
     } else {
       return [feedInfo, feedNickname, feedCount];
     }

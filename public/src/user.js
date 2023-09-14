@@ -126,7 +126,7 @@ function signOut() {
   document.cookie = deleteCookie('AccessToken');
   document.cookie = deleteCookie('RefreshToken');
   alert('로그아웃 되었습니다.');
-  location.reload();
+  location.href = 'https://togethereat.shop';
 }
 
 // 로그인

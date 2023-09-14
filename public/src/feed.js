@@ -20,10 +20,9 @@ async function feedsGet() {
 function formatDate(data) {
   const getData = new Date(data);
   const year = getData.getFullYear();
-  const month = getData.getMonth();
-  const day = getData.getDay();
-
-  const outputDate = ' ' + month + '월 ' + day + '일 ' + ' , ' + year;
+  const month = getData.getMonth() + 1;
+  const date = getData.getDate();
+  const outputDate = ' ' + year + ' , ' + month + '월 ' + date + '일 ';
   return outputDate;
 }
 
@@ -41,7 +40,11 @@ function createAllFeedsItems(feeds) {
                                         <div class="blog__item__text">
                                         <h5><a href="feed-detail.html?feedId=${feed.id}">${feed.title}</a></h5>
                                         <ul>
-                                            
+                                            <li><i class="fa fa-calendar-o"></i>${outputDate}</li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi-bi-heart-fill" viewBox="0 0 16 16">
+	                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                            </svg>  ${feed.likecount}</li>
+                                        </ul>
                                         </div>
                                     </div>
                                 </div>

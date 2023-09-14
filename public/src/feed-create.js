@@ -79,21 +79,21 @@ function feedCreate() {
   formData.append('title', titleInput);
   formData.append('description', descriptionInput);
   formData.append('file', imgFile);
-    axios({
-      method: 'post',
-      url: 'http://localhost:3000/feeds/common',
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+  axios({
+    method: 'post',
+    url: 'http://localhost:3000/feeds/common',
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+    .then(function (res) {
+      alert('피드가 생성되었습니다!');
+      location.href = 'http://localhost:3000/feed.html';
     })
-      .then(function (res) {
-        alert('피드가 생성되었습니다!');
-        location.href = 'http://localhost:3000/feed.html';
-      })
-      .catch(err => {
-        alert(err.response.data.message);
-      });
+    .catch(err => {
+      alert('피드 작성에 실패하였습니다.');
+    });
 }
 
 /**

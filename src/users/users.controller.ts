@@ -1,30 +1,19 @@
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-
 import {
   BadRequestException,
   Body,
   Controller,
-  Delete,
   Get,
-  HttpStatus,
-  Param,
   Patch,
   Post,
-  Put,
-  Query,
   Req,
   Res,
-  UnauthorizedException,
-  UseGuards,
 } from '@nestjs/common';
-
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create.user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Request, Response, response } from 'express';
+import { Request, Response } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
-
 interface RequestWithLocals extends Request {
   locals: {
     user: {
@@ -40,8 +29,9 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get('/find')
-  async getUserEmail(@Query('email') email: string) {
-    const usefInfo = await this.userService.getUserNickName(email);
+  async getUserEmail(@Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    const usefInfo = await this.userService.getUserNickName(auth.id);
     return usefInfo.nick_name;
   }
 
@@ -61,7 +51,7 @@ export class UsersController {
 
   // 회원가입
   @Post('/sign')
-  async createUser(@Body() data: CreateUserDto, @Res() response) {
+  async createUser(@Body() data: CreateUserDto) {
     const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,
@@ -69,33 +59,23 @@ export class UsersController {
       data.password,
     );
 
-    response.cookie('AccessToken', 'Bearer ' + newUser.access_Token);
-    response.cookie('RefreshToken', 'Bearer ' + newUser.refresh_Token);
-    return response.status(201).send('회원가입 완료');
+    return {
+      AccessToken: 'Bearer ' + newUser.access_Token,
+      RefreshToken: 'Bearer ' + newUser.refresh_Token,
+    };
   }
 
   //로그인
   @Post('/login')
-  async login(
-    @Body() data: LoginUserDto,
-    @Res({ passthrough: true }) response: Response,
-  ) {
+  async login(@Body() data: LoginUserDto) {
     const authentication = await this.userService.login(
       data.email,
       data.password,
     );
-    response.cookie('AccessToken', 'Bearer ' + authentication.access_Token);
-    response.cookie('RefreshToken', 'Bearer ' + authentication.refresh_Token);
-
-    return response.status(200).send('로그인 완료');
-  }
-
-  //로그아웃
-  @Delete('/logout')
-  async signout(@Res() response: Response) {
-    response.clearCookie('AccessToken');
-    response.clearCookie('RefreshToken');
-    return response.status(200).send('로그아웃 완료');
+    return {
+      AccessToken: 'Bearer ' + authentication.accessToken,
+      RefreshToken: 'Bearer ' + authentication.refreshToken,
+    };
   }
 
   //유저 정보 수정(닉네임, 패스워드)

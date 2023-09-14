@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 쿠키값 확인하여 버튼 상태 설정
   function checkLoginStatus() {
     let cookies = document.cookie;
-    if (cookies.includes('AccessToken=Bearer%20')) {
+    if (cookies.includes('AccessToken', 'RefreshToken')) {
       loginButton.classList.add('d-none');
       signupButton.classList.add('d-none');
       logoutButton.classList.remove('d-none');
@@ -109,6 +109,28 @@ function sign(event) {
       }
     });
 }
+
+function setCookie(cookie_name, value, days) {
+  const exdate = new Date();
+  exdate.setDate(exdate.getDate() + days);
+  // 설정 일수만큼 현재시간에 만료값으로 지정
+  const cookie_value =
+    value + (days == null ? '' : '; expires =' + exdate.toUTCString());
+  document.cookie = cookie_name + '=' + cookie_value;
+}
+
+function deleteCookie(name) {
+  setCookie(name, '', -1);
+}
+
+// 로그아웃
+function signOut() {
+  document.cookie = deleteCookie('AccessToken');
+  document.cookie = deleteCookie('RefreshToken');
+  alert('로그아웃 되었습니다.');
+  console.log(document.cookie);
+}
+
 // 로그인
 function login() {
   const data = {
@@ -118,7 +140,9 @@ function login() {
   axios
     .post('http://localhost:3000/users/login', data)
     .then(response => {
-      // 로그인하면 바로 메뉴추천 페이지로 이동
+      console.log(response.data.AccessToken);
+      setCookie('AccessToken', response.data.AccessToken, 1);
+      setCookie('RefreshToken', response.data.RefreshToken, 1);
       alert('고객님 또 와주셨군요 ! 메뉴 추천 페이지로 이동합니다 !^ㅠ^');
       location.href = 'http://localhost:3000/menu-subscribe.html';
     })
@@ -135,27 +159,7 @@ function login() {
       }
     });
 }
-// 로그아웃
-function signOut() {
-  axios
-    .delete('http://localhost:3000/users/logout')
-    .then(response => {
-      alert(response.data);
-      location.reload();
-    })
-    .catch(error => {
-      // 서버에서 발생한 예외 처리
-      if (error.response) {
-        // 서버가 응답을 보낸 경우
-        const errorMessage = error.response.data.message;
-        alert('로그아웃 실패: ' + errorMessage);
-      } else {
-        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
-        console.error('네트워크 오류:', error.message);
-        alert('네트워크 오류가 발생했습니다.');
-      }
-    });
-}
+
 
 // //어드민 변환
 // function admintransfer() {

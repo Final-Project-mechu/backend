@@ -139,7 +139,6 @@ ol {
 .section-title {
   margin-bottom: 50px;
   text-align: center;
-  
 }
 
 .section-title h2 {
@@ -193,7 +192,7 @@ ol {
   font-weight: 700;
   background: #0cb13d;
   letter-spacing: 2px;
-  border-radius: 5PX;
+  border-radius: 5px;
 }
 
 .mainPreferBtn {
@@ -205,13 +204,12 @@ ol {
   font-weight: 700;
   background: #4a39ad;
   letter-spacing: 2px;
-  border-radius: 5PX;
+  border-radius: 5px;
 }
 
 .mainPreferBtn:hover {
   color: #ccb911;
 }
-
 
 .primary-btn {
   display: inline-block;
@@ -234,7 +232,11 @@ ol {
   color: #fff;
   padding: 8px 22px;
   border-radius: 6px;
+<<<<<<< HEAD
   background:  #0d8103;
+=======
+  background: #1f8f15;
+>>>>>>> f6f2216c0d93f2a7df73bd026adeeffd62b61fcd
   position: relative;
   top: 10px;
   right: 200px;

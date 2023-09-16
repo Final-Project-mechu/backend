@@ -166,15 +166,15 @@ async function feedLikeCancel() {
   const fullHeart = document.getElementById('fullHeart');
   try {
     const serverCall = await axios.delete(
-      `http://localhost:3000/${feedId}/like`,
+      `http://localhost:3000/feeds/${feedId}/like`,
     );
     if (serverCall.data.message == '좋아요 취소') {
       blankHeart.style.display = 'inline-block';
       fullHeart.style.display = 'none';
       getFeedDetail();
     }
-  } catch {
-    alert('좋아요 실패');
+  } catch(err) {
+    alert('좋아요 취소 실패');
   }
 }
 

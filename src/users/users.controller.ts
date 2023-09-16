@@ -2,18 +2,15 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Delete,
   Get,
   Patch,
   Post,
   Req,
-  Res,
-  Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create.user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
 interface RequestWithLocals extends Request {

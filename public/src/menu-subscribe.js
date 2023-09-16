@@ -47,7 +47,7 @@ function displayCategoryResponse(response) {
     const resultDiv = document.getElementById('result3');
     // 최신 키워드만 가져오기
     const latestKeyword = Array.isArray(response.data) ? response.data[response.data.length - 1] : response.data;
-    resultDiv.innerHTML = `<h2 style="font-family:궁서체; color:#EB5A5A;">${latestKeyword}</h2>`;
+    resultDiv.innerHTML = `<h2 style="font-family:Sunflower; color:#EB5A5A;">${latestKeyword}</h2>`;
 
 
     // 빈 하트로 초기화하고 표시

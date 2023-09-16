@@ -61,7 +61,7 @@ function createAllFoodItems(foods) {
             </div>
             <div class="featured__item__text">
                 <h6><button class="foodBtn" onclick='foodInfo(${food.id})' >${food.food_name}</button></h6>
-                <h6><button class="foodBtn" onclick ="location.href='https://togethereat.shop/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
+                <h6><button class="foodBtn" onclick ="location.href='http://localhost:3000/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
             </div>
         </div>
     </div>`;
@@ -69,7 +69,6 @@ function createAllFoodItems(foods) {
 }
 
 foodGet();
-
 
 async function foodInfo(foodId) {
   url = `http://localhost:3000/food/${Number(foodId)}`;
@@ -132,7 +131,7 @@ function openTooltip(selector, layer) {
 }
 
 function handleEnter(event) {
-  if (event.key === "Enter") {
+  if (event.key === 'Enter') {
     event.preventDefault();
     search();
   }
@@ -142,7 +141,7 @@ function handleEnter(event) {
 async function search() {
   const searchValue = document.getElementById('searchInput').value;
   if (!searchValue.trim()) {
-    alert('궁금한 음식을 알려주세요!'); 
+    alert('궁금한 음식을 알려주세요!');
     return;
   }
   const response = await axios.get(
@@ -165,7 +164,7 @@ function displaySearchResults(foods) {
             </div>
             <div class="featured__item__text">
                 <h6><button class="foodBtn" onclick='foodInfo(${food.id})'>${food.food_name}</button></h6>
-                <h6><button class="foodBtn" onclick ="location.href='https://togethereat.shop/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
+                <h6><button class="foodBtn" onclick ="location.href='http://localhost:3000/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
             </div>
         </div>`;
     foodsContainer.appendChild(foodItem);

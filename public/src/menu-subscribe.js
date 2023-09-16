@@ -45,7 +45,7 @@ emptyHeartIcon.addEventListener('click', function () {
 function displayCategoryResponse(response) {
   setTimeout(() => {
     const resultDiv = document.getElementById('result3');
-    resultDiv.innerHTML = `<h2 style="font-family:궁서체; color:#EB5A5A;">${response.data}</h2>`;
+    resultDiv.innerHTML = `<h2 style="font-family:sunflower; color:#EB5A5A;">${response.data}</h2>`;
 
     // 빈 하트로 초기화하고 표시
     emptyHeartIcon.style.display = 'inline-block';

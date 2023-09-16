@@ -1,6 +1,7 @@
 let selectedCategoryId = 0;
 let keywordResult;
 let isRequestInProgress = false;
+let currentKakaoPageEvent; // 현재 이벤트 리스너를 저장하기 위한 변수
 
 const storeBtn = document.getElementById('storeBtn');
 const submitButton = document.querySelector('.button[type="submit"]');
@@ -11,7 +12,6 @@ function openKakaopage(keyword) {
     const kakaoUrl =
       'http://localhost:3000/kakaomap-api.html?keyword=' + keyword;
     window.open(kakaoUrl, '_blank');
-    console.log('kakaoUrl', kakaoUrl);
   };
 }
 
@@ -21,7 +21,6 @@ const filledHeartIcon = document.querySelector('.fas.fa-heart');
 
 function likeFood() {
   const foodName = resultDiv.textContent.trim();
-  console.log('foodName:', foodName);
 
   axios
     .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
@@ -46,15 +45,26 @@ emptyHeartIcon.addEventListener('click', function () {
 function displayCategoryResponse(response) {
   setTimeout(() => {
     const resultDiv = document.getElementById('result3');
-    resultDiv.innerHTML = `<h2 style="font-family:궁서체; color:#EB5A5A;">${response.data}</h2>`;
+    // 최신 키워드만 가져오기
+    const latestKeyword = Array.isArray(response.data) ? response.data[response.data.length - 1] : response.data;
+    resultDiv.innerHTML = `<h2 style="font-family:궁서체; color:#EB5A5A;">${latestKeyword}</h2>`;
 
     // 빈 하트로 초기화하고 표시
     emptyHeartIcon.style.display = 'inline-block';
     filledHeartIcon.style.display = 'none';
-
     storeBtn.style.display = 'block';
-    keywordResult = response.data;
-    storeBtn.addEventListener('click', openKakaopage(keywordResult));
+
+    keywordResult = latestKeyword; // 최신 키워드 저장
+
+    // 이전 이벤트 리스너 제거
+    if (currentKakaoPageEvent) {
+      storeBtn.removeEventListener('click', currentKakaoPageEvent);
+    }
+
+    // 새로운 이벤트 리스너 추가
+    currentKakaoPageEvent = openKakaopage(keywordResult);
+    storeBtn.addEventListener('click', currentKakaoPageEvent);
+
     isRequestInProgress = false;
     submitButton.disabled = false;
   }, 3000);
@@ -64,7 +74,6 @@ const resultDiv = document.getElementById('result3'); // resultDiv 변수 선언
 
 emptyHeartIcon.addEventListener('click', function () {
   const foodName = resultDiv.textContent.trim();
-  console.log('foodName:', foodName);
 
   axios
     .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
@@ -86,7 +95,6 @@ emptyHeartIcon.addEventListener('click', function () {
 // 꽉 찬 하트 아이콘 클릭 이벤트
 filledHeartIcon.addEventListener('click', function () {
   const foodName = resultDiv.textContent.trim();
-  console.log('foodName:', foodName);
 
   axios
     .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
@@ -106,7 +114,6 @@ filledHeartIcon.addEventListener('click', function () {
 });
 
 function sendRequest(categoryId) {
-  console.log('Sending request for category:', categoryId);
   axios
     .post('http://localhost:3000/user-actions/random-weighted-foods', {
       category_id: categoryId,

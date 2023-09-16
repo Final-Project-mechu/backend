@@ -162,7 +162,7 @@ async function feedLikeCancel() {
   const fullHeart = document.getElementById('fullHeart');
   try {
     const serverCall = await axios.delete(
-      `http://localhost:3000/feeds/${feedId}/like`,
+      `http://localhost:3000/${feedId}/like`,
     );
     console.log(serverCall);
     if (serverCall.data.message == '좋아요 취소') {
@@ -179,9 +179,7 @@ async function feedLikeCancel() {
 // 해당 피드에 따른 댓글 전체 조회
 async function commentsGet() {
   try {
-    const serverCall = await axios.get(
-      `http://localhost:3000/comments/${feedId}`,
-    );
+    const serverCall = await axios.get(`http://localhost:3000/comments/${feedId}`);
     const commentList = serverCall.data;
     createAllCommentItems(commentList);
   } catch (err) {

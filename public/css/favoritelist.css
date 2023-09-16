@@ -59,3 +59,18 @@
 .delete-btn {
   margin: 0 10px; /* 양쪽에 10px의 마진을 설정하여 버튼들 사이에 간격을 줌 */
 }
+
+.list-group a {
+  &:link {
+    color: blue;
+  }
+  &:visited {
+    color: green;
+  }
+  &:hover {
+    color: red;
+  }
+  &:active {
+    color: black;
+  }
+}

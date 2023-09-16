@@ -46,7 +46,6 @@ export class CategoryService {
     category_name: string,
     top_category_id: number,
   ) {
-    console.log(category_id);
     const confirmAdmin = await this.userRepository.findOne({
       where: { id: user_id },
       select: ['is_admin'],
@@ -77,9 +76,6 @@ export class CategoryService {
 
   //카테고리 삭제
   async deleteCategory(id: number) {
-    console.log('ser', id);
     await this.categoryReository.delete({ id });
-    //추후 softDelete -> entity에서 date타입을 추가해야함.
-    //MissingDeleteDateColumnError: Entity "Category" does not have delete date columns.
   }
 }

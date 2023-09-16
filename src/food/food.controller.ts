@@ -36,7 +36,6 @@ interface RequestWithLocals extends Request {
 export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
-  //@Req() request: RequestWithLocals 받는 메소드
   async reqId (
     @Req() request: RequestWithLocals,
   ){
@@ -85,20 +84,17 @@ export class FoodController {
     return { message: '음식 변경 완료' };
   }
  
-  
-  /*=================================================================*/
-
   //음식 사진까지 해서 생성하기.
   @Post('/foodimg')
   @UseInterceptors(FileInterceptor('file'))
   async createFoodImg(
     @UploadedFile() file: Express.Multer.File,
     @Body() data : CreateFoodsImgDto,
-    //@Req() request: RequestWithLocals,
+    @Req() request: RequestWithLocals,
   ){
-    //const user = request.locals.user
+    const user = request.locals.user
     await this.foodService.createFoodImage(
-      //user.id,
+      user.id,
       file,
       data.food_name,
       data.category_id,
@@ -142,21 +138,19 @@ export class FoodController {
     return { message : '음식 정보 삭제 완료'}
   }
 
-
   //음식 전체조회
   @Get('/')
   async getFoodAll() {
     return this.foodService.getFoodAll();
   }
 
-  //음식 상세조회
-  /* 조회하는 방법에 대해서 생각해 봐야함 
-       Parms, Body, Locals로 조회 등등등*/
+  //음식->재료 조회
   @Get('/:id')
   async getFood(@Param('id') id: number) {
     return this.foodService.getFood(id);
   }
 
+  //음식 한개 상세조회
   @Get('/onefoodImg/:id')
   async getOneFood(@Param('id') id: number) {
     return this.foodService.getOneFood(id);

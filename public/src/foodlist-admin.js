@@ -3,18 +3,17 @@ if (!window.location.hash) {
   window.location.reload();
 }
 
-// 카테고리 조회 함수
+// 카테고리 불러오기
 async function categoryGet() {
   const callCategoryServer = await axios({
     method: 'get',
     url: 'http://localhost:3000/category',
   });
   const allCategory = callCategoryServer.data;
-  console.log(allCategory);
   createAllCategoryItems(allCategory);
 }
 function createAllCategoryItems(categorys) {
-  const categorysContainer = document.getElementById('category-container');
+  const categorysContainer = document.getElementById('categoryAdmin-container');
   categorysContainer.innerHTML = '';
   categorys.forEach(category => {
     categorysContainer.innerHTML += `<li class="active" data-filter=".food${category.id}">${category.category_name}</li>`;
@@ -22,19 +21,18 @@ function createAllCategoryItems(categorys) {
 }
 categoryGet();
 
-// 음식 조회 함수
+// 음식 불러오기
 async function foodGet() {
   const callServer = await axios({
     method: 'get',
     url: 'http://localhost:3000/food',
   });
   const allFoods = callServer.data;
-  console.log(allFoods);
   createAllFoodItems(allFoods);
 }
 
 function createAllFoodItems(foods) {
-  const foodsContainer = document.getElementById('foods-container');
+  const foodsContainer = document.getElementById('foodsAdmin-container');
   foodsContainer.innerHTML = '';
   foods.forEach(food => {
     foodsContainer.innerHTML += `<div class="col-lg-3 col-md-6 col-sm-6 mix food${food.category_id}">
@@ -42,8 +40,7 @@ function createAllFoodItems(foods) {
               <div class="featured__item__pic set-bg" data-setbg="${food.food_img}">
               </div>
               <div class="featured__item__text">
-                  <h6><button class="foodBtn" onclick='foodInfo(${food.id})' >${food.food_name}</button></h6>
-                  <h6><button style="display: none;" class="foodBtn" onclick='foodUpdate(${food.id})' >수정하기</button></h6>
+                  <h6><button class="foodBtn" onclick='foodInfo1(${food.id})' >${food.food_name}</button></h6>
                   <h6><button class="foodBtn" onclick='foodDelete(${food.id})' >삭제하기</button></h6>
               </div>
           </div>
@@ -52,16 +49,13 @@ function createAllFoodItems(foods) {
   });
 }
 foodGet();
+
 async function foodDelete(foodId){
-   // 사용자에게 확인 메시지를 보여줌
    var confirmation = window.confirm('삭제하시겠습니까?');
 
-   // 확인 대화 상자의 "예"를 누른 경우
    if (confirmation) {
-       // 여기에 삭제 작업을 수행하는 코드를 추가합니다.
-       url = `http://localhost:3000/food/${foodId}`
+       url = `http://localhost:3000/food/foodimg/${foodId}`
        const deleteFood = await axios.delete(url);
-       console.log(deleteFood);
        alert('선택 메뉴가 삭제되었습니다.');
        window.location.reload();
    } else {
@@ -77,7 +71,6 @@ async function foodUpdate(foodId) {
   url = `http://localhost:3000/food/onefoodImg/${Number(foodId)}`;
   const callFood = await axios.get(url);
   const test = callFood.data[0];
-  console.log(foodComplet);
 
   var popupW = 700;
   var popupH = 500;
@@ -113,11 +106,7 @@ async function foodUpdate(foodId) {
 
 
 
-
-
-
-async function foodInfo(foodId) {
-  console.log(foodId);
+async function foodInfo1(foodId) {
   url = `http://localhost:3000/food/${Number(foodId)}`;
   const callFoodIngredient = await axios.get(url);
   const allFoodsIngredient = callFoodIngredient.data;
@@ -125,7 +114,6 @@ async function foodInfo(foodId) {
   const foodIgredientHtml = allFoodsIngredient
     .map(item => `<li>${item.ingredient_name}</li>`)
     .join('');
-  console.log(foodIgredientHtml);
 
   var popupW = 400;
   var popupH = 300;
@@ -133,7 +121,7 @@ async function foodInfo(foodId) {
   var top = Math.ceil((window.screen.height - popupH) / 2);
 
   const newWindow = window.open(
-    'foodlist-admin.html',
+    '',
     'userDataWindow',
     'width=' +
       popupH +
@@ -165,7 +153,6 @@ function foodCreate() {
   formData.append('food_name', food_nameData);
   formData.append('file', food_imgData);
 
-  console.log(formData);
   axios({
     method: 'post',
     url: 'http://localhost:3000/food/foodimg',
@@ -176,8 +163,45 @@ function foodCreate() {
   })
     alert('음식 생성 완료');
     window.location.reload();
-    //임시
-
 }
 
-// <h6><a href="http://localhost:3000/food/${food.id}">${food.food_name}</a></h6>
+
+function handleEnter(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    search();
+  }
+}
+// 검색 함수
+async function search() {
+  const searchValue = document.getElementById('searchInput').value;
+  if (!searchValue.trim()) {
+    alert('궁금한 음식을 알려주세요!'); 
+    return;
+  }
+  const response = await axios.get(
+    `http://localhost:3000/food/search?q=${searchValue}`,
+  );
+  const foods = response.data;
+  displaySearchResults(foods);
+}
+function displaySearchResults(foods) {
+  const foodsContainer = document.getElementById('foods-container');
+  foodsContainer.innerHTML = '';
+
+  foods.forEach(food => {
+    const foodItem = document.createElement('div');
+    foodItem.className = `col-lg-3 col-md-6 col-sm-6 mix food${food.category_id}`;
+    foodItem.innerHTML = `
+        <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+                <img src="${food.food_img}" alt="${food.food_name}" style="width: 100%; height: 100%;">
+            </div>
+            <div class="featured__item__text">
+                <h6><button class="foodBtn" onclick='foodInfo(${food.id})'>${food.food_name}</button></h6>
+                <h6><button class="foodBtn" onclick ="location.href='https://togethereat.shop/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
+            </div>
+        </div>`;
+    foodsContainer.appendChild(foodItem);
+  });
+}

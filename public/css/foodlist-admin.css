@@ -1,4 +1,5 @@
-#modalOpenButton, #modalCloseButton {
+#modalOpenButton,
+#modalCloseButton {
   cursor: pointer;
 }
 
@@ -24,4 +25,8 @@
 
 #modalContainer.hidden {
   display: none;
+}
+
+.addBtn-admin {
+  text-align: center;
 }

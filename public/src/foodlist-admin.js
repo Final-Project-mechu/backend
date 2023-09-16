@@ -1,8 +1,3 @@
-// if (!window.location.hash) {
-//   window.location = window.location + '#loaded';
-//   window.location.reload();
-// }
-
 // 카테고리 불러오기
 async function categoryGet() {
   const callCategoryServer = await axios({
@@ -50,17 +45,17 @@ function createAllFoodItems(foods) {
 }
 foodGet();
 
-async function foodDelete(foodId){
-   var confirmation = window.confirm('삭제하시겠습니까?');
+async function foodDelete(foodId) {
+  var confirmation = window.confirm('삭제하시겠습니까?');
 
-   if (confirmation) {
-       url = `http://localhost:3000/food/foodimg/${foodId}`
-       const deleteFood = await axios.delete(url);
-       alert('선택 메뉴가 삭제되었습니다.');
-       window.location.reload();
-   } else {
-       alert('삭제가 취소되었습니다.');
-   }
+  if (confirmation) {
+    url = `http://localhost:3000/food/foodimg/${foodId}`;
+    const deleteFood = await axios.delete(url);
+    alert('선택 메뉴가 삭제되었습니다.');
+    window.location.reload();
+  } else {
+    alert('삭제가 취소되었습니다.');
+  }
 }
 
 async function foodComplet() {
@@ -102,8 +97,6 @@ async function foodUpdate(foodId) {
     </form>
     `;
 }
-
-
 
 async function foodInfo1(foodId) {
   url = `http://localhost:3000/food/${Number(foodId)}`;
@@ -159,14 +152,13 @@ function foodCreate() {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-  })
-    alert('음식 생성 완료');
-    window.location.reload();
+  });
+  alert('음식 생성 완료');
+  window.location.reload();
 }
 
-
 function handleEnter(event) {
-  if (event.key === "Enter") {
+  if (event.key === 'Enter') {
     event.preventDefault();
     search();
   }
@@ -175,7 +167,7 @@ function handleEnter(event) {
 async function search() {
   const searchValue = document.getElementById('searchInput').value;
   if (!searchValue.trim()) {
-    alert('궁금한 음식을 알려주세요!'); 
+    alert('궁금한 음식을 알려주세요!');
     return;
   }
   const response = await axios.get(

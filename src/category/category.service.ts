@@ -27,12 +27,6 @@ export class CategoryService {
       select: ['is_admin'],
     });
 
-    
-    //console.log('confirm.Adminis_admin', confirmAdmin.is_admin);
-    // if (confirmAdmin.is_admin !== 1) {
-    //   console.log('관리자가 아닙니다.');
-    //   throw new UnauthorizedException('관리자가 아닙니다.');
-    // }
     return this.categoryReository.insert({
       category_name,
       top_category_id,
@@ -69,9 +63,7 @@ export class CategoryService {
 
   //카테고리 전체 조회
   async getCategoryAll() {
-    return await this.categoryReository.query(
-      `select * from category;`,
-    );
+    return await this.categoryReository.query(`select * from category;`);
   }
 
   //카테고리 삭제

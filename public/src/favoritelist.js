@@ -1,5 +1,3 @@
-// favoritelist.js
-
 // 페이지 로드 시 찜목록 가져오기
 document.addEventListener('DOMContentLoaded', function () {
   axios
@@ -15,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
       favorites.forEach(favorite => {
         const restaurantDiv = document.createElement('div');
         restaurantDiv.classList.add('restaurant');
-        restaurantDiv.setAttribute('data-id', favorite.id); // data-id 속성 추가
+        restaurantDiv.setAttribute('data-id', favorite.id);
 
         const restaurantCheckbox = document.createElement('input');
         restaurantCheckbox.type = 'checkbox';

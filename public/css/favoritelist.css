@@ -71,14 +71,15 @@
   margin: 0 15px 20px 15px;
   border-radius: 6px;
   text-align: center;
-  transition: top .01s linear;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
   background-color: #82c8a0;
-  box-shadow: 0 0 0 1px #82c8a0 inset,
-        0 0 0 2px rgba(255,255,255,0.15) inset,
-        0 8px 0 0 rgba(126, 194, 155, .7),
-        0 8px 0 1px rgba(0,0,0,.4),
-        0 8px 8px 1px rgba(0,0,0,0.5);
+  box-shadow:
+    0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(126, 194, 155, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
 }
 
 .btn.btn-primary.go-to-feed-btn:active {
@@ -86,7 +87,7 @@
 }
 
 .btn.btn-primary.go-to-feed-btn hover {
-  background-color: #80C49D;
+  background-color: #80c49d;
 }
 
 .btn.btn-danger.delete-btn {
@@ -100,17 +101,27 @@
   margin: 0 15px 20px 15px;
   border-radius: 6px;
   text-align: center;
-  transition: top .01s linear;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
   background-color: #82c8a0;
-  box-shadow: 0 0 0 1px #82c8a0 inset,
-        0 0 0 2px rgba(255,255,255,0.15) inset,
-        0 8px 0 0 rgba(126, 194, 155, .7),
-        0 8px 0 1px rgba(0,0,0,.4),
-        0 8px 8px 1px rgba(0,0,0,0.5);
+  box-shadow:
+    0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(126, 194, 155, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
   top: 4px;
-  
-  .list-group a {
+}
+
+.btn.btn-danger.delete-btn hover {
+  background-color: #80c49d;
+}
+
+.btn.btn-danger.delete-btn:active {
+  top: 4px;
+}
+
+.list-group a {
   &:link {
     color: blue;
   }
@@ -123,13 +134,4 @@
   &:active {
     color: black;
   }
-}
-}
-
-.btn.btn-danger.delete-btn hover {
-  background-color: #80C49D;
-}
-
-.btn.btn-danger.delete-btn:active {
-  top: 4px;
 }

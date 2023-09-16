@@ -5,7 +5,7 @@ document
     try {
       // 1. 카카오 로그인 요청
       const loginResponse = await axios.get(
-        'http://localhost:3000/auth/kakaoLoginLogic',
+        'https://togethereat.shop/auth/kakaoLoginLogic',
       );
 
       // 2. 카카오 액세스 토큰 발급 및 리다이렉트
@@ -28,13 +28,13 @@ async function getKakaoAccessTokenAndUserInfo() {
   try {
     // 3. 카카오 액세스 토큰 요청 (백엔드에서 리다이렉트로 받음)
     const accessTokenResponse = await axios.get(
-      'http://localhost:3000/auth/kakaoLoginLogicRedirect',
+      'https://togethereat.shop/auth/kakaoLoginLogicRedirect',
     );
 
     // 4. 카카오 사용자 정보 요청
     if (accessTokenResponse.status === 200) {
       const infoResponse = await axios.get(
-        'http://localhost:3000/auth/kakaoInfo',
+        'https://togethereat.shop/auth/kakaoInfo',
       );
       if (infoResponse.status === 200) {
         // 사용자 정보를 처리

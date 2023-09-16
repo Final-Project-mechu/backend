@@ -10,7 +10,7 @@ const imageContainer = document.querySelector('.image-container img');
 function openKakaopage(keyword) {
   return () => {
     const kakaoUrl =
-      'http://localhost:3000/kakaomap-api.html?keyword=' + keyword;
+      'https://togethereat.shop/kakaomap-api.html?keyword=' + keyword;
     window.open(kakaoUrl, '_blank');
   };
 }
@@ -23,7 +23,7 @@ function likeFood() {
   const foodName = resultDiv.textContent.trim();
 
   axios
-    .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .post('https://togethereat.shop/user-actions/likes', { foodName: foodName })
     .then(response => {
       emptyHeartIcon.style.display = 'none';
       filledHeartIcon.style.display = 'inline-block';
@@ -46,9 +46,10 @@ function displayCategoryResponse(response) {
   setTimeout(() => {
     const resultDiv = document.getElementById('result3');
     // 최신 키워드만 가져오기
-    const latestKeyword = Array.isArray(response.data) ? response.data[response.data.length - 1] : response.data;
+    const latestKeyword = Array.isArray(response.data)
+      ? response.data[response.data.length - 1]
+      : response.data;
     resultDiv.innerHTML = `<h2 style="font-family:Sunflower; color:#EB5A5A;">${latestKeyword}</h2>`;
-
 
     // 빈 하트로 초기화하고 표시
     emptyHeartIcon.style.display = 'inline-block';
@@ -76,7 +77,7 @@ const resultDiv = document.getElementById('result3'); // resultDiv 변수 선언
 emptyHeartIcon.addEventListener('click', function () {
   const foodName = resultDiv.textContent.trim();
   axios
-    .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .post('https://togethereat.shop/user-actions/likes', { foodName: foodName })
     .then(response => {
       // 성공적으로 요청이 완료되면 꽉 찬 하트로 변경합니다.
       emptyHeartIcon.style.display = 'none';
@@ -97,7 +98,7 @@ filledHeartIcon.addEventListener('click', function () {
   const foodName = resultDiv.textContent.trim();
 
   axios
-    .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
+    .post('https://togethereat.shop/user-actions/likes', { foodName: foodName })
     .then(response => {
       // 성공적으로 요청이 완료되면 빈 하트로 변경합니다.
       filledHeartIcon.style.display = 'none';
@@ -115,7 +116,7 @@ filledHeartIcon.addEventListener('click', function () {
 
 function sendRequest(categoryId) {
   axios
-    .post('http://localhost:3000/user-actions/random-weighted-foods', {
+    .post('https://togethereat.shop/user-actions/random-weighted-foods', {
       category_id: categoryId,
     })
     .then(displayCategoryResponse)
@@ -146,7 +147,7 @@ function createCategoryButtons(categories) {
 }
 
 axios
-  .get('http://localhost:3000/category')
+  .get('https://togethereat.shop/category')
   .then(response => createCategoryButtons(response.data))
   .catch(error => {
     alert('요청 중 오류가 발생했습니다.');

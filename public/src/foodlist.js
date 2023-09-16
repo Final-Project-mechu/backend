@@ -7,7 +7,9 @@ if (!window.location.hash) {
 //관리자버튼 display 판별
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await axios.get('http://localhost:3000/users/findAdmin');
+    const response = await axios.get(
+      'https://togethereat.shop/users/findAdmin',
+    );
     if (response.status === 200) {
       const userType = response.data;
       if (userType === 1) {
@@ -27,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function categoryGet() {
   const callCategoryServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/category',
+    url: 'https://togethereat.shop/category',
   });
   const allCategory = callCategoryServer.data;
   createAllCategoryItems(allCategory);
@@ -45,7 +47,7 @@ categoryGet();
 async function foodGet() {
   const callServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/food',
+    url: 'https://togethereat.shop/food',
   });
   const allFoods = callServer.data;
   createAllFoodItems(allFoods);
@@ -61,7 +63,7 @@ function createAllFoodItems(foods) {
             </div>
             <div class="featured__item__text">
                 <h6><button class="foodBtn" onclick='foodInfo(${food.id})' >${food.food_name}</button></h6>
-                <h6><button class="foodBtn" onclick ="location.href='http://localhost:3000/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 맛집</button></h6>
+                <h6><button class="foodBtn" onclick ="location.href='https://togethereat.shop/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 맛집</button></h6>
             </div>
         </div>
     </div>`;
@@ -71,7 +73,7 @@ function createAllFoodItems(foods) {
 foodGet();
 
 async function foodInfo(foodId) {
-  url = `http://localhost:3000/food/${Number(foodId)}`;
+  url = `https://togethereat.shop/food/${Number(foodId)}`;
   const callFoodIngredient = await axios.get(url);
   const allFoodsIngredient = callFoodIngredient.data;
   const foodIgredientHtml = allFoodsIngredient
@@ -145,7 +147,7 @@ async function search() {
     return;
   }
   const response = await axios.get(
-    `http://localhost:3000/food/search?q=${searchValue}`,
+    `https://togethereat.shop/food/search?q=${searchValue}`,
   );
   const foods = response.data;
   displaySearchResults(foods);
@@ -164,7 +166,7 @@ function displaySearchResults(foods) {
             </div>
             <div class="featured__item__text">
                 <h6><button class="foodBtn" onclick='foodInfo(${food.id})'>${food.food_name}</button></h6>
-                <h6><button class="foodBtn" onclick ="location.href='http://localhost:3000/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
+                <h6><button class="foodBtn" onclick ="location.href='https://togethereat.shop/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
             </div>
         </div>`;
     foodsContainer.appendChild(foodItem);
@@ -174,5 +176,5 @@ function displaySearchResults(foods) {
 //관리자 페이지 이동 함수
 function movePage() {
   alert('관리자 메뉴판으로 이동합니다.');
-  window.open('http://localhost:3000/foodlist-admin.html');
+  window.open('https://togethereat.shop/foodlist-admin.html');
 }

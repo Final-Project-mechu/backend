@@ -15,7 +15,7 @@ async function confirmUser() {
 // 피드 상세 정보 가져오기
 async function getFeedDetail() {
   try {
-    const feedRes = await axios.get(`http://localhost:3000/feeds/${feedId}`);
+    const feedRes = await axios.get(`https://togethereat.shop/feeds/${feedId}`);
     const feedDetail = feedRes.data;
     const { nick_name } = feedDetail[1];
     const { title, description, image, createdAt } = feedDetail[0];
@@ -43,7 +43,7 @@ async function getUserLike() {
     return;
   } else {
     const feedUserLike = await axios.get(
-      `http://localhost:3000/feeds/${feedId}/like/user`,
+      `https://togethereat.shop/feeds/${feedId}/like/user`,
     );
     if (feedUserLike.data == true) {
       blankHeart.style.display = 'none';
@@ -93,7 +93,7 @@ async function feedUpdate() {
   formData.append('file', imgUpdate);
   axios({
     method: 'patch',
-    url: `http://localhost:3000/feeds/${feedId}`,
+    url: `https://togethereat.shop/feeds/${feedId}`,
     data: formData,
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -118,10 +118,10 @@ function feedDelete() {
   const confirmDelete = confirm('정말 삭제하시겠습니까?');
   if (confirmDelete) {
     axios
-      .delete(`http://localhost:3000/feeds/${feedId}`)
+      .delete(`https://togethereat.shop/feeds/${feedId}`)
       .then(response => {
         alert('피드 삭제 성공!');
-        location.href = 'http://localhost:3000/feed.html';
+        location.href = 'https://togethereat.shop/feed.html';
       })
       .catch(error => {
         // 서버에서 발생한 예외 처리
@@ -148,7 +148,7 @@ async function feedLike() {
   }
   try {
     const serverCall = await axios.post(
-      `http://localhost:3000/feeds/${feedId}/like`,
+      `https://togethereat.shop/feeds/${feedId}/like`,
     );
     if (serverCall.status === 201) {
       blankHeart.style.display = 'none';
@@ -166,14 +166,14 @@ async function feedLikeCancel() {
   const fullHeart = document.getElementById('fullHeart');
   try {
     const serverCall = await axios.delete(
-      `http://localhost:3000/feeds/${feedId}/like`,
+      `https://togethereat.shop/feeds/${feedId}/like`,
     );
     if (serverCall.data.message == '좋아요 취소') {
       blankHeart.style.display = 'inline-block';
       fullHeart.style.display = 'none';
       getFeedDetail();
     }
-  } catch(err) {
+  } catch (err) {
     alert('좋아요 취소 실패');
   }
 }
@@ -181,7 +181,9 @@ async function feedLikeCancel() {
 // 해당 피드에 따른 댓글 전체 조회
 async function commentsGet() {
   try {
-    const serverCall = await axios.get(`http://localhost:3000/comments/${feedId}`);
+    const serverCall = await axios.get(
+      `https://togethereat.shop/comments/${feedId}`,
+    );
     const commentList = serverCall.data;
     createAllCommentItems(commentList);
   } catch (err) {
@@ -220,7 +222,7 @@ function createAllCommentItems(comments) {
 
 async function deleteComment(commentId) {
   try {
-    await axios.delete(`http://localhost:3000/comments/${commentId}`);
+    await axios.delete(`https://togethereat.shop/comments/${commentId}`);
     alert('댓글이 삭제되었습니다.');
     commentsGet(); // 댓글 삭제 후 댓글 목록을 다시 가져옵니다.
   } catch (error) {
@@ -241,7 +243,7 @@ document
       if (commentText) {
         try {
           const response = await axios.post(
-            `http://localhost:3000/comments/${feedId}`,
+            `https://togethereat.shop/comments/${feedId}`,
             {
               contents: commentText,
             },
@@ -272,7 +274,7 @@ document
     if (commentText) {
       try {
         const response = await axios.post(
-          `http://localhost:3000/comments/${feedId}`,
+          `https://togethereat.shop/comments/${feedId}`,
           {
             contents: commentText,
           },

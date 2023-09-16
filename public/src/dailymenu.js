@@ -11,7 +11,7 @@ if (savedDate === today && savedFood) {
 } else {
   // 저장된 날짜가 없거나 다르면 새로운 음식 정보를 가져와서 저장
   axios
-    .get('http://localhost:3000/food')
+    .get('https://togethereat.shop/food')
     .then(res => {
       const foodList = res.data.map(item => item.food_name);
       const randomFood = foodList[Math.floor(Math.random() * foodList.length)];

@@ -5,7 +5,7 @@ window.onload = function () {
   let cookies = document.cookie;
   if (!cookies.includes('AccessToken', 'RefreshToken')) {
     alert('로그인이 필요한 기능입니다!');
-    window.location.href = 'http://localhost:3000/feed.html';
+    window.location.href = 'https://togethereat.shop/feed.html';
   }
 };
 
@@ -82,7 +82,7 @@ function feedCreate() {
   formData.append('file', imgFile);
   axios({
     method: 'post',
-    url: 'http://localhost:3000/feeds/common',
+    url: 'https://togethereat.shop/feeds/common',
     data: formData,
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -90,7 +90,7 @@ function feedCreate() {
   })
     .then(function (res) {
       alert('피드가 생성되었습니다!');
-      location.href = 'http://localhost:3000/feed.html';
+      location.href = 'https://togethereat.shop/feed.html';
     })
     .catch(err => {
       alert('피드 작성에 실패하였습니다.');
@@ -108,7 +108,7 @@ function feedCreate() {
 // async function findFavorites() {
 //   const callServer = await axios({
 //     method: 'get',
-//     url: 'http://localhost:3000/favorites',
+//     url: 'https://togethereat.shop/favorites',
 //   });
 //   const allFavorites = callServer.data;
 //   console.log(allFavorites);

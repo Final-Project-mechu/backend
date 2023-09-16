@@ -2,7 +2,7 @@
 async function categoryGet() {
   const callCategoryServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/category',
+    url: 'https://togethereat.shop/category',
   });
   const allCategory = callCategoryServer.data;
   createAllCategoryItems(allCategory);
@@ -20,7 +20,7 @@ categoryGet();
 async function foodGet() {
   const callServer = await axios({
     method: 'get',
-    url: 'http://localhost:3000/food',
+    url: 'https://togethereat.shop/food',
   });
   const allFoods = callServer.data;
   createAllFoodItems(allFoods);
@@ -49,7 +49,7 @@ async function foodDelete(foodId) {
   var confirmation = window.confirm('삭제하시겠습니까?');
 
   if (confirmation) {
-    url = `http://localhost:3000/food/foodimg/${foodId}`;
+    url = `https://togethereat.shop/food/foodimg/${foodId}`;
     const deleteFood = await axios.delete(url);
     alert('선택 메뉴가 삭제되었습니다.');
     window.location.reload();
@@ -62,7 +62,7 @@ async function foodComplet() {
   alert('짠');
 }
 async function foodUpdate(foodId) {
-  url = `http://localhost:3000/food/onefoodImg/${Number(foodId)}`;
+  url = `https://togethereat.shop/food/onefoodImg/${Number(foodId)}`;
   const callFood = await axios.get(url);
   const test = callFood.data[0];
 
@@ -99,7 +99,7 @@ async function foodUpdate(foodId) {
 }
 
 async function foodInfo1(foodId) {
-  url = `http://localhost:3000/food/${Number(foodId)}`;
+  url = `https://togethereat.shop/food/${Number(foodId)}`;
   const callFoodIngredient = await axios.get(url);
   const allFoodsIngredient = callFoodIngredient.data;
 
@@ -147,7 +147,7 @@ function foodCreate() {
 
   axios({
     method: 'post',
-    url: 'http://localhost:3000/food/foodimg',
+    url: 'https://togethereat.shop/food/foodimg',
     data: formData,
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -171,7 +171,7 @@ async function search() {
     return;
   }
   const response = await axios.get(
-    `http://localhost:3000/food/search?q=${searchValue}`,
+    `https://togethereat.shop/food/search?q=${searchValue}`,
   );
   const foods = response.data;
   displaySearchResults(foods);
@@ -190,7 +190,7 @@ function displaySearchResults(foods) {
             </div>
             <div class="featured__item__text">
                 <h6><button class="foodBtn" onclick='foodInfo(${food.id})'>${food.food_name}</button></h6>
-                <h6><button class="foodBtn" onclick ="location.href='http://localhost:3000/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
+                <h6><button class="foodBtn" onclick ="location.href='https://togethereat.shop/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
             </div>
         </div>`;
     foodsContainer.appendChild(foodItem);

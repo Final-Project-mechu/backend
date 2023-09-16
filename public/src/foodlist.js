@@ -214,3 +214,7 @@ function displaySearchResults(foods) {
     foodsContainer.appendChild(foodItem);
   });
 }
+
+function moveAdmin() {
+  location.href = 'http://localhost:3000/foodlist-admin.html#loaded';
+}

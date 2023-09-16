@@ -60,13 +60,22 @@ async function getUserLike() {
 function formatDate(data) {
   const getData = new Date(data);
   const year = getData.getFullYear();
-  const month = getData.getMonth();
-  const day = getData.getDay();
+  const month = getData.getMonth() + 1;
+  const date = getData.getDate();
   const hour = getData.getHours();
   const min = getData.getMinutes();
-
   const outputDate =
-    ' ' + year + ' , ' + month + '월 ' + day + '일 ' + hour + '시' + min + '분';
+    ' ' +
+    year +
+    ' , ' +
+    month +
+    '월 ' +
+    date +
+    '일 ' +
+    hour +
+    '시' +
+    min +
+    '분';
   return outputDate;
 }
 

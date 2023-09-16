@@ -46,6 +46,7 @@
     align-items: flex-start;
     justify-content: center;
     margin-bottom: 50px;
+    margin-left: 50px;
 }
 .favoriteButton{
   display: inline-block;
@@ -59,6 +60,7 @@
   background: #7ac142;
   -webkit-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
+  margin-right: 50px;
   &:hover {
     color: #7ac142;
     background: #fff;

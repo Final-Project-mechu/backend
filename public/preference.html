@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/modaltest.css" type="text/css" />
     <link rel="stylesheet" href="css/preference.css" type="text/css" />
@@ -36,6 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS Styles END -->
   </head>
+  <script src="./src/preference.js" defer></script>
   <body>
     <!-- 가입 모달 -->
     <div
@@ -326,6 +326,7 @@
     <!-- 선호도 조사 section 시작 -->
     <section id="survey" class="form-blog spad">
       <div class="section-title">
+        <!-- <h2 style="display: inline-block">선호도 조사</h2> -->
         <div class="tooltip_wrap">
           <button id="the-menu" class="site-btn">간이 메뉴판</button>
           <a href="#url" class="button_control"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
@@ -338,11 +339,11 @@
             <br>
             !! 감사합니다 !!</div>
         </div>
-        <h2 style="display: inline-block">선호도 조사</h2>
+        
       </div>
       </button>
       <div class="container">
-        <div class="row">
+        <div class="row" id="prefer-search-wrap">
           <div class="col-lg-3">
             <div class="dropdown">
               <select id="search-category">
@@ -360,9 +361,9 @@
                   <input
                     id="survey-search-input"
                     type="text"
-                    placeholder="검색해보세요"
+                    placeholder="간이 메뉴판을 보시고 음식이나 재료를 검색해보세요"
                   />
-                  <button type="submit" class="site-btn">추가하기</button>
+                  <button type="submit" class="prefer_add_btn">추가하기</button>
                 </form>
               </div>
               <div>
@@ -454,7 +455,6 @@
     <script src="./src/checkLogin.js"></script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>

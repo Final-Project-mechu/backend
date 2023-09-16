@@ -198,7 +198,7 @@ function displaySearchResults(foods) {
             </div>
             <div class="featured__item__text">
                 <h6><button class="foodBtn" onclick='foodInfo(${food.id})'>${food.food_name}</button></h6>
-                <h6><button class="foodBtn" onclick ="location.href='https://togethereat.shop/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
+                <h6><button class="foodBtn" onclick ="location.href='http://localhost:3000/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
             </div>
         </div>`;
     foodsContainer.appendChild(foodItem);

@@ -48,25 +48,32 @@
     margin-bottom: 50px;
     margin-left: 50px;
 }
+
 .favoriteButton{
+  padding: 7px 10px;
+  font-size: 20px;
+  z-index: 10;
+  position: relative;
+  border: none;
   display: inline-block;
-  border: 2px solid #7ac142;
-  border-radius: 25px;
-  padding: 3px 12px 5px 12px;
-  letter-spacing: 0px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background: #7ac142;
-  -webkit-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
-  margin-right: 50px;
-  &:hover {
-    color: #7ac142;
-    background: #fff;
-    border: 2px solid #7ac142;
-  }
-  &:active {
-    box-shadow: none;
-  }
+  color: white;
+  margin: 0 15px 20px 15px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top .01s linear;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  background-color: #82c8a0;
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(126, 194, 155, .7),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
+}
+
+.favoriteButton hover {
+  background-color: #80C49D;
+}
+
+.favoriteButton:active {
+  top: 4px;
 }

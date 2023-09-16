@@ -127,7 +127,7 @@ function signOut() {
   document.cookie = deleteCookie('AccessToken');
   document.cookie = deleteCookie('RefreshToken');
   alert('로그아웃 되었습니다.');
-  location.reload();
+  location.href = 'http://localhost:3000/';
 }
 
 // 로그인

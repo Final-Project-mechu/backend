@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -7,8 +6,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Comment } from 'src/entity/comment.entity';
-import { CreateCommentDto } from './dto/create.comments.dto';
-import { UpdateCommentDto } from './dto/update.comments.dto';
 import { Feed } from '../entity/feed.entity';
 import { User } from 'src/entity/user.entity';
 

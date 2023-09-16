@@ -7,7 +7,6 @@ import { Ingredient } from 'src/entity/ingredient.entity';
 import { CreateFavoriteDto } from './dto/create.users.actions.dto';
 import { FoodIngredient } from 'src/entity/food.ingredient.entity';
 import { Category } from 'src/entity/category.entity';
-import { Between } from 'typeorm';
 
 const FAVORITE_WEIGHT = 10;
 const LIKE_WEIGHT = 1;
@@ -347,7 +346,7 @@ export class UsersActionsService {
     );
   }
   // 제외한 음식 체크 해제
-  async cancelExclusionOfFood(
+  async cancelExclusionFood(
     createFavoriteDto: CreateFavoriteDto,
     userId: number,
   ): Promise<any> {
@@ -425,8 +424,9 @@ export class UsersActionsService {
 
     return await this.userActionRepo.query(query);
   }
+
   // 음식 추천 룰렛
-  async getRandomWeightedFood(
+  async randomWeightedFood(
     categoryId: number,
     userId: number,
   ): Promise<string> {
@@ -439,9 +439,7 @@ export class UsersActionsService {
     }
 
     const foods = await this.getFoodsByCategoryIds(relatedCategoryIds);
-    // console.log('확인용1111 : ', foods);
     const foodsWeights = this.calculateBasicWeights(foods);
-    // console.log('확인용2222 : ', foodsWeights);
     const filteredFoods = this.filterFoodsByCategory(
       foodsWeights,
       relatedCategoryIds,
@@ -449,8 +447,8 @@ export class UsersActionsService {
     await this.adjustWeightsByUserActions(filteredFoods, userId);
     const validFoods = this.getValidFoods(filteredFoods);
     this.calculateProbabilities(validFoods);
-    const selectedFood = this.performRandomWeightedSelection(validFoods);
 
+    const selectedFood = this.performRandomWeightedSelection(validFoods);
     if (!selectedFood) {
       throw new BadRequestException('음식을 선택할 수 없습니다.');
     }
@@ -460,7 +458,7 @@ export class UsersActionsService {
     return food?.food_name || '해당 음식을 찾을 수 없습니다.';
   }
 
-  // 모든 카테고리 ID를 가져오는 함수
+  // 주어진 카테고리 ID 대로 음식 배열
   async getFoodsByCategoryIds(relatedCategoryIds: number[]): Promise<Food[]> {
     return await this.foodRepo
       .createQueryBuilder('food')
@@ -469,7 +467,7 @@ export class UsersActionsService {
       })
       .getMany();
   }
-
+  // 각 음식에 기본 가중치를 할당
   calculateBasicWeights(foods: Food[]): FoodWeight[] {
     return foods.map(food => ({
       foodId: food.id,
@@ -477,7 +475,7 @@ export class UsersActionsService {
       weight: 10,
     }));
   }
-
+  // 주어진 카테고리에 해당하는 음식만 필터링
   filterFoodsByCategory(
     foodsWeights: FoodWeight[],
     targetCategoryIds: number[],
@@ -486,7 +484,7 @@ export class UsersActionsService {
       targetCategoryIds.includes(food.categoryId),
     );
   }
-
+  // user_action 테이블 데이터 기반으로 가중치 조정
   async adjustWeightsByUserActions(
     filteredFoods: FoodWeight[],
     userId: number,
@@ -506,38 +504,34 @@ export class UsersActionsService {
       foodWeight.weight += additionalWeight;
     }
   }
-
+  // 가중치 -500보다 큰 음식만 필터링
   getValidFoods(filteredFoods: FoodWeight[]): FoodWeight[] {
     return filteredFoods.filter(foodWeight => foodWeight.weight > -500);
   }
-
+  // 각 음식의 확률과 누적 확률 계산
   calculateProbabilities(validFoods: FoodWeight[]): void {
     const totalWeight = validFoods.reduce((acc, food) => acc + food.weight, 0);
-    validFoods.forEach(food => {
-      food.probability = food.weight / totalWeight;
-    });
-
     let cumulativeProbability = 0;
     validFoods.forEach(food => {
+      food.probability = food.weight / totalWeight;
       food.cumulativeProbability = cumulativeProbability + food.probability;
       cumulativeProbability = food.cumulativeProbability;
     });
   }
-
+  // 가중치를 기반으로 무작위 음식 선택
   performRandomWeightedSelection(
     validFoods: FoodWeight[],
   ): FoodWeight | undefined {
     const randomValue = Math.random();
-    return validFoods.find((food, index) => {
+    const selectedFood = validFoods.find((food, index) => {
       if (index === 0) {
         return randomValue < food.cumulativeProbability;
       }
-      // 확률 확인
-      // console.log("totalWeight", validFoods)
       return (
         randomValue >= validFoods[index - 1].cumulativeProbability &&
         randomValue < food.cumulativeProbability
       );
     });
+    return selectedFood;
   }
 }

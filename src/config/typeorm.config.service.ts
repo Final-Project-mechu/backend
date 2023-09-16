@@ -36,6 +36,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         Comment,
         FoodUserWeight,
         UserAction,
+        FoodIngredient,
         Ingredient,
         FoodUserWeight,
         UserAction,

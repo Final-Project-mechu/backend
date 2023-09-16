@@ -86,16 +86,16 @@ export class FoodService {
 
   //음식 사진까지 해서 생성하기.
   async createFoodImage(
-    //id: number,
+    id: number,
     file: Express.Multer.File,
     food_name: string,
     category_id: number,
   ) {
-    // const checkAdmin = await this.confirmAdmin(id);
-    // if (checkAdmin.is_admin !== 1) {
-    //   console.log('관리자가 아닙니다.');
-    //   throw new UnauthorizedException('관리자가 아닙니다.');
-    // }
+    const checkAdmin = await this.confirmAdmin(id);
+    if (checkAdmin.is_admin !== 1) {
+      console.log('관리자가 아닙니다.');
+      throw new UnauthorizedException('관리자가 아닙니다.');
+    }
     if (file) {
       const food_img = await this.s3Service.putObject(file);
       return this.foodReository.insert({
@@ -104,7 +104,6 @@ export class FoodService {
         food_img,
       });
     } else {
-      //예외처리 다듬어야함.
       throw new Error('파일이 없습니다.');
     }
   }
@@ -132,16 +131,14 @@ export class FoodService {
   }
 
   //삭제하기
-  // 디비에서 에서 삭제 /  S3 버켓에서 삭제 ~
   async deleteFoodImg(id: number, food_id: number) {
     const checkAdmin = await this.confirmAdmin(id);
     if (checkAdmin.is_admin !== 1) {
       throw new UnauthorizedException('관리자가 아닙니다.');
     }
-    this.foodReository.softDelete({ id: food_id });
+    this.foodReository.delete({ id: food_id });
   }
 
-  //상세조회하기 -> foodingredient
   //전체 조회하기
   async getAllFoodImg() {
     return await this.foodReository.query(`select * from food;`);

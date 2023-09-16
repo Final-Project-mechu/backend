@@ -151,7 +151,7 @@ function login() {
         const errorMessage = error.response.data.message;
         alert('로그인 실패: ' + '이메일 또는 비밀번호가 올바르지 않습니다.');
       } else {
-        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
+        // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우/주석
         console.error('네트워크 오류:', error.message);
         alert('네트워크 오류가 발생했습니다.');
       }

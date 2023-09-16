@@ -46,11 +46,16 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
+            <button type="button" class="signbutton" onclick="openLoginModal()">
+              로그인하기
+            </button>
             <button
               type="button"
               class="signbutton"
+              id="closeButton"
               data-bs-dismiss="modal"
               aria-label="Close"
+              onclick="closeSignUpModal()"
             >
               <span aria-hidden="true">X</span>
             </button>
@@ -102,16 +107,28 @@
               </div>
               <div class="row mb-3">
                 <div class="col">
+                  <input
+                    type="code"
+                    class="modal-input"
+                    placeholder="닉네임"
+                    id="signupNickname"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
                   <div class="input-container">
                     <input
                       type="password"
                       class="modal-input"
                       id="signupPassword"
+                      placeholder="비밀번호"
                       required
                     />
                     <span class="placeholder-text"
                       ><br />
-                      비밀번호는 영소문자 6~10자리입니다.</span
+                      비밀번호는 영소문자+숫자 6~10자리입니다.</span
                     >
                   </div>
                 </div>
@@ -123,17 +140,6 @@
                     class="modal-input"
                     id="signupPasswordConfirm"
                     placeholder="비밀번호 확인"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col">
-                  <input
-                    type="code"
-                    class="modal-input"
-                    placeholder="닉네임"
-                    id="signupNickname"
                     required
                   />
                 </div>
@@ -318,7 +324,6 @@
           </div>
         </div>
       </div>
-    </header>
     <!-- 탑바 끝 -->
     <!-- Featured Section Begin -->
     <section class="featured-spad">
@@ -387,11 +392,29 @@
           const signModal = document.getElementById('signModal');
           const bsModal = new bootstrap.Modal(signModal);
           bsModal.show();
+
+          const closeButton = document.getElementById('closeButton'); // closeButton는 모달을 닫는 버튼의 ID입니다.
+
+          // 모달을 닫는 버튼에 클릭 이벤트를 추가합니다.
+          closeButton.addEventListener('click', function () {
+            bsModal.hide(); // 모달을 닫습니다.
+          });
         }
 
         // 페이지를 방문한 흔적을 남깁니다.
         sessionStorage.setItem('visitedBefore', 'true');
       };
+    </script>
+    <script>
+      function openLoginModal() {
+      const loginModal = document.getElementById('loginModal');
+      const bsLoginModal = new bootstrap.Modal(loginModal);
+      bsLoginModal.show();
+
+      const signUpModal = document.getElementById('signUpModal');
+      const bsSignUpModal = new bootstrap.Modal(signUpModal);
+      bsSignUpModal.hide();
+    }
     </script>
     <script src="./src/user.js" defer></script>
     <script src="./src/dailymenu.js" defer></script>

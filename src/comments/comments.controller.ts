@@ -36,7 +36,7 @@ export class CommentsController {
   //댓글 쓰기
   @Post('/:feedId')
   @UsePipes(ValidationPipe)
-  CreateComment(
+  createComment(
     @Req() request: RequestWithLocals,
     @Param('feedId') feedId: number,
     @Body() data: CreateCommentDto,

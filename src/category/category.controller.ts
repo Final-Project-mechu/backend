@@ -28,14 +28,13 @@ interface RequestWithLocals extends Request {
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  //카테고리 생성  -> 로그인된유저가 admin! 어차피 로그인 했냐안했
+  //카테고리 생성
   @Post('/')
   async createCategory(
     @Body() data: createCategoryDto,
     @Req() request: RequestWithLocals,
   ) {
     const user = request.locals.user;
-    console.log('@@user_id', user.id);
     try {
       await this.categoryService.createCategory(
         user.id,
@@ -48,14 +47,13 @@ export class CategoryController {
     }
   }
 
-  //카테고리 수정 id 받고 -> name,top 수정
+  //카테고리 수정 
   @Patch('/:category_id')
   async updateCategory(
     @Body() data: updateCategoryDto,
     @Req() request: RequestWithLocals,
     @Param('category_id') category_id: number,
   ) {
-    console.log(category_id);
     const user = request.locals.user;
     await this.categoryService.updateCategory(
       user.id,
@@ -84,7 +82,6 @@ export class CategoryController {
     @Req() request: RequestWithLocals,
     @Param('category_id') category_id: number,
   ) {
-    console.log('con', category_id);
     await this.categoryService.deleteCategory(category_id);
     return { message: '카테고리 삭제 완료.' };
   }

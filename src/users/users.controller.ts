@@ -28,23 +28,6 @@ interface RequestWithLocals extends Request {
 export class UsersController {
   jwtService: any;
   constructor(private readonly userService: UsersService) {}
-  @Post('/back-login')
-  async backLogin(
-    @Body() data,
-    @Res({ passthrough: true }) response: Response,
-  ) {
-    const tokens = await this.userService.login(data.email, data.password);
-    response.cookie('AccessToken', 'Bearer ' + tokens.accessToken);
-    response.cookie('RefreshToken', 'Bearer ' + tokens.refreshToken);
-    return { Message: '로그인 완료' };
-  }
-
-  @Delete('/back-logout')
-  async backLogout(@Res() response: Response) {
-    response.clearCookie('AccessToken', { path: '/' });
-    response.clearCookie('RefreshToken', { path: '/' });
-    return response.status(200).send('로그아웃 완료');
-  }
 
   @Get('/find')
   async getUserEmail(@Req() request: RequestWithLocals) {

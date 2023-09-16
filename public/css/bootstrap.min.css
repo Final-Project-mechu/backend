@@ -236,21 +236,7 @@ select {
 select {
   word-wrap: normal;
 }
-[type='button'],
-[type='reset'],
-[type='submit'],
-button {
-  -webkit-appearance: button;
-}
-[type='button']:not(:disabled),
-[type='reset']:not(:disabled),
-[type='submit']:not(:disabled),
-button:not(:disabled) {
-  cursor: pointer;
-}
-[type='button']::-moz-focus-inner,
-[type='reset']::-moz-focus-inner,
-[type='submit']::-moz-focus-inner,
+
 button::-moz-focus-inner {
   padding: 0;
   border-style: none;
@@ -263,9 +249,7 @@ input[type='radio'] {
 input[type='date'],
 input[type='datetime-local'],
 input[type='month'],
-input[type='time'] {
-  -webkit-appearance: listbox;
-}
+input[type='time'] 
 textarea {
   overflow: auto;
   resize: vertical;
@@ -296,7 +280,6 @@ progress {
 }
 [type='search'] {
   outline-offset: -2px;
-  -webkit-appearance: none;
 }
 [type='search']::-webkit-search-decoration {
   -webkit-appearance: none;

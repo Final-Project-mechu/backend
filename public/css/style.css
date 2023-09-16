@@ -210,18 +210,26 @@ ol {
 
 /* buttons */
 .mainMenuBtn {
-  display: inline-block;
-  font-size: 20px;
-  padding: 20px 28px 20px;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-weight: 700;
-  background: #87a86f;
-  letter-spacing: 2px;
-  border-radius: 15px;
   position: relative;
-  margin-right: 15px;
-  margin-left: 15px;
+  display: inline-block;
+  font-size: 22px;
+  padding: 20px 30px;
+  color: white;
+  margin: 20px 10px 10px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top .01s linear;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  background-color: #82c8a0;
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(126, 194, 155, .7),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
+}
+
+.mainMenuBtn hover {
+  background-color: #80C49D;
 }
 
 .mainMenuBtn:active {
@@ -229,22 +237,30 @@ ol {
 }
 
 .mainPreferBtn {
-  display: inline-block;
-  font-size: 20px;
-  padding: 20px 28px 20px;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-weight: 700;
-  background: #87a86f;
-  letter-spacing: 2px;
-  border-radius: 15px;
   position: relative;
-  margin-right: 15px;
-  margin-left: 15px;
+  display: inline-block;
+  font-size: 22px;
+  padding: 20px 30px;
+  color: white;
+  margin: 20px 10px 10px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top .01s linear;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  background-color: #6DA2D9;
+  box-shadow: 0 0 0 1px #6698cb inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(110, 164, 219, .7),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
+}
+
+.mainPreferBtn hover {
+  background-color: #699DD1;
 }
 
 .mainPreferBtn:active {
-  top: 4px;
+  top: 9px;
 }
 
 .primary-btn {
@@ -259,22 +275,32 @@ ol {
 }
 
 .site-btn {
-  background: #87a86f;
-  color: #e4d2d2;
-  border-radius: 15px;
   padding: 7px 10px;
-  margin-right: 15px;
-  margin-left: 15px;
-  transition: 0.1s;
-  margin-bottom: 20px;
   font-size: 20px;
-  color: #f7f7f0;
   z-index: 10;
   position: relative;
   border: none;
+  display: inline-block;
+  color: white;
+  margin: 0 15px 20px 15px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top .01s linear;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  background-color: #82c8a0;
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(126, 194, 155, .7),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
 }
+
 .site-btn:active {
   top: 4px;
+}
+
+.site-btn hover {
+  background-color: #80C49D;
 }
 
 /* Preloder */
@@ -648,7 +674,6 @@ ol {
 .hero__search__form {
   width: 610px;
   height: 50px;
-  border: 1px solid #ebebeb;
   position: relative;
   float: left;
 }
@@ -2646,7 +2671,7 @@ ol {
 -----------------------*/
 
 .footer {
-  background: #d1d3d3;
+  background: #f5f5f5;
   height: 150px;
 }
 
@@ -3606,11 +3631,6 @@ ol {
   margin: auto;
   margin-right: 20px;
   margin-top: 20px;
-}
-
-#feed-delete {
-  font-size: 10px;
-  margin: auto;
 }
 
 #commentCreate {

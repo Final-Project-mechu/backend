@@ -96,4 +96,18 @@
 
 .btn.btn-danger.delete-btn {
   top: 4px;
+  
+  .list-group a {
+  &:link {
+    color: blue;
+  }
+  &:visited {
+    color: green;
+  }
+  &:hover {
+    color: red;
+  }
+  &:active {
+    color: black;
+  }
 }

@@ -3,7 +3,6 @@ let randomData;
  * 사용자의 GPS 정보를 불러오는 함수
  */
 navigator.geolocation.getCurrentPosition(function (pos) {
-  console.log('abc');
   const latitude = pos.coords.latitude;
   const longitude = pos.coords.longitude;
   const urlParams = new URLSearchParams(window.location.search);
@@ -126,6 +125,10 @@ function addToFavorite() {
         alert(err.response.data.message);
       });
   } else {
-    console.log('데이터 없음');
+    alert('찜하기 실패');
   }
+}
+
+function favoriteListClick() {
+  location.href = 'http://localhost:3000/favoritelist.html';
 }

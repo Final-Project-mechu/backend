@@ -101,12 +101,12 @@ export class UsersActionsController {
   }
   // 제외한 음식 체크 해제
   @Post('exclude-foods-cancel')
-  async cancelExclusionOfFood(
+  async cancelExclusionFood(
     @Body() dto: CreateFavoriteDto,
     @Req() request: RequestWithLocals,
   ) {
     const userId = request.locals.user;
-    return this.usersActionsService.cancelExclusionOfFood(dto, userId.id);
+    return this.usersActionsService.cancelExclusionFood(dto, userId.id);
   }
   // 제외한 재료 체크 해제
   @Post('exclude-ingredients-cancel')
@@ -122,12 +122,12 @@ export class UsersActionsController {
   }
   // 음식 추천 룰렛
   @Post('random-weighted-foods')
-  async getRandomWeightedFood(
+  async randomWeightedFood(
     @Body() dto: RandomFoodDto,
     @Req() request: RequestWithLocals,
   ) {
     const userId = request.locals.user;
-    return this.usersActionsService.getRandomWeightedFood(
+    return this.usersActionsService.randomWeightedFood(
       dto.category_id,
       userId.id,
     );

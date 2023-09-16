@@ -33,9 +33,8 @@
 html,
 body {
   height: 100%;
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Sunflower', sans-serif;
   -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
 }
 
 h1,
@@ -47,7 +46,7 @@ h6 {
   margin: 0;
   color: #111111;
   font-weight: 400;
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Sunflower', sans-serif;
 }
 
 h1 {
@@ -76,11 +75,38 @@ h6 {
 
 p {
   font-size: 16px;
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Sunflower', sans-serif;
   color: #6f6f6f;
   font-weight: 400;
   line-height: 26px;
   margin: 0 0 15px 0;
+}
+a {
+  font-family: 'Sunflower', sans-serif;
+}
+
+div {
+  font-family: 'Sunflower', sans-serif;
+}
+
+span {
+  font-family: 'Sunflower', sans-serif;
+}
+
+form {
+  font-family: 'Sunflower', sans-serif;
+}
+
+.reguler {
+  font-weight: 300;
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 img {
@@ -115,6 +141,10 @@ ol {
 .top-row {
   height: 100%;
   text-align: center;
+}
+
+.bi-bi-heart-fill {
+  color: red;
 }
 
 .mypage-buttons {
@@ -174,16 +204,63 @@ ol {
   color: #fff;
 }
 
+.menu-preference-container {
+  margin: 10px;
+}
+
 /* buttons */
-.main-btn {
+.mainMenuBtn {
+  position: relative;
   display: inline-block;
-  font-size: 20px;
-  padding: 20px 28px 20px;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-weight: 700;
-  background: #7fad39;
-  letter-spacing: 2px;
+  font-size: 22px;
+  padding: 20px 30px;
+  color: white;
+  margin: 20px 10px 10px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top .01s linear;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  background-color: #82c8a0;
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(126, 194, 155, .7),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
+}
+
+.mainMenuBtn hover {
+  background-color: #80C49D;
+}
+
+.mainMenuBtn:active {
+  top: 4px;
+}
+
+.mainPreferBtn {
+  position: relative;
+  display: inline-block;
+  font-size: 22px;
+  padding: 20px 30px;
+  color: white;
+  margin: 20px 10px 10px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top .01s linear;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  background-color: #6DA2D9;
+  box-shadow: 0 0 0 1px #6698cb inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(110, 164, 219, .7),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
+}
+
+.mainPreferBtn hover {
+  background-color: #699DD1;
+}
+
+.mainPreferBtn:active {
+  top: 9px;
 }
 
 .primary-btn {
@@ -198,14 +275,32 @@ ol {
 }
 
 .site-btn {
-  font-size: 14px;
-  color: #ffffff;
-  font-weight: 800;
-  text-transform: uppercase;
-  display: inline-block;
-  padding: 13px 30px 12px;
-  background: #7fad39;
+  padding: 7px 10px;
+  font-size: 20px;
+  z-index: 10;
+  position: relative;
   border: none;
+  display: inline-block;
+  color: white;
+  margin: 0 15px 20px 15px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top .01s linear;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  background-color: #82c8a0;
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(126, 194, 155, .7),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
+}
+
+.site-btn:active {
+  top: 4px;
+}
+
+.site-btn hover {
+  background-color: #80C49D;
 }
 
 /* Preloder */
@@ -317,13 +412,14 @@ ol {
 }
 
 .header__top__right {
-  text-align: right;
+  text-align: center;
   padding: 10px 0 13px;
-  width: 200px;
-  margin: 0 0 auto 320px;
+  width: 300px;
+  margin: 0 0 auto 120px;
 }
 
 .header__top__right__auth {
+  width: 300px;
   display: inline-block;
 }
 
@@ -335,6 +431,11 @@ ol {
 
 .header__top__right__auth a i {
   margin-right: 6px;
+}
+
+.header__top__right__auth a:hover,
+.header__top__right__auth i:hover {
+  color: green;
 }
 
 .header__logo {
@@ -573,7 +674,6 @@ ol {
 .hero__search__form {
   width: 610px;
   height: 50px;
-  border: 1px solid #ebebeb;
   position: relative;
   float: left;
 }
@@ -730,7 +830,6 @@ ol {
   position: absolute;
   left: -35px;
   top: 50%;
-  -webkit-transform: translateY(-35px);
   background: #ffffff;
 }
 
@@ -2230,7 +2329,8 @@ ol {
 }
 
 .blog__item__pic img {
-  min-width: 100%;
+  height: 200px;
+  width: 200px;
 }
 
 .blog__item__text {
@@ -2282,6 +2382,11 @@ ol {
   position: relative;
   top: 1px;
   margin-left: 5px;
+}
+
+.blog__item__text .blog__btn img {
+  max-width: 200px;
+  height: 200px;
 }
 
 .blog__pagination {
@@ -2566,7 +2671,7 @@ ol {
 -----------------------*/
 
 .footer {
-  background: #d1d3d3;
+  background: #f5f5f5;
   height: 150px;
 }
 
@@ -3133,7 +3238,6 @@ ol {
     position: relative;
     left: 0;
     top: 0;
-    -webkit-transform: translateY(0);
   }
   .categories__slider.owl-carousel .owl-nav button.owl-next {
     right: -10px;
@@ -3441,43 +3545,6 @@ ol {
   display: flex;
 }
 
-/* 버튼 컨테이너 스타일 */
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 20px; /* 버튼 간격 조정 */
-}
-
-/* 버튼 스타일 */
-.button {
-  width: 200px;
-  height: 100px;
-  text-align: center;
-  line-height: 60px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 60px;
-}
-
-/* 이미지 컨테이너 스타일 */
-.image-container {
-  text-align: center;
-}
-
-/* 이미지 중앙 정렬 스타일 */
-.center-image {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  max-height: 200px;
-  margin-bottom: 100px;
-  margin-top: 100px;
-}
-
 .button-container2 {
   display: flex;
   justify-content: center;
@@ -3526,7 +3593,6 @@ ol {
 }
 
 #toggle-modal-button {
-  border: 2px solid black;
   background-color: white;
   color: black;
   padding: 14px 28px;
@@ -3535,7 +3601,6 @@ ol {
 }
 
 #update-password-button {
-  border: 1px solid black;
   background-color: white;
   color: black;
   padding: 7px 14px;
@@ -3544,7 +3609,6 @@ ol {
 }
 
 #toggle-modal-button-delete {
-  border: 2px solid black;
   background-color: white;
   color: black;
   padding: 14px 28px;
@@ -3569,11 +3633,6 @@ ol {
   margin-top: 20px;
 }
 
-#feed-delete {
-  font-size: 10px;
-  margin: auto;
-}
-
 #commentCreate {
   font-size: 10px;
   margin: auto;
@@ -3592,4 +3651,8 @@ ol {
 #comment-delete {
   font-size: 10px;
   margin: auto;
+}
+
+#tob-bar {
+  font-size: larger;
 }

@@ -26,11 +26,7 @@ export class CategoryService {
       where: { id },
       select: ['is_admin'],
     });
-    //console.log('confirm.Adminis_admin', confirmAdmin.is_admin);
-    // if (confirmAdmin.is_admin !== 1) {
-    //   console.log('관리자가 아닙니다.');
-    //   throw new UnauthorizedException('관리자가 아닙니다.');
-    // }
+
     return this.categoryReository.insert({
       category_name,
       top_category_id,
@@ -48,12 +44,10 @@ export class CategoryService {
       where: { id: user_id },
       select: ['is_admin'],
     });
-    console.log('ser', confirmAdmin);
-    // if (confirmAdmin.is_admin !== 1) {
-    //   console.log('관리자가 아닙니다.');
-    //   throw new UnauthorizedException('관리자가 아닙니다.');
-    // }
-    console.log('ser', category_id, category_name, top_category_id);
+    if (confirmAdmin.is_admin !== 1) {
+      console.log('관리자가 아닙니다.');
+      throw new UnauthorizedException('관리자가 아닙니다.');
+    }
     await this.categoryReository.update(category_id, {
       category_name,
       top_category_id,
@@ -69,16 +63,11 @@ export class CategoryService {
 
   //카테고리 전체 조회
   async getCategoryAll() {
-    return await this.categoryReository.query(
-      `select category_name , top_category_id from category;`,
-    );
+    return await this.categoryReository.query(`select * from category;`);
   }
 
   //카테고리 삭제
   async deleteCategory(id: number) {
-    console.log('ser', id);
     await this.categoryReository.delete({ id });
-    //추후 softDelete -> entity에서 date타입을 추가해야함.
-    //MissingDeleteDateColumnError: Entity "Category" does not have delete date columns.
   }
 }

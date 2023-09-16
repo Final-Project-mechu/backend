@@ -7,10 +7,17 @@ import { User } from 'src/entity/user.entity';
 import { JwtConfigService } from 'src/config/jwt.config.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-
+import { S3Service } from 'src/aws/s3.service';
+import { MulterModule } from '@nestjs/platform-express';
+import { multerOptionsFactory } from 'src/multer/multer.options.factory';
 
 @Module({
   imports: [
+    MulterModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: multerOptionsFactory,
+      inject: [ConfigService],
+    }),
     TypeOrmModule.forFeature([User, Food]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -18,7 +25,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
   ],
-  providers: [FoodService],
+  providers: [FoodService, S3Service],
   controllers: [FoodController],
 })
 export class FoodModule {}

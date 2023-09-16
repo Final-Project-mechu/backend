@@ -5,13 +5,11 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { LoggerMiddleware } from './middleware/logger.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { CategoryModule } from './category/category.module';
 import { CommentsModule } from './comments/comments.module';
-import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { FoodModule } from './food/food.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { JwtModule } from '@nestjs/jwt';
@@ -26,20 +24,13 @@ import { join } from 'path';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailModule } from './mail/mail.module';
 import { FoodUserWeight } from './entity/food.user.weight.entity';
-import { UserAction } from './entity/user.action';
+import { UserAction } from './entity/user.action.entity';
 import { FoodIngredient } from './entity/food.ingredient.entity';
 import { Ingredient } from './entity/ingredient.entity';
 import { IngredientModule } from './ingredient/ingredient.module';
 import { UsersActionsModule } from './users.actions/users.actions.module';
-import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
 import { AuthModule } from './auth/auth.module';
-import { PassportModule } from '@nestjs/passport';
-import { FriendModule } from './friend/friend.module';
-import { FriendlistModule } from './friendlist/friendlist.module';
 import { FeedsModule } from './feeds/feeds.module';
-import { FoodsIngredientsController } from './foods.ingredients/foods.ingredients.controller';
-import { FoodsIngredientsService } from './foods.ingredients/foods.ingredients.service';
-import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.module';
 
 @Module({
   imports: [
@@ -70,7 +61,6 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
         },
       },
     }),
-    PassportModule.register({ session: false }),
     UsersModule,
     FoodModule,
     CategoryModule,
@@ -80,27 +70,23 @@ import { FoodsIngredientModule } from './foods.ingredients/foods.ingredients.mod
     Ingredient,
     Favorite,
     CommentsModule,
-    AdvertisementsModule,
     JwtModule,
     FavoritesModule,
     JwtModule,
     MailModule,
     IngredientModule,
     UsersActionsModule,
-    FoodsUsersWeightsModule,
-    FriendModule,
     AuthModule,
-    FriendlistModule,
     FeedsModule,
   ],
-  controllers: [AppController, FoodsIngredientsController],
-  providers: [AppService, AuthMiddleware, FoodsIngredientsService],
+  controllers: [AppController],
+  providers: [AppService, AuthMiddleware],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
     consumer.apply(AuthMiddleware).forRoutes(
       { path: 'users/find', method: RequestMethod.GET },
+      { path: 'users/findAdmin', method: RequestMethod.GET },
       { path: 'users/update', method: RequestMethod.PATCH },
       { path: 'users/quit', method: RequestMethod.POST },
       { path: 'users/logout', method: RequestMethod.POST },
@@ -120,10 +106,16 @@ export class AppModule implements NestModule {
       { path: 'friends/accept-friend', method: RequestMethod.POST },
       { path: 'food', method: RequestMethod.POST },
       { path: 'food/:food_id', method: RequestMethod.PATCH },
+      { path: 'foods-ingredients', method: RequestMethod.POST },
+      { path: 'foodimage', method: RequestMethod.POST },
+      { path: 'food/foodimg', method: RequestMethod.POST },
+      { path: 'food/foodimg/:food_id', method: RequestMethod.PATCH },
+      { path: 'food/foodimg/:food_id', method: RequestMethod.DELETE },
       { path: 'feeds', method: RequestMethod.POST },
       { path: 'feeds/common', method: RequestMethod.POST },
       { path: 'feeds/:id', method: RequestMethod.PATCH },
       { path: 'feeds/:id', method: RequestMethod.DELETE },
+      { path: 'feeds/:id/like/user', method: RequestMethod.GET },
       { path: 'feeds/:id/like', method: RequestMethod.POST },
       { path: 'feeds/:id/like', method: RequestMethod.DELETE },
       { path: 'user-actions/favorites', method: RequestMethod.GET },

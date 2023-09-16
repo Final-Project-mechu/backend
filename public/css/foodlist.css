@@ -1,0 +1,135 @@
+.food-list {
+  position: relative;
+  right: 100px;
+}
+
+.foodBtn {
+  padding: 7px 10px;
+  font-size: 20px;
+  border: none;
+  position: relative;
+  display: inline-block;
+  padding: 7px 30px;
+  color: white;
+  margin: 0 15px 20px 15px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  background-color: #82c8a0;
+  box-shadow:
+    0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(126, 194, 155, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
+}
+
+.foodBtn:active {
+  top: 4px;
+}
+
+#addMenuButton {
+  z-index: 10;
+  border: none;
+  padding: 7px 10px;
+  font-size: 20px;
+  z-index: 10;
+  position: relative;
+  border: none;
+  display: inline-block;
+  color: white;
+  margin: 0 15px 30px 15px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  background-color: #82c8a0;
+  box-shadow:
+    0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(126, 194, 155, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
+}
+
+#addMenuButton:active {
+  top: 4px;
+}
+
+#addMenuButton hover {
+  background-color: #80c49d;
+}
+
+.adminButton {
+  text-align: center;
+}
+
+#searchInput {
+  position: relative;
+  margin-left: 100px;
+}
+
+#searchInput::placeholder {
+  color: black;
+}
+
+.Admin-Button {
+  text-align: center;
+}
+
+.tooltipdiv {
+  text-align: center;
+}
+
+.button_control2 {
+  transition: 0.1s;
+  color: #fff;
+  font-size: 22px;
+  padding: 7px 10px;
+  color: white;
+  margin: 0 40px 20px 15px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  background-color: #6da2d9;
+  box-shadow:
+    0 0 0 1px #6698cb inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(110, 164, 219, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 50px;
+  position: relative;
+}
+
+.tooltip_layer2 {
+  display: none;
+  width: 400px;
+  height: 120px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8d776;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: 0 auto;
+  position: relative;
+  right: 0px;
+  margin-bottom: 20px;
+  text-align: center;
+  z-index: 10;
+}
+
+.tooltip_wrap {
+  text-align: center;
+}
+
+.ButtonAdmin {
+  text-align: center;
+}

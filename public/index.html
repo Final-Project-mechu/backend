@@ -2,12 +2,14 @@
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap"
       rel="stylesheet"
     />
     <!-- bootstrap 적용을 위한 링크(모달창) -->
@@ -20,7 +22,6 @@
     <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/modaltest.css" type="text/css" />
   </head>
@@ -45,27 +46,23 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
+            <button type="button" class="signbutton" onclick="openLoginModal()">
+              로그인하기
+            </button>
             <button
               type="button"
               class="signbutton"
+              id="closeButton"
               data-bs-dismiss="modal"
               aria-label="Close"
+              onclick="closeSignUpModal()"
             >
               <span aria-hidden="true">X</span>
             </button>
           </div>
           <div class="modal-body">
             <form class="sign-wrap">
-              <div class="row mb-3">
-                <div class="col">
-                  <input
-                    id="admin"
-                    class="modal-input"
-                    placeholder="일반회원=0, 관리자=1"
-                    required
-                  />
-                </div>
-              </div>
+              <div class="row mb-3"></div>
               <div class="row mb-3">
                 <div class="col">
                   <input
@@ -111,32 +108,38 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="인증 번호"
-                    class="modal-input"
-                    placeholder="비밀번호"
-                    id="signupPassword"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col">
-                  <input
-                    type="인증 번호"
-                    class="modal-input"
-                    id="signupPasswordConfirm"
-                    placeholder="비밀번호 확인"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col">
-                  <input
                     type="code"
                     class="modal-input"
                     placeholder="닉네임"
                     id="signupNickname"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <div class="input-container">
+                    <input
+                      type="password"
+                      class="modal-input"
+                      id="signupPassword"
+                      placeholder="비밀번호"
+                      required
+                    />
+                    <span class="placeholder-text"
+                      ><br />
+                      비밀번호는 영소문자+숫자 6~10자리입니다.</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <input
+                    type="password"
+                    class="modal-input"
+                    id="signupPasswordConfirm"
+                    placeholder="비밀번호 확인"
                     required
                   />
                 </div>
@@ -149,7 +152,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button class="signButton" onclick="sign(event)">회원 가입</button>
+            <button class="signbutton" onclick="sign(event)">회원 가입</button>
           </div>
         </div>
       </div>
@@ -194,7 +197,7 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="code"
+                    type="password"
                     id="loginPass"
                     class="modal-input"
                     placeholder="비밀번호"
@@ -255,15 +258,34 @@
                   >
                     <i class="fa fa-user"></i>로그인
                   </a>
-                  <a href="#" id="logoutClick" class="logoutClick d-none" onclick="signOut()">
-                    <i class="fa fa-user"></i> 로그아웃&nbsp;&nbsp;&nbsp;
+                  <a
+                    href="./favoritelist.html"
+                    id="favoriteClick"
+                    class="favoriteClick d-none"
+                  >
+                    <i class="fa fa-user"></i>찜목록&nbsp;&nbsp;&nbsp;
                   </a>
                   <a
                     href="./mypage.html"
                     id="mypageClick"
                     class="mypageClick d-none"
                   >
-                    <i class="fa fa-user"></i> 마이페이지
+                    <i class="fa fa-user"></i>마이페이지&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a
+                    href="./foodlist-admin.html"
+                    id="mypageClick"
+                    class="mypageClick d-none"
+                  >
+                    <i class="fa fa-user"></i>관자리메뉴판&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a
+                    href="#"
+                    id="logoutClick"
+                    class="logoutClick d-none"
+                    onclick="signOut()"
+                  >
+                    <i class="fa fa-user"></i>로그아웃&nbsp;&nbsp;&nbsp;
                   </a>
                 </div>
               </div>
@@ -284,11 +306,15 @@
           <div class="col-lg-8" style="max-width: 1000px">
             <nav class="header__menu">
               <ul>
-                <li class="active"><a href="./index.html">홈</a></li>
-                <li><a href="./preference.html">선호도</a></li>
-                <li><a href="./foodlist.html">메뉴판</a></li>
-                <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
-                <li><a href="./feed.html">피드</a></li>
+                <li class="active"></li>
+                <li>
+                  <a id="tob-bar" href="./preference.html">선호도 조사</a>
+                </li>
+                <li>
+                  <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
+                </li>
+                <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
+                <li><a id="tob-bar" href="./feed.html">피드</a></li>
               </ul>
             </nav>
           </div>
@@ -302,124 +328,15 @@
           </div>
         </div>
       </div>
-    </header>
     <!-- 탑바 끝 -->
     <!-- Featured Section Begin -->
     <section class="featured-spad">
-      <div
-        class="hero__item set-bg"
-        style="display: flex; justify-content: center; align-items: center"
-        data-setbg="img/hero/pancake.jpg"
-      >
-        <div class="hero__text">
-          <h2 style="color: black; margin-top: 50px">TOGETHER EAT!</h2>
-          <a href="menu-subscribe.html" class="main-btn">메뉴 추천받기</a>
-        </div>
+      <div style="margin-bottom: 100px" class="menu-preference-container">
+        <h2 style="color: black; margin-top: 30px">오늘 뭐 먹을지 결정하셨나요?</h2>
+        <a href="./preference.html" class="mainPreferBtn">선호도 조사</a>
+        <a href="menu-subscribe.html" class="mainMenuBtn">메뉴 추천</a>
       </div>
     </section>
-    <!-- Featured Section End -->
-    <!-- Blog Section Begin -->
-    <section class="from-blog spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="section-title from-blog__title">
-              <h2>From The Blog</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <!-- 피드 나누기 : 이 부분을 복사하면 피드가 여러 개 복사됨 -->
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="img/blog/blog-1.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5><a href="#">Feed Title</a></h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="img/blog/blog-2.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5><a href="#">Feed Title</a></h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="img/blog/blog-3.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5><a href="#">Feed Title</a></h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="img/blog/blog-3.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5><a href="#">Feed Title</a></h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="img/blog/blog-3.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5><a href="#">Feed Title</a></h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="img/blog/blog-3.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5><a href="#">Feed Title</a></h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Blog Section End -->
-
-    <!-- Footer Section Begin -->
     <footer class="footer spad">
       <div class="container">
         <div class="row">
@@ -455,7 +372,7 @@
                   </script>
                   All rights reserved | This page is made by TEAM TOGETHER EAT!
                   김세령 오준석 이서원 최하영 함형진
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  <!-- Link back to C olorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
               </div>
             </div>
@@ -465,11 +382,49 @@
     </footer>
     <!-- Footer Section End -->
     <!-- 적용하려는 script 파일 -->
+    <script>
+      window.onload = function (event) {
+        // 쿠키를 가져옵니다.
+        let cookies = document.cookie;
+
+        // 페이지를 방문한 적이 있고, AccessToken 또는 RefreshToken이 없는 경우에 모달을 로드합니다.
+        if (
+          sessionStorage.getItem('visitedBefore') === 'true' &&
+          !cookies.includes('AccessToken') &&
+          !cookies.includes('RefreshToken')
+        ) {
+          const signModal = document.getElementById('signModal');
+          const bsModal = new bootstrap.Modal(signModal);
+          bsModal.show();
+
+          const closeButton = document.getElementById('closeButton'); // closeButton는 모달을 닫는 버튼의 ID입니다.
+
+          // 모달을 닫는 버튼에 클릭 이벤트를 추가합니다.
+          closeButton.addEventListener('click', function () {
+            bsModal.hide(); // 모달을 닫습니다.
+          });
+        }
+
+        // 페이지를 방문한 흔적을 남깁니다.
+        sessionStorage.setItem('visitedBefore', 'true');
+      };
+    </script>
+    <script>
+      function openLoginModal() {
+      const loginModal = document.getElementById('loginModal');
+      const bsLoginModal = new bootstrap.Modal(loginModal);
+      bsLoginModal.show();
+
+      const signUpModal = document.getElementById('signUpModal');
+      const bsSignUpModal = new bootstrap.Modal(signUpModal);
+      bsSignUpModal.hide();
+    }
+    </script>
     <script src="./src/user.js" defer></script>
+    <script src="./src/dailymenu.js" defer></script>
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>

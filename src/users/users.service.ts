@@ -24,16 +24,16 @@ export class UsersService {
     private mailservice: MailService,
   ) {}
 
-  async getUserInfo(email: string) {
+  async findUser(email: string) {
     return await this.userRepository.findOne({
-      where: { email },
-      select: ['id', 'email', 'password', 'nick_name'],
+      where: { email, deletedAt: null },
+      select: ['id', 'nick_name', 'password', 'refresh_token'],
     });
   }
 
-  async getUserNickName(email: string) {
+  async getUserNickName(user_id: number) {
     return await this.userRepository.findOne({
-      where: { email },
+      where: { id: user_id },
       select: ['nick_name'],
     });
   }
@@ -84,74 +84,62 @@ export class UsersService {
     password: string,
     // 회원가입 로직에서 중복이메일을 한번 더 체크
   ) {
+    if (password.length < 6 || password.length > 10) {
+      throw new BadRequestException(
+        '비밀번호는 6자리 이상, 10자리 이하여야 합니다.',
+      );
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const existUser = await this.getUserInfo(email);
+    const existUser = await this.findUser(email);
     if (!_.isNil(existUser)) {
       throw new ConflictException(
         `e메일이 이미 사용 중입니다. email: ${email}`,
       );
     }
-
-    // 지금 테스트때문에 막아놨음
-    // 이메일이 인증된 이메일인지 확인한다.
-    // if (!isEmailVerified['email'] === true) {
-    //   console.log('이메일확인용 콘솔', isEmailVerified);
-    //   throw new ConflictException(`인증된 이메일이 아닙니다.`);
-    // }
-
     const insertResult = await this.userRepository.insert({
       is_admin,
       email,
       nick_name,
       password: hashedPassword,
     });
-
-    const newUser = {
+    const payload = {
       id: insertResult.identifiers[0].id,
-      is_admin,
-      email,
-      nick_name,
     };
-
-    delete isEmailVerified[email];
-
-    return newUser;
+    const accessToken = await this.jwtService.signAsync(payload, {
+      expiresIn: '30m',
+    });
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      expiresIn: '7d',
+    });
+    await this.userRepository.update(insertResult.identifiers[0].id, {
+      refresh_token: refreshToken,
+    });
+    return { access_Token: accessToken, refresh_Token: refreshToken };
   }
 
   async login(email: string, password: string) {
-    try {
-      const userConfirm = await this.getUserInfo(email);
-      if (_.isNil(userConfirm)) {
-        throw new NotFoundException(
-          `e메일을 찾을 수 없습니다. user email: ${email}`,
-        );
-      }
-
-      const matchedPassward = await bcrypt.compare(
-        password,
-        userConfirm.password,
+    const userConfirm = await this.findUser(email);
+    if (!userConfirm) {
+      throw new NotFoundException(
+        `e메일을 찾을 수 없습니다. user email: ${email}`,
       );
-
-      if (!matchedPassward) {
-        throw new ConflictException('비밀번호가 일치하지 않습니다.');
-      }
-
-      const payload = {
-        id: userConfirm.id,
-        nick_name: userConfirm.nick_name,
-      };
-      const accessToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '5s',
-      });
-
-      const refreshToken = await this.jwtService.signAsync(payload, {
-        expiresIn: '7d',
-      });
-
-      return { access_Token: accessToken, refresh_Token: refreshToken };
-    } catch (error) {
-      throw error;
     }
+    const matchedPassward = await bcrypt.compare(
+      password,
+      userConfirm.password,
+    );
+    if (!matchedPassward) {
+      throw new ConflictException('비밀번호가 일치하지 않습니다.');
+    }
+    const payload = {
+      id: userConfirm.id,
+      nick_name: userConfirm.nick_name,
+    };
+    const accessToken = await this.jwtService.signAsync(payload, {
+      expiresIn: '30m',
+    });
+    const refreshToken = userConfirm.refresh_token;
+    return { accessToken, refreshToken };
   }
 
   async updateUser(
@@ -192,7 +180,7 @@ export class UsersService {
       select: ['password'],
     });
     if (!user) {
-      throw new UnauthorizedException('사용자를 찾을 수없습니다.');
+      throw new NotFoundException('유저를 찾을 수 없습니다.');
     }
 
     const matchedPassword = await bcrypt.compare(password, user.password);
@@ -231,5 +219,13 @@ export class UsersService {
       userToUpdate.is_admin = 1;
       await this.userRepository.save(userToUpdate); // 변경 사항을 저장합니다.
     }
+  }
+  
+  // 관리자 판별
+  async getUserAdmin(user_id: number) {
+    return await this.userRepository.findOne({
+      where: { id: user_id },
+      select: ['is_admin'],
+    });
   }
 }

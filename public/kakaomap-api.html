@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <title>오늘 뭐 먹지?</title>
     <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap"
       rel="stylesheet"
     />
     <!-- 카카오용 css -->
@@ -17,22 +19,18 @@
     <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/modaltest.css" type="text/css">
+    <link rel="stylesheet" href="css/modaltest.css" type="text/css" />
+    <script src="./src/dailymenu.js" defer></script>
     <!-- 카카오 api -->
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca07a2cd35a8566747953c5991111a1a&libraries=services"
     ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Axios 로드 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
+
     <script src="./src/kakaomap-api.js" defer></script>
   </head>
   <body>
@@ -43,8 +41,7 @@
           <div class="row">
             <div class="col-lg-6 col-md-6">
               <div class="header__top__left">
-                <ul>
-                </ul>
+                <ul></ul>
               </div>
             </div>
           </div>
@@ -52,37 +49,42 @@
       </div>
       <div class="container">
         <div class="top-row d-flex justify-content-between align-items-center">
-            <div class="col-lg-3" style="max-width: 150px;">
-                <div class="header__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt="" /></a>
-                </div>
+          <div class="col-lg-3" style="max-width: 150px">
+            <div class="header__logo">
+              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
             </div>
-            <nav class="humberger__menu__nav mobile-menu"></nav>
-            <div class="col-lg-8" style="max-width: 1000px;">
-                <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="./index.html">홈</a></li>
-                        <li><a href="./preference.html">선호도</a></li>
-                        <li><a href="./foodlist.html">메뉴판</a></li>
-                        <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
-                        <li><a href="./feed.html">피드</a></li>
-                    </ul>
-                </nav>
+          </div>
+          <nav class="humberger__menu__nav mobile-menu"></nav>
+          <div class="col-lg-8" style="max-width: 1000px">
+            <nav class="header__menu">
+              <ul>
+                <li></li>
+                <li>
+                  <a id="tob-bar" href="./preference.html">선호도 조사</a>
+                </li>
+                <li>
+                  <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
+                </li>
+                <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
+                <li><a id="tob-bar" href="./feed.html">피드</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3" style="max-width: 200px; text-align: center">
+            <div class="header__cart">
+              <div class="header__cart__price">
+                오늘의 메뉴: <span>차돌짬뽕</span>
+              </div>
             </div>
-            <div class="col-lg-3" style="max-width: 200px; text-align: center;">
-                <div class="header__cart">
-                    <div class="header__cart__price">오늘의 메뉴: <span>차돌짬뽕</span></div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-    
+      </div>
     </header>
     <!-- 탑바 끝 -->
     <div class="map_wrap">
       <div
         id="map"
-        style="width: 80%; height: 80%; position: relative; overflow: hidden;"
+        style="width: 80%; height: 80%; position: relative; overflow: hidden"
         class="mapdiv"
       ></div>
     </div>
@@ -94,6 +96,13 @@
       >
         추천받은 상점 찜하기
       </button>
+      <button
+        class="favoriteButton"
+        id="favoriteButton"
+        onclick="favoriteListClick()"
+      >
+        내 찜목록 가기
+      </button>
     </div>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -104,24 +113,33 @@
               <!-- GitHub Icon and Links -->
               <div class="footer__github">
                 <!-- GitHub Links -->
-                <a href="https://github.com/Final-Project-mechu" target="_blank">
-                  <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i>  
-                </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a
+                  href="https://github.com/Final-Project-mechu"
+                  target="_blank"
+                >
+                  <i class="fa fa-github">&nbsp;&nbsp;GitHub&nbsp;</i> </a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Notion Link -->
-                <a href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a
+                  href="https://www.notion.so/5-b54b9d92a97848b8acbb82453d9436f9"
+                  target="_blank"
+                  >Notion</a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Terms of Service Link -->
-                <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="./terms.html" target="_blank">이용약관</a
+                >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               </div>
-              <hr> <!-- Horizontal Line -->
+              <hr />
+              <!-- Horizontal Line -->
               <div class="footer__copyright__text">
                 <p>
-                  
                   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                   Copyright &copy;
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  All rights reserved | This page is made by TEAM TOGETHER EAT! 김세령 오준석 이서원 최하영 함형진
+                  All rights reserved | This page is made by TEAM TOGETHER EAT!
+                  김세령 오준석 이서원 최하영 함형진
                   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
               </div>
@@ -130,6 +148,6 @@
         </div>
       </div>
     </footer>
-    <!-- Footer Section End --> 
+    <!-- Footer Section End -->
   </body>
 </html>

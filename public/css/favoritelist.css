@@ -1,0 +1,137 @@
+.content-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 10px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.favorite-name {
+  text-align: left;
+  padding-left: 350px;
+  font-size: 40px;
+}
+
+.restaurant {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  position: relative; /* 체크 박스 위치 설정을 위해 추가 */
+}
+
+.list-group-item {
+  border: none;
+}
+
+.restaurant-name {
+  flex: 0 0 40%;
+  font-size: 24px;
+  padding: 40px 0;
+  padding-right: 10px;
+  border-right: 1px solid black;
+  text-align: center;
+}
+
+.restaurant-checkbox {
+  position: absolute; /* 체크 박스를 절대 위치로 설정 */
+  top: 10px; /* 상단에서 10px 떨어진 위치에 위치 */
+  left: 10px; /* 좌측에서 10px 떨어진 위치에 위치 */
+}
+
+.restaurant-details p {
+  border-bottom: 1px solid black;
+  padding: 5px 0;
+}
+
+.restaurant-details p:last-child {
+  border-bottom: none;
+}
+
+.button-group {
+  display: flex; /* 버튼들을 가로로 배열 */
+  justify-content: center; /* 버튼들을 중앙에 위치 */
+  align-items: center; /* 버튼들을 세로 중앙에 위치 */
+  margin-top: 20px; /* 버튼 그룹의 상단 마진 설정 */
+}
+
+.go-to-feed-btn,
+.delete-btn {
+  margin: 0 10px; /* 양쪽에 10px의 마진을 설정하여 버튼들 사이에 간격을 줌 */
+}
+
+.btn.btn-primary.go-to-feed-btn {
+  padding: 7px 10px;
+  font-size: 20px;
+  z-index: 10;
+  position: relative;
+  border: none;
+  display: inline-block;
+  color: white;
+  margin: 0 15px 20px 15px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  background-color: #82c8a0;
+  box-shadow:
+    0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(126, 194, 155, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
+}
+
+.btn.btn-primary.go-to-feed-btn:active {
+  top: 4px;
+}
+
+.btn.btn-primary.go-to-feed-btn hover {
+  background-color: #80c49d;
+}
+
+.btn.btn-danger.delete-btn {
+  padding: 7px 10px;
+  font-size: 20px;
+  z-index: 10;
+  position: relative;
+  border: none;
+  display: inline-block;
+  color: white;
+  margin: 0 15px 20px 15px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  background-color: #82c8a0;
+  box-shadow:
+    0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(126, 194, 155, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
+  top: 4px;
+}
+
+.btn.btn-danger.delete-btn hover {
+  background-color: #80c49d;
+}
+
+.btn.btn-danger.delete-btn:active {
+  top: 4px;
+}
+
+.list-group a {
+  &:link {
+    color: blue;
+  }
+  &:visited {
+    color: green;
+  }
+  &:hover {
+    color: red;
+  }
+  &:active {
+    color: black;
+  }
+}

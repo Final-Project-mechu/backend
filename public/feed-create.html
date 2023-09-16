@@ -2,16 +2,16 @@
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Ogani Template" />
-    <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap"
       rel="stylesheet"
     />
     <!-- bootstrap 적용을 위한 링크(모달창) -->
@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/modaltest.css" type="text/css">
   </head>
@@ -34,60 +33,99 @@
     <div id="preloder">
       <div class="loader"></div>
     </div>
-        <!-- 탑바 시작 -->
-        <header class="header">
-          <div class="header__top">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-6 col-md-6">
-                  <div class="header__top__left">
-                    <ul>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                  <div class="header__top__right">
-                    <div class="header__top__right__auth d-flex">
-                      <a href="#" data-bs-toggle="modal" data-bs-target="#signModal">
-                        <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
-                      </a>
-                      <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        <i class="fa fa-user"></i>로그인
-                      </a>
-                    </div>
-                  </div>
+    <!-- 탑바 시작 -->
+    <header class="header">
+      <div class="header__top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="header__top__left">
+                <ul></ul>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="header__top__right">
+                <div class="header__top__right__auth d-flex">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#signModal"
+                    id="signClick"
+                    class="signClick"
+                  >
+                    <i class="fa fa-user"></i> 회원가입&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    id="loginClick"
+                    class="loginClick"
+                  >
+                    <i class="fa fa-user"></i>로그인
+                  </a>
+                  <a
+                    href="./favoritelist.html"
+                    id="favoriteClick"
+                    class="favoriteClick d-none"
+                  >
+                    <i class="fa fa-user"></i>찜목록&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a
+                    href="./mypage.html"
+                    id="mypageClick"
+                    class="mypageClick d-none"
+                  >
+                    <i class="fa fa-user"></i>마이페이지&nbsp;&nbsp;&nbsp;
+                  </a>
+                  <a
+                    href="#"
+                    id="logoutClick"
+                    class="logoutClick d-none"
+                    onclick="signOut()"
+                  >
+                    <i class="fa fa-user"></i>로그아웃&nbsp;&nbsp;&nbsp;
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-          <div class="container">
-            <div class="top-row d-flex justify-content-between align-items-center">
-                <div class="col-lg-3" style="max-width: 150px;">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt="" /></a>
-                    </div>
-                </div>
-                <nav class="humberger__menu__nav mobile-menu"></nav>
-                <div class="col-lg-8" style="max-width: 1000px;">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">홈</a></li>
-                            <li><a href="./preference.html">선호도</a></li>
-                            <li><a href="./foodlist.html">메뉴판</a></li>
-                            <li><a href="./menu-subscribe.html">메뉴 추천</a></li>
-                            <li><a href="./feed.html">피드</a></li>
-                            <li><a href="./mypage.html">마이페이지용</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3" style="max-width: 200px; text-align: center;">
-                    <div class="header__cart">
-                        <div class="header__cart__price">오늘의 메뉴: <span>차돌짬뽕</span></div>
-                    </div>
-                </div>
-            </div>
         </div>
-        </header>
+      </div>
+      <div class="container">
+        <div class="top-row d-flex justify-content-between align-items-center">
+          <div class="col-lg-3" style="max-width: 150px">
+            <div class="header__logo">
+              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+            </div>
+          </div>
+          <nav class="humberger__menu__nav mobile-menu"></nav>
+          <div class="col-lg-8" style="max-width: 1000px">
+            <nav class="header__menu">
+              <ul>
+                <li class="active">
+                </li>
+                <li>
+                  <a id="tob-bar" href="./preference.html">선호도 조사</a>
+                </li>
+                <li>
+                  <a id="tob-bar" href="./menu-subscribe.html">메뉴 추천</a>
+                </li>
+                <li><a id="tob-bar" href="./foodlist.html">메뉴판</a></li>
+                <li><a id="tob-bar" href="./feed.html">피드</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3" style="max-width: 200px; text-align: center">
+            <div class="header__cart">
+              <div class="header__cart__price">
+                오늘의 메뉴: <span>차돌짬뽕</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
     <!-- 탑바 끝 -->
     <!-- Main Section Begin -->
     <div class="contact-form spad">
@@ -104,24 +142,18 @@
                     <div class="col-lg-12">
                         <div class="checkout__input">
                         <p>TITLE<span>*</span></p>
-                        <input id="feedtitle" type="text" placeholder="제목은 5자 이상 입력해주세요">
+                        <input id="feedtitle" type="text" placeholder="제목을 입력해주세요">
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <label for="menuImage">등록하려는 찜 목록(최대 6개까지 선택 가능)<span>*</span></label>
                         <br></br>
-                        <button id="openNewWindowBtn">담았던 상점 보기</button>
-                        <input id="favoriteid" type="text">
-                    </div>
-                    <div class="col-lg-12">
-                        <br></br>
-                        <label for="menuImage">이미지 추가<span>*</span></label>
+                        <label for="menuImage">이미지를 등록해주셔야 생성이 가능합니다.<span></span></label>
                         <input type="file" class="form-control" id="menuImage">
                     </div>
                     <div class="col-lg-12 text">
                         <div class="checkout__input">
                             <p>CONTENT<span>*</span></p>
-                            <textarea id="description" placeholder="내용은 20자 이상 입력해주세요"></textarea>
+                            <textarea id="description" placeholder="내용은 5자 이상 입력해주세요"></textarea>
                         </div>
                     </div>
                     <div class="col-lg-12 text-center">
@@ -148,7 +180,8 @@
                 <!-- Notion Link -->
                 <a href="https://www.notion.so/your_notion_page" target="_blank">Notion</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 <!-- Terms of Service Link -->
-                <a href="https://www.yourwebsite.com/terms" target="_blank">이용약관</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="./terms.html" target="_blank">이용약관</a
+                  >&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               </div>
               <hr> <!-- Horizontal Line -->
               <div class="footer__copyright__text">
@@ -170,10 +203,10 @@
     </footer>
     <!-- Footer Section End -->
     <script src="./src/feed-create.js"></script>
+    <script src="./src/dailymenu.js" defer></script>
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>

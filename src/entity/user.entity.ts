@@ -13,10 +13,8 @@ import { Feed } from './feed.entity';
 import { Comment } from './comment.entity';
 import { Favorite } from './favorite.entity';
 import { FoodUserWeight } from './food.user.weight.entity';
-import { UserAction } from './user.action';
+import { UserAction } from './user.action.entity';
 import { FeedLike } from './feed.like.entity';
-import { Friends } from './friend.entity';
-
 
 @Entity({ schema: 'finalpj', name: 'user' })
 export class User {
@@ -27,7 +25,7 @@ export class User {
   id: number;
   @OneToMany(() => Feed, feed => feed.users)
   feeds: Feed[];
-  @OneToMany(() => Comment, comment => comment.user_id)
+  @OneToMany(() => Comment, comment => comment.user)
   comment: Comment[];
   @OneToMany(() => Favorite, favorate => favorate.users)
   favorites: Favorite[];
@@ -37,8 +35,6 @@ export class User {
   userAction: UserAction[];
   @OneToMany(() => FeedLike, feedLike => feedLike.user_id)
   feedLike: FeedLike[];
-  @OneToMany(() => Friends, friends => friends.user_id)
-  friend: Friends[];
   @Index({ unique: true })
   @Column('varchar')
   email: string;
@@ -50,7 +46,7 @@ export class User {
   password: string;
   @Column('varchar', {
     select: false,
-    default: 'defalut-refresh',
+    default: uuidv4(),
   })
   refresh_token: string;
   @CreateDateColumn()

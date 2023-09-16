@@ -10,7 +10,7 @@ import { FeedLike } from 'src/entity/feed.like.entity';
 import { Favorite } from 'src/entity/favorite.entity';
 import { FeedFavorite } from 'src/entity/feed.favorite.entity';
 import { User } from 'src/entity/user.entity';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, IsNull, Not, Repository } from 'typeorm';
 import _ from 'lodash';
 import { S3Service } from 'src/aws/s3.service';
 
@@ -42,11 +42,11 @@ export class FeedsService {
     } else {
       favoriteIdsArry = [favorite_ids];
     }
+    const user = { id: user_id };
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      const user = { id: user_id };
       const createdFeed = await this.feedRepository.insert({
         users: user,
         title,
@@ -93,12 +93,13 @@ export class FeedsService {
 
   async getFeeds() {
     const allFeeds = await this.feedLikeRepository
-      .query(`select f.title, f.createdAt, f.image, count(fl.feed_id) as likecount 
-      from feed f
-      left join feed_like fl on f.id = fl.feed_id
-      group by f.id
-      order by likecount desc
-      `);
+      .query(`select f.id, f.title, f.createdAt, f.deletedAt, f.image, count(fl.feed_id) as likecount 
+  from feed f
+  left join feed_like fl on f.id = fl.feed_id
+  where f.deletedAt is null
+  group by f.id
+  order by likecount desc
+  `);
     return allFeeds;
   }
 
@@ -117,29 +118,19 @@ export class FeedsService {
       ],
     });
     const feedOwner = feedInfo.user_id;
+    const feedCount = await this.getFeedLikes(id);
     const feedNickname = await this.userRepository.findOne({
       where: { id: feedOwner },
       select: ['nick_name'],
     });
-    const findFeedinFavorites = await this.feedFavoriteRepository.find({
-      where: { feed_id: id },
-      select: ['favorite_id'],
-    });
-    const favoriteIds = findFeedinFavorites.map(
-      feedFavorite => feedFavorite.favorite_id,
-    );
-
-    if (favoriteIds.length > 0) {
-      const favoriteInfos = [];
-      for (const favoriteId of favoriteIds) {
-        const favoriteInfo = await this.favoriteRepository.findOne({
-          where: { id: favoriteId },
-        });
-        favoriteInfos.push(favoriteInfo);
-      }
-      return [feedInfo, feedNickname, favoriteInfos];
+    if (!feedNickname) {
+      const findDeletedUser = await this.userRepository.query(
+        `select nick_name from user where id = ${feedOwner}`,
+      );
+      const deletedUser = findDeletedUser[0];
+      return [feedInfo, deletedUser, feedCount];
     } else {
-      return [feedInfo, feedNickname];
+      return [feedInfo, feedNickname, feedCount];
     }
   }
 
@@ -155,7 +146,18 @@ export class FeedsService {
       where: { id: id },
     });
     if (!title && !description && !file) {
-      throw new BadRequestException('수정사항이 하나라도 있어야합니다.');
+      throw new BadRequestException(
+        '제목, 내용, 이미지 파일을 모두 입력해주세요!',
+      );
+    }
+    if (!title) {
+      throw new BadRequestException('제목을 입력해주세요!');
+    }
+    if (!description) {
+      throw new BadRequestException('내용을 입력해주세요!');
+    }
+    if (!file) {
+      throw new BadRequestException('파일을 첨부해주세요!');
     }
     if (_.isNil(findFeed)) {
       throw new NotFoundException(
@@ -185,6 +187,18 @@ export class FeedsService {
     }
     await this.feedRepository.softDelete(id);
     return { message: `피드번호 ${id}번의 피드가 삭제되었습니다.` };
+  }
+
+  // 유저가 특정 피드를 좋아요 했는지 조회
+  async getUserFeedLike(id: number, user_id: number) {
+    const findFeedLike = await this.feedLikeRepository.exist({
+      where: { feed_id: id, user_id },
+    });
+    if (findFeedLike) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // 피드의 좋아요 수 조회하기

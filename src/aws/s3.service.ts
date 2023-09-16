@@ -23,15 +23,14 @@ export class S3Service {
   async putObject(image: any) {
     const resizeImg = sharp(image.path);
     let { width, height } = await resizeImg.metadata();
-
     if (_.isUndefined(width)) {
       width = 1;
     }
     if (_.isUndefined(height)) {
       height = 1;
     }
-    const maxWidth = 800;
-    const maxHeight = 600;
+    const maxWidth = 200;
+    const maxHeight = 200;
     const ratio = Math.min(maxWidth / width, maxHeight / height);
 
     await this.client.send(

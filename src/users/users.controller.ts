@@ -1,30 +1,18 @@
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-
 import {
   BadRequestException,
   Body,
   Controller,
-  Delete,
   Get,
-  HttpStatus,
-  Param,
   Patch,
   Post,
-  Put,
-  Query,
   Req,
-  Res,
-  UnauthorizedException,
-  UseGuards,
 } from '@nestjs/common';
-
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create.user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Request, Response, response } from 'express';
+import { Request } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
-
 interface RequestWithLocals extends Request {
   locals: {
     user: {
@@ -40,8 +28,9 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get('/find')
-  async getUserEmail(@Query('email') email: string) {
-    const usefInfo = await this.userService.getUserNickName(email);
+  async getUserEmail(@Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    const usefInfo = await this.userService.getUserNickName(auth.id);
     return usefInfo.nick_name;
   }
 
@@ -61,40 +50,34 @@ export class UsersController {
 
   // 회원가입
   @Post('/sign')
-  async createUser(@Body() data) {
+  async createUser(@Body() data: CreateUserDto) {
     const newUser = await this.userService.createUser(
       data.is_admin,
       data.email,
       data.nick_name,
       data.password,
     );
-    return { message: '회원가입이 완료되었습니다.' };
+
+    return {
+      AccessToken: 'Bearer ' + newUser.access_Token,
+      RefreshToken: 'Bearer ' + newUser.refresh_Token,
+    };
   }
 
   //로그인
   @Post('/login')
-  async login(
-    @Body() data: LoginUserDto,
-    @Res({ passthrough: true }) response: Response,
-  ) {
+  async login(@Body() data: LoginUserDto) {
     const authentication = await this.userService.login(
       data.email,
       data.password,
     );
-    response.cookie('Authentication', 'Bearer ' + authentication.access_Token);
-    response.cookie('Authentication', 'Bearer ' + authentication.refresh_Token);
-
-    return { message: authentication };
+    return {
+      AccessToken: 'Bearer ' + authentication.accessToken,
+      RefreshToken: 'Bearer ' + authentication.refreshToken,
+    };
   }
 
-  //로그아웃 기능 구현중
-  @Delete('/logout')
-  async signout(@Res() response: Response) {
-    response.clearCookie('Authentication');
-    return response.status(200).send('signed out successfully');
-  }
-
-  //유저 정보 수정(패스워드)
+  //유저 정보 수정(닉네임, 패스워드)
   @Patch('/update')
   async updateUser(
     @Body() data: UpdateUserDto,
@@ -136,5 +119,13 @@ export class UsersController {
       // 오류 처리
       return { error: 'is_admin 값을 변경하는 중 오류가 발생했습니다.' };
     }
+  }
+
+  //관리자 판별
+  @Get('/findAdmin')
+  async getUserAdmin(@Req() request: RequestWithLocals) {
+    const auth = request.locals.user;
+    const userInfo = await this.userService.getUserAdmin(auth.id);
+    return userInfo.is_admin;
   }
 }

@@ -1,0 +1,17 @@
+.section-title h2:after {
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+  right: 0;
+  height: 4px;
+  width: 700px;
+  background: #7fad39;
+  content: '';
+  margin: 0 auto;
+}
+.site-btn {
+  left: 3px;
+}
+#writeButton {
+  margin-bottom: 30px;
+}

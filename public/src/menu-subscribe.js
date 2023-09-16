@@ -75,7 +75,6 @@ const resultDiv = document.getElementById('result3'); // resultDiv 변수 선언
 
 emptyHeartIcon.addEventListener('click', function () {
   const foodName = resultDiv.textContent.trim();
-
   axios
     .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
     .then(response => {
@@ -121,7 +120,6 @@ function sendRequest(categoryId) {
     })
     .then(displayCategoryResponse)
     .catch(error => {
-      console.error('Error:', error);
       alert('요청 중 오류가 발생했습니다.');
     });
 }
@@ -151,7 +149,6 @@ axios
   .get('http://localhost:3000/category')
   .then(response => createCategoryButtons(response.data))
   .catch(error => {
-    console.error('Error:', error);
     alert('요청 중 오류가 발생했습니다.');
   });
 

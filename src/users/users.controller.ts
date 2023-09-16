@@ -6,13 +6,11 @@ import {
   Patch,
   Post,
   Req,
-  Res,
-  Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create.user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { DeleteUserDto } from './dto/delete.user.dto';
 interface RequestWithLocals extends Request {
@@ -122,7 +120,7 @@ export class UsersController {
       return { error: 'is_admin 값을 변경하는 중 오류가 발생했습니다.' };
     }
   }
-  
+
   //관리자 판별
   @Get('/findAdmin')
   async getUserAdmin(@Req() request: RequestWithLocals) {

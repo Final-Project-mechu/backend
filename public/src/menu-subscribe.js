@@ -11,7 +11,6 @@ function openKakaopage(keyword) {
     const kakaoUrl =
       'http://localhost:3000/kakaomap-api.html?keyword=' + keyword;
     window.open(kakaoUrl, '_blank');
-    console.log('kakaoUrl', kakaoUrl);
   };
 }
 
@@ -51,10 +50,15 @@ function displayCategoryResponse(response) {
     // 빈 하트로 초기화하고 표시
     emptyHeartIcon.style.display = 'inline-block';
     filledHeartIcon.style.display = 'none';
-
     storeBtn.style.display = 'block';
+
+    if (keywordResult) {
+      storeBtn.removeEventListener('click', openKakaopage(keywordResult));
+    }
     keywordResult = response.data;
+    storeBtn.removeEventListener('click', openKakaopage(keywordResult));
     storeBtn.addEventListener('click', openKakaopage(keywordResult));
+
     isRequestInProgress = false;
     submitButton.disabled = false;
   }, 3000);
@@ -65,8 +69,6 @@ const resultDiv = document.getElementById('result3'); // resultDiv 변수 선언
 // 빈 하트 아이콘 클릭 이벤트
 emptyHeartIcon.addEventListener('click', function () {
   const foodName = resultDiv.textContent.trim();
-  console.log('foodName:', foodName);
-
   axios
     .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
     .then(response => {
@@ -87,7 +89,6 @@ emptyHeartIcon.addEventListener('click', function () {
 // 꽉 찬 하트 아이콘 클릭 이벤트
 filledHeartIcon.addEventListener('click', function () {
   const foodName = resultDiv.textContent.trim();
-  console.log('foodName:', foodName);
 
   axios
     .post('http://localhost:3000/user-actions/likes', { foodName: foodName })
@@ -107,14 +108,12 @@ filledHeartIcon.addEventListener('click', function () {
 });
 
 function sendRequest(categoryId) {
-  console.log('Sending request for category:', categoryId);
   axios
     .post('http://localhost:3000/user-actions/random-weighted-foods', {
       category_id: categoryId,
     })
     .then(displayCategoryResponse)
     .catch(error => {
-      console.error('Error:', error);
       alert('요청 중 오류가 발생했습니다.');
     });
 }
@@ -144,7 +143,6 @@ axios
   .get('http://localhost:3000/category')
   .then(response => createCategoryButtons(response.data))
   .catch(error => {
-    console.error('Error:', error);
     alert('요청 중 오류가 발생했습니다.');
   });
 
@@ -155,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
       selectedCategoryId = 0;
       document.querySelector('.food-item.meal').textContent =
         '전체가 선택되었습니다.';
-      // event.stopPropagation();
     });
   }
 

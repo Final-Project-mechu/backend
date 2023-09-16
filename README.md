@@ -1,6 +1,6 @@
 # 🍖프로젝트 로고
 <p align="center">
-<img width="600" alt="image" src="https://github.com/rammakasty/readmy/assets/25074165/87cb2d43-9f69-4892-973d-d6636c95c1f9">
+<img width="600" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/a113c420-3540-4191-a0f9-ea639679eb1d">
 </p>
 
 ## ✍🏻 서비스 소개
@@ -20,13 +20,15 @@
 ## 🌿 핵심 기능 <br>
   <summary>🍕 음식 랜덤 뽑기</summary>
   <br>
-    - 선호도 조사와 사용자의 음식 선택 가중치를 적용된 수치가 확률로 환산되어 음식이 추천되게 됩니다. <br>
+    - 선호도 조사와 사용자의 음식 선택 가중치를 적용된 수치가 확률로 환산되어 음식이 추천되게 됩니다.
+     뽑기된 음식과 관련된 식당을 카카오 맵 api를 통해 랜덤 추첨하게 됩니다. <br>
+
 
 
 ## ❄️ Project Architecture
 
 <p align="center">
-<img width="766" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/0a8255b5-1a88-411c-83df-a88f2705dde6">
+<img width="766" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/1bf341dc-ca71-4d2e-a527-3328a8187587">
 </p>
 
 
@@ -61,8 +63,8 @@
 ## 📋 ERD
 ### [erd](https://www.erdcloud.com/d/NCvcJMym5hyi5PSAS)
 <p align="center">
-<img width="1000" alt="image" src="https://github.com/rammakasty/readmy/assets/25074165/0aead7f6-1191-47b4-913e-d323ea99c740">
+<img width="1000" alt="image" src="https://github.com/Final-Project-mechu/backend/assets/25074165/ae61c589-2913-4b3b-8e54-ed87f345b46a">
 </p>
 
-  - api
+## 📋 api
 # [api](https://app.gitbook.com/o/3ZIunUQ2WiZIp9gGAoWE/s/Kqw3yoEod59gXOBkMex4/)

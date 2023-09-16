@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <title>오늘 뭐 먹지?</title>
     <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap"
       rel="stylesheet"
     />
     <!-- 카카오용 css -->
@@ -98,6 +100,13 @@
         onclick="addToFavorite()"
       >
         추천받은 상점 찜하기
+      </button>
+      <button
+        class="favoriteButton"
+        id="favoriteButton"
+        onclick="favoriteListClick()"
+      >
+        내 찜목록 가기
       </button>
     </div>
     <!-- Footer Section Begin -->

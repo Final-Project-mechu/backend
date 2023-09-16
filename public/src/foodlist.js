@@ -3,6 +3,7 @@ if (!window.location.hash) {
   window.location = window.location + '#loaded';
   window.location.reload();
 }
+
 //관리자버튼 display 판별
 document.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -212,4 +213,8 @@ function displaySearchResults(foods) {
         </div>`;
     foodsContainer.appendChild(foodItem);
   });
+}
+
+function moveAdmin() {
+  location.href = 'http://localhost:3000/foodlist-admin.html#loaded';
 }

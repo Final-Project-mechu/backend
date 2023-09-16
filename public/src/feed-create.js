@@ -71,6 +71,7 @@ function redirectToFeedPage() {
  * form데이터 방식으로 정보들을 보내는 함수
  */
 function feedCreate() {
+  document.getElementById('writeBtn').disabled = true;
   const titleInput = document.getElementById('feedtitle').value;
   const descriptionInput = document.getElementById('description').value;
   const imgFile = document.getElementById('menuImage').files[0];
@@ -93,6 +94,10 @@ function feedCreate() {
     })
     .catch(err => {
       alert('피드 작성에 실패하였습니다.');
+    })
+    .finally(function () {
+      // 글쓰기 버튼을 다시 활성화
+      document.getElementById('writeBtn').disabled = false;
     });
 }
 

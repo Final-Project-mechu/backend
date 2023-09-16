@@ -49,6 +49,7 @@ function displayCategoryResponse(response) {
     const latestKeyword = Array.isArray(response.data) ? response.data[response.data.length - 1] : response.data;
     resultDiv.innerHTML = `<h2 style="font-family:궁서체; color:#EB5A5A;">${latestKeyword}</h2>`;
 
+
     // 빈 하트로 초기화하고 표시
     emptyHeartIcon.style.display = 'inline-block';
     filledHeartIcon.style.display = 'none';

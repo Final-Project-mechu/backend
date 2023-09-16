@@ -23,6 +23,7 @@
   width: 100%;
   text-align: left;
   cursor: pointer;
+  border: none;
 }
 
 .menu-icon:hover .dropdown-menu {
@@ -30,36 +31,47 @@
 }
 
 .site-btn2 {
-  background: #09b820;
+  background: #87a86f;
   color: #e4d2d2;
   border-radius: 15px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   margin-right: 15px;
   margin-left: 15px;
-  text-align: center;
   transition: 0.1s;
   margin-bottom: 20px;
   font-size: 20px;
   color: #f7f7f0;
+  z-index: 10;
+  position: relative;
+  text-align: center;
+  border: none;
+}
+
+.site-btn2:active {
+  top: 4px;
 }
 
 .site-btn3 {
-  background: #09b820;
+  background: #87a86f;
   color: #e4d2d2;
   border-radius: 15px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   margin-right: 15px;
   margin-left: 15px;
-  text-align: center;
   transition: 0.1s;
+  margin-bottom: 20px;
   font-size: 20px;
   color: #f7f7f0;
-  margin-bottom: 20px;
+  z-index: 10;
+  position: relative;
+  text-align: center;
+  border: none;
+}
+
+.site-btn3:active {
+  top: 4px;
 }
 
 #comment-text {
   margin-top: 20px;
-}
-
-.btn btn-primary {
 }

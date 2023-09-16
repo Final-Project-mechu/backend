@@ -6,14 +6,15 @@
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- font-awesome 적용 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <title>오늘 뭐 먹지?</title>
 
     <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap"
       rel="stylesheet"
     />
     <!-- bootstrap 적용을 위한 링크(모달창) -->
@@ -36,11 +37,6 @@
     <!-- CSS Styles END -->
   </head>
   <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-      <div class="loader"></div>
-    </div>
-    <!-- Header Section Begin -->
     <!-- 가입 모달 -->
     <div
       class="modal fade"
@@ -55,9 +51,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
+            <button type="button" class="signbutton" onclick="openLoginModal()">
+              로그인하기
+            </button>
             <button
               type="button"
               class="signbutton"
+              id="closeButton"
               data-bs-dismiss="modal"
               aria-label="Close"
             >
@@ -66,8 +66,7 @@
           </div>
           <div class="modal-body">
             <form class="sign-wrap">
-              <div class="row mb-3">
-              </div>
+              <div class="row mb-3"></div>
               <div class="row mb-3">
                 <div class="col">
                   <input
@@ -113,12 +112,29 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="password"
+                    type="code"
                     class="modal-input"
-                    placeholder="비밀번호"
-                    id="signupPassword"
+                    placeholder="닉네임"
+                    id="signupNickname"
                     required
                   />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <div class="input-container">
+                    <input
+                      type="password"
+                      class="modal-input"
+                      id="signupPassword"
+                      placeholder="비밀번호"
+                      required
+                    />
+                    <span class="placeholder-text"
+                      ><br />
+                      비밀번호는 영소문자+숫자 6~10자리입니다.</span
+                    >
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
@@ -132,17 +148,6 @@
                   />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col">
-                  <input
-                    type="code"
-                    class="modal-input"
-                    placeholder="닉네임"
-                    id="signupNickname"
-                    required
-                  />
-                </div>
-              </div>
               <div
                 class="alert alert-danger"
                 id="loginError"
@@ -151,12 +156,11 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button class="signButton" onclick="sign(event)">회원 가입</button>
+            <button class="signbutton" onclick="sign(event)">회원 가입</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- 가입 모달 끝 -->
     <!-- 로그인 모달 시작 -->
     <div
       class="modal fade"
@@ -435,7 +439,7 @@
                   </script>
                   All rights reserved | This page is made by TEAM TOGETHER EAT!
                   김세령 오준석 이서원 최하영 함형진
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  <!-- Link back to C olorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
               </div>
             </div>

@@ -340,30 +340,6 @@
                 WRITE
               </button>
             </div>
-            <!-- <div class="product__details__tab">
-              <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                  <a
-                    class="nav-link active"
-                    data-toggle="tab"
-                    href="#tabs-1"
-                    role="tab"
-                    aria-selected="true"
-                    >좋아요순</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#tabs-2"
-                    role="tab"
-                    aria-selected="false"
-                    >최신순</a
-                  >
-                </li>
-              </ul>
-            </div> -->
           </div>
         </div>
         <div class="row" id="feeds-container"></div>
@@ -418,33 +394,6 @@
     <!-- 적용하려는 script 파일 -->
     <script src="./src/user.js" defer></script>
     <script src="./src/dailymenu.js" defer></script>
-    <script>
-      window.onload = function (event) {
-        // 쿠키를 가져옵니다.
-        let cookies = document.cookie;
-
-        // 페이지를 방문한 적이 있고, AccessToken 또는 RefreshToken이 없는 경우에 모달을 로드합니다.
-        if (
-          sessionStorage.getItem('visitedBefore') === 'true' &&
-          !cookies.includes('AccessToken') &&
-          !cookies.includes('RefreshToken')
-        ) {
-          const loginModal = document.getElementById('loginModal');
-          const bsModal = new bootstrap.Modal(loginModal);
-          bsModal.show();
-
-          const closeButton = document.getElementById('closeButton2'); // closeButton는 모달을 닫는 버튼의 ID입니다.
-
-          // 모달을 닫는 버튼에 클릭 이벤트를 추가합니다.
-          closeButton.addEventListener('click', function () {
-            bsModal.hide(); // 모달을 닫습니다.
-          });
-        }
-
-        // 페이지를 방문한 흔적을 남깁니다.
-        sessionStorage.setItem('visitedBefore', 'true');
-      };
-    </script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>

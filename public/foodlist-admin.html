@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/preference.css" type="text/css" />
     <link rel="stylesheet" href="css/foodlist.css" type="text/css" />
+    <link rel="stylesheet" href="css/foodlist-admin.css" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- 부트스트랩 JavaScript 파일 추가 (jQuery와 Popper.js를 포함) -->
@@ -359,12 +360,8 @@
     </header>
     <!-- 탑바 끝 -->
       <section class="product spad">
+        <div class="addBtn-admin">
         <button id="addMenuButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">메뉴 추가하기</button>
-        <div>
-          <div class="dropdown">
-          </div>
-          <a href="#url" class="button_control2"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
-        <div class="tooltip_layer2">메뉴 이름을 클릭하면 <br> 메뉴의 재료를 확인할 수 있습니다.</div>
       </div>
       <form onsubmit="return false" action="#"  style="text-align: center">
         <input  type="text" id="searchInput" placeholder="검색어를 입력하세요" onkeydown="handleEnter(event)">

@@ -61,7 +61,7 @@ function createAllFoodItems(foods) {
             </div>
             <div class="featured__item__text">
                 <h6><button class="foodBtn" onclick='foodInfo(${food.id})' >${food.food_name}</button></h6>
-                <h6><button class="foodBtn" onclick ="location.href='http://localhost:3000/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 식당</button></h6>
+                <h6><button class="foodBtn" onclick ="location.href='http://localhost:3000/kakaomap-api.html?keyword=${food.food_name}'" >내 주변 맛집</button></h6>
             </div>
         </div>
     </div>`;
@@ -172,7 +172,7 @@ function displaySearchResults(foods) {
 }
 
 //관리자 페이지 이동 함수
-function movePage(){
-  alert("관리자 메뉴판으로 이동합니다.")
+function movePage() {
+  alert('관리자 메뉴판으로 이동합니다.');
   window.open('http://localhost:3000/foodlist-admin.html');
 }

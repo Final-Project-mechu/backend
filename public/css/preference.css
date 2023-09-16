@@ -1,13 +1,11 @@
 .item-checkbox {
   float: left;
-  margin-right: 100px;
 }
 
 .tooltip_wrap {
   margin-left: 100px;
   height: 100px;
 }
-
 
 #the-menu {
   left: 150px;
@@ -21,14 +19,15 @@
   margin: 20px 10px 50px;
   border-radius: 6px;
   text-align: center;
-  transition: top .01s linear;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
-  background-color: #6DA2D9;
-  box-shadow: 0 0 0 1px #6698cb inset,
-        0 0 0 2px rgba(255,255,255,0.15) inset,
-        0 8px 0 0 rgba(110, 164, 219, .7),
-        0 8px 0 1px rgba(0,0,0,.4),
-        0 8px 8px 1px rgba(0,0,0,0.5);
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  background-color: #6da2d9;
+  box-shadow:
+    0 0 0 1px #6698cb inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(110, 164, 219, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
 }
 
 #the-menu:active {
@@ -80,14 +79,15 @@
   margin: 0 40px 15px 15px;
   border-radius: 6px;
   text-align: center;
-  transition: top .01s linear;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
-  background-color: #6DA2D9;
-  box-shadow: 0 0 0 1px #6698cb inset,
-        0 0 0 2px rgba(255,255,255,0.15) inset,
-        0 8px 0 0 rgba(110, 164, 219, .7),
-        0 8px 0 1px rgba(0,0,0,.4),
-        0 8px 8px 1px rgba(0,0,0,0.5);
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  background-color: #6da2d9;
+  box-shadow:
+    0 0 0 1px #6698cb inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(110, 164, 219, 0.7),
+    0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
   display: inline-block;
   width: 50px;
   height: 50px;
@@ -97,33 +97,6 @@
   position: relative;
   right: 300px;
   top: 10px;
-}
-
-.button_control2 {
-  transition: 0.1s;
-  color: #fff;
-  font-size: 22px;
-  padding: 7px 10px;
-  color: white;
-  margin: 0 40px 20px 15px;
-  border-radius: 6px;
-  text-align: center;
-  transition: top .01s linear;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
-  background-color: #6DA2D9;
-  box-shadow: 0 0 0 1px #6698cb inset,
-        0 0 0 2px rgba(255,255,255,0.15) inset,
-        0 8px 0 0 rgba(110, 164, 219, .7),
-        0 8px 0 1px rgba(0,0,0,.4),
-        0 8px 8px 1px rgba(0,0,0,0.5);
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  text-decoration: none;
-  text-align: center;
-  line-height: 50px;
-  position: relative;
-  left: 1020px;
 }
 
 .tooltip_layer {
@@ -140,23 +113,8 @@
   right: 150px;
   z-index: 10;
 }
-.tooltip_layer2 {
-  display: none;
-  width: 200px;
-  height: 100px;
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #f8d776;
-  font-weight: bold;
-  border-radius: 10px;
-  margin: 0 auto;
-  position: relative;
-  right: 0px;
-  margin-bottom: 20px;
-  text-align: center;
-}
 
-#prefer-search-wrap{
+#prefer-search-wrap {
   margin: 0 0 0 100px;
 }
 
@@ -171,19 +129,20 @@
   padding: 10px 10px;
   color: white;
   border-radius: 6px;
-  border: 1px solid #80C49D;
+  border: 1px solid #80c49d;
   text-align: center;
-  transition: top .01s linear;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.15);  
+  transition: top 0.01s linear;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
   background-color: #82c8a0;
 }
 
 .prefer_add_btn hover {
-  background-color: #80C49D;
+  background-color: #80c49d;
 }
 
 .prefer_add_btn:active {
-  box-shadow: 0 0 0 1px #82c8a0 inset,
-        0 0 0 2px rgba(255,255,255,0.15) inset,
-        0 0 0 1px rgba(0,0,0,0.4);
+  box-shadow:
+    0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 0 0 1px rgba(0, 0, 0, 0.4);
 }

@@ -38,11 +38,6 @@
   </head>
   <script async src="./src/preference.js" defer></script>
   <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-      <div class="loader"></div>
-    </div>
-    <!-- Header Section Begin -->
     <!-- 가입 모달 -->
     <div
       class="modal fade"
@@ -57,9 +52,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="loginModalLabel">SIGN UP</h5>
+            <button type="button" class="signbutton" onclick="openLoginModal()">
+              로그인하기
+            </button>
             <button
               type="button"
               class="signbutton"
+              id="closeButton"
               data-bs-dismiss="modal"
               aria-label="Close"
             >
@@ -68,8 +67,7 @@
           </div>
           <div class="modal-body">
             <form class="sign-wrap">
-              <div class="row mb-3">
-              </div>
+              <div class="row mb-3"></div>
               <div class="row mb-3">
                 <div class="col">
                   <input
@@ -115,12 +113,29 @@
               <div class="row mb-3">
                 <div class="col">
                   <input
-                    type="password"
+                    type="code"
                     class="modal-input"
-                    placeholder="비밀번호"
-                    id="signupPassword"
+                    placeholder="닉네임"
+                    id="signupNickname"
                     required
                   />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <div class="input-container">
+                    <input
+                      type="password"
+                      class="modal-input"
+                      id="signupPassword"
+                      placeholder="비밀번호"
+                      required
+                    />
+                    <span class="placeholder-text"
+                      ><br />
+                      비밀번호는 영소문자+숫자 6~10자리입니다.</span
+                    >
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
@@ -134,17 +149,6 @@
                   />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col">
-                  <input
-                    type="code"
-                    class="modal-input"
-                    placeholder="닉네임"
-                    id="signupNickname"
-                    required
-                  />
-                </div>
-              </div>
               <div
                 class="alert alert-danger"
                 id="loginError"
@@ -153,12 +157,11 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button class="signButton" onclick="sign(event)">회원 가입</button>
+            <button class="signbutton" onclick="sign(event)">회원 가입</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- 가입 모달 끝 -->
     <!-- 로그인 모달 시작 -->
     <div
       class="modal fade"

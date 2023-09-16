@@ -29,7 +29,6 @@ import { FoodIngredient } from './entity/food.ingredient.entity';
 import { Ingredient } from './entity/ingredient.entity';
 import { IngredientModule } from './ingredient/ingredient.module';
 import { UsersActionsModule } from './users.actions/users.actions.module';
-import { FoodsUsersWeightsModule } from './foods.users.weights/foods.users.weights.module';
 import { AuthModule } from './auth/auth.module';
 import { FeedsModule } from './feeds/feeds.module';
 
@@ -77,7 +76,6 @@ import { FeedsModule } from './feeds/feeds.module';
     MailModule,
     IngredientModule,
     UsersActionsModule,
-    FoodsUsersWeightsModule,
     AuthModule,
     FeedsModule,
   ],

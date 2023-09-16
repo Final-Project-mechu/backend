@@ -1,7 +1,7 @@
-if (!window.location.hash) {
-  window.location = window.location + '#loaded';
-  window.location.reload();
-}
+// if (!window.location.hash) {
+//   window.location = window.location + '#loaded';
+//   window.location.reload();
+// }
 
 // 카테고리 불러오기
 async function categoryGet() {
@@ -63,9 +63,8 @@ async function foodDelete(foodId){
    }
 }
 
-
-async function foodComplet(){
-  alert("짠")
+async function foodComplet() {
+  alert('짠');
 }
 async function foodUpdate(foodId) {
   url = `http://localhost:3000/food/onefoodImg/${Number(foodId)}`;
@@ -87,7 +86,7 @@ async function foodUpdate(foodId) {
       left +
       ',top=' +
       top +
-      ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',      
+      ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',
   );
   newWindow.document.body.innerHTML = `
   <form>
@@ -147,7 +146,7 @@ function foodCreate() {
   const category_idData = document.getElementById('category_id').value;
   const food_nameData = document.getElementById('food_name').value;
   const food_imgData = document.getElementById('food_img').files[0];
- 
+
   const formData = new FormData();
   formData.append('category_id', category_idData);
   formData.append('food_name', food_nameData);

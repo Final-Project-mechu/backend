@@ -60,13 +60,22 @@ async function getUserLike() {
 function formatDate(data) {
   const getData = new Date(data);
   const year = getData.getFullYear();
-  const month = getData.getMonth();
-  const day = getData.getDay();
+  const month = getData.getMonth() + 1;
+  const date = getData.getDate();
   const hour = getData.getHours();
   const min = getData.getMinutes();
-
   const outputDate =
-    ' ' + year + ' , ' + month + '월 ' + day + '일 ' + hour + '시' + min + '분';
+    ' ' +
+    year +
+    ' , ' +
+    month +
+    '월 ' +
+    date +
+    '일 ' +
+    hour +
+    '시' +
+    min +
+    '분';
   return outputDate;
 }
 
@@ -162,7 +171,7 @@ async function feedLikeCancel() {
   const fullHeart = document.getElementById('fullHeart');
   try {
     const serverCall = await axios.delete(
-      `http://localhost:3000/feeds/${feedId}/like`,
+      `http://localhost:3000/${feedId}/like`,
     );
     console.log(serverCall);
     if (serverCall.data.message == '좋아요 취소') {
@@ -179,9 +188,7 @@ async function feedLikeCancel() {
 // 해당 피드에 따른 댓글 전체 조회
 async function commentsGet() {
   try {
-    const serverCall = await axios.get(
-      `http://localhost:3000/comments/${feedId}`,
-    );
+    const serverCall = await axios.get(`http://localhost:3000/comments/${feedId}`);
     const commentList = serverCall.data;
     createAllCommentItems(commentList);
   } catch (err) {

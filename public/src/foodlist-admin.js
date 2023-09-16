@@ -1,7 +1,7 @@
-if (!window.location.hash) {
-  window.location = window.location + '#loaded';
-  window.location.reload();
-}
+// if (!window.location.hash) {
+//   window.location = window.location + '#loaded';
+//   window.location.reload();
+// }
 
 // 카테고리 조회 함수
 async function categoryGet() {
@@ -52,26 +52,25 @@ function createAllFoodItems(foods) {
   });
 }
 foodGet();
-async function foodDelete(foodId){
-   // 사용자에게 확인 메시지를 보여줌
-   var confirmation = window.confirm('삭제하시겠습니까?');
+async function foodDelete(foodId) {
+  // 사용자에게 확인 메시지를 보여줌
+  var confirmation = window.confirm('삭제하시겠습니까?');
 
-   // 확인 대화 상자의 "예"를 누른 경우
-   if (confirmation) {
-       // 여기에 삭제 작업을 수행하는 코드를 추가합니다.
-       url = `http://localhost:3000/food/${foodId}`
-       const deleteFood = await axios.delete(url);
-       console.log(deleteFood);
-       alert('선택 메뉴가 삭제되었습니다.');
-       window.location.reload();
-   } else {
-       alert('삭제가 취소되었습니다.');
-   }
+  // 확인 대화 상자의 "예"를 누른 경우
+  if (confirmation) {
+    // 여기에 삭제 작업을 수행하는 코드를 추가합니다.
+    url = `http://localhost:3000/food/${foodId}`;
+    const deleteFood = await axios.delete(url);
+    console.log(deleteFood);
+    alert('선택 메뉴가 삭제되었습니다.');
+    window.location.reload();
+  } else {
+    alert('삭제가 취소되었습니다.');
+  }
 }
 
-
-async function foodComplet(){
-  alert("짠")
+async function foodComplet() {
+  alert('짠');
 }
 async function foodUpdate(foodId) {
   url = `http://localhost:3000/food/onefoodImg/${Number(foodId)}`;
@@ -94,7 +93,7 @@ async function foodUpdate(foodId) {
       left +
       ',top=' +
       top +
-      ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',      
+      ',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no',
   );
   newWindow.document.body.innerHTML = `
   <form>
@@ -110,11 +109,6 @@ async function foodUpdate(foodId) {
     </form>
     `;
 }
-
-
-
-
-
 
 async function foodInfo(foodId) {
   console.log(foodId);
@@ -159,7 +153,7 @@ function foodCreate() {
   const category_idData = document.getElementById('category_id').value;
   const food_nameData = document.getElementById('food_name').value;
   const food_imgData = document.getElementById('food_img').files[0];
- 
+
   const formData = new FormData();
   formData.append('category_id', category_idData);
   formData.append('food_name', food_nameData);
@@ -173,11 +167,10 @@ function foodCreate() {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-  })
-    alert('음식 생성 완료');
-    window.location.reload();
-    //임시
-
+  });
+  alert('음식 생성 완료');
+  window.location.reload();
+  //임시
 }
 
 // <h6><a href="http://localhost:3000/food/${food.id}">${food.food_name}</a></h6>

@@ -100,7 +100,7 @@ function sign(event) {
       if (error.response) {
         // 서버가 응답을 보낸 경우
         const errorMessage = error.response.data.message;
-        alert('회원가입에 실패하였습니다.');
+        alert('회원가입에 실패하였습니다.' + '비밀번호 형식이 잘못되었습니다.');
       } else {
         // 서버로 요청을 보내는 동안 네트워크 오류 등의 문제가 발생한 경우
         console.error('네트워크 오류:', error.message);

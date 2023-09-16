@@ -27,19 +27,49 @@
 }
 
 /* 버튼 스타일 */
-
 .filter-button {
-  background: #09b820;
+  background: #87a86f;
   color: #e4d2d2;
   border-radius: 15px;
   padding: 7px 10px;
   margin-right: 15px;
   margin-left: 15px;
-  text-align: center;
   transition: 0.1s;
   margin-bottom: 20px;
   font-size: 20px;
   color: #f7f7f0;
+  z-index: 10;
+  position: relative;
+  border: none;
+}
+
+.filter-button:active {
+  top: 4px;
+}
+.rounded,
+.btn {
+  border-radius: 10px;
+}
+
+/* default button style */
+.btn {
+  position: relative;
+  border: 0;
+  padding: 15px 25px;
+}
+
+.btn:active {
+  top: 4px;
+}
+
+/* color classes for .btn */
+.btn.blue {
+  box-shadow: 0px 4px #74a3b0;
+}
+
+.btn.blue:active {
+  box-shadow: 0 0 #74a3b0;
+  background-color: #709ca8;
 }
 
 button:hover {
@@ -94,4 +124,39 @@ button:hover {
   max-height: 200px;
   margin-bottom: 20px;
   margin-top: 5px;
+}
+
+/* 버튼 컨테이너 스타일 */
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px; /* 버튼 간격 조정 */
+}
+
+/* 버튼 스타일 */
+.button {
+  border-radius: 15px;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  line-height: 60px;
+  background: #87a86f;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 60px;
+  padding: 7px 10px;
+  position: relative;
+  transition: 0.1s;
+  font-size: larger;
+}
+.button:active {
+  top: 4px;
+}
+
+/* 이미지 컨테이너 스타일 */
+.image-container {
+  text-align: center;
 }

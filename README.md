@@ -37,9 +37,9 @@
 - Nest.js
 - MySQL
 - EC2
-- Nginx
 - S3
 - https
+- Load Balancer
 
 
 
@@ -52,11 +52,11 @@
 |       bcrypt        |         해시함수를 사용하여 암호화 하기 위해 사용.          |
 |       express       |       빠르고 개방적인 개발을 위해 웹 프레임워크 사용.       |
 |    jsonwebtoken     |                    JWT Token 위해 사용.                     |
-|       logger        |                에러 로그 관리하기 위해 사용.                |
-|       mysql2        |           Node.js에서 MySQL을 사용하기 위해 사용.           |          |
-|       multer        |                         파일 업로드                         |
-|      multer-s3      |                      S3에 파일 업로드                       |
-|       Nodemailer    |        이메일 인증번호를 통한 확인 모듈                     |
+|       logger        |                에러 로그 관리하기 위해 사용.                 |
+|       mysql2        |           Node.js에서 MySQL을 사용하기 위해 사용.            |          
+|       multer        |                         파일 업로드                          |
+|      multer-s3      |                      S3에 파일 업로드                        |
+|      Nodemailer     |        이메일 인증번호를 통한 확인 모듈                       |
 
 
 
